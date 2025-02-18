@@ -1,19 +1,17 @@
-# [Nome do projeto]
+# Comida que Abraça
 
-[Escreva um ou dois  parágrafo resumindo o objetivo do seu projeto.]
+O **Comida que Abraça** é um projeto social que atua há cinco anos na região metropolitana de Belo Horizonte, surgindo na pandemia a partir da iniciativa de pessoas com experiência em gastronomia para produzir marmitas para pessoas em situação de vulnerabilidade social. Formalizado há quatro anos, o projeto busca combater a fome de forma prática, mas também promover ações educativas e de conscientização, valorizando a dignidade humana. Além da distribuição de alimentos, gerencia doações de roupas e móveis, organiza campanhas sazonais e busca parcerias para ampliar o impacto. Seu objetivo é estruturar um sistema ágil de captação e distribuição de doações, criando uma rede solidária que atenda às múltiplas necessidades das pessoas em vulnerabilidade, sempre com um olhar humanizado e sistêmico.
 
 ## Alunos integrantes da equipe
 
-* [Nome completo do aluno 1]
-* [Nome completo do aluno 2]
-* [Nome completo do aluno 3]
-* [Nome completo do aluno 4]
+* Érica Alves
+* Milena Lara Reis Ferreira 
+* Sthel Felipe Torres
+* Julia Vidal Vianna
+* Mariana Almeida Henriques
+* Joana Morais
 
 ## Professores responsáveis
 
-* [Nome completo do professor 1]
-* [Nome completo do professor 2]
-
-## Instruções de utilização
-
-[Assim que a primeira versão do sistema estiver disponível, deverá complementar com as instruções de utilização. Descreva como instalar eventuais dependências e como executar a aplicação.]
+*  Soraia Lúcia da Silva 
+* Joyce Christina de Paiva Carvalho
