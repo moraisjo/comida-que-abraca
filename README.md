@@ -18,10 +18,10 @@ O **Comida que Abraça** é um projeto social que atua há cinco anos na região
 
 ## Definição das tecnologias
 **Back-end**
-__Java__ 
-__Spring Boot__
-__Maven__
+- Java
+- Spring Boot
+- Maven
 
 **Front-end**
-__React__
-__Material UI__
+- React 
+- Material UI 
