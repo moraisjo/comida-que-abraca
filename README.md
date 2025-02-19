@@ -15,3 +15,13 @@ O **Comida que Abraça** é um projeto social que atua há cinco anos na região
 
 *  Soraia Lúcia da Silva 
 * Joyce Christina de Paiva Carvalho
+
+## Definição das tecnologias
+**Back-end**
+__Java__ 
+__Spring Boot__
+__Maven__
+
+**Front-end**
+__React__
+__Material UI__
