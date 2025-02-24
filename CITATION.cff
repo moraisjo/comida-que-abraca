@@ -1,31 +1,33 @@
 cff-version: 1.0.1
-message: Please cite this software using these metadata.
-title: 
+message: Comida que Abraça é um projeto social voltado para a sustentabilidade social, atuando na região metropolitana de Belo Horizonte. Criado durante a pandemia, o projeto combate a fome por meio da distribuição de marmitas e outras doações, como roupas e móveis. Além disso, promove ações educativas e busca parcerias para ampliar seu impacto. O sistema desenvolvido visa otimizar a gestão de doações, garantindo um fluxo eficiente e transparente para atender pessoas em situação de vulnerabilidade.
+title: Comida que Abraça
 authors:
-  - family-names: 
-    given-names: 
-  - family-names: 
-    given-names: 
-  - family-names: 
-    given-names: 
-  - family-names: 
-    given-names: 
-  - family-names: 
-    given-names: 
-  - family-names: 
-    given-names:
+  - family-names: Alves dos Santos
+    given-names: Érica
+  - family-names: Iuna Morais
+    given-names: Joana
+  - family-names: Vidal Vianna
+    given-names: Julia 
+  - family-names: Almeida Henriques
+    given-names: Mariana 
+  - family-names: Lara Reis Ferreira
+    given-names: Milena 
+  - family-names: Felipe Torres
+    given-names: Sthel 
   - name-suffix: Professor
     affiliation: PUC Minas
-    family-names: 
-    given-names: 
+    family-names: Christina de Paiva Carvalho
+    given-names: Joyce 
   - name-suffix: Professor
     affiliation: PUC Minas
-    family-names: 
-    given-names: 
+    family-names: Lúcia da Silva
+    given-names: Soraia 
 keywords:
-  - 
-  - 
-repository-code: 
+  - Sustentabilidade Social
+  - Doações
+  - Gestão de Doações
+  - Parcerias Sociais   
+repository-code: https://github.com/ICEI-PUC-Minas-PPLES-TI/plf-es-2025-1-ti4-1254100-comidaqueabraca
 license: CC-BY-4.0
 version: 1.0.0
-date-released: 2022-07-14
+date-released: 2025-01-23
