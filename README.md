@@ -5,23 +5,23 @@ O **Comida que Abraça** é um projeto social que atua há cinco anos na região
 ## Alunos integrantes da equipe
 
 * Érica Alves
-* Milena Lara Reis Ferreira 
-* Sthel Felipe Torres
+* Joana Morais
 * Julia Vidal Vianna
 * Mariana Almeida Henriques
-* Joana Morais
+* Milena Lara Reis Ferreira 
+* Sthel Felipe Torres
 
 ## Professores responsáveis
 
-*  Soraia Lúcia da Silva 
 * Joyce Christina de Paiva Carvalho
+*  Soraia Lúcia da Silva 
 
-## Definição das tecnologias
-**Back-end**
-- Java
-- Spring Boot
-- Maven
+# Documentação
+- [Artefatos](./Artefatos/README.md)
+- [Documentação do Processo de Desenvolvimento](./Codigo/README.md)
+- [Documentação do Software: Front-end](./Codigo/front-end/README.md)
+- [Documentação do Software: Back-end](./Codigo/back-end/README.md)
 
-**Front-end**
-- React 
-- Material UI 
+## Instruções de utilização
+
+Para documentos e diretrizes de projeto, leia a nossa [wiki](https://github.com/ICEI-PUC-Minas-PPLES-TI/plf-es-2025-1-ti4-1254100-comidaqueabraca/wiki).
