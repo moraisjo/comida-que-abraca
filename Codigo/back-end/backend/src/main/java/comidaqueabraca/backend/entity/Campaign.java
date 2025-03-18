@@ -1,5 +1,5 @@
 package comidaqueabraca.backend.entity;
 
-public class Doacao {
+public class Campaign {
     
 }
