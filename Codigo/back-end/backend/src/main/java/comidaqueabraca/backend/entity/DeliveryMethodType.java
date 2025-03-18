@@ -1,8 +1,8 @@
 package comidaqueabraca.backend.entity;
 
 public enum DeliveryMethodType {
-    PICKUP("PICKUP"),
-    DELIVERY("DELIVERY");
+    PICKUP("RETIRADA"),
+    DELIVERY("ENTREGA");
 
     private final String value;
 

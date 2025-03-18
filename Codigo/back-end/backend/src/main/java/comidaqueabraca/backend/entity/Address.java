@@ -12,6 +12,7 @@ import java.util.UUID;
 @Getter
 @NoArgsConstructor
 public class Address {
+// TODO: falta adicionar annotation que liga o atributo da classe ao nome da coluna no banco de dados
 
     @Id
     @Column(name = "id")

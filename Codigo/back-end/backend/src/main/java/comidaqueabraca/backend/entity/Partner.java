@@ -13,6 +13,7 @@ import java.util.List;
 @NoArgsConstructor
 public class Partner extends User { // Herda de User
 
+    // TODO: falta adicionar annotation que liga o atributo da classe ao nome da coluna no banco de dados
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private PartnerType type;

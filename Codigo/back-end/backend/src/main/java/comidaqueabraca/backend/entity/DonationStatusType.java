@@ -1,9 +1,9 @@
 package comidaqueabraca.backend.entity;
 
 public enum DonationStatusType {
-    PENDING("PENDING"),
-    STOCK("STOCK"),
-    DONATED("DONATED");
+    PENDING("PENDENTE"),
+    STOCK("ESTOQUE"),
+    DONATED("DOADO");
 
     private final String value;
 

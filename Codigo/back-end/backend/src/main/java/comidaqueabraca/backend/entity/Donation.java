@@ -4,25 +4,23 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
 import java.time.LocalDateTime;
+import java.util.UUID;
+
 @Entity
-@Table(name = "donation") // Define o nome da tabela no banco de dados
-@Getter // Lombok gera os getters automaticamente
-@Setter // Lombok gera os setters automaticamente
-@NoArgsConstructor // Lombok gera o construtor sem parâmetros automaticamente
-public class Donation {
+@Table(name = "donation")
+@Getter
+@Setter
+@NoArgsConstructor
+public abstract class Donation { // Classe abstrata
+// TODO: falta adicionar annotation que liga o atributo da classe ao nome da coluna no banco de dados
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.AUTO)  // Hibernate vai gerenciar a geração do UUID automaticamente
+    private UUID id;
 
     @Column(nullable = false, length = 255)
     private String itemName;
-
-    @ManyToOne
-    @JoinColumn(name = "donor_id", nullable = false)
-    private Partner donor;
 
     @Column(name = "registration_date", nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private LocalDateTime registrationDate;
@@ -36,6 +34,10 @@ public class Donation {
     private DonationStatusType status;
 
     @ManyToOne
+    @JoinColumn(name = "donor_id", nullable = false)
+    private Partner donor;
+
+    @ManyToOne
     @JoinColumn(name = "beneficiary_id")
     private Partner beneficiary;
 
@@ -43,13 +45,12 @@ public class Donation {
     @JoinColumn(name = "campaign_id")
     private Campaign campaign;
 
-    // Constructor with all fields (optional, useful for tests or direct instantiation)
-    public Donation(String itemName, Partner donor, LocalDateTime registrationDate,
+    public Donation(String itemName, Partner donor,
                     DeliveryMethodType deliveryMethod, DonationStatusType status,
                     Partner beneficiary, Campaign campaign) {
         this.itemName = itemName;
         this.donor = donor;
-        this.registrationDate = registrationDate;
+        this.registrationDate = LocalDateTime.now();
         this.deliveryMethod = deliveryMethod;
         this.status = status;
         this.beneficiary = beneficiary;
