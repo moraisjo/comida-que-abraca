@@ -1,4 +1,4 @@
-package comidaqueabraca.backend.entity;
+package comidaqueabraca.backend.entity.enums;
 
 public enum PartnerType {
     PESSOA_FISICA("Pessoa Física"),
