@@ -8,13 +8,13 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "user")
+@Inheritance(strategy = InheritanceType.JOINED) // Estratégia de herança no banco
 @Getter
 @Setter
 @NoArgsConstructor
-public class User {
-
+public abstract class User { // Classe abstrata
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)  // Usando AUTO para permitir que o banco de dados gere o UUID automaticamente
     private UUID id;
 
     @Column(nullable = false, length = 100)
@@ -29,7 +29,8 @@ public class User {
     @Column(length = 20)
     private String phone;
 
-    @Embedded
+    @ManyToOne
+    @JoinColumn(name = "address_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_user_address"))
     private Address address;
 
     public User(UUID id, String name, String email, String password, String phone, Address address) {
