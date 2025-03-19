@@ -13,12 +13,12 @@ import lombok.Setter;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "OngCollaborator")
+@Table(name = "collaborator")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class OngCollaborator extends User {
+public class Collaborator extends User {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private CollaboratorRole cargo;
