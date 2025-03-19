@@ -1,4 +1,4 @@
-package comidaqueabraca.backend.entity.controller;
+package comidaqueabraca.backend.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -20,7 +20,7 @@ public class PartnerController {
             @ApiResponse(responseCode = "200", description = "Lista de parceiros retornada com sucesso"),
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
     })
-    @GetMapping
+    @GetMapping("/busca-parceiros")
     public ResponseEntity<List<String>> listarParceiros() {
         return ResponseEntity.ok(List.of("Parceiro 1", "Parceiro 2"));
     }
