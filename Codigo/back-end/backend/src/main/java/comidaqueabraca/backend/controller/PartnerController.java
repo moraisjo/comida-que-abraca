@@ -20,7 +20,7 @@ public class PartnerController {
             @ApiResponse(responseCode = "200", description = "Lista de parceiros retornada com sucesso"),
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
     })
-    @GetMapping("/busca-parceiros")
+    @GetMapping
     public ResponseEntity<List<String>> listarParceiros() {
         return ResponseEntity.ok(List.of("Parceiro 1", "Parceiro 2"));
     }
