@@ -6,10 +6,10 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
+@Table(name = "item")
+@PrimaryKeyJoinColumn(name = "id")
 @Getter
 @Setter
-@Table(name = "Item")
-@PrimaryKeyJoinColumn(name = "id")
 public class Item extends Donation {
     @Column(name = "quantidade", nullable = false)
     private int quantidade;

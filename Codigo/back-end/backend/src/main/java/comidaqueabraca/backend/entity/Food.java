@@ -10,10 +10,10 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
+@Table(name = "food")
+@PrimaryKeyJoinColumn(name = "id")
 @Getter
 @Setter
-@Table(name = "Food")
-@PrimaryKeyJoinColumn(name = "id")
 public class Food extends Donation {
     @Column(name = "ehPerecivel", nullable = false)
     private boolean ehPerecivel;

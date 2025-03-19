@@ -1,6 +1,7 @@
 package comidaqueabraca.backend.entity;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import comidaqueabraca.backend.entity.enums.PartnerType;
@@ -24,7 +25,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Partner {
+public class Partner extends User{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -40,8 +41,11 @@ public class Partner {
     @Column(name = "quer_receber_doacao", nullable = false)
     private boolean querReceberDoacao;
 
-    @OneToMany(mappedBy = "partner", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Donation> doacoes;
+    @OneToMany(mappedBy = "doador", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Donation> doacoesFeitas = new ArrayList<>();
+
+    @OneToMany(mappedBy = "beneficiario", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Donation> doacoesRecebidas = new ArrayList<>();
 
     @Column(name = "data_cadastro", nullable = false)
     private LocalDateTime dataCadastro;

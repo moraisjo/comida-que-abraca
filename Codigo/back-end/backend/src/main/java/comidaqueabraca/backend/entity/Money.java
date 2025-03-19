@@ -7,10 +7,10 @@ import lombok.Setter;
 import jakarta.persistence.*;
 
 @Entity
+@Table(name = "money")
+@PrimaryKeyJoinColumn(name = "id")
 @Getter
 @Setter
-@Table(name = "Money")
-@PrimaryKeyJoinColumn(name = "id")
 public class Money extends Donation {
     @Column(name = "valor", nullable = false)
     private float valor;

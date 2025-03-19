@@ -7,7 +7,8 @@ import lombok.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "Donation")
+@Table(name = "donation")
+@Inheritance(strategy = InheritanceType.JOINED)
 @Getter
 @Setter
 @NoArgsConstructor
@@ -21,7 +22,7 @@ public class Donation {
     private String nome;
 
     @ManyToOne
-    @JoinColumn(name = "doador_id")
+    @JoinColumn(name = "doador_id", nullable = false)
     private Partner doador;
 
     @Column(nullable = false, updatable = false)
