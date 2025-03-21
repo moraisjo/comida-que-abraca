@@ -1,7 +1,7 @@
 package comidaqueabraca.backend.entity;
 
-import comidaqueabraca.backend.entity.enums.DeliveryType;
-import comidaqueabraca.backend.entity.enums.DonationStatus;
+import comidaqueabraca.backend.enums.DeliveryType;
+import comidaqueabraca.backend.enums.DonationStatus;
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDateTime;

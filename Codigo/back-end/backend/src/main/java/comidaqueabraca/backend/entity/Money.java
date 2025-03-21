@@ -1,6 +1,6 @@
 package comidaqueabraca.backend.entity;
 
-import comidaqueabraca.backend.entity.enums.CategoryTransaction;
+import comidaqueabraca.backend.enums.CategoryTransaction;
 import lombok.Getter;
 import lombok.Setter;
 

@@ -1,6 +1,6 @@
 package comidaqueabraca.backend.entity;
 
-import comidaqueabraca.backend.entity.enums.CampaignStatus;
+import comidaqueabraca.backend.enums.CampaignStatus;
 import jakarta.persistence.*;
 import java.time.LocalDate;
 

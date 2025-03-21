@@ -1,4 +1,4 @@
-package comidaqueabraca.backend.entity.enums;
+package comidaqueabraca.backend.enums;
 
 public enum Unitmeasurement {
     KG,

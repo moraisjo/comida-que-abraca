@@ -1,6 +1,6 @@
 package comidaqueabraca.backend.entity;
 
-import comidaqueabraca.backend.entity.enums.CategoryItem;
+import comidaqueabraca.backend.enums.CategoryItem;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;

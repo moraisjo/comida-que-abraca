@@ -1,6 +1,6 @@
 package comidaqueabraca.backend.entity;
 
-import comidaqueabraca.backend.entity.enums.CollaboratorRole;
+import comidaqueabraca.backend.enums.CollaboratorRole;
 import jakarta.persistence.*;
 
 import jakarta.persistence.Entity;

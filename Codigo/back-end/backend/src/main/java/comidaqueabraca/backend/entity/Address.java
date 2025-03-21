@@ -8,31 +8,39 @@ import lombok.*;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 public class Address {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, length = 255)
+    @Column(name = "rua", nullable = false, length = 255)
     private String rua;
 
-    @Column(nullable = false, length = 255)
+    @Column(name = "bairro", nullable = false, length = 255)
     private String bairro;
 
-    @Column(nullable = false)
+    @Column(name = "numero", nullable = false)
     private int numero;
 
-    @Column(length = 255)
+    @Column(name = "complemento", length = 255)
     private String complemento;
 
-    @Column(nullable = false, length = 255)
+    @Column(name = "cidade", nullable = false, length = 255)
     private String cidade;
 
-    @Column(nullable = false, length = 100)
+    @Column(name = "estado", nullable = false, length = 100)
     private String estado;
 
-    @Column(nullable = false, length = 20)
+    @Column(name = "cep", nullable = false, length = 20)
     private String cep;
-}
 
+    public Address(String rua, String bairro, int numero, String complemento, String cidade, String estado, String cep) {
+        this.rua = rua;
+        this.bairro = bairro;
+        this.numero = numero;
+        this.complemento = complemento;
+        this.cidade = cidade;
+        this.estado = estado;
+        this.cep = cep;
+    }
+}
