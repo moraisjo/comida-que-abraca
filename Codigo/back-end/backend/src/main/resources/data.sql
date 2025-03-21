@@ -2,15 +2,15 @@ CREATE DATABASE comidaqueabraca;
 USE comidaqueabraca;
 
 -- Tabela de Endereço
-CREATE TABLE Address (
-                         id INT AUTO_INCREMENT PRIMARY KEY,
-                         rua VARCHAR(255) NOT NULL,
-                         bairro VARCHAR(255) NOT NULL,
-                         numero INT NOT NULL,
-                         complemento VARCHAR(255),
-                         cidade VARCHAR(255) NOT NULL,
-                         estado VARCHAR(100) NOT NULL,
-                         cep VARCHAR(20) NOT NULL
+CREATE TABLE db_address (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    street VARCHAR(255),
+    neighborhood VARCHAR(255),
+    number INT,
+    complement VARCHAR(255),
+    city VARCHAR(255),
+    state VARCHAR(100),
+    zip_code VARCHAR(20) NOT NULL
 );
 
 -- Tabela de Usuário
