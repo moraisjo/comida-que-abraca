@@ -12,7 +12,7 @@ import jakarta.persistence.*;
 @PrimaryKeyJoinColumn(name = "id")
 @Getter
 @Setter
-public class Food extends Donation {
+public class Food extends DonationEntity {
     @Column(name = "ehPerecivel", nullable = false)
     private boolean ehPerecivel;
 

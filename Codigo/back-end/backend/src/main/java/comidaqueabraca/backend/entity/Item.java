@@ -10,7 +10,7 @@ import lombok.Setter;
 @PrimaryKeyJoinColumn(name = "id")
 @Getter
 @Setter
-public class Item extends Donation {
+public class Item extends DonationEntity {
     @Column(name = "quantidade", nullable = false)
     private int quantidade;
 

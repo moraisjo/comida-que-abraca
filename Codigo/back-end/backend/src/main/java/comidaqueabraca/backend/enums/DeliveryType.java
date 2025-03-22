@@ -1,6 +1,15 @@
 package comidaqueabraca.backend.enums;
 
+import lombok.Getter;
+
+@Getter
 public enum DeliveryType {
-    RETIRADA,
-    ENTREGA
+    PICKUP("Retirada no local"),
+    DELIVERY("Entrega");
+
+    private final String description;
+
+    DeliveryType(String description) {
+        this.description = description;
+    }
 }
