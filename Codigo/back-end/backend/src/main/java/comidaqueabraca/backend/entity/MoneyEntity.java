@@ -2,6 +2,7 @@ package comidaqueabraca.backend.entity;
 
 import comidaqueabraca.backend.enums.CategoryTransaction;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import jakarta.persistence.*;
@@ -10,6 +11,7 @@ import jakarta.persistence.*;
 @Table(name = "db_money")
 @Getter
 @Setter
+@NoArgsConstructor
 @PrimaryKeyJoinColumn(name = "id") // Usa o mesmo ID da superclasse como chave primária (trabalha junto com InheritanceType.JOINED)
 public class MoneyEntity extends DonationEntity {
 

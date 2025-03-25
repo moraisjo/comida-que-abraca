@@ -1,8 +1,9 @@
 package comidaqueabraca.backend.controller;
 
 import comidaqueabraca.backend.dto.MoneyDonationDTO;
-import comidaqueabraca.backend.entity.MoneyEntity;
 import comidaqueabraca.backend.service.MoneyService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +16,8 @@ import java.util.List;
 @RequestMapping("/api/money-donations")
 public class MoneyController {
 
+    private static final Logger logger = LoggerFactory.getLogger(MoneyController.class);
+
     private final MoneyService moneyService;
 
     @Autowired
@@ -22,13 +25,14 @@ public class MoneyController {
         this.moneyService = moneyService;
     }
 
-    @GetMapping
-    public ResponseEntity<List<MoneyEntity>> getAllMoneyDonations() {
-        return ResponseEntity.ok(moneyService.getAllMoneyDonations());
-    }
-
     @GetMapping("/ordered-by-value")
-    public ResponseEntity<List<MoneyDonationDTO>> getAllMoneyDonationsOrderedByValue() {
-        return ResponseEntity.ok(moneyService.getAllMoneyDonationsOrderedByValue());
+    public ResponseEntity<?> getAllMoneyDonationsOrderedByValue() {
+        try {
+            List<MoneyDonationDTO> donations = moneyService.getAllMoneyDonationsOrderedByValue();
+            return ResponseEntity.ok(donations);
+        } catch (Exception e) {
+            logger.error("Error fetching ordered money donations", e);
+            return ResponseEntity.internalServerError().body("Error fetching ordered donations: " + e.getMessage());
+        }
     }
 }
