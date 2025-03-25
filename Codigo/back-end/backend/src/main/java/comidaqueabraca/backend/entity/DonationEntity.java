@@ -22,8 +22,8 @@ public class DonationEntity {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "date", nullable = false, updatable = false)
-    private LocalDateTime date;
+    @Column(name = "arriving_date", nullable = false)
+    private LocalDateTime arrivingDate;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "delivery", nullable = false)
@@ -45,13 +45,13 @@ public class DonationEntity {
     @JoinColumn(name = "campaign_id")
     private CampaignEntity campaign;
 
-    public DonationEntity(String name, DeliveryType delivery, DonationStatus status, PartnerEntity donor, PartnerEntity beneficiary, CampaignEntity campaign) {
+    public DonationEntity(String name, LocalDateTime arrivingDate, DeliveryType delivery, DonationStatus status, PartnerEntity donor, PartnerEntity beneficiary, CampaignEntity campaign) {
         this.name = name;
         this.delivery = delivery;
         this.status = status;
         this.donor = donor;
         this.beneficiary = beneficiary;
         this.campaign = campaign;
-        this.date = (date == null) ? LocalDateTime.now() : date;
+        this.arrivingDate = arrivingDate;
     }
 }

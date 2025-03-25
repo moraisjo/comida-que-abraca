@@ -58,7 +58,7 @@ CREATE TABLE db_campaign (
 CREATE TABLE db_donation (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
-    date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    arriving_date DATE NOT NULL,
     delivery ENUM('PICKUP', 'DELIVERY') NOT NULL,
     status ENUM('PENDING', 'STOCK', 'DONATED') NOT NULL,
     donor_id INT,
@@ -110,18 +110,3 @@ CREATE TABLE db_report (
     data_inicio TIMESTAMP NOT NULL,
     data_fim TIMESTAMP NOT NULL
 );
-
-ALTER TABLE db_donation MODIFY COLUMN delivery ENUM('PICKUP', 'DELIVERY') NOT NULL;
-
-INSERT INTO db_donation (name, delivery, status, donor_id, beneficiary_id, campaign_id)
-VALUES
-    ('Doação de Alimentos - Campanha 1', 'PICKUP', 'PENDING', 1, 2, 1),
-    ('Doação de Roupas - Campanha 2', 'DELIVERY', 'STOCK', 2, 3, 2),
-    ('Doação de Medicamentos - Campanha 3', 'PICKUP', 'DONATED', 3, 4, 3),
-    ('Doação de Brinquedos - Campanha 4', 'DELIVERY', 'PENDING', 4, 5, 4),
-    ('Doação de Alimentos - Campanha 5', 'PICKUP', 'STOCK', 5, 1, 5),
-    ('Doação de Roupas - Campanha 6', 'DELIVERY', 'DONATED', 1, 4, 6),
-    ('Doação de Medicamentos - Campanha 7', 'PICKUP', 'PENDING', 2, 5, 7),
-    ('Doação de Brinquedos - Campanha 8', 'DELIVERY', 'STOCK', 3, 1, 8),
-    ('Doação de Alimentos - Campanha 9', 'PICKUP', 'DONATED', 4, 2, 9),
-    ('Doação de Roupas - Campanha 10', 'DELIVERY', 'PENDING', 5, 3, 10);
