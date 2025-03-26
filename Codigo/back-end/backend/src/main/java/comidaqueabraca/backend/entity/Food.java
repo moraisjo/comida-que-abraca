@@ -1,20 +1,18 @@
 package comidaqueabraca.backend.entity;
 
-import comidaqueabraca.backend.entity.enums.CategoryFood;
-import comidaqueabraca.backend.entity.enums.Unitmeasurement;
+import comidaqueabraca.backend.enums.CategoryFood;
+import comidaqueabraca.backend.enums.Unitmeasurement;
 import lombok.Getter;
 import lombok.Setter;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
 
 @Entity
 @Table(name = "food")
 @PrimaryKeyJoinColumn(name = "id")
 @Getter
 @Setter
-public class Food extends Donation {
+public class Food extends DonationEntity {
     @Column(name = "ehPerecivel", nullable = false)
     private boolean ehPerecivel;
 

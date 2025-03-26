@@ -1,6 +1,6 @@
 package comidaqueabraca.backend.entity;
 
-import comidaqueabraca.backend.entity.enums.CategoryItem;
+import comidaqueabraca.backend.enums.CategoryItem;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -10,7 +10,7 @@ import lombok.Setter;
 @PrimaryKeyJoinColumn(name = "id")
 @Getter
 @Setter
-public class Item extends Donation {
+public class Item extends DonationEntity {
     @Column(name = "quantidade", nullable = false)
     private int quantidade;
 
