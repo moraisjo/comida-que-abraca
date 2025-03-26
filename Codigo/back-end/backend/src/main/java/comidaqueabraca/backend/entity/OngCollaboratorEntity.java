@@ -2,7 +2,6 @@ package comidaqueabraca.backend.entity;
 
 import comidaqueabraca.backend.enums.CollaboratorRole;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,8 +12,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
-public class OngCollaborator extends UserEntity {
+public class OngCollaboratorEntity extends UserEntity {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "role", nullable = false)
@@ -22,4 +20,9 @@ public class OngCollaborator extends UserEntity {
 
     @Column(name = "admission_date", nullable = false, updatable = false)
     private LocalDateTime admissionDate = LocalDateTime.now();
+
+    public OngCollaboratorEntity(String name, String email, String password, String phone, AddressEntity address, CollaboratorRole role) {
+        super(name, email, password, phone, address); // Chama o construtor da superclasse com os parâmetros
+        this.role = role;
+    }
 }

@@ -1,11 +1,15 @@
 package comidaqueabraca.backend.entity;
 
 import comidaqueabraca.backend.enums.CategoryTransaction;
+import comidaqueabraca.backend.enums.DeliveryType;
+import comidaqueabraca.backend.enums.DonationStatus;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import jakarta.persistence.*;
+
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "db_money")
@@ -22,8 +26,8 @@ public class MoneyEntity extends DonationEntity {
     @Column(name = "category", nullable = false)
     private CategoryTransaction category;
 
-    public MoneyEntity(float value, CategoryTransaction category) {
-        super(); // Não precisa passar ID, pois o banco gera automaticamente
+    public MoneyEntity(String name, LocalDateTime arrivingDate, DeliveryType delivery, DonationStatus status, PartnerEntity donor, PartnerEntity beneficiary, CampaignEntity campaign, float value, CategoryTransaction category) {
+        super(name, arrivingDate, delivery, status, donor, beneficiary, campaign); // Chama o construtor da superclasse DonationEntity
         this.value = value;
         this.category = category;
     }

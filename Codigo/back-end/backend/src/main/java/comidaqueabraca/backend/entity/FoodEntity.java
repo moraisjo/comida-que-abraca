@@ -1,8 +1,11 @@
 package comidaqueabraca.backend.entity;
 
 import comidaqueabraca.backend.enums.CategoryFood;
+import comidaqueabraca.backend.enums.DeliveryType;
+import comidaqueabraca.backend.enums.DonationStatus;
 import comidaqueabraca.backend.enums.Unitmeasurement;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import jakarta.persistence.*;
@@ -11,9 +14,10 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "db_food")
 @PrimaryKeyJoinColumn(name = "id")
+@NoArgsConstructor
 @Getter
 @Setter
-public class Food extends DonationEntity {
+public class FoodEntity extends DonationEntity {
 
     @Column(name = "isPerishable", nullable = false)
     private boolean isPerishable;
@@ -31,4 +35,13 @@ public class Food extends DonationEntity {
     @Enumerated(EnumType.STRING)
     @Column(name = "category", nullable = false)
     private CategoryFood category;
+
+    public FoodEntity(String name, LocalDateTime arrivingDate, DeliveryType delivery, DonationStatus status, PartnerEntity donor, PartnerEntity beneficiary, CampaignEntity campaign, boolean isPerishable, LocalDateTime expirationDate, float quantity, Unitmeasurement unit, CategoryFood category) {
+        super(name, arrivingDate, delivery, status, donor, beneficiary, campaign);
+        this.isPerishable = isPerishable;
+        this.expirationDate = expirationDate;
+        this.quantity = quantity;
+        this.unit = unit;
+        this.category = category;
+    }
 }
