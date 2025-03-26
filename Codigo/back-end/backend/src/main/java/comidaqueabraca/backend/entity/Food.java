@@ -6,27 +6,29 @@ import lombok.Getter;
 import lombok.Setter;
 
 import jakarta.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "food")
+@Table(name = "db_food")
 @PrimaryKeyJoinColumn(name = "id")
 @Getter
 @Setter
 public class Food extends DonationEntity {
-    @Column(name = "ehPerecivel", nullable = false)
-    private boolean ehPerecivel;
 
-    @Column(name = "vencimento")
-    private java.time.LocalDateTime vencimento;
+    @Column(name = "isPerishable", nullable = false)
+    private boolean isPerishable;
 
-    @Column(name = "quantidade", nullable = false)
-    private float quantidade;
+    @Column(name = "expirationDate")
+    private LocalDateTime expirationDate;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "unidade", nullable = false)
-    private Unitmeasurement unidade;
+    @Column(name = "quantity", nullable = false)
+    private float quantity;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "categoria", nullable = false)
-    private CategoryFood categoria;
+    @Column(name = "unit", nullable = false)
+    private Unitmeasurement unit;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "category", nullable = false)
+    private CategoryFood category;
 }

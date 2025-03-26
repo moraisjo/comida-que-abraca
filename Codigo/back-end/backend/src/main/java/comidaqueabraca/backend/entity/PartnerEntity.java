@@ -14,12 +14,6 @@ import lombok.Setter;
 @NoArgsConstructor
 @PrimaryKeyJoinColumn(name = "id") // Usa o mesmo ID da superclasse como chave primária (trabalha junto com InheritanceType.JOINED)
 public class PartnerEntity extends UserEntity {
-
-    @Id
-    @OneToOne
-    @JoinColumn(name = "id", referencedColumnName = "id") // Relacionando com o id de db_user
-    private Integer id;
-
     @Column(name = "wants_to_donate", nullable = false)
     private Boolean wantsToDonate;
 

@@ -6,16 +6,16 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "item")
+@Table(name = "db_item")
 @PrimaryKeyJoinColumn(name = "id")
 @Getter
 @Setter
 public class Item extends DonationEntity {
-    @Column(name = "quantidade", nullable = false)
-    private int quantidade;
+
+    @Column(name = "quantity", nullable = false)
+    private int quantity;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "categoria", nullable = false)
-    private CategoryItem categoria;
+    @Column(name = "category", nullable = false)
+    private CategoryItem category;
 }
-

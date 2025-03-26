@@ -4,23 +4,24 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Entity
 @Getter
 @Setter
-@Table(name = "report")
+@Table(name = "db_report")
 public class Report {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Integer id;
 
-    @Column(name = "data_inicio", nullable = false)
-    private LocalDateTime dataInicio;
+    @Column(name = "start_date", nullable = false)
+    private LocalDateTime startDate;
 
-    @Column(name = "data_fim", nullable = false)
-    private LocalDateTime dataFim;
+    @Column(name = "end_date", nullable = false)
+    private LocalDateTime endDate;
 
-    @Column(name = "arquivo_url", nullable = false)
-    private String arquivoUrl;
+    @Column(name = "file_url", nullable = false)
+    private String fileUrl;
 }
-
