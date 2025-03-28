@@ -1,11 +1,17 @@
 package comidaqueabraca.backend.controller;
 
-import comidaqueabraca.backend.dto.CreateCampaignDTO;
+import ch.qos.logback.classic.Logger;
+import comidaqueabraca.backend.dto.CampaignDTO;
 import comidaqueabraca.backend.service.CampaignService;
+import jakarta.validation.Valid;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
+@Slf4j // Lombok para criar o logger
 @RestController
 @RequestMapping("/campaign")
 public class CampaignController {
@@ -18,8 +24,17 @@ public class CampaignController {
 
     @PostMapping("/create")
     @Transactional
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void createCampaign(@RequestBody CreateCampaignDTO data) {
-        this.campaignService.createCampaign(data);
+    public ResponseEntity<Void> createCampaign(@RequestBody @Valid CampaignDTO data) {
+        try {
+            campaignService.createCampaign(data);
+            log.info("[POST /campaign/create] Yay!, campaign '{}' created successfully! ", data.name());
+            return ResponseEntity.noContent().build(); // Returns 204 No Content (without response body!)
+        } catch (Exception e) {
+            log.error("[POST /campaign/create] OH NO! Failed to create a campaign: {}", e.getMessage(), e);
+            throw new ResponseStatusException(
+                    HttpStatus.INTERNAL_SERVER_ERROR,
+                    "OH NO! Failed to create a campaign! Contact dev team for more information."
+            );
+        }
     }
 }

@@ -1,6 +1,6 @@
 package comidaqueabraca.backend.service;
 
-import comidaqueabraca.backend.dto.CreateCampaignDTO;
+import comidaqueabraca.backend.dto.CampaignDTO;
 import comidaqueabraca.backend.entity.CampaignEntity;
 import comidaqueabraca.backend.entity.AddressEntity;
 import comidaqueabraca.backend.enums.CampaignStatus;
@@ -20,7 +20,7 @@ public class CampaignService {
         this.addressRepository = addressRepository;
     }
 
-    public void createCampaign(CreateCampaignDTO data) {
+    public void createCampaign(CampaignDTO data) {
         if (data.startDate().isAfter(data.endDate())) {
             throw new IllegalArgumentException("A data de início não pode ser depois da data de término");
         }

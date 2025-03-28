@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/money-donations")
+@RequestMapping("/money")
 public class MoneyController {
 
     private static final Logger logger = LoggerFactory.getLogger(MoneyController.class);
