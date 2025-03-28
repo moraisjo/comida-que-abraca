@@ -6,6 +6,8 @@ import comidaqueabraca.backend.entity.AddressEntity;
 import comidaqueabraca.backend.enums.CampaignStatus;
 import comidaqueabraca.backend.repository.CampaignRepository;
 import comidaqueabraca.backend.repository.AddressRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -37,5 +39,9 @@ public class CampaignService {
                 data.photoUrl(),
                 data.status() != null ? data.status() : CampaignStatus.ACTIVE
         ));
+    }
+
+    public Page<CampaignDTO> getActiveCampaigns(CampaignDTO data, Pageable pageable){
+        return this.campaignRepository.findActiveCampaignsWithFilters(data, pageable);
     }
 }

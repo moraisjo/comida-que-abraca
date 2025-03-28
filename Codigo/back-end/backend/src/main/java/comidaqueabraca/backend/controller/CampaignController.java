@@ -1,12 +1,10 @@
 package comidaqueabraca.backend.controller;
 
-import ch.qos.logback.classic.Logger;
 import comidaqueabraca.backend.dto.CampaignDTO;
-import comidaqueabraca.backend.repository.CampaignRepository;
 import comidaqueabraca.backend.service.CampaignService;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
-import org.hibernate.query.Page;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
@@ -45,12 +43,7 @@ public class CampaignController {
 
     @GetMapping("/active-campaigns")
     public ResponseEntity<Page<CampaignDTO>> getActiveCampaigns(@RequestBody @Valid CampaignDTO data,
-                                                                @PageableDefault(size = 20, direction = Sort.Direction.DESC) Pageable pageable) {
-
-        CampaignRepository campaignRepository;
-        Page campaigns = campaignRepository.findActiveCampaignsWithFilters(data,
-                pageable);
-
-        return ResponseEntity.ok(campaigns);
+                                                                @PageableDefault(size = 15, direction = Sort.Direction.DESC) Pageable pageable) {
+        return ResponseEntity.ok(this.campaignService.getActiveCampaigns(data, pageable));
     }
 }
