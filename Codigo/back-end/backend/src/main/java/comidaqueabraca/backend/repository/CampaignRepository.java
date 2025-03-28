@@ -16,14 +16,14 @@ import java.time.LocalDate;
 public interface CampaignRepository extends JpaRepository<CampaignEntity, Integer> {
 
     @Query("""
-        SELECT c FROM CampaignEntity c
-        WHERE (:name IS NULL OR LOWER(c.name) LIKE LOWER(CONCAT('%', :name, '%')))
-        AND (:status IS NULL OR c.status = :status)
-        AND (:startDateFrom IS NULL OR c.startDate >= :startDateFrom)
-        AND (:startDateTo IS NULL OR c.startDate <= :startDateTo)
-        AND (:endDateFrom IS NULL OR c.endDate >= :endDateFrom)
-        AND (:endDateTo IS NULL OR c.endDate <= :endDateTo)
-        ORDER BY c.startDate DESC
-    """)
-    Page<CampaignDTO> findAllWithFilters(@Param("data") CampaignDTO data, Pageable pageable);
+    SELECT c FROM CampaignEntity c
+    WHERE c.status = 'ACTIVE'
+    AND (:name IS NULL OR LOWER(c.name) LIKE LOWER(CONCAT('%', :name, '%')))
+    AND (:startDateFrom IS NULL OR c.startDate >= :startDateFrom)
+    AND (:startDateTo IS NULL OR c.startDate <= :startDateTo)
+    AND (:endDateFrom IS NULL OR c.endDate >= :endDateFrom)
+    AND (:endDateTo IS NULL OR c.endDate <= :endDateTo)
+    ORDER BY c.startDate DESC
+""")
+    Page<CampaignDTO> findActiveCampaignsWithFilters(@Param("data") CampaignDTO data, Pageable pageable);
 }
