@@ -1,0 +1,22 @@
+package comidaqueabraca.backend.service;
+import org.springframework.beans.factory.annotation.Autowired;
+import comidaqueabraca.backend.entity.DonationEntity;
+import comidaqueabraca.backend.enums.DonationStatus;
+import comidaqueabraca.backend.repository.DonationRepository;
+
+public class DonationService {
+
+    @Autowired
+    private DonationRepository donationRepository;
+
+    public DonationEntity createDonation(DonationEntity donation) {
+
+        DonationEntity newDonation = new DonationEntity();
+        newDonation.setName(donation.getName());
+        newDonation.setArrivingDate(donation.getArrivingDate());
+        newDonation.setStatus(DonationStatus.PENDING);
+
+        return donationRepository.save(newDonation);
+    }
+    
+}
