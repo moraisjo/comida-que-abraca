@@ -19,8 +19,12 @@ public class NotificationEntity {
     private Integer id;
 
     @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false) // Alterado o nome da coluna para evitar duplicação
+    @JoinColumn(name = "user_id", nullable = false)
     private UserEntity user;
+
+    @ManyToOne
+    @JoinColumn(name = "campaign_id", nullable = false)
+    private CampaignEntity campaign;
 
     @Column(name = "message", nullable = false, columnDefinition = "TEXT")
     private String message;

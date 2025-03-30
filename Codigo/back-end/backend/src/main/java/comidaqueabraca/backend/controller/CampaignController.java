@@ -14,7 +14,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
-@Slf4j // Lombok para criar o logger
+
+@Slf4j
 @RestController
 @RequestMapping("/campaign")
 public class CampaignController {
