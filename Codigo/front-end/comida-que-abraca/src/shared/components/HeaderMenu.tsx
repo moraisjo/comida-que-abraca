@@ -7,11 +7,11 @@ import AccountCircle from "@mui/icons-material/AccountCircle";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 
-import { useNavigate } from "react-router-dom";
 import { Home } from "react-feather";
 //import { useAuth } from "../../../contexts/LoginContext";
 import React from "react";
 import colors from "../theme/colors";
+import { useNavigate } from "react-router-dom";
 import { AppBar, styled } from "@mui/material";
 
 interface HeaderMenuProps {
@@ -20,7 +20,7 @@ interface HeaderMenuProps {
 
 export default function HeaderMenu({ title }: HeaderMenuProps) {
   // Uso do React Router
-  //const navigate = useNavigate();
+  const navigate = useNavigate();
   //const { userType } = useAuth();
 
   // Função de logout do Provider
@@ -69,7 +69,7 @@ export default function HeaderMenu({ title }: HeaderMenuProps) {
   }; */
 
   const StyledAppBar = styled(AppBar)(() => ({
-    backgroundColor: colors.primary,
+    backgroundColor: colors.background,
   }));
 
   return (
@@ -167,11 +167,12 @@ export default function HeaderMenu({ title }: HeaderMenuProps) {
           >
             <MenuItem
               onClick={() => {
-                //navigate();
+                navigate("/campanhas");
+                handleSandwichMenuClose();
               }}
               sx={{ color: colors.regularGray, fontWeight: "bold" }}
             >
-              📋 Regras e lembretes
+              📢 Campanhas
             </MenuItem>
             <MenuItem
               onClick={() => {
