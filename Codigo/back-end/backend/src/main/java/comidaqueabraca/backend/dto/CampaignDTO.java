@@ -1,17 +1,16 @@
 package comidaqueabraca.backend.dto;
 
 import comidaqueabraca.backend.enums.CampaignStatus;
-import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Future;
+import jakarta.validation.constraints.NotNull;
 import java.time.LocalDate;
-
 public record CampaignDTO(
         @NotBlank String name,
-        @NotBlank String description,
+        String description,
+        @NotBlank String address,
+        @NotNull @Future LocalDate startDate,
+        @NotNull @Future LocalDate endDate,
         String photoUrl,
-        @FutureOrPresent(message = "A data de início deve ser hoje ou no futuro.")
-        LocalDate startDate,
-        LocalDate endDate,
-        String address,
         CampaignStatus status
 ) {}
