@@ -9,7 +9,8 @@ import {
   TextField,
 } from "@mui/material";
 import colors from "../../../../../shared/theme/colors";
-import ImageUpload from "../../../../../shared/components/Upload/ImageUpload"; // Importando o componente ImageUpload
+import ImageUpload from "../../../../../shared/components/Upload/ImageUpload";
+import { CampaignService } from "../../../hooks/UseCampaingsService";
 
 interface CampaignCreateProps {
   onClose: () => void;
@@ -18,11 +19,12 @@ interface CampaignCreateProps {
 const CampaignCreate: React.FC<CampaignCreateProps> = ({ onClose }) => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
+  const [address, setAddress] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [photoUrl, setPhotoUrl] = useState<string | null>(null);
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (!name || !startDate || !endDate) {
       alert("Preencha os campos obrigatórios.");
       return;
@@ -31,13 +33,24 @@ const CampaignCreate: React.FC<CampaignCreateProps> = ({ onClose }) => {
     const campaignData = {
       name,
       description,
+      address,
       startDate,
       endDate,
-      photo: photoUrl || "Nenhuma foto selecionada",
+      photoUrl: photoUrl || "Nenhuma foto selecionada",
+      status: "ACTIVE",
     };
 
-    console.log("Campanha criada:", campaignData);
-    onClose();
+    try {
+      await CampaignService.createCampaign(campaignData);
+      alert("Campanha criada com sucesso!");
+      onClose();
+    } catch (error) {
+      if (error instanceof Error) {
+        alert(error.message);
+      } else {
+        alert("Ocorreu um erro ao criar a campanha.");
+      }
+    }
   };
 
   return (
@@ -59,6 +72,13 @@ const CampaignCreate: React.FC<CampaignCreateProps> = ({ onClose }) => {
             rows={3}
             value={description}
             onChange={(e) => setDescription(e.target.value)}
+            margin="dense"
+          />
+          <TextField
+            fullWidth
+            label="Endereço"
+            value={address}
+            onChange={(e) => setAddress(e.target.value)}
             margin="dense"
           />
           <TextField
@@ -97,7 +117,12 @@ const CampaignCreate: React.FC<CampaignCreateProps> = ({ onClose }) => {
         </Box>
       </DialogContent>
       <DialogActions
-        sx={{ display: "flex", gap: 2, width: "100%", padding: "0 24px 24px" }}
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          width: "100%",
+          padding: "0 24px 24px",
+        }}
       >
         <Button
           variant="contained"
@@ -106,7 +131,7 @@ const CampaignCreate: React.FC<CampaignCreateProps> = ({ onClose }) => {
             color: colors.white,
             fontSize: "12px",
             textTransform: "none",
-            flex: 1,
+            width: "50%",
             height: "45px",
           }}
           onClick={onClose}
@@ -120,7 +145,7 @@ const CampaignCreate: React.FC<CampaignCreateProps> = ({ onClose }) => {
             color: colors.white,
             fontSize: "12px",
             textTransform: "none",
-            flex: 1,
+            width: "50%",
             height: "45px",
           }}
           onClick={handleSubmit}

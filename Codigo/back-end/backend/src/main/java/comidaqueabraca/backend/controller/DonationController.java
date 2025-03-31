@@ -1,6 +1,8 @@
 package comidaqueabraca.backend.controller;
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,8 +10,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
 import comidaqueabraca.backend.entity.DonationEntity;
-import comidaqueabraca.backend.repository.DonationRepository;
 import comidaqueabraca.backend.service.DonationService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -24,9 +26,6 @@ public class DonationController {
 
     @Autowired
     private DonationService donationService;
-
-    @Autowired
-    private DonationRepository donationRepository; 
 
     @Operation(summary = "Cadastra uma nova doação")
     @ApiResponses(value = {
@@ -52,9 +51,7 @@ public class DonationController {
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
     })
     @GetMapping
-    public ResponseEntity<List<DonationEntity>> listDonation() {
-        List<DonationEntity> donations = donationRepository.findAll();  // Busca todas as doações do banco
-        return ResponseEntity.ok(donations);  // Retorna as doações encontradas 
-    }
-
+    public ResponseEntity<List<String>> listDonation() {
+        return ResponseEntity.ok(List.of("Doação 1", "Doação 2"));
+    }   
 }
