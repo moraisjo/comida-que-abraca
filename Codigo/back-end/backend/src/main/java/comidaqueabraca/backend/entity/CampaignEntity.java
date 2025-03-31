@@ -25,9 +25,8 @@ public class CampaignEntity {
     @Column(name = "description", columnDefinition = "TEXT")
     private String description;
 
-    @ManyToOne
-    @JoinColumn(name = "address_id", referencedColumnName = "id")
-    private AddressEntity address;
+    @Column(name = "address", nullable = false)
+    private String address;
 
     @Column(name = "start_date", nullable = false)
     private LocalDate startDate;
@@ -42,7 +41,7 @@ public class CampaignEntity {
     @Column(name = "status", nullable = false)
     private CampaignStatus status;
 
-    public CampaignEntity(String name, String description, AddressEntity address, LocalDate startDate, LocalDate endDate, String photoUrl, CampaignStatus status) {
+    public CampaignEntity(String name, String description, String address, LocalDate startDate, LocalDate endDate, String photoUrl, CampaignStatus status) {
         this.name = name;
         this.description = description;
         this.address = address;

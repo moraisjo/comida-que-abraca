@@ -1,13 +1,19 @@
-import { useState } from 'react'
-import './App.css'
-import RankingPage from './features/RankingPage/RankingPage'
+import { useState } from "react";
+import "./shared/theme/global.css";
+
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import RankingPage from "./features/RankingPage/RankingPage";
+import CampanhasPage from "./features/OngHomepage/Components/Campaing/CampaignPages"; // Importe a página de campanhas
 
 function App() {
   return (
-    <>
-      <RankingPage />
-    </>
-  )
+    <Router>
+      <Routes>
+        <Route path="/" element={<RankingPage />} />
+        <Route path="/campanhas" element={<CampanhasPage />} />
+      </Routes>
+    </Router>
+  );
 }
 
-export default App
+export default App;

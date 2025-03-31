@@ -9,11 +9,9 @@ public record CampaignDTO(
         @NotBlank String name,
         @NotBlank String description,
         String photoUrl,
-
         @FutureOrPresent(message = "A data de início deve ser hoje ou no futuro.")
         LocalDate startDate,
         LocalDate endDate,
-
-        Integer addressId,
+        String address,
         CampaignStatus status
 ) {}
