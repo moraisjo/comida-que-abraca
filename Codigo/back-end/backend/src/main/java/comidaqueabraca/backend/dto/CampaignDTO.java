@@ -12,7 +12,6 @@ public record CampaignDTO(
         @FutureOrPresent(message = "A data de início deve ser hoje ou no futuro.")
         LocalDate startDate,
         LocalDate endDate,
-
-        Integer addressId,
+        String address,
         CampaignStatus status
 ) {}
