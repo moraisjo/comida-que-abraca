@@ -20,8 +20,11 @@ import org.springframework.web.server.ResponseStatusException;
 @RequestMapping("/campaign")
 public class CampaignController {
 
-    @Autowired
-    CampaignService campaignService;
+    private final CampaignService campaignService;
+
+    public CampaignController(CampaignService campaignService) {
+        this.campaignService = campaignService;
+    }
 
     @PostMapping("/create-campaign")
     public ResponseEntity<CampaignDTO> createCampaign(@RequestBody @Valid CampaignDTO data) {
