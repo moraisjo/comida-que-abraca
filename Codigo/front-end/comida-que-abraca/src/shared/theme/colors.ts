@@ -5,7 +5,7 @@ const colors = {
     secondary: '#4F378A',
     background: '#F4F4F4',
     darkGray:'#49454F',
-    regularGray:  '#797979',
+    lilac:  '#EADDFF',
   };
   
   export default colors;
