@@ -9,6 +9,7 @@ import {
   TextField,
 } from "@mui/material";
 import colors from "../../../../../shared/theme/colors";
+import ImageUpload from "../../../../../shared/components/Upload/ImageUpload"; // Importando o componente ImageUpload
 
 interface CampaignCreateProps {
   onClose: () => void;
@@ -19,13 +20,7 @@ const CampaignCreate: React.FC<CampaignCreateProps> = ({ onClose }) => {
   const [description, setDescription] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
-  const [photo, setPhoto] = useState<File | null>(null);
-
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event.target.files && event.target.files[0]) {
-      setPhoto(event.target.files[0]);
-    }
-  };
+  const [photoUrl, setPhotoUrl] = useState<string | null>(null);
 
   const handleSubmit = () => {
     if (!name || !startDate || !endDate) {
@@ -38,7 +33,7 @@ const CampaignCreate: React.FC<CampaignCreateProps> = ({ onClose }) => {
       description,
       startDate,
       endDate,
-      photo: photo ? photo.name : "Nenhuma foto selecionada",
+      photo: photoUrl || "Nenhuma foto selecionada",
     };
 
     console.log("Campanha criada:", campaignData);
@@ -84,16 +79,21 @@ const CampaignCreate: React.FC<CampaignCreateProps> = ({ onClose }) => {
             onChange={(e) => setEndDate(e.target.value)}
             margin="dense"
           />
-          <Button variant="contained" component="label">
-            Selecionar Foto
-            <input
-              type="file"
-              hidden
-              accept="image/*"
-              onChange={handleFileChange}
-            />
-          </Button>
-          {photo && <p>Foto selecionada: {photo.name}</p>}
+
+          <Box
+            sx={{
+              width: "100%",
+              height: "56px",
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              border: "1px solid #ccc",
+              borderRadius: "4px",
+              padding: "0 16px",
+            }}
+          >
+            <ImageUpload onImageUploaded={setPhotoUrl} />
+          </Box>
         </Box>
       </DialogContent>
       <DialogActions
