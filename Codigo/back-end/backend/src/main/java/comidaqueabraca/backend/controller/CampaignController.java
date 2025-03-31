@@ -20,6 +20,7 @@ import org.springframework.web.server.ResponseStatusException;
 @Slf4j
 @RestController
 @RequestMapping("/campaign")
+@CrossOrigin(origins = "http://localhost:5173")
 public class CampaignController {
 
     @Autowired
