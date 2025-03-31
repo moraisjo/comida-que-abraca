@@ -1,6 +1,8 @@
 package comidaqueabraca.backend.controller;
 
 import comidaqueabraca.backend.dto.CampaignDTO;
+import comidaqueabraca.backend.dto.response.ResponseDTO;
+import comidaqueabraca.backend.entity.CampaignEntity;
 import comidaqueabraca.backend.service.CampaignService;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
@@ -18,30 +20,18 @@ import org.springframework.web.server.ResponseStatusException;
 @Slf4j
 @RestController
 @RequestMapping("/campaign")
+@CrossOrigin(origins = "http://localhost:5173")
 public class CampaignController {
 
-    private final CampaignService campaignService;
-
-    public CampaignController(CampaignService campaignService) {
-        this.campaignService = campaignService;
-    }
+    @Autowired
+    private CampaignService campaignService;
 
     @PostMapping("/create-campaign")
-    public ResponseEntity<CampaignDTO> createCampaign(@RequestBody @Valid CampaignDTO data) {
-        try {
-            campaignService.createCampaign(data);
-            log.info("[POST /campaign/create] Yay!, campaign '{}' created successfully! ", data.name());
-
-            return ResponseEntity.status(HttpStatus.OK).build();
-        } catch (Exception e) {
-            log.error("[POST /campaign/create] OH NO! Failed to create a campaign: {}", e.getMessage(), e);
-            throw new ResponseStatusException(
-                    HttpStatus.INTERNAL_SERVER_ERROR,
-                    "OH NO! Failed to create a campaign! Contact dev team for more information."
-            );
-        }
+    public ResponseEntity<ResponseDTO> createCampaign(@Valid @RequestBody CampaignDTO campaignDTO) {
+        campaignService.createCampaign(campaignDTO);
+        ResponseDTO response = new ResponseDTO("Campanha criada com sucesso!", 201);
+        return ResponseEntity.status(201).body(response);
     }
-
 
     @GetMapping("/active-campaigns")
     public ResponseEntity<Page<CampaignDTO>> getActiveCampaigns(

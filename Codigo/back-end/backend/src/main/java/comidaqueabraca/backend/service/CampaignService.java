@@ -17,21 +17,18 @@ public class CampaignService {
         this.campaignRepository = campaignRepository;
     }
 
-    public void createCampaign(CampaignDTO data) {
-        if (data.startDate().isAfter(data.endDate())) {
-            throw new IllegalArgumentException("A data de início não pode ser depois da data de término");
-        }
+    public CampaignEntity createCampaign(CampaignDTO campaignDTO) {
+        CampaignEntity campaign = new CampaignEntity(
+                campaignDTO.name(),
+                campaignDTO.description(),
+                campaignDTO.address(),
+                campaignDTO.startDate(),
+                campaignDTO.endDate(),
+                campaignDTO.photoUrl(),
+                campaignDTO.status() != null ? campaignDTO.status() : CampaignStatus.ACTIVE
+        );
 
-        CampaignEntity newCampaign = new CampaignEntity();
-        newCampaign.setName(data.name());
-        newCampaign.setDescription(data.description());
-        newCampaign.setAddress(data.address());
-        newCampaign.setStartDate(data.startDate());
-        newCampaign.setEndDate(data.endDate());
-        newCampaign.setPhotoUrl(data.photoUrl());
-        newCampaign.setStatus(data.status() != null ? data.status() : CampaignStatus.ACTIVE);
-
-        campaignRepository.save(newCampaign);
+        return campaignRepository.save(campaign);
     }
 
 
