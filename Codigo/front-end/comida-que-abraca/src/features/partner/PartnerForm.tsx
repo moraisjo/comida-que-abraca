@@ -1,7 +1,22 @@
 import { useState } from 'react';
 import { createPartner } from '../../data/repository/partnerRepository';
 import { Partner } from '../../data/model/Partner';
-import './PartnerForm.css'; // ⬅️ IMPORTANTE
+import HeaderMenu from "../../shared/components/HeaderMenu";
+import colors from "../../shared/theme/colors";
+import { 
+  Box, 
+  Container, 
+  TextField, 
+  Select, 
+  MenuItem, 
+  FormControlLabel, 
+  Checkbox, 
+  Button, 
+  Typography, 
+  Paper,
+  FormControl,
+  InputLabel
+} from '@mui/material';
 
 export default function PartnerForm() {
   const [partner, setPartner] = useState<Partner>({
@@ -13,13 +28,13 @@ export default function PartnerForm() {
     legalEntityType: 'ONG',
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    const { name, value, type } = e.target;
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | { name?: string; value: unknown }>) => {
+    const { name, value } = e.target;
     const checked = (e.target as HTMLInputElement).checked;
 
     setPartner(prev => ({
       ...prev,
-      [name]: type === 'checkbox' ? checked : value,
+      [name as string]: name === 'wantsToDonate' || name === 'wantsToReceiveDonations' ? checked : value,
     }));
   };
 
@@ -42,70 +57,113 @@ export default function PartnerForm() {
   };
 
   return (
-    <div className="partner-form-container">
-      <form onSubmit={handleSubmit} className="partner-form">
-        <h2>Cadastro de Parceiro</h2>
-
-        <input
-          type="text"
-          name="name"
-          value={partner.name}
-          onChange={handleChange}
-          placeholder="Nome"
-          required
-        />
-
-        <input
-          type="email"
-          name="email"
-          value={partner.email}
-          onChange={handleChange}
-          placeholder="Email"
-          required
-        />
-
-        <input
-          type="text"
-          name="phone"
-          value={partner.phone}
-          onChange={handleChange}
-          placeholder="Telefone"
-          required
-        />
-
-        <select
-          name="legalEntityType"
-          value={partner.legalEntityType}
-          onChange={handleChange}
+    <Container maxWidth="sm">
+      <Box
+        sx={{
+          minHeight: '100vh',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          py: 4
+        }}
+      >
+        <Paper
+          elevation={3}
+          sx={{
+            p: 4,
+            width: '100%',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 2
+          }}
         >
-          <option value="ONG">ONG</option>
-          <option value="GOVERNMENT">Governo</option>
-          <option value="COMPANY">Empresa</option>
-          <option value="VOLUNTARY">Voluntário</option>
-        </select>
+          <HeaderMenu title={"Comida Que Abraça"} />
+          <Typography variant="h5" component="h1" align="center" gutterBottom sx={{ fontWeight: 'bold' }}>
+            Cadastro de Parceiro
+          </Typography>
 
-        <div className="checkbox-group">
-            <input
-                type="checkbox"
-                name="wantsToDonate"
-                checked={partner.wantsToDonate}
+          <form onSubmit={handleSubmit}>
+            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+              <TextField
+                name="name"
+                value={partner.name}
                 onChange={handleChange}
-            />
-            <span>Deseja doar?</span>
-        </div>
+                label="Nome"
+                required
+                fullWidth
+              />
 
-        <div className="checkbox-group">
-            <input
-                type="checkbox"
-                name="wantsToReceiveDonations"
-                checked={partner.wantsToReceiveDonations}
-             onChange={handleChange}
-            />
-             <span>Deseja receber doações?</span>
-            </div>
+              <TextField
+                name="email"
+                type="email"
+                value={partner.email}
+                onChange={handleChange}
+                label="Email"
+                required
+                fullWidth
+              />
 
-        <button type="submit">Cadastrar</button>
-      </form>
-    </div>
+              <TextField
+                name="phone"
+                value={partner.phone}
+                onChange={handleChange}
+                label="Telefone"
+                required
+                fullWidth
+              />
+
+              <FormControl fullWidth>
+                <InputLabel id="legalEntityType-label">Tipo de Entidade</InputLabel>
+                <Select
+                  labelId="legalEntityType-label"
+                  name="legalEntityType"
+                  value={partner.legalEntityType}
+                  onChange={handleChange}
+                  label="Tipo de Entidade"
+                >
+                  <MenuItem value="ONG">ONG</MenuItem>
+                  <MenuItem value="GOVERNMENT">Governo</MenuItem>
+                  <MenuItem value="COMPANY">Empresa</MenuItem>
+                  <MenuItem value="VOLUNTARY">Voluntário</MenuItem>
+                </Select>
+              </FormControl>
+
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    name="wantsToDonate"
+                    checked={partner.wantsToDonate}
+                    onChange={handleChange}
+                  />
+                }
+                label="Deseja doar?"
+              />
+
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    name="wantsToReceiveDonations"
+                    checked={partner.wantsToReceiveDonations}
+                    onChange={handleChange}
+                  />
+                }
+                label="Deseja receber doações?"
+              />
+
+              <Button style={{background: colors.primary,}}
+                type="submit"
+                variant="contained"
+                color="primary"
+                size="large"
+                fullWidth
+                sx={{ mt: 2 }}
+              >
+                Cadastrar
+              </Button>
+            </Box>
+          </form>
+        </Paper>
+      </Box>
+    </Container>
   );
 }
