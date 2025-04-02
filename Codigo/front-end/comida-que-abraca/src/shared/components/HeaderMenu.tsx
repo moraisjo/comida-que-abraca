@@ -190,6 +190,15 @@ export default function HeaderMenu({ title }: HeaderMenuProps) {
             >
               ⏰ Sobre o Comida Que Abraça
             </MenuItem>
+            <MenuItem
+              onClick={() => {
+              navigate("/cadastro-parceiro");
+              handleSandwichMenuClose();
+              }}
+             sx={{ color: colors.regularGray, fontWeight: "bold" }}
+            >
+             👥 Cadastro de Parceiros
+            </MenuItem>
           </Menu>
         </Toolbar>
       </StyledAppBar>
