@@ -5,7 +5,7 @@ import PartnerForm from "./PartnerForm";
 const PartnerPage: React.FC = () => {
   return (
     <>
-      <HeaderMenu title="Comida Que Abraça" />
+      <HeaderMenu />
       <PartnerForm />
     </>
   );

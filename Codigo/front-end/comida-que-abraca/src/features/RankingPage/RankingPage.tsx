@@ -1,35 +1,30 @@
 import React from "react";
 import HeaderMenu from "../../shared/components/HeaderMenu";
 import colors from "../../shared/theme/colors";
-import { Box, Divider, Typography } from "@mui/material";
+import {
+  Box,
+  Divider,
+  Typography,
+} from "@mui/material";
+import DonatorsList from "./components/DonatorsList";
 
 const RankingPage: React.FC = () => {
   return (
-    <Box
-      style={{
-        background: colors.background,
-        minHeight: "100vh", // Faz o Box ocupar toda a altura da tela
-        minWidth: "100vh",
-        display: "flex",
-        flexDirection: "column",
-      }}
-    >
-      <HeaderMenu title={"Comida Que Abraça"} />
+    <>
+      {/* CssBaseline para aplicar estilos globais */}
+      <HeaderMenu/>
       <Box
-        style={{
-          background: colors.background,
-          width: "100%",
-          flex: 1, // Faz este Box crescer para ocupar o espaço disponível
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
+        sx={{
+          width: '80vw', // ou o tamanho que preferir
+          margin: '20px auto', // margin top e bottom de 20px e auto para os lados
+          backgroundColor: colors.white,
         }}
       >
-        <Typography color={colors.secondary}>Ranking de doadores</Typography>
-        <Divider />
+        <Typography color={colors.purple} align='center' fontSize='30px'>Ranking de doadores</Typography>
+        <Divider sx={{ borderWidth: 1.6, marginBottom: 2}} />
+        <DonatorsList/>
       </Box>
-    </Box>
+    </>
   );
 };
 

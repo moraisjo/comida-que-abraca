@@ -141,7 +141,7 @@ const CampaignCreate: React.FC<CampaignCreateProps> = ({ onClose }) => {
           <Button
             variant="contained"
             sx={{
-              backgroundColor: colors.secondary,
+              backgroundColor: colors.purple,
               color: colors.white,
               fontSize: "12px",
               textTransform: "none",

@@ -13,7 +13,7 @@ const CampaignPage: React.FC = () => {
 
   return (
     <>
-      <HeaderMenu title="Comida Que Abraça" />
+      <HeaderMenu />
       <CampaignList onCreate={handleOpenModal} />
 
       {isModalOpen && <CampaignCreate onClose={handleCloseModal} />}

@@ -1,24 +1,17 @@
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
+import logo from '../../assets/comida-que-abraca-logo.png';
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
-
-import { Home } from "react-feather";
-//import { useAuth } from "../../../contexts/LoginContext";
 import React from "react";
 import colors from "../theme/colors";
 import { useNavigate } from "react-router-dom";
 import { AppBar, styled } from "@mui/material";
 
-interface HeaderMenuProps {
-  title: string;
-}
-
-export default function HeaderMenu({ title }: HeaderMenuProps) {
+export default function HeaderMenu() {
   // Uso do React Router
   const navigate = useNavigate();
   //const { userType } = useAuth();
@@ -76,7 +69,7 @@ export default function HeaderMenu({ title }: HeaderMenuProps) {
     <Box
       sx={{
         flexGrow: 1,
-        position: "fixed",
+        position: "static",
         top: 0,
         left: 0,
         width: "100%",
@@ -86,7 +79,8 @@ export default function HeaderMenu({ title }: HeaderMenuProps) {
       }}
     >
       <StyledAppBar position="static">
-        <Toolbar>
+      <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
+          {/* Menu sanduíche */}
           <IconButton
             size="large"
             edge="start"
@@ -98,15 +92,10 @@ export default function HeaderMenu({ title }: HeaderMenuProps) {
             <MenuIcon />
           </IconButton>
 
-          <Typography
-            variant="h6"
-            component="div"
-            sx={{ flexGrow: 1, textAlign: "center", color: colors.darkGray }}
-          >
-            {title}
-          </Typography>
-
-          <div>
+          {/*Logo Comida Que Abraça*/}
+          <img src={logo} style={{ width: '130px', height: 'auto' }} alt="Logo Comida Que Abraça" />
+          
+          <Box>
             <IconButton
               size="large"
               aria-label="account of current user"
@@ -136,20 +125,20 @@ export default function HeaderMenu({ title }: HeaderMenuProps) {
             >
               <MenuItem
                 onClick={handleProfileMenuClose}
-                sx={{ color: colors.regularGray, fontWeight: "bold" }}
+                sx={{ color: colors.darkGray, fontWeight: "bold" }}
               >
                 Minha conta
               </MenuItem>
               <MenuItem
                 // onClick={handleLogout}
-                sx={{ color: colors.regularGray, fontWeight: "bold" }}
+                sx={{ color: colors.darkGray, fontWeight: "bold" }}
               >
                 Sair
               </MenuItem>
             </Menu>
-          </div>
+          </Box>
 
-          {/* Menu Sanduíche */}
+          {/* Detalhamento Menu Sanduíche */}
           <Menu
             id="menu-appbar-sandwich"
             anchorEl={sandwichMenuIsOpen}
@@ -170,7 +159,7 @@ export default function HeaderMenu({ title }: HeaderMenuProps) {
                 navigate("/campanhas");
                 handleSandwichMenuClose();
               }}
-              sx={{ color: colors.regularGray, fontWeight: "bold" }}
+              sx={{ color: colors.darkGray, fontWeight: "bold" }}
             >
               📢 Campanhas
             </MenuItem>
@@ -178,7 +167,7 @@ export default function HeaderMenu({ title }: HeaderMenuProps) {
               onClick={() => {
                 //navigate();
               }}
-              sx={{ color: colors.regularGray, fontWeight: "bold" }}
+              sx={{ color: colors.darkGray, fontWeight: "bold" }}
             >
               ☎️ Fale conosco
             </MenuItem>
@@ -186,7 +175,7 @@ export default function HeaderMenu({ title }: HeaderMenuProps) {
               onClick={() => {
                 //navigate();
               }}
-              sx={{ color: colors.regularGray, fontWeight: "bold" }}
+              sx={{ color: colors.darkGray, fontWeight: "bold" }}
             >
               ⏰ Sobre o Comida Que Abraça
             </MenuItem>

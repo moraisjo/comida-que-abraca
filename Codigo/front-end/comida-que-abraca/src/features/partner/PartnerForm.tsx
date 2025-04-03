@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { createPartner } from '../../data/repository/partnerRepository';
-import { Partner } from '../../data/model/Partner';
+import { Partner } from '../../data/model/partner';
 import HeaderMenu from "../../shared/components/HeaderMenu";
 import colors from "../../shared/theme/colors";
 import { 
@@ -77,7 +77,7 @@ export default function PartnerForm() {
             gap: 2
           }}
         >
-          <HeaderMenu title={"Comida Que Abraça"} />
+          <HeaderMenu/>
           <Typography variant="h5" component="h1" align="center" gutterBottom sx={{ fontWeight: 'bold' }}>
             Cadastro de Parceiro
           </Typography>

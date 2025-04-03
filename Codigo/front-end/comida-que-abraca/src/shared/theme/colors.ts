@@ -9,7 +9,7 @@ const colors = {
   white: "#ffffff",
   error: '#800000',
   ok: '#008000',
-  
+  leafGreen: '#9DD200', 
   lilac:  '#EADDFF',
   purple: '#7E57C2', 
   lightGray: '#D3CCE3' 

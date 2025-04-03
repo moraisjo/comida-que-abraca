@@ -1,4 +1,4 @@
-import { Partner } from '../data/model/Partner';
+import { Partner } from '../data/model/partner';
 import axios from 'axios';
 
 const API_URL = 'http://localhost:8080/api/partners';
