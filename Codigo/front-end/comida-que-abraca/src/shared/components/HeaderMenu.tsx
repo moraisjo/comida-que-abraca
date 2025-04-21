@@ -1,9 +1,10 @@
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
-import logo from '../../assets/comida-que-abraca-logo.png';
+import logo from "../../assets/comida-que-abraca-logo.png";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import AccountCircle from "@mui/icons-material/AccountCircle";
+import NotificationsIcon from "@mui/icons-material/Notifications";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 import React from "react";
@@ -79,7 +80,7 @@ export default function HeaderMenu() {
       }}
     >
       <StyledAppBar position="static">
-      <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
+        <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
           {/* Menu sanduíche */}
           <IconButton
             size="large"
@@ -93,9 +94,24 @@ export default function HeaderMenu() {
           </IconButton>
 
           {/*Logo Comida Que Abraça*/}
-          <img src={logo} style={{ width: '130px', height: 'auto' }} alt="Logo Comida Que Abraça" />
-          
+          <img
+            src={logo}
+            style={{ width: "130px", height: "auto" }}
+            alt="Logo Comida Que Abraça"
+          />
+
           <Box>
+            <IconButton
+              size="large"
+              aria-label="notificações"
+              sx={{ color: colors.darkGray }}
+              onClick={() => {
+                console.log("Notificações clicadas");
+              }}
+            >
+              <NotificationsIcon />
+            </IconButton>
+
             <IconButton
               size="large"
               aria-label="account of current user"
@@ -181,12 +197,12 @@ export default function HeaderMenu() {
             </MenuItem>
             <MenuItem
               onClick={() => {
-              navigate("/cadastro-parceiro");
-              handleSandwichMenuClose();
+                navigate("/cadastro-parceiro");
+                handleSandwichMenuClose();
               }}
-             sx={{ color: colors.regularGray, fontWeight: "bold" }}
+              sx={{ color: colors.regularGray, fontWeight: "bold" }}
             >
-             👥 Cadastro de Parceiros
+              👥 Cadastro de Parceiros
             </MenuItem>
           </Menu>
         </Toolbar>
