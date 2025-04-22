@@ -177,7 +177,16 @@ export default function HeaderMenu() {
               }}
               sx={{ color: colors.darkGray, fontWeight: "bold" }}
             >
-              📢 Campanhas
+              📢Gerenciar Campanhas
+            </MenuItem>
+            <MenuItem
+              onClick={() => {
+                navigate("/doacoes");
+                handleSandwichMenuClose();
+              }}
+              sx={{ color: colors.darkGray, fontWeight: "bold" }}
+            >
+              📑 Gerenciar Doações
             </MenuItem>
             <MenuItem
               onClick={() => {

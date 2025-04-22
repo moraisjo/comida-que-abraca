@@ -12,4 +12,14 @@ interface DonationResponse {
     campaign?: Campaign
 }
 
-export type { DonationResponse }
+interface PendingDonationResponse {
+    id: number;
+    name: string;
+    arrivingDate: string;
+    delivery: string;
+    status: string;
+    donorName: string;
+    campaignName?: string;
+  }
+
+export type { DonationResponse, PendingDonationResponse  }

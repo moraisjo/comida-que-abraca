@@ -12,7 +12,13 @@ const colors = {
   leafGreen: '#9DD200', 
   lilac:  '#EADDFF',
   purple: '#7E57C2', 
-  lightGray: '#D3CCE3' 
+  lightGray: '#D3CCE3', 
+
+  Secondary15percent: '#FFB03A26',
+  PrimaryColor: '#F46A02',
+  SecondaryColor: '#FFB03A',
+  Green: '#59AB1B',
+  Red: '#B3261E'
 };
 
 export default colors;
