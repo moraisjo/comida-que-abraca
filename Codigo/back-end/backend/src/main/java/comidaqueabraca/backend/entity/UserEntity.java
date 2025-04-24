@@ -10,6 +10,7 @@ import lombok.Setter;
 @Entity
 @Table(name = "db_user")
 @Inheritance(strategy = InheritanceType.JOINED)
+@DiscriminatorColumn(name = "user_type", discriminatorType = DiscriminatorType.STRING)
 @Getter
 @Setter
 @NoArgsConstructor

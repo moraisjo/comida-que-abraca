@@ -15,9 +15,9 @@ public class GlobalExceptionHandler {
         return ResponseEntity.badRequest().body(response);
     }
 
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<ResponseDTO> handleGenericException(Exception ex) {
-        ResponseDTO response = new ResponseDTO("Erro interno no servidor. Tente novamente mais tarde.", 500);
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
-    }
+//    @ExceptionHandler(Exception.class)
+//    public ResponseEntity<ResponseDTO> handleGenericException(Exception ex) {
+//        ResponseDTO response = new ResponseDTO("Erro interno no servidor. Tente novamente mais tarde.", 500);
+//        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+//    }
 }
