@@ -11,6 +11,7 @@ import {
 import colors from "../../../../../shared/theme/colors";
 import ImageUpload from "../../../../../shared/components/Upload/ImageUpload";
 import { CampaignService } from "../../../hooks/UseCampaingsService";
+import { CreateCampaignRequest } from "../../../../../data/model/campaign";
 import BackendResponseModal from "../../../../../shared/components/Modal/BackendResponseModal";
 
 interface CampaignCreateProps {
@@ -37,7 +38,7 @@ const CampaignCreate: React.FC<CampaignCreateProps> = ({ onClose }) => {
       return;
     }
 
-    const campaignData = {
+    const campaignData: CreateCampaignRequest = {
       name,
       description,
       address,
@@ -51,8 +52,17 @@ const CampaignCreate: React.FC<CampaignCreateProps> = ({ onClose }) => {
 
     try {
       const response = await CampaignService.createCampaign(campaignData);
-      setResponseMessage(response.message || "Campanha criada com sucesso!");
-      setIsSuccess(true);
+
+      if (response.statusCode === 200) {
+        setResponseMessage(response.message || "Campanha criada com sucesso!");
+        setIsSuccess(true);
+      } else {
+        setResponseMessage(
+          response.message || "Ocorreu um erro ao criar a campanha."
+        );
+        setIsSuccess(false);
+      }
+
       setModalOpen(true);
     } catch (error) {
       if (error instanceof Error) {
