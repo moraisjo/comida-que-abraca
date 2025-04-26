@@ -11,6 +11,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Repository
 public interface CampaignRepository extends JpaRepository<CampaignEntity, Integer> {
@@ -26,4 +27,9 @@ public interface CampaignRepository extends JpaRepository<CampaignEntity, Intege
     ORDER BY c.startDate DESC
 """)
     Page<CampaignDTO> findActiveCampaignsWithFilters(@Param("data") CampaignDTO data, Pageable pageable);
+
+    List<CampaignEntity> findByStatus(CampaignStatus status);
+
+    @Query(value = "SELECT * FROM comidaqueabraca.db_campaign  WHERE status = :status ORDER BY startDate DESC", nativeQuery = true)
+    List<CampaignEntity> findByStatusOrderByStartDateDesc(CampaignStatus status);
 }

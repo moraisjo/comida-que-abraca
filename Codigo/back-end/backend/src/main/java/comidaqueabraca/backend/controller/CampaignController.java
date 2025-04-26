@@ -16,6 +16,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
+
 
 @Slf4j
 @RestController
@@ -34,20 +36,7 @@ public class CampaignController {
     }
 
     @GetMapping("/active-campaigns")
-    public ResponseEntity<Page<CampaignDTO>> getActiveCampaigns(
-            @RequestBody @Valid CampaignDTO data,
-            @PageableDefault(size = 15, direction = Sort.Direction.DESC) Pageable pageable) {
-        try {
-            Page<CampaignDTO> campaigns = this.campaignService.getActiveCampaigns(data, pageable);
-            return ResponseEntity.ok(campaigns);
-        } catch (Exception e) {
-            log.error("[GET /campaign/active-campaigns] OH, NO! Failed to retrieve active campaigns. Filters: {}. Error: {}",
-                    data, e.getMessage(), e);
-            throw new ResponseStatusException(
-                    HttpStatus.INTERNAL_SERVER_ERROR,
-                    "OH, NO! Failed to retrieve active campaigns. Contact dev team for more information.",
-                    e
-            );
-        }
+    public List<CampaignEntity> getActiveCampaigns() {
+        return campaignService.getActiveCampaigns();
     }
 }
