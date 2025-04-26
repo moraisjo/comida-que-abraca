@@ -21,6 +21,9 @@ public class DonationEntity {
     @Column(name = "name", nullable = false)
     private String name;
 
+    @Column(name = "request_date", nullable = false)
+    private LocalDateTime requestDate;
+
     @Column(name = "arriving_date")
     private LocalDateTime arrivingDate;
 
