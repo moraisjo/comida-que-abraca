@@ -110,3 +110,5 @@ CREATE TABLE db_report (
     data_inicio TIMESTAMP NOT NULL,
     data_fim TIMESTAMP NOT NULL
 );
+
+ALTER TABLE db_user ADD COLUMN user_type VARCHAR(50);

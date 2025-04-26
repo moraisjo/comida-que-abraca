@@ -9,6 +9,7 @@ import lombok.Setter;
 
 @Entity
 @Table(name = "db_partner")
+@DiscriminatorValue("PARTNER")
 @Getter
 @Setter
 @NoArgsConstructor

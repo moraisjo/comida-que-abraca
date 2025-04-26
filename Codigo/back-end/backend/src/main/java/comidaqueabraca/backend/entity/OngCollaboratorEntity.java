@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "db_ong_collaborator")
 @Getter
+@DiscriminatorValue("COLLABORATOR")
 @Setter
 @NoArgsConstructor
 public class OngCollaboratorEntity extends UserEntity {
