@@ -22,7 +22,7 @@ public class OngCollaboratorEntity extends UserEntity {
     @Column(name = "admission_date", nullable = false, updatable = false)
     private LocalDateTime admissionDate = LocalDateTime.now();
 
-    public OngCollaboratorEntity(String name, String email, String password, String phone, AddressEntity address, CollaboratorRole role) {
+    public OngCollaboratorEntity(String name, String email, String password, String phone, String address, CollaboratorRole role) {
         super(name, email, password, phone, address); // Chama o construtor da superclasse com os parâmetros
         this.role = role;
     }

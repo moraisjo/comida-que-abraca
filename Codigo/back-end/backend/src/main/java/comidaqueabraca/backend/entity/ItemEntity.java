@@ -25,8 +25,8 @@ public class ItemEntity extends DonationEntity {
     @Column(name = "category", nullable = false)
     private CategoryItem category;
 
-    public ItemEntity(String name, LocalDateTime arrivingDate, DeliveryType delivery, DonationStatus status, PartnerEntity donor, PartnerEntity beneficiary, CampaignEntity campaign, int quantity, CategoryItem category) {
-        super(name, arrivingDate, delivery, status, donor, beneficiary, campaign);
+    public ItemEntity(String name, LocalDateTime arrivingDate, LocalDateTime stockEntryDate, LocalDateTime stockExitDate, DeliveryType delivery, DonationStatus status, String photoUrl, PartnerEntity donor, PartnerEntity beneficiary, CampaignEntity campaign, int quantity, CategoryItem category) {
+        super(name, arrivingDate, stockEntryDate, stockExitDate, delivery, status, photoUrl, donor, beneficiary, campaign);
         this.quantity = quantity;
         this.category = category;
     }

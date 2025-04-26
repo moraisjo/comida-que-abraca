@@ -26,8 +26,8 @@ public class MoneyEntity extends DonationEntity {
     @Column(name = "category", nullable = false)
     private CategoryTransaction category;
 
-    public MoneyEntity(String name, LocalDateTime arrivingDate, DeliveryType delivery, DonationStatus status, PartnerEntity donor, PartnerEntity beneficiary, CampaignEntity campaign, float value, CategoryTransaction category) {
-        super(name, arrivingDate, delivery, status, donor, beneficiary, campaign); // Chama o construtor da superclasse DonationEntity
+    public MoneyEntity(String name, LocalDateTime arrivingDate, LocalDateTime stockEntryDate, LocalDateTime stockExitDate, DeliveryType delivery, DonationStatus status, String photoUrl, PartnerEntity donor, PartnerEntity beneficiary, CampaignEntity campaign, float value, CategoryTransaction category) {
+        super(name, arrivingDate, stockEntryDate, stockEntryDate, delivery, status, photoUrl, donor, beneficiary, campaign); // Chama o construtor da superclasse DonationEntity
         this.value = value;
         this.category = category;
     }
