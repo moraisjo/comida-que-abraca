@@ -18,7 +18,6 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 public class FoodEntity extends DonationEntity {
-
     @Column(name = "isPerishable", nullable = false)
     private boolean isPerishable;
 
@@ -36,8 +35,8 @@ public class FoodEntity extends DonationEntity {
     @Column(name = "category", nullable = false)
     private CategoryFood category;
 
-    public FoodEntity(String name, LocalDateTime arrivingDate, DeliveryType delivery, DonationStatus status, PartnerEntity donor, PartnerEntity beneficiary, CampaignEntity campaign, boolean isPerishable, LocalDateTime expirationDate, float quantity, Unitmeasurement unit, CategoryFood category) {
-        super(name, arrivingDate, delivery, status, donor, beneficiary, campaign);
+    public FoodEntity(String name, LocalDateTime arrivingDate, LocalDateTime stockEntryDate, LocalDateTime stockExitDate, DeliveryType delivery, DonationStatus status, String photoUrl, PartnerEntity donor, PartnerEntity beneficiary, CampaignEntity campaign, boolean isPerishable, LocalDateTime expirationDate, float quantity, Unitmeasurement unit, CategoryFood category) {
+        super(name, arrivingDate, stockEntryDate, stockExitDate, delivery, status, photoUrl, donor, beneficiary, campaign);
         this.isPerishable = isPerishable;
         this.expirationDate = expirationDate;
         this.quantity = quantity;

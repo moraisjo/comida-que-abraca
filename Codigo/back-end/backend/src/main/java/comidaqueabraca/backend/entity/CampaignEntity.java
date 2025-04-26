@@ -34,7 +34,7 @@ public class CampaignEntity {
     @Column(name = "end_date", nullable = false)
     private LocalDate endDate;
 
-    @Column(name = "photo_url")
+    @Column(name = "photo_url", nullable = false)
     private String photoUrl;
 
     @Enumerated(EnumType.STRING)

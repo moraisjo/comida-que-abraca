@@ -21,26 +21,25 @@ public abstract class UserEntity {
     private Integer id;
 
     @NotBlank
-    @Column(name = "name")
+    @Column(name = "name", nullable = false)
     private String name;
 
     @Email
     @NotBlank
-    @Column(name = "email", unique = true)
+    @Column(name = "email", nullable = false, unique = true)
     private String email;
 
     @NotBlank
-    @Column(name = "password")
+    @Column(name = "password", nullable = false)
     private String password;
 
     @Column(name = "phone")
     private String phone;
 
-    @ManyToOne
-    @JoinColumn(name = "address_id", referencedColumnName = "id")
-    private AddressEntity address;
+    @Column(name = "address")
+    private String address;
 
-    public UserEntity(String name, String email, String password, String phone, AddressEntity address) {
+    public UserEntity(String name, String email, String password, String phone, String address) {
         this.name = name;
         this.email = email;
         this.password = password;
