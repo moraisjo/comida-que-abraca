@@ -35,9 +35,10 @@ public class DonationService {
                 .map(donation -> new PendingDonationDTO(
                         donation.getId(),
                         donation.getName(),
-                        donation.getArrivingDate(),
+                        donation.getRequestDate(),
                         donation.getDelivery().name(),
                         donation.getStatus().name(),
+                        donation.getPhotoUrl(),
                         donation.getDonor().getName(),
                         donation.getCampaign() != null ? donation.getCampaign().getName() : null
                 ))
