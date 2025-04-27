@@ -1,5 +1,3 @@
-// src/data/repository/donation.ts
-
 import axios from "axios";
 import { DonationResponse, PendingDonationResponse } from "../model/donation";
 

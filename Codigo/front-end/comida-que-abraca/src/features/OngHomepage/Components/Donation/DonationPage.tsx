@@ -1,8 +1,8 @@
 import React, { useState } from "react";
+import { useTheme } from "@mui/material/styles";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
-import colors from "../../../../shared/theme/colors";
 
 import HeaderMenu from "../../../../shared/components/HeaderMenu";
 import PendingDonations from "../Donation/DonationTabs/DonationPending/PendingDonations";
@@ -19,6 +19,7 @@ function getTabAccessibilityProps(index: number) {
 
 const DonationPage: React.FC = () => {
   const [value, setValue] = useState(0);
+  const theme = useTheme();
 
   const handleChange = (_event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
@@ -31,7 +32,7 @@ const DonationPage: React.FC = () => {
         <Box
           sx={{
             borderBottom: 1,
-            borderColor: colors.secondary,
+            borderColor: theme.palette.secondary.main,
             display: "flex",
             justifyContent: "center",
           }}
@@ -42,7 +43,7 @@ const DonationPage: React.FC = () => {
             aria-label="tabs de doações"
             sx={{
               "& .MuiTabs-indicator": {
-                backgroundColor: colors.SecondaryColor,
+                backgroundColor: theme.palette.secondary.main,
               },
             }}
           >
@@ -52,7 +53,7 @@ const DonationPage: React.FC = () => {
               sx={{
                 textTransform: "none",
                 fontWeight: "bold",
-                "&.Mui-selected": { color: colors.SecondaryColor },
+                "&.Mui-selected": { color: theme.palette.secondary.main },
               }}
             />
             <Tab
@@ -61,16 +62,16 @@ const DonationPage: React.FC = () => {
               sx={{
                 textTransform: "none",
                 fontWeight: "bold",
-                "&.Mui-selected": { color: colors.SecondaryColor },
+                "&.Mui-selected": { color: theme.palette.secondary.main },
               }}
             />
             <Tab
-              label="Doações Aceitas"
-              {...getTabAccessibilityProps(1)}
+              label="Doações Estoque"
+              {...getTabAccessibilityProps(2)}
               sx={{
                 textTransform: "none",
                 fontWeight: "bold",
-                "&.Mui-selected": { color: colors.SecondaryColor },
+                "&.Mui-selected": { color: theme.palette.secondary.main },
               }}
             />
           </Tabs>

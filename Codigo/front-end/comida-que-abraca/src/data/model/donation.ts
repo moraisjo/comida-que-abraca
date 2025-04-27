@@ -15,9 +15,10 @@ interface DonationResponse {
 interface PendingDonationResponse {
     id: number;
     name: string;
-    arrivingDate: string;
+    requestDate: string;
     delivery: string;
     status: string;
+    photoUrl: string;
     donorName: string;
     campaignName?: string;
   }

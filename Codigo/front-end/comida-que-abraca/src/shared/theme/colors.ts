@@ -1,6 +1,6 @@
 const colors = {
-  primary: '#65558F',
-  secondary: '#CCC2DC',
+  primary: '#F46A02',
+  secondary: '#FFB03A',
   background: '#F4F4F4',
   darkGray: '#49454F',
   regularGray: '#797979',
@@ -15,10 +15,6 @@ const colors = {
   lightGray: '#D3CCE3', 
 
   Secondary15percent: '#FFB03A26',
-  PrimaryColor: '#F46A02',
-  SecondaryColor: '#FFB03A',
-  Green: '#59AB1B',
-  Red: '#B3261E'
 };
 
 export default colors;

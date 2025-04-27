@@ -6,13 +6,15 @@ import {
   CardContent,
   Button,
   Stack,
+  CardMedia,
+  useTheme, // Hook para acessar o tema
 } from "@mui/material";
-import colors from "../../../../../../shared/theme/colors";
 import { PendingDonationResponse } from "../../../../../../data/model/donation";
 import { UseDonationService } from "../../../../hooks/UseDonationService";
 
 const PendingDonations: React.FC = () => {
   const [donations, setDonations] = useState<PendingDonationResponse[]>([]);
+  const theme = useTheme();
 
   useEffect(() => {
     UseDonationService.getPendingDonations().then((data) => {
@@ -28,80 +30,114 @@ const PendingDonations: React.FC = () => {
     console.log("Rejeitar doação:", id);
   };
 
-  const handleTransfer = (id: number) => {
-    console.log("Transferir doação:", id);
-  };
-
   return (
-    <Box padding={2} sx={{ backgroundColor: colors.white }}>
-      <Typography variant="h6" gutterBottom color={colors.PrimaryColor}>
+    <Box padding={2}>
+      <Typography variant="h6" gutterBottom color={theme.palette.primary.main}>
         Doações Disponíveis
       </Typography>
 
       {donations.length === 0 ? (
         <Typography color="textSecondary">Nenhuma doação pendente.</Typography>
       ) : (
-        donations.map((donation) => (
-          <Card
-            key={donation.id}
-            variant="outlined"
-            sx={{ mb: 2, borderColor: colors.lilac }}
-          >
-            <CardContent>
-              <Box
-                display="flex"
-                justifyContent="space-between"
-                alignItems="flex-start"
+        <Box
+          display="grid"
+          gridTemplateColumns="repeat(auto-fit, minmax(300px, 1fr))"
+          gap={2}
+        >
+          {donations.map((donation) => (
+            <Card
+              key={donation.id}
+              variant="outlined"
+              sx={{
+                borderRadius: "16px",
+                overflow: "hidden",
+              }}
+            >
+              {donation.photoUrl && (
+                <CardMedia
+                  component="img"
+                  image={donation.photoUrl}
+                  alt="Imagem da doação"
+                  sx={{
+                    width: "100%",
+                    height: 200,
+                    objectFit: "cover",
+                  }}
+                />
+              )}
+
+              {/* Conteúdo do Card */}
+              <CardContent sx={{ textAlign: "center", padding: "16px" }}>
+                <Typography
+                  variant="h6"
+                  sx={{ color: theme.palette.primary.main }}
+                >
+                  {donation.name}
+                </Typography>
+                <Typography
+                  variant="body2"
+                  color="textSecondary"
+                  sx={{ marginBottom: "8px" }}
+                >
+                  {new Date(donation.requestDate).toLocaleDateString("pt-BR", {
+                    day: "2-digit",
+                    month: "long",
+                    year: "numeric",
+                  })}
+                </Typography>
+              </CardContent>
+
+              <Stack
+                direction="column"
+                spacing={2}
+                justifyContent="center"
+                sx={{
+                  padding: "16px",
+                  width: "100%",
+                }}
               >
-                <Box display="flex" flexDirection="column" gap={1}>
-                  <Typography>
-                    <strong>Nome da Doação:</strong> {donation.name}
-                  </Typography>
-                  <Typography>
-                    <strong>Doador:</strong> {donation.donorName}
-                  </Typography>
-                  {donation.campaignName && (
-                    <Typography>
-                      <strong>Campanha:</strong> {donation.campaignName}
-                    </Typography>
-                  )}
-                  <Typography>
-                    <strong>Entrega:</strong> {donation.delivery}
-                  </Typography>
-                  <Typography>
-                    <strong>Data de Chegada:</strong>{" "}
-                    {new Date(donation.arrivingDate).toLocaleDateString()}
-                  </Typography>
-                </Box>
-
-                <Stack direction="column" spacing={2} ml={2}>
-                  <Button
-                    variant="contained"
-                    onClick={() => handleAccept(donation.id)}
-                    sx={{ backgroundColor: colors.ok, color: colors.white }}
-                  >
-                    Aceitar
-                  </Button>
-
-                  <Button
-                    variant="contained"
-                    onClick={() => handleTransfer(donation.id)}
-                    sx={{ backgroundColor: colors.purple, color: colors.white }}
-                  >
-                    Transferir
-                  </Button>
-                  <Button
-                    variant="contained"
-                    onClick={() => handleReject(donation.id)}
-                    sx={{ backgroundColor: colors.Red, color: colors.white }}
-                  >
-                    Rejeitar
-                  </Button>
-                </Stack>
-              </Box>
-            </CardContent>
-          </Card>
-        ))
+                <Button
+                  variant="outlined"
+                  onClick={() => handleAccept(donation.id)}
+                  sx={{
+                    color: theme.palette.success.main,
+                    borderColor: theme.palette.success.main,
+                    width: "100%",
+                    height: "40px",
+                    fontSize: "16px",
+                    borderRadius: "100px",
+                    textTransform: "none",
+                    "&:hover": {
+                      borderColor: theme.palette.success.main,
+                      backgroundColor: "transparent",
+                    },
+                  }}
+                >
+                  Aceitar
+                </Button>
+                <Button
+                  variant="outlined"
+                  onClick={() => handleReject(donation.id)}
+                  sx={{
+                    color: theme.palette.error.main,
+                    borderColor: theme.palette.error.main,
+                    width: "100%",
+                    height: "40px",
+                    fontSize: "16px",
+                    borderRadius: "100px",
+                    textTransform: "none",
+                    "&:hover": {
+                      borderColor: theme.palette.error.main,
+                      backgroundColor: "transparent",
+                    },
+                  }}
+                >
+                  Rejeitar
+                </Button>
+              </Stack>
+            </Card>
+          ))}
+        </Box>
       )}
     </Box>
   );
