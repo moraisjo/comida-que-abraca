@@ -7,6 +7,7 @@ import colors from "../../../../shared/theme/colors";
 import HeaderMenu from "../../../../shared/components/HeaderMenu";
 import PendingDonations from "../Donation/DonationTabs/DonationPending/PendingDonations";
 import DonationsAccepted from "../Donation/DonationTabs/DonationAccepted/DonationsAccepted";
+import DonationPendingDelivery from "../Donation/DonationTabs/DonationsPendingDelivery/DonationPendingDelivery";
 import CustomTabPanel from "../../../../shared/components/CustomTabPanel/CustomTabPanel";
 
 function getTabAccessibilityProps(index: number) {
@@ -40,16 +41,27 @@ const DonationPage: React.FC = () => {
             onChange={handleChange}
             aria-label="tabs de doações"
             sx={{
-              "& .MuiTabs-indicator": { backgroundColor: colors.secondary },
+              "& .MuiTabs-indicator": {
+                backgroundColor: colors.SecondaryColor,
+              },
             }}
           >
             <Tab
-              label="Doações Pendentes"
+              label="Solicitações Pendentes"
               {...getTabAccessibilityProps(0)}
               sx={{
                 textTransform: "none",
                 fontWeight: "bold",
-                "&.Mui-selected": { color: colors.secondary },
+                "&.Mui-selected": { color: colors.SecondaryColor },
+              }}
+            />
+            <Tab
+              label="Doações Pendentes Entrega"
+              {...getTabAccessibilityProps(1)}
+              sx={{
+                textTransform: "none",
+                fontWeight: "bold",
+                "&.Mui-selected": { color: colors.SecondaryColor },
               }}
             />
             <Tab
@@ -58,7 +70,7 @@ const DonationPage: React.FC = () => {
               sx={{
                 textTransform: "none",
                 fontWeight: "bold",
-                "&.Mui-selected": { color: colors.secondary },
+                "&.Mui-selected": { color: colors.SecondaryColor },
               }}
             />
           </Tabs>
@@ -69,6 +81,10 @@ const DonationPage: React.FC = () => {
         </CustomTabPanel>
 
         <CustomTabPanel value={value} index={1}>
+          <DonationPendingDelivery />
+        </CustomTabPanel>
+
+        <CustomTabPanel value={value} index={2}>
           <DonationsAccepted />
         </CustomTabPanel>
       </Box>

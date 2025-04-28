@@ -8,6 +8,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class CampaignService {
 
@@ -32,5 +34,6 @@ public class CampaignService {
 
     public Page<CampaignDTO> getActiveCampaigns(Pageable pageable) {
         return campaignRepository.findAllActiveCampaigns(pageable);
+
     }
 }

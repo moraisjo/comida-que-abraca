@@ -9,6 +9,7 @@ import lombok.Setter;
 
 @Entity
 @Table(name = "db_partner")
+@DiscriminatorValue("PARTNER")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -28,7 +29,7 @@ public class PartnerEntity extends UserEntity {
     @Column(name = "legal_entity_type", nullable = false)
     private LegalEntityType legalEntityType;
 
-    public PartnerEntity(String name, String email, String password, String phone,AddressEntity address, Boolean wantsToDonate, Boolean wantsToReceiveDonations, LegalEntityType legalEntityType) {
+    public PartnerEntity(String name, String email, String password, String phone,String address, Boolean wantsToDonate, Boolean wantsToReceiveDonations, LegalEntityType legalEntityType) {
         super(name, email, password, phone, address); // Não precisa passar ID, pois o banco gera automaticamente
         this.wantsToDonate = wantsToDonate;
         this.wantsToReceiveDonations = wantsToReceiveDonations;
