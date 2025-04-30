@@ -214,7 +214,7 @@ const DonationPendingDelivery: React.FC = () => {
             }}
           >
             <Button
-              onClick={() => handleConfirm("DELIVERED")}
+              onClick={() => handleConfirm("STOCK")}
               sx={{
                 backgroundColor: theme.palette.primary.main,
                 color: "#fff",
