@@ -149,16 +149,21 @@ const CampaignCreate: React.FC<CampaignCreateProps> = ({ onClose }) => {
           }}
         >
           <Button
-            variant="contained"
+            variant="outlined"
+            onClick={onClose}
             sx={{
-              backgroundColor: colors.purple,
-              color: colors.white,
+              borderColor: colors.primary,
+              color: colors.primary,
               fontSize: "12px",
               textTransform: "none",
               width: "50%",
               height: "45px",
+              backgroundColor: "transparent",
+              "&:hover": {
+                backgroundColor: "transparent",
+                borderColor: colors.primary,
+              },
             }}
-            onClick={onClose}
           >
             Cancelar
           </Button>
