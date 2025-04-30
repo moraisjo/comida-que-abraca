@@ -4,9 +4,8 @@ import HeaderMenu from "../../../../shared/components/HeaderMenu";
 import CampaignCreate from "../../Components/Campaing/AddNewCampaing/CampaignCreate";
 import CampaignList from "../../Components/Campaing/ListCampaing/CampaignList";
 
-
 const CampaignPage: React.FC = () => {
-  const [isModalOpen, setModalOpen] = useState(false); // Controla se o modal está aberto
+  const [isModalOpen, setModalOpen] = useState(false);
 
   const handleOpenModal = () => setModalOpen(true);
   const handleCloseModal = () => setModalOpen(false);

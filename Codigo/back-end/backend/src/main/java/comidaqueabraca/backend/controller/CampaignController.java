@@ -1,6 +1,7 @@
 package comidaqueabraca.backend.controller;
 
 import comidaqueabraca.backend.dto.CampaignDTO;
+import comidaqueabraca.backend.entity.CampaignEntity;
 import comidaqueabraca.backend.service.CampaignService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,18 +29,8 @@ public class CampaignController {
     }
 
     @GetMapping("/active-campaigns")
-    public ResponseEntity<Page<CampaignDTO>> getActiveCampaigns(
-            @PageableDefault(size = 15, sort = "startDate", direction = Sort.Direction.DESC) Pageable pageable) {
-        try {
-            Page<CampaignDTO> campaigns = campaignService.getActiveCampaigns(pageable);
-            return ResponseEntity.ok(campaigns);
-        } catch (Exception e) {
-            log.error("[GET /campaign/active-campaigns] Erro ao buscar campanhas: {}", e.getMessage(), e);
-            throw new ResponseStatusException(
-                    org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR,
-                    "Erro ao buscar campanhas disponíveis. Tente novamente mais tarde.",
-                    e
-            );
-        }
+    public ResponseEntity<Page<CampaignEntity>> getActiveCampaigns(Pageable pageable) {
+        Page<CampaignEntity> campaigns = campaignService.getActiveCampaigns(pageable);
+        return ResponseEntity.ok(campaigns);
     }
 }

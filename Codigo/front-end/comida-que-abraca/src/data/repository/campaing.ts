@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Campaign, CreateCampaignRequest } from "../model/campaign";
+import { Campaign, CreateCampaignRequest, PaginatedResponse} from "../model/campaign";
 import { Response } from "../model/response";
 
 const API_URL = "http://localhost:8080/campaign";
@@ -10,19 +10,15 @@ class CampaignRepository {
     return response.data;
   }
 
-  async getActiveCampaigns(): Promise<Campaign[]> {
+  async getActiveCampaigns(): Promise<PaginatedResponse<Campaign>> {
     try {
-      const response = await axios.get<Campaign[]>(`${API_URL}/active-campaigns`);
-      if (Array.isArray(response.data)) {
-        return response.data;
-      } else {
-        throw new Error("Erro ao realizar conexao com a api");
-      }
+      const response = await axios.get<PaginatedResponse<Campaign>>(`${API_URL}/active-campaigns`);
+      return response.data;
     } catch (error) {
       console.error("Erro ao buscar campanhas ativas:", error);
       throw error;
     }
-  }
+  }  
 }
 
 export const campaignRepository = new CampaignRepository();
