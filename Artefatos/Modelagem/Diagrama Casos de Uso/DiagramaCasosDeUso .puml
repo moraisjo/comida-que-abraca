@@ -1,0 +1,52 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+skinparam actorStyle awesome
+
+actor "Usuário" as USUARIO
+actor "ONG" as ONG
+actor "Parceiro" as PARCEIRO
+
+USUARIO <|-- ONG
+USUARIO <|-- PARCEIRO
+
+package "Sistema de Doações - Comida que Abraça" {
+
+  usecase "RF001 - Cadastro" as UC1
+  usecase "RF002 - Login" as UC2
+
+  usecase "RF003 - Visualizar ranking de doadores" as UC3
+  usecase "RF004 - Cadastrar campanhas" as UC4
+  usecase "RF005 - Visualizar campanhas (ONG)" as UC5
+  usecase "RF006 - Visualizar tabela de doações" as UC6
+  usecase "RF012 - Gerenciar entrada de doações" as UC12
+  usecase "RF013 - Gerenciar saída de doações" as UC13
+  usecase "RF015 - Gerar relatórios" as UC15
+
+  usecase "RF007 - Visualizar campanhas (Parceiro)" as UC7
+  usecase "RF008 - Enviar formulário de doação" as UC8
+  usecase "RF009 - Enviar solicitação de doação" as UC9
+  usecase "RF010 - Acompanhar doações registradas" as UC10
+  usecase "RF011 - Acompanhar solicitações registradas" as UC11
+  usecase "RF014 - Receber notificações" as UC14
+}
+
+USUARIO --> UC1
+USUARIO --> UC2
+
+ONG --> UC3
+ONG --> UC4
+ONG --> UC5
+ONG --> UC6
+ONG --> UC12
+ONG --> UC13
+ONG --> UC15
+
+PARCEIRO --> UC7
+PARCEIRO --> UC8
+PARCEIRO --> UC9
+PARCEIRO --> UC10
+PARCEIRO --> UC11
+PARCEIRO --> UC14
+
+@enduml
