@@ -11,7 +11,4 @@ import java.util.List;
 @Repository
 public interface DonationRepository extends JpaRepository<DonationEntity, Long>{
     List<DonationEntity> findByStatus(DonationStatus status);
-
-    @Query(value = "SELECT d FROM comidaqueabraca.db_donation d WHERE d.status = :status ORDER BY d.request_date DESC", nativeQuery = true)
-    List<DonationEntity> findDonationsByStatusOrdered(@Param("status") DonationStatus status);
 }

@@ -7,7 +7,7 @@ import {
   Button,
   Stack,
   CardMedia,
-  useTheme, // Hook para acessar o tema
+  useTheme,
 } from "@mui/material";
 import { PendingDonationResponse } from "../../../../../../data/model/donation";
 import BackendResponseModal from "../../../../../../shared/components/Modal/BackendResponseModal";

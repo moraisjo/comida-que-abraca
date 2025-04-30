@@ -6,7 +6,7 @@ import Box from "@mui/material/Box";
 
 import HeaderMenu from "../../../../shared/components/HeaderMenu";
 import PendingDonations from "../Donation/DonationTabs/DonationPending/PendingDonations";
-import DonationsAccepted from "../Donation/DonationTabs/DonationAccepted/DonationsAccepted";
+import DonationsAccepted from "./DonationTabs/DonationStock/DonationStock";
 import DonationPendingDelivery from "../Donation/DonationTabs/DonationsPendingDelivery/DonationPendingDelivery";
 import CustomTabPanel from "../../../../shared/components/CustomTabPanel/CustomTabPanel";
 

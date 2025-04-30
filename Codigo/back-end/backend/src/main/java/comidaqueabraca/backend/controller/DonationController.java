@@ -69,6 +69,17 @@ public class DonationController {
         return ResponseEntity.ok(result);
     }
 
+    @Operation(summary = "Lista todas as doações pendentes de entrega")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Lista de doações pendentes de entrega retornada com sucesso"),
+            @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
+    })
+    @GetMapping("/pending-deliveries")
+    public ResponseEntity<List<PendingDonationDTO>> listPendingDeliveries() {
+        List<PendingDonationDTO> result = donationService.pendingDeliveries();
+        return ResponseEntity.ok(result);
+    }
+
     @Operation(summary = "Aceita ou rejeita uma solicitação de doação")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Doação atualizada com sucesso"),
@@ -87,6 +98,32 @@ public class DonationController {
                     ? "Doação aceita com sucesso!"
                     : "Doação rejeitada com sucesso!";
 
+            ResponseDTO response = new ResponseDTO(message, 200);
+            return ResponseEntity.status(200).body(response);
+
+        } catch (RuntimeException e) {
+            ResponseDTO response = new ResponseDTO(e.getMessage(), 404);
+            return ResponseEntity.status(404).body(response);
+
+        } catch (Exception e) {
+            ResponseDTO response = new ResponseDTO("Erro interno no servidor: " + e.getMessage(), 500);
+            return ResponseEntity.status(500).body(response);
+        }
+    }
+
+    @Operation(summary = "Registra uma entrada de doação no estoque")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Doação atualizada com sucesso"),
+            @ApiResponse(responseCode = "404", description = "Doação não encontrada"),
+            @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
+    })
+    @PutMapping("/update-stock/{donationId}")
+    public ResponseEntity<ResponseDTO> updateDonationStock(
+            @PathVariable Long donationId) {
+        try {
+            donationService.updateDonationStock(donationId, DonationStatus.STOCK);
+
+            String message = "Doação registrada no estoque com sucesso!";
             ResponseDTO response = new ResponseDTO(message, 200);
             return ResponseEntity.status(200).body(response);
 

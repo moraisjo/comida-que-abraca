@@ -8,6 +8,7 @@ public enum DonationStatus {
     ACCEPTED("Aceita"),
     REJECTED("Rejeitada"),
     PENDING_DELIVERY("Pendente de Entrega"),
+    CANCELED_DELIVERY ("Entrega Cancelada"),
     STOCK("Estoque"),
     DONATED("Doado");
 

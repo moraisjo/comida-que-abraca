@@ -23,4 +23,15 @@ interface PendingDonationResponse {
     campaignName?: string;
   }
 
-export type { DonationResponse, PendingDonationResponse  }
+  interface DonationDeliveryPendingResponse {
+    id: number;
+    name: string;
+    requestDate: string;
+    delivery: string;
+    status: string;
+    photoUrl: string;
+    donorName: string;
+    campaignName?: string;
+}
+  
+export type { DonationResponse, PendingDonationResponse, DonationDeliveryPendingResponse  }

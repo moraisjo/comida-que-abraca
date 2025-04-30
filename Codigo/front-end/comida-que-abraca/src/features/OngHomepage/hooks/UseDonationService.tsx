@@ -12,6 +12,14 @@ export const UseDonationService = {
     }
   },
 
+  getPendingDelivery: async () => {
+    try {
+      return await DonationRepository.getPendingDelivery();
+    } catch (error) {
+      throw new Error("Erro ao buscar doações pendentes de entrega.");
+    }
+  },
+
   updateDonationStatus: async (
     donationId: number,
     status: string

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { DonationResponse, PendingDonationResponse } from "../model/donation";
+import { DonationResponse, PendingDonationResponse, DonationDeliveryPendingResponse } from "../model/donation";
 import { Response } from "../model/response";
 
 class DonationRepository {
@@ -25,6 +25,18 @@ class DonationRepository {
       return response.data;
     } catch (error) {
       console.error("Erro ao buscar doações pendentes:", error);
+      return [];
+    }
+  }
+
+  async getPendingDelivery(): Promise<DonationDeliveryPendingResponse[]> {
+    try {
+      const response = await axios.get<DonationDeliveryPendingResponse[]>(
+        "http://localhost:8080/api/donation/pending-deliveries"
+      );
+      return response.data;
+    } catch (error) {
+      console.error("Erro ao buscar doações pendentes de entrega:", error);
       return [];
     }
   }
