@@ -32,8 +32,7 @@ public class CampaignService {
         return campaignRepository.save(campaign);
     }
 
-    public Page<CampaignDTO> getActiveCampaigns(Pageable pageable) {
+    public Page<CampaignEntity> getActiveCampaigns(Pageable pageable) {
         return campaignRepository.findAllActiveCampaigns(pageable);
-
     }
 }

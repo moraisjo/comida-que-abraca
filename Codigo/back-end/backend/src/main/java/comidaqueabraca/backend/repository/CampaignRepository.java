@@ -17,16 +17,13 @@ import java.util.List;
 public interface CampaignRepository extends JpaRepository<CampaignEntity, Integer> {
 
     @Query("""
-        SELECT new comidaqueabraca.backend.dto.CampaignDTO(
-            c.name, c.description, c.address, c.startDate, c.endDate, c.photoUrl, c.status
-        )
-        FROM CampaignEntity c
-        WHERE c.status = 'ACTIVE'
-        ORDER BY c.startDate ASC
-    """)
-    Page<CampaignDTO> findAllActiveCampaigns(Pageable pageable);
-    
-        @Query(""" 
+    SELECT c FROM CampaignEntity c
+    WHERE c.status = 'ACTIVE'
+""")
+    Page<CampaignEntity> findAllActiveCampaigns(Pageable pageable);
+
+
+    @Query(""" 
     SELECT c FROM CampaignEntity c
     WHERE c.status = 'ACTIVE'
     AND (:name IS NULL OR LOWER(c.name) LIKE LOWER(CONCAT('%', :name, '%')))
