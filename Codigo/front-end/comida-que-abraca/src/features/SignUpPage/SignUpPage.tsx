@@ -23,7 +23,12 @@ const SignUpPage = () => {
     legalEntityType: "ONG",
   });
 
-  const legalEntityTypes = ["ONG", "COMPANY", "INDIVIDUAL", "GOVERNMENT"];
+  const legalEntityTypes = [
+    { label: "ONG", value: "ONG" },
+    { label: "Empresa", value: "COMPANY" },
+    { label: "Indivíduo", value: "INDIVIDUAL" },
+    { label: "Governo", value: "GOVERNMENT" },
+  ];
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -127,8 +132,8 @@ const SignUpPage = () => {
               onChange={handleChange}
             >
               {legalEntityTypes.map((type) => (
-                <MenuItem key={type} value={type}>
-                  {type}
+                <MenuItem key={type.value} value={type.value}>
+                  {type.label}
                 </MenuItem>
               ))}
             </Select>
