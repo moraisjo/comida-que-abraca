@@ -2,6 +2,8 @@ package comidaqueabraca.backend.controller;
 import java.util.List;
 
 import comidaqueabraca.backend.dto.PendingDonationDTO;
+import comidaqueabraca.backend.dto.response.ResponseDTO;
+import comidaqueabraca.backend.enums.DonationStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -16,7 +18,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/api/doacoes")
+@RequestMapping("/api/donation")
 @CrossOrigin(origins = "http://localhost:5173")
 @Tag(name = "Doações", description = "Gerenciamento de doações realizadas")
 public class DonationController {
@@ -65,5 +67,36 @@ public class DonationController {
     public ResponseEntity<List<PendingDonationDTO>> listPendingDonationsWithDetails() {
         List<PendingDonationDTO> result = donationService.pendingDonations();
         return ResponseEntity.ok(result);
+    }
+
+    @Operation(summary = "Aceita ou rejeita uma solicitação de doação")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Doação atualizada com sucesso"),
+            @ApiResponse(responseCode = "404", description = "Doação não encontrada"),
+            @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
+    })
+    @PutMapping("/update-status/{donationId}/{status}")
+    public ResponseEntity<ResponseDTO> updateDonationStatus(
+            @PathVariable Long donationId,
+            @PathVariable DonationStatus status) {
+
+        try {
+            donationService.updateDonationStatus(donationId, status);
+
+            String message = (status == DonationStatus.ACCEPTED)
+                    ? "Doação aceita com sucesso!"
+                    : "Doação rejeitada com sucesso!";
+
+            ResponseDTO response = new ResponseDTO(message, 200);
+            return ResponseEntity.status(200).body(response);
+
+        } catch (RuntimeException e) {
+            ResponseDTO response = new ResponseDTO(e.getMessage(), 404);
+            return ResponseEntity.status(404).body(response);
+
+        } catch (Exception e) {
+            ResponseDTO response = new ResponseDTO("Erro interno no servidor: " + e.getMessage(), 500);
+            return ResponseEntity.status(500).body(response);
+        }
     }
 }

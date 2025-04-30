@@ -1,5 +1,6 @@
 package comidaqueabraca.backend.service;
 import comidaqueabraca.backend.dto.PendingDonationDTO;
+import comidaqueabraca.backend.dto.response.ResponseDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -43,5 +44,14 @@ public class DonationService {
                         donation.getCampaign() != null ? donation.getCampaign().getName() : null
                 ))
                 .toList();
+    }
+
+    public void updateDonationStatus(Long donationId, DonationStatus status) {
+        DonationEntity donation = donationRepository.findById(donationId)
+                .orElseThrow(() -> new RuntimeException("Doação não encontrada"));
+
+        donation.setStatus(status);
+
+        donationRepository.save(donation);
     }
 }

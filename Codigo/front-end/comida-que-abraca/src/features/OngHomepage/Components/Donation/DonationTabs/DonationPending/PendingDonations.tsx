@@ -10,10 +10,14 @@ import {
   useTheme, // Hook para acessar o tema
 } from "@mui/material";
 import { PendingDonationResponse } from "../../../../../../data/model/donation";
+import BackendResponseModal from "../../../../../../shared/components/Modal/BackendResponseModal";
 import { UseDonationService } from "../../../../hooks/UseDonationService";
 
 const PendingDonations: React.FC = () => {
   const [donations, setDonations] = useState<PendingDonationResponse[]>([]);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [modalMessage, setModalMessage] = useState("");
+  const [modalIsSuccess, setModalIsSuccess] = useState(true);
   const theme = useTheme();
 
   useEffect(() => {
@@ -23,123 +27,166 @@ const PendingDonations: React.FC = () => {
   }, []);
 
   const handleAccept = (id: number) => {
-    console.log("Aceitar doação:", id);
+    UseDonationService.updateDonationStatus(id, "ACCEPTED")
+      .then((response) => {
+        setModalMessage(response.message);
+        setModalIsSuccess(true);
+        setModalOpen(true);
+        setDonations((prevDonations) =>
+          prevDonations.filter((donation) => donation.id !== id)
+        );
+      })
+      .catch((error) => {
+        setModalMessage("Erro ao aceitar a doação");
+        setModalIsSuccess(false);
+        setModalOpen(true);
+      });
   };
 
   const handleReject = (id: number) => {
-    console.log("Rejeitar doação:", id);
+    UseDonationService.updateDonationStatus(id, "REJECTED")
+      .then((response) => {
+        setModalMessage(response.message);
+        setModalIsSuccess(true);
+        setModalOpen(true);
+        setDonations((prevDonations) =>
+          prevDonations.filter((donation) => donation.id !== id)
+        );
+      })
+      .catch((error) => {
+        setModalMessage("Erro ao rejeitar a doação");
+        setModalIsSuccess(false);
+        setModalOpen(true);
+      });
   };
 
   return (
-    <Box padding={2}>
-      <Typography variant="h6" gutterBottom color={theme.palette.primary.main}>
-        Doações Disponíveis
-      </Typography>
-
-      {donations.length === 0 ? (
-        <Typography color="textSecondary">Nenhuma doação pendente.</Typography>
-      ) : (
-        <Box
-          display="grid"
-          gridTemplateColumns="repeat(auto-fit, minmax(300px, 1fr))"
-          gap={2}
+    <>
+      <Box padding={2}>
+        <Typography
+          variant="h6"
+          gutterBottom
+          color={theme.palette.primary.main}
         >
-          {donations.map((donation) => (
-            <Card
-              key={donation.id}
-              variant="outlined"
-              sx={{
-                borderRadius: "16px",
-                overflow: "hidden",
-              }}
-            >
-              {donation.photoUrl && (
-                <CardMedia
-                  component="img"
-                  image={donation.photoUrl}
-                  alt="Imagem da doação"
-                  sx={{
-                    width: "100%",
-                    height: 200,
-                    objectFit: "cover",
-                  }}
-                />
-              )}
+          Doações Disponíveis
+        </Typography>
 
-              {/* Conteúdo do Card */}
-              <CardContent sx={{ textAlign: "center", padding: "16px" }}>
-                <Typography
-                  variant="h6"
-                  sx={{ color: theme.palette.primary.main }}
-                >
-                  {donation.name}
-                </Typography>
-                <Typography
-                  variant="body2"
-                  color="textSecondary"
-                  sx={{ marginBottom: "8px" }}
-                >
-                  {new Date(donation.requestDate).toLocaleDateString("pt-BR", {
-                    day: "2-digit",
-                    month: "long",
-                    year: "numeric",
-                  })}
-                </Typography>
-              </CardContent>
-
-              <Stack
-                direction="column"
-                spacing={2}
-                justifyContent="center"
+        {donations.length === 0 ? (
+          <Typography color="textSecondary">
+            Nenhuma doação pendente.
+          </Typography>
+        ) : (
+          <Box
+            display="grid"
+            gridTemplateColumns="repeat(auto-fit, minmax(300px, 1fr))"
+            gap={2}
+          >
+            {donations.map((donation) => (
+              <Card
+                key={donation.id}
+                variant="outlined"
                 sx={{
-                  padding: "16px",
-                  width: "100%",
+                  borderRadius: "16px",
+                  overflow: "hidden",
                 }}
               >
-                <Button
-                  variant="outlined"
-                  onClick={() => handleAccept(donation.id)}
+                {donation.photoUrl && (
+                  <CardMedia
+                    component="img"
+                    image={donation.photoUrl}
+                    alt="Imagem da doação"
+                    sx={{
+                      width: "100%",
+                      height: 200,
+                      objectFit: "cover",
+                    }}
+                  />
+                )}
+
+                <CardContent sx={{ textAlign: "center", padding: "16px" }}>
+                  <Typography
+                    variant="h6"
+                    sx={{ color: theme.palette.primary.main }}
+                  >
+                    {donation.name}
+                  </Typography>
+                  <Typography
+                    variant="body2"
+                    color="textSecondary"
+                    sx={{ marginBottom: "8px" }}
+                  >
+                    {new Date(donation.requestDate).toLocaleDateString(
+                      "pt-BR",
+                      {
+                        day: "2-digit",
+                        month: "long",
+                        year: "numeric",
+                      }
+                    )}
+                  </Typography>
+                </CardContent>
+
+                <Stack
+                  direction="column"
+                  spacing={2}
+                  justifyContent="center"
                   sx={{
-                    color: theme.palette.success.main,
-                    borderColor: theme.palette.success.main,
+                    padding: "16px",
                     width: "100%",
-                    height: "40px",
-                    fontSize: "16px",
-                    borderRadius: "100px",
-                    textTransform: "none",
-                    "&:hover": {
+                  }}
+                >
+                  <Button
+                    variant="outlined"
+                    onClick={() => handleAccept(donation.id)}
+                    sx={{
+                      color: theme.palette.success.main,
                       borderColor: theme.palette.success.main,
-                      backgroundColor: "transparent",
-                    },
-                  }}
-                >
-                  Aceitar
-                </Button>
-                <Button
-                  variant="outlined"
-                  onClick={() => handleReject(donation.id)}
-                  sx={{
-                    color: theme.palette.error.main,
-                    borderColor: theme.palette.error.main,
-                    width: "100%",
-                    height: "40px",
-                    fontSize: "16px",
-                    borderRadius: "100px",
-                    textTransform: "none",
-                    "&:hover": {
+                      width: "100%",
+                      height: "40px",
+                      fontSize: "16px",
+                      borderRadius: "100px",
+                      textTransform: "none",
+                      "&:hover": {
+                        borderColor: theme.palette.success.main,
+                        backgroundColor: "transparent",
+                      },
+                    }}
+                  >
+                    Aceitar
+                  </Button>
+                  <Button
+                    variant="outlined"
+                    onClick={() => handleReject(donation.id)}
+                    sx={{
+                      color: theme.palette.error.main,
                       borderColor: theme.palette.error.main,
-                      backgroundColor: "transparent",
-                    },
-                  }}
-                >
-                  Rejeitar
-                </Button>
-              </Stack>
-            </Card>
-          ))}
-        </Box>
-      )}
-    </Box>
+                      width: "100%",
+                      height: "40px",
+                      fontSize: "16px",
+                      borderRadius: "100px",
+                      textTransform: "none",
+                      "&:hover": {
+                        borderColor: theme.palette.error.main,
+                        backgroundColor: "transparent",
+                      },
+                    }}
+                  >
+                    Rejeitar
+                  </Button>
+                </Stack>
+              </Card>
+            ))}
+          </Box>
+        )}
+      </Box>
+
+      <BackendResponseModal
+        open={modalOpen}
+        onClose={() => setModalOpen(false)}
+        message={modalMessage}
+        isSuccess={modalIsSuccess}
+      />
+    </>
   );
 };
 
