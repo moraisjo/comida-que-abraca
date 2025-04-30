@@ -29,12 +29,11 @@ public class CampaignService {
                 campaignDTO.photoUrl(),
                 campaignDTO.status() != null ? campaignDTO.status() : CampaignStatus.ACTIVE
         );
-
         return campaignRepository.save(campaign);
     }
 
+    public Page<CampaignDTO> getActiveCampaigns(Pageable pageable) {
+        return campaignRepository.findAllActiveCampaigns(pageable);
 
-    public List<CampaignEntity> getActiveCampaigns() {
-        return campaignRepository.findByStatus(CampaignStatus.ACTIVE);
     }
 }

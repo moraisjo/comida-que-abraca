@@ -1,23 +1,16 @@
 package comidaqueabraca.backend.controller;
 
 import comidaqueabraca.backend.dto.CampaignDTO;
-import comidaqueabraca.backend.dto.response.ResponseDTO;
-import comidaqueabraca.backend.entity.CampaignEntity;
 import comidaqueabraca.backend.service.CampaignService;
-import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
-
-import java.util.List;
-
 
 @Slf4j
 @RestController
@@ -29,14 +22,24 @@ public class CampaignController {
     private CampaignService campaignService;
 
     @PostMapping("/create-campaign")
-    public ResponseEntity<ResponseDTO> createCampaign(@Valid @RequestBody CampaignDTO campaignDTO) {
+    public ResponseEntity<String> createCampaign(@RequestBody CampaignDTO campaignDTO) {
         campaignService.createCampaign(campaignDTO);
-        ResponseDTO response = new ResponseDTO("Campanha criada com sucesso!", 201);
-        return ResponseEntity.status(201).body(response);
+        return ResponseEntity.status(201).body("Campanha criada com sucesso!");
     }
 
     @GetMapping("/active-campaigns")
-    public List<CampaignEntity> getActiveCampaigns() {
-        return campaignService.getActiveCampaigns();
+    public ResponseEntity<Page<CampaignDTO>> getActiveCampaigns(
+            @PageableDefault(size = 15, sort = "startDate", direction = Sort.Direction.DESC) Pageable pageable) {
+        try {
+            Page<CampaignDTO> campaigns = campaignService.getActiveCampaigns(pageable);
+            return ResponseEntity.ok(campaigns);
+        } catch (Exception e) {
+            log.error("[GET /campaign/active-campaigns] Erro ao buscar campanhas: {}", e.getMessage(), e);
+            throw new ResponseStatusException(
+                    org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR,
+                    "Erro ao buscar campanhas disponíveis. Tente novamente mais tarde.",
+                    e
+            );
+        }
     }
 }
