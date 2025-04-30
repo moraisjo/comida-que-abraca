@@ -55,6 +55,19 @@ class DonationRepository {
       throw error;
     }
   }
+
+  async updateDonationStatusStock(donationId: number,
+    status: string): Promise<Response> {
+      try {
+        const response = await axios.put<Response>(
+          `http://localhost:8080/api/donation/update-stock/${donationId}/${status}`
+        );
+        return response.data;
+      } catch (error) {
+        console.error("Erro ao atualizar status da doação:", error);
+        throw error;
+      }
+    }
 }
 
 export default new DonationRepository();

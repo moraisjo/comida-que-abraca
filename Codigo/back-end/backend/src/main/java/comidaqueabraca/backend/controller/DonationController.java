@@ -117,13 +117,14 @@ public class DonationController {
             @ApiResponse(responseCode = "404", description = "Doação não encontrada"),
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
     })
-    @PutMapping("/update-stock/{donationId}")
+    @PutMapping("/update-stock/{donationId}/{status}")
     public ResponseEntity<ResponseDTO> updateDonationStock(
-            @PathVariable Long donationId) {
+            @PathVariable Long donationId,
+            @PathVariable DonationStatus status) {
         try {
-            donationService.updateDonationStock(donationId, DonationStatus.STOCK);
+            donationService.updateDonationStock(donationId, status);
 
-            String message = "Doação registrada no estoque com sucesso!";
+            String message = "Status da doação atualizado com sucesso!";
             ResponseDTO response = new ResponseDTO(message, 200);
             return ResponseEntity.status(200).body(response);
 

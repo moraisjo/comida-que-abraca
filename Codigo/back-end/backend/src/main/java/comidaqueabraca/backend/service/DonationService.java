@@ -78,11 +78,13 @@ public class DonationService {
         DonationEntity donation = donationRepository.findById(donationId)
                 .orElseThrow(() -> new RuntimeException("Doação não encontrada"));
 
-        donation.setStatus(DonationStatus.STOCK);
-        donation.setArrivingDate(LocalDateTime.now());
-        donation.setStockEntryDate(LocalDateTime.now());
+        donation.setStatus(status);
+
+        if (status == DonationStatus.STOCK) {
+            donation.setArrivingDate(LocalDateTime.now());
+            donation.setStockEntryDate(LocalDateTime.now());
+        }
 
         donationRepository.save(donation);
     }
-
 }

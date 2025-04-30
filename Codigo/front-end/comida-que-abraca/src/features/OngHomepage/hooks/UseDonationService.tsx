@@ -1,7 +1,4 @@
-import axios from "axios";
-
 import DonationRepository from "../../../data/repository/donation";
-import { Response } from "../../../data/model/response";
 
 export const UseDonationService = {
   getPendingDonations: async () => {
@@ -20,18 +17,22 @@ export const UseDonationService = {
     }
   },
 
-  updateDonationStatus: async (
-    donationId: number,
-    status: string
-  ): Promise<Response> => {
+  updateDonationStatus: async (donationId: number, status: string) => {
     try {
-      const response = await axios.put(
-        `http://localhost:8080/api/donation/update-status/${donationId}/${status}`
-      );
-      return response.data;
+      return await DonationRepository.updateDonationStatus(donationId, status);
     } catch (error) {
-      console.error("Erro ao atualizar status da doação:", error);
       throw new Error("Erro ao atualizar o status da doação.");
+    }
+  },
+
+  updateDonationStatusStock: async (donationId: number, status: string) => {
+    try {
+      return await DonationRepository.updateDonationStatusStock(
+        donationId,
+        status
+      );
+    } catch (error) {
+      throw new Error("Erro ao atualizar o status da doação para o estoque.");
     }
   },
 };
