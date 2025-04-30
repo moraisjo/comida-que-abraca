@@ -76,18 +76,16 @@ const PendingDonations: React.FC = () => {
             Nenhuma doação pendente.
           </Typography>
         ) : (
-          <Box
-            display="grid"
-            gridTemplateColumns="repeat(auto-fit, minmax(300px, 1fr))"
-            gap={2}
-          >
+          <Box display="flex" flexWrap="wrap" gap={2}>
             {donations.map((donation) => (
               <Card
                 key={donation.id}
                 variant="outlined"
                 sx={{
+                  width: "300px",
                   borderRadius: "16px",
                   overflow: "hidden",
+                  flexShrink: 0,
                 }}
               >
                 {donation.photoUrl && (

@@ -76,7 +76,7 @@ export default function HeaderMenu() {
         width: "100%",
         color: "white",
         textAlign: "center",
-        zIndex: 1000, // Para garantir que fique acima dos outros elementos
+        zIndex: 1000,
       }}
     >
       <StyledAppBar position="static">
@@ -154,7 +154,6 @@ export default function HeaderMenu() {
             </Menu>
           </Box>
 
-          {/* Detalhamento Menu Sanduíche */}
           <Menu
             id="menu-appbar-sandwich"
             anchorEl={sandwichMenuIsOpen}
@@ -177,7 +176,7 @@ export default function HeaderMenu() {
               }}
               sx={{ color: colors.darkGray, fontWeight: "bold" }}
             >
-              📢Gerenciar Campanhas
+              📢 Gerenciar Campanhas
             </MenuItem>
             <MenuItem
               onClick={() => {
@@ -187,6 +186,15 @@ export default function HeaderMenu() {
               sx={{ color: colors.darkGray, fontWeight: "bold" }}
             >
               📑 Gerenciar Doações
+            </MenuItem>
+            <MenuItem
+              onClick={() => {
+                navigate("/cadastro-parceiro");
+                handleSandwichMenuClose();
+              }}
+              sx={{ color: colors.darkGray, fontWeight: "bold" }}
+            >
+              👥 Cadastro de Parceiros
             </MenuItem>
             <MenuItem
               onClick={() => {
@@ -203,15 +211,6 @@ export default function HeaderMenu() {
               sx={{ color: colors.darkGray, fontWeight: "bold" }}
             >
               ⏰ Sobre o Comida Que Abraça
-            </MenuItem>
-            <MenuItem
-              onClick={() => {
-                navigate("/cadastro-parceiro");
-                handleSandwichMenuClose();
-              }}
-              sx={{ color: colors.regularGray, fontWeight: "bold" }}
-            >
-              👥 Cadastro de Parceiros
             </MenuItem>
           </Menu>
         </Toolbar>

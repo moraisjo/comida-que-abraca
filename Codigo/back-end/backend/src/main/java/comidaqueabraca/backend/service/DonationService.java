@@ -50,7 +50,11 @@ public class DonationService {
         DonationEntity donation = donationRepository.findById(donationId)
                 .orElseThrow(() -> new RuntimeException("Doação não encontrada"));
 
-        donation.setStatus(status);
+        if (status == DonationStatus.ACCEPTED) {
+            donation.setStatus(DonationStatus.PENDING_DELIVERY);
+        } else {
+            donation.setStatus(DonationStatus.REJECTED);
+        }
 
         donationRepository.save(donation);
     }
