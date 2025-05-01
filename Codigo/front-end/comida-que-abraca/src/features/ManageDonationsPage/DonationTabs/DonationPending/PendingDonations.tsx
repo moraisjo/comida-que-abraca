@@ -12,6 +12,7 @@ import {
 import { PendingDonationResponse } from "../../../../../../data/model/donation";
 import BackendResponseModal from "../../../../../../shared/components/Modal/BackendResponseModal";
 import { UseDonationService } from "../../../../hooks/UseDonationService";
+import colors from "../../../../shared/theme/colors";
 
 const PendingDonations: React.FC = () => {
   const [donations, setDonations] = useState<PendingDonationResponse[]>([]);

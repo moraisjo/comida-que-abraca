@@ -3,12 +3,12 @@ import { useTheme } from "@mui/material/styles";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
-
-import HeaderMenu from "../../../../shared/components/HeaderMenu";
-import PendingDonations from "../Donation/DonationTabs/DonationPending/PendingDonations";
-import DonationsAccepted from "./DonationTabs/DonationStock/DonationStock";
-import DonationPendingDelivery from "../Donation/DonationTabs/DonationsPendingDelivery/DonationPendingDelivery";
-import CustomTabPanel from "../../../../shared/components/CustomTabPanel/CustomTabPanel";
+import colors from "../../shared/theme/colors";
+import HeaderMenu from "../../shared/components/HeaderMenu";
+import PendingDonations from "./DonationTabs/DonationPending/PendingDonations";
+import DonationPendingDelivery from "./DonationTabs/DonationsPendingDelivery/DonationPendingDelivery";
+import CustomTabPanel from "../../shared/components/CustomTabPanel/CustomTabPanel";
+import DonationStock from "./DonationTabs/DonationStock/DonationStock";
 
 function getTabAccessibilityProps(index: number) {
   return {
@@ -66,8 +66,8 @@ const DonationPage: React.FC = () => {
               }}
             />
             <Tab
-              label="Doações Estoque"
-              {...getTabAccessibilityProps(2)}
+              label="Estoque de doações"
+              {...getTabAccessibilityProps(1)}
               sx={{
                 textTransform: "none",
                 fontWeight: "bold",
@@ -86,7 +86,7 @@ const DonationPage: React.FC = () => {
         </CustomTabPanel>
 
         <CustomTabPanel value={value} index={2}>
-          <DonationsAccepted />
+          <DonationStock />
         </CustomTabPanel>
       </Box>
     </>

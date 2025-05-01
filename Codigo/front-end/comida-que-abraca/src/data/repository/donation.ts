@@ -68,6 +68,18 @@ class DonationRepository {
         throw error;
       }
     }
+
+  async getStockDonations(): Promise<DonationResponse[]> {
+    try {
+      const response = await axios.get<DonationResponse[]>(
+        "http://localhost:8080/api/doacoes/stock-donations"
+      );
+      return response.data;
+    } catch (error) {
+      console.error("Erro ao buscar doações em estoque:", error);
+      return [];
+    }
+  }
 }
 
 export default new DonationRepository();

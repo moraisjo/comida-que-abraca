@@ -11,7 +11,6 @@ import DonatorsList from "./components/DonatorsList";
 const RankingPage: React.FC = () => {
   return (
     <>
-      {/* CssBaseline para aplicar estilos globais */}
       <HeaderMenu/>
       <Box
         sx={{

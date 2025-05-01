@@ -3,7 +3,7 @@ import "./shared/theme/global.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import RankingPage from "./features/RankingPage/RankingPage";
 import CampanhasPage from "./features/OngHomepage/Components/Campaing/CampaignPages";
-import DonationPage from "./features/OngHomepage/Components/Donation/DonationPage";
+import DonationPage from "./features/ManageDonationsPage/DonationPage";
 import PartnerPage from "./features/partner/PartnerPage";
 import AvailableCampaignsPage from "./features/AvailableCampaigns/AvailableCampaignsPage"; 
 import LoginPage from "./features/LoginPage/LoginPage";
