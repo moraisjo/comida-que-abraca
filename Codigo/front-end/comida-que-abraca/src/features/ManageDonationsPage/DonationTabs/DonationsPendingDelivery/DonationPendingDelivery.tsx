@@ -21,8 +21,9 @@ import {
   useTheme,
 } from "@mui/material";
 import { CheckCircleOutline } from "@mui/icons-material";
-import BackendResponseModal from "../../../../../../shared/components/Modal/BackendResponseModal";
-import { UseDonationService } from "../../../../hooks/UseDonationService";
+import BackendResponseModal from "../../../../shared/components/Modal/BackendResponseModal";
+import { UseDonationService } from "../../../OngHomepage/hooks/UseDonationService";
+
 
 interface DonationDeliveryPendingResponse {
   id: number;

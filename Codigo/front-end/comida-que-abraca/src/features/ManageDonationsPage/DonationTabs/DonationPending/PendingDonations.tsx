@@ -9,10 +9,9 @@ import {
   CardMedia,
   useTheme,
 } from "@mui/material";
-import { PendingDonationResponse } from "../../../../../../data/model/donation";
-import BackendResponseModal from "../../../../../../shared/components/Modal/BackendResponseModal";
-import { UseDonationService } from "../../../../hooks/UseDonationService";
-import colors from "../../../../shared/theme/colors";
+import { PendingDonationResponse } from "../../../../data/model/donation";
+import BackendResponseModal from "../../../../shared/components/Modal/BackendResponseModal";
+import { UseDonationService } from "../../../OngHomepage/hooks/UseDonationService";
 
 const PendingDonations: React.FC = () => {
   const [donations, setDonations] = useState<PendingDonationResponse[]>([]);
