@@ -34,7 +34,7 @@ public class CampaignService {
         );
 
         if (!existingCampaigns.isEmpty()) {
-            throw new IllegalArgumentException("Já existe uma campanha com esse nome nesse período.");
+            throw new IllegalArgumentException("Já existe uma campanha com esse nome no período informado.");
         }
 
         CampaignEntity campaign = new CampaignEntity(

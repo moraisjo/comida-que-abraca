@@ -7,6 +7,7 @@ import comidaqueabraca.backend.service.CampaignService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/campaign")
 @CrossOrigin(origins = "http://localhost:5173")
+@Tag(name = "Campanhas", description = "Endpoints para gerenciamento de campanhas da ONG")
 public class CampaignController {
 
     @Autowired
