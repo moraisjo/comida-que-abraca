@@ -100,7 +100,9 @@ const CampaignList: React.FC<CampaignListProps> = ({ onCreate }) => {
               <CardMedia
                 component="img"
                 height="200"
-                image={campaign.photoUrl}
+                image={
+                  campaign.photoUrl || "../../../../assets/ImagemVazia.jpg"
+                }
                 alt="Imagem da campanha"
               />
               <CardContent sx={{ flexGrow: 1 }}>

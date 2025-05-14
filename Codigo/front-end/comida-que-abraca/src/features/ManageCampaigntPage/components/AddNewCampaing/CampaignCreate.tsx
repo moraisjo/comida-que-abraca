@@ -33,9 +33,39 @@ const CampaignCreate: React.FC<CampaignCreateProps> = ({ onClose }) => {
   const [isSuccess, setIsSuccess] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
 
+  const isDisabled =
+    !name || !description || !address || !startDate || !endDate || !photoUrl;
+
   const handleSubmit = async () => {
-    if (!name || !startDate || !endDate) {
-      setResponseMessage("Preencha os campos obrigatórios.");
+    const today = new Date().toISOString().split("T")[0];
+
+    if (
+      !name ||
+      !description ||
+      !address ||
+      !startDate ||
+      !endDate ||
+      !photoUrl
+    ) {
+      setResponseMessage("Preencha todos os campos obrigatórios.");
+      setIsSuccess(false);
+      setModalOpen(true);
+      return;
+    }
+
+    if (startDate < today) {
+      setResponseMessage(
+        "A data de início deve ser maior ou igual à data atual."
+      );
+      setIsSuccess(false);
+      setModalOpen(true);
+      return;
+    }
+
+    if (endDate < startDate) {
+      setResponseMessage(
+        "A data de término deve ser maior ou igual à data de início."
+      );
       setIsSuccess(false);
       setModalOpen(true);
       return;
@@ -47,7 +77,7 @@ const CampaignCreate: React.FC<CampaignCreateProps> = ({ onClose }) => {
       address,
       startDate,
       endDate,
-      photoUrl: photoUrl || "Nenhuma foto selecionada",
+      photoUrl,
       status: "ACTIVE",
       notifyUsers,
     };
@@ -55,26 +85,15 @@ const CampaignCreate: React.FC<CampaignCreateProps> = ({ onClose }) => {
     try {
       const response = await CampaignService.createCampaign(campaignData);
 
-      if (response.statusCode === 200) {
-        setResponseMessage(response.message || "Campanha criada com sucesso!");
-        setIsSuccess(true);
-      } else {
-        setResponseMessage(
-          response.message || "Ocorreu um erro ao criar a campanha."
-        );
-        setIsSuccess(false);
-      }
+      setResponseMessage(response.message || "Erro ao processar resposta.");
+      setIsSuccess(response.statusCode === 200);
 
-      setModalOpen(true);
+      setTimeout(() => setModalOpen(true), 0);
     } catch (error) {
-      if (error instanceof Error) {
-        console.error("Erro ao criar campanha:", error);
-        setResponseMessage(error.message);
-      } else {
-        setResponseMessage("Ocorreu um erro ao criar a campanha.");
-      }
+      setResponseMessage("Ocorreu um erro ao criar a campanha.");
       setIsSuccess(false);
-      setModalOpen(true);
+
+      setTimeout(() => setModalOpen(true), 0);
     }
   };
 
@@ -98,7 +117,7 @@ const CampaignCreate: React.FC<CampaignCreateProps> = ({ onClose }) => {
             />
             <TextField
               fullWidth
-              label="Descrição"
+              label="Descrição *"
               multiline
               rows={3}
               value={description}
@@ -112,7 +131,7 @@ const CampaignCreate: React.FC<CampaignCreateProps> = ({ onClose }) => {
             />
             <TextField
               fullWidth
-              label="Endereço"
+              label="Endereço *"
               value={address}
               onChange={(e) => setAddress(e.target.value)}
               margin="dense"
@@ -228,6 +247,7 @@ const CampaignCreate: React.FC<CampaignCreateProps> = ({ onClose }) => {
                 borderRadius: "20px",
               }}
               onClick={handleSubmit}
+              disabled={isDisabled}
             >
               Salvar
             </Button>
