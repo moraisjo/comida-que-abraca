@@ -29,8 +29,8 @@ public class NotificationController {
         return notificationService.getNotificationsByUserId(userId);
     }
 
-    @Operation(summary = "Marcar notificação como visualizada", description = "Atualiza uma notificação específica definindo como visualizada (`visualized = true`) e registrando a data/hora da visualização (`visualized_date = now`).")
-    @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "Notificação marcada como visualizada com sucesso"), @ApiResponse(responseCode = "404", description = "Notificação não encontrada")})
+    @Operation(summary = "Marcar notificação como visualizada", description = "Atualiza uma notificação específica definindo como visualizada e registrando a data/hora da visualização.")
+    @ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Notificação marcada como visualizada"), @ApiResponse(responseCode = "404", description = "Notificação não encontrada")})
     @PutMapping("/{notificationId}/visualize")
     public ResponseDTO markAsVisualized(@PathVariable Integer notificationId) {
         notificationService.markNotificationAsVisualized(notificationId);

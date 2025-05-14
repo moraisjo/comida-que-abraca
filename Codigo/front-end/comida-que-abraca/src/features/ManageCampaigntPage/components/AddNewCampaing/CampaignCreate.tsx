@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import {
+  Checkbox,
   Dialog,
   DialogTitle,
   DialogContent,
   DialogActions,
+  FormControlLabel,
   Button,
   Box,
   TextField,
@@ -25,6 +27,7 @@ const CampaignCreate: React.FC<CampaignCreateProps> = ({ onClose }) => {
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [photoUrl, setPhotoUrl] = useState<string | null>(null);
+  const [notifyUsers, setNotifyUsers] = useState(false);
 
   const [responseMessage, setResponseMessage] = useState("");
   const [isSuccess, setIsSuccess] = useState(false);
@@ -46,9 +49,8 @@ const CampaignCreate: React.FC<CampaignCreateProps> = ({ onClose }) => {
       endDate,
       photoUrl: photoUrl || "Nenhuma foto selecionada",
       status: "ACTIVE",
+      notifyUsers,
     };
-
-    console.log("Enviando para API:", campaignData);
 
     try {
       const response = await CampaignService.createCampaign(campaignData);
@@ -88,6 +90,11 @@ const CampaignCreate: React.FC<CampaignCreateProps> = ({ onClose }) => {
               value={name}
               onChange={(e) => setName(e.target.value)}
               margin="dense"
+              sx={{
+                "& .MuiOutlinedInput-root": {
+                  borderRadius: "20px",
+                },
+              }}
             />
             <TextField
               fullWidth
@@ -97,6 +104,11 @@ const CampaignCreate: React.FC<CampaignCreateProps> = ({ onClose }) => {
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               margin="dense"
+              sx={{
+                "& .MuiOutlinedInput-root": {
+                  borderRadius: "20px",
+                },
+              }}
             />
             <TextField
               fullWidth
@@ -104,6 +116,11 @@ const CampaignCreate: React.FC<CampaignCreateProps> = ({ onClose }) => {
               value={address}
               onChange={(e) => setAddress(e.target.value)}
               margin="dense"
+              sx={{
+                "& .MuiOutlinedInput-root": {
+                  borderRadius: "20px",
+                },
+              }}
             />
             <TextField
               fullWidth
@@ -113,6 +130,11 @@ const CampaignCreate: React.FC<CampaignCreateProps> = ({ onClose }) => {
               value={startDate}
               onChange={(e) => setStartDate(e.target.value)}
               margin="dense"
+              sx={{
+                "& .MuiOutlinedInput-root": {
+                  borderRadius: "20px",
+                },
+              }}
             />
             <TextField
               fullWidth
@@ -122,6 +144,11 @@ const CampaignCreate: React.FC<CampaignCreateProps> = ({ onClose }) => {
               value={endDate}
               onChange={(e) => setEndDate(e.target.value)}
               margin="dense"
+              sx={{
+                "& .MuiOutlinedInput-root": {
+                  borderRadius: "20px",
+                },
+              }}
             />
 
             <Box
@@ -132,56 +159,80 @@ const CampaignCreate: React.FC<CampaignCreateProps> = ({ onClose }) => {
                 justifyContent: "space-between",
                 alignItems: "center",
                 border: "1px solid #ccc",
-                borderRadius: "4px",
+                borderRadius: "20px",
                 padding: "0 16px",
               }}
             >
               <ImageUpload onImageUploaded={setPhotoUrl} />
             </Box>
+            <Box
+              sx={{
+                width: "100%",
+                height: "56px",
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                border: "1px solid #ccc",
+                borderRadius: "20px",
+                padding: "0 16px",
+              }}
+            >
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={notifyUsers}
+                    onChange={(e) => setNotifyUsers(e.target.checked)}
+                    color="primary"
+                  />
+                }
+                label="Notificar doadores sobre esta campanha"
+              />
+            </Box>
+          </Box>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              gap: 2,
+              marginTop: "15px",
+            }}
+          >
+            <Button
+              variant="outlined"
+              onClick={onClose}
+              sx={{
+                borderColor: colors.primary,
+                color: colors.primary,
+                fontSize: "12px",
+                textTransform: "none",
+                width: "100%",
+                height: "40px",
+                borderRadius: "20px",
+                "&:hover": {
+                  backgroundColor: "transparent",
+                  borderColor: colors.primary,
+                },
+              }}
+            >
+              Cancelar
+            </Button>
+            <Button
+              variant="contained"
+              sx={{
+                backgroundColor: colors.primary,
+                color: colors.white,
+                fontSize: "12px",
+                textTransform: "none",
+                width: "100%",
+                height: "40px",
+                borderRadius: "20px",
+              }}
+              onClick={handleSubmit}
+            >
+              Salvar
+            </Button>
           </Box>
         </DialogContent>
-        <DialogActions
-          sx={{
-            display: "flex",
-            justifyContent: "space-between",
-            width: "100%",
-            padding: "0 24px 24px",
-          }}
-        >
-          <Button
-            variant="outlined"
-            onClick={onClose}
-            sx={{
-              borderColor: colors.primary,
-              color: colors.primary,
-              fontSize: "12px",
-              textTransform: "none",
-              width: "50%",
-              height: "45px",
-              backgroundColor: "transparent",
-              "&:hover": {
-                backgroundColor: "transparent",
-                borderColor: colors.primary,
-              },
-            }}
-          >
-            Cancelar
-          </Button>
-          <Button
-            variant="contained"
-            sx={{
-              backgroundColor: colors.primary,
-              color: colors.white,
-              fontSize: "12px",
-              textTransform: "none",
-              width: "50%",
-              height: "45px",
-            }}
-            onClick={handleSubmit}
-          >
-            Salvar
-          </Button>
-        </DialogActions>
       </Dialog>
 
       <BackendResponseModal

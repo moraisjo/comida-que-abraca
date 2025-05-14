@@ -105,9 +105,7 @@ export default function HeaderMenu() {
               size="large"
               aria-label="notificações"
               sx={{ color: colors.darkGray }}
-              onClick={() => {
-                console.log("Notificações clicadas");
-              }}
+              onClick={() => {}}
             >
               <NotificationsIcon />
             </IconButton>
