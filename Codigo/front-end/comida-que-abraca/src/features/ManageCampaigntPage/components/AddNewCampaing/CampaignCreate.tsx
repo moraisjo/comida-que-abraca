@@ -8,11 +8,11 @@ import {
   Box,
   TextField,
 } from "@mui/material";
-import colors from "../../../../../shared/theme/colors";
-import ImageUpload from "../../../../../shared/components/Upload/ImageUpload";
-import { CampaignService } from "../../../hooks/UseCampaingsService";
-import { CreateCampaignRequest } from "../../../../../data/model/campaign";
-import BackendResponseModal from "../../../../../shared/components/Modal/BackendResponseModal";
+import colors from "../../../../shared/theme/colors";
+import ImageUpload from "../../../../shared/components/Upload/ImageUpload";
+import { CampaignService } from "../../hooks/UseCampaingsService";
+import { CreateCampaignRequest } from "../../../../data/model/campaign";
+import BackendResponseModal from "../../../../shared/components/Modal/BackendResponseModal";
 
 interface CampaignCreateProps {
   onClose: () => void;

@@ -17,10 +17,10 @@ import {
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
-import colors from "../../../../../shared/theme/colors";
-import { useCampaignService } from "../../../hooks/UseCampaingsService";
-import { Campaign } from "../../../../../data/model/campaign";
-import CampaignDetailModal from "../../../../../shared/components/Modal/CampaignDetailsModal";
+import colors from "../../../../shared/theme/colors";
+import { useCampaignService } from "../../hooks/UseCampaingsService";
+import { Campaign } from "../../../../data/model/campaign";
+import CampaignDetailModal from "../../../../shared/components/Modal/CampaignDetailsModal";
 
 interface CampaignListProps {
   onCreate: () => void;
