@@ -22,8 +22,7 @@ import {
 } from "@mui/material";
 import { CheckCircleOutline } from "@mui/icons-material";
 import BackendResponseModal from "../../../../shared/components/Modal/BackendResponseModal";
-import { UseDonationService } from "../../../OngHomepage/hooks/UseDonationService";
-
+import useDonationService from "../../hooks/useDonationService";
 
 interface DonationDeliveryPendingResponse {
   id: number;
@@ -37,6 +36,9 @@ interface DonationDeliveryPendingResponse {
 }
 
 const DonationPendingDelivery: React.FC = () => {
+  const { getPendingDelivery, updateDonationStatusStock } =
+    useDonationService();
+
   const [donations, setDonations] = useState<DonationDeliveryPendingResponse[]>(
     []
   );
@@ -52,7 +54,7 @@ const DonationPendingDelivery: React.FC = () => {
   useEffect(() => {
     const fetchDonations = async () => {
       try {
-        const data = await UseDonationService.getPendingDelivery();
+        const data = await getPendingDelivery();
         setDonations(data);
       } catch (error) {
         console.error("Erro ao carregar doações:", error);
@@ -73,7 +75,7 @@ const DonationPendingDelivery: React.FC = () => {
     if (!selectedDonation) return;
 
     try {
-      const response = await UseDonationService.updateDonationStatusStock(
+      const response = await updateDonationStatusStock(
         selectedDonation.id,
         status
       );

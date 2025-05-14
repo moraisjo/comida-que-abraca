@@ -4,14 +4,12 @@ import StockTable from "./StockTable";
 import useDonationService from "../../hooks/useDonationService";
 
 const DonationStock: React.FC = () => {
-  const { donations, fetchAllDonations } = useDonationService();
+  const { donations, getAllDonations } = useDonationService();
 
-  // Chamar fetchAllDonations() quando o componente for montado
   useEffect(() => {
-    fetchAllDonations();
+    getAllDonations();
   }, []);
 
-  // Aqui fazemos o filtro
   const stockDonations = donations.filter(
     (donation) => donation.status === "STOCK"
   );
