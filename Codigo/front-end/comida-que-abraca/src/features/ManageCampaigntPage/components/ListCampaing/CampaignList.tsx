@@ -9,18 +9,14 @@ import {
   CardMedia,
   Box,
   useTheme,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
 } from "@mui/material";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
-import colors from "../../../../../shared/theme/colors";
-import { useCampaignService } from "../../../hooks/UseCampaingsService";
-import { Campaign } from "../../../../../data/model/campaign";
-import CampaignDetailModal from "../../../../../shared/components/Modal/CampaignDetailsModal";
+import colors from "../../../../shared/theme/colors";
+import { useCampaignService } from "../../hooks/UseCampaingsService";
+import { Campaign } from "../../../../data/model/campaign";
+import CampaignDetailModal from "../../../../shared/components/Modal/CampaignDetailsModal";
 
 interface CampaignListProps {
   onCreate: () => void;
@@ -104,7 +100,9 @@ const CampaignList: React.FC<CampaignListProps> = ({ onCreate }) => {
               <CardMedia
                 component="img"
                 height="200"
-                image={campaign.photoUrl}
+                image={
+                  campaign.photoUrl || "../../../../assets/ImagemVazia.jpg"
+                }
                 alt="Imagem da campanha"
               />
               <CardContent sx={{ flexGrow: 1 }}>

@@ -17,7 +17,6 @@ const StockTable: React.FC<StockTableProps> = ({ donations }) => {
   const handleOpenModal = (donation: any) => {
     setSelectedDonation(donation);
     setModalOpen(true);
-    console.log(donation);
   };
 
   const handleCloseModal = () => {
@@ -62,7 +61,7 @@ const StockTable: React.FC<StockTableProps> = ({ donations }) => {
   }
 
   const capitalizeFirstLetter = (str: string) => {
-    if (!str) return '';
+    if (!str) return "";
     return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
   };
 
@@ -98,7 +97,11 @@ const StockTable: React.FC<StockTableProps> = ({ donations }) => {
         pageSizeOptions={[5, 10, 20]}
       />
       {/* Modal sendo incluído aqui no mesmo nível do Box */}
-      <StockItemModal open={modalOpen} handleCloseModal={handleCloseModal} donation={selectedDonation}/>
+      <StockItemModal
+        open={modalOpen}
+        handleCloseModal={handleCloseModal}
+        donation={selectedDonation}
+      />
     </div>
   );
 };

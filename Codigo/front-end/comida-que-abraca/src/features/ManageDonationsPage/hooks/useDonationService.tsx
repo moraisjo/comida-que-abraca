@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import DonationRepository from "../../../data/repository/donation";
 import { DonationResponse } from "../../../data/model/donation";
 
@@ -6,17 +6,63 @@ const useDonationService = () => {
   const [donations, setDonations] = useState<DonationResponse[]>([]);
   const [errorOnDonations, setErrorOnDonations] = useState<string | null>(null);
 
-  const fetchAllDonations = async () => {
+  const getAllDonations = useCallback(async () => {
     setErrorOnDonations(null);
     try {
-      const data = await DonationRepository.getAllDonations(); // Sem "new" aqui
+      const data = await DonationRepository.getAllDonations();
       setDonations(data);
-    } catch (err: any) {
-      setErrorOnDonations("Ocorreu um erro ao buscar as doações.");
+    } catch (error) {
+      setErrorOnDonations("Erro ao buscar todas as doações.");
+    }
+  }, []);
+
+  const getPendingDonations = async () => {
+    try {
+      return await DonationRepository.getPendingDonations();
+    } catch (error) {
+      throw new Error("Erro ao buscar doações pendentes.");
     }
   };
 
-  return { donations, errorOnDonations, fetchAllDonations };
+  const getPendingDelivery = async () => {
+    try {
+      return await DonationRepository.getPendingDelivery();
+    } catch (error) {
+      throw new Error("Erro ao buscar doações pendentes de entrega.");
+    }
+  };
+
+  const updateDonationStatus = async (donationId: number, status: string) => {
+    try {
+      return await DonationRepository.updateDonationStatus(donationId, status);
+    } catch (error) {
+      throw new Error("Erro ao atualizar o status da doação.");
+    }
+  };
+
+  const updateDonationStatusStock = async (
+    donationId: number,
+    status: string
+  ) => {
+    try {
+      return await DonationRepository.updateDonationStatusStock(
+        donationId,
+        status
+      );
+    } catch (error) {
+      throw new Error("Erro ao atualizar o status da doação para o estoque.");
+    }
+  };
+
+  return {
+    donations,
+    errorOnDonations,
+    getAllDonations, // <- usar esse no useEffect, por exemplo
+    getPendingDonations,
+    getPendingDelivery,
+    updateDonationStatus,
+    updateDonationStatusStock,
+  };
 };
 
 export default useDonationService;

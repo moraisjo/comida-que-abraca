@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 
-import HeaderMenu from "../../../../shared/components/HeaderMenu";
-import CampaignCreate from "../../Components/Campaing/AddNewCampaing/CampaignCreate";
-import CampaignList from "../../Components/Campaing/ListCampaing/CampaignList";
+import HeaderMenu from "../../../shared/components/HeaderMenu";
+import CampaignCreate from "../components/AddNewCampaing/CampaignCreate";
+import CampaignList from "../components/ListCampaing/CampaignList";
 
 const CampaignPage: React.FC = () => {
   const [isModalOpen, setModalOpen] = useState(false);
