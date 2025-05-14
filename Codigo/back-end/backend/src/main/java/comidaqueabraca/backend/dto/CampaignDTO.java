@@ -12,5 +12,6 @@ public record CampaignDTO(
         @NotNull @Future LocalDate startDate,
         @NotNull @Future LocalDate endDate,
         String photoUrl,
-        CampaignStatus status
+        CampaignStatus status,
+        boolean notifyUsers
 ) {}

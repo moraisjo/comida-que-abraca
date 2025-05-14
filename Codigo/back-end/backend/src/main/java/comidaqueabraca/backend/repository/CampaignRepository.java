@@ -1,6 +1,5 @@
 package comidaqueabraca.backend.repository;
 
-import comidaqueabraca.backend.dto.CampaignDTO;
 import comidaqueabraca.backend.entity.CampaignEntity;
 import comidaqueabraca.backend.enums.CampaignStatus;
 
@@ -26,7 +25,7 @@ public interface CampaignRepository extends JpaRepository<CampaignEntity, Intege
     @Query(value = "SELECT * FROM comidaqueabraca.db_campaign  WHERE status = :status ORDER BY startDate DESC", nativeQuery = true)
     List<CampaignEntity> findByStatusOrderByStartDateDesc(CampaignStatus status);
 
-    @Query(value = "SELECT c FROM comidaqueabraca.db_campaign c WHERE c.name = :name AND (:startDate <= c.endDate AND :endDate >= c.startDate)", nativeQuery = true)
+    @Query(value = "SELECT * FROM comidaqueabraca.db_campaign c WHERE c.name = :name AND (:startDate <= c.end_date AND :endDate >= c.start_date)", nativeQuery = true)
     List<CampaignEntity> findConflictingCampaignsByNameAndPeriod(
             @Param("name") String name,
             @Param("startDate") LocalDate startDate,
