@@ -20,6 +20,14 @@ public class CampaignService {
     }
 
     public CampaignEntity createCampaign(CampaignDTO campaignDTO) {
+        List<CampaignEntity> existingCampaigns = campaignRepository.findConflictingCampaignsByNameAndPeriod(
+                campaignDTO.name(), campaignDTO.startDate(), campaignDTO.endDate()
+        );
+
+        if (!existingCampaigns.isEmpty()) {
+            throw new IllegalArgumentException("Já existe uma campanha criada para o periodo informado.");
+        }
+
         CampaignEntity campaign = new CampaignEntity(
                 campaignDTO.name(),
                 campaignDTO.description(),
@@ -29,6 +37,7 @@ public class CampaignService {
                 campaignDTO.photoUrl(),
                 campaignDTO.status() != null ? campaignDTO.status() : CampaignStatus.ACTIVE
         );
+
         return campaignRepository.save(campaign);
     }
 
