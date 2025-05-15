@@ -75,7 +75,7 @@ São os elementos em que os atacantes podem ter interesse.
 
 ### 1.5. Diagramas de fluxo de dados
 
-![Diagrama de Fluxo de Dados](./2025-05-15-Threat-Modeling.png)
+![Diagrama de Fluxo de Dados](./2025-05-15-STRIDE-diagram.png)
 
 ## 2. Determinar as ameaças
 
