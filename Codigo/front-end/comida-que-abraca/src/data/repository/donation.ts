@@ -5,7 +5,7 @@ import { Response } from "../model/response";
 class DonationRepository {
   async getAllDonations(): Promise<DonationResponse[]> {
     try {
-      const response = await axios.get<DonationResponse[]>(`http://localhost:8080/api/doacoes`);
+      const response = await axios.get<DonationResponse[]>(`http://localhost:8080/api/donation`);
       if (Array.isArray(response.data)) {
         return response.data;
       } else {
