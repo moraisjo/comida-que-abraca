@@ -1,6 +1,6 @@
-# odelagem de Ameaças
+# Modelagem de Ameaças
 
-O presente documento se propõe a documentar os passos do processo de criação do Modelo de Ameaças, seguindo a metodologia disponibilizada no site da [OWASP](https://owasp.org/www-community/Threat_Modeling_Process#introduction) 
+O presente documento se propõe a documentar os passos do processo de criação do Modelo de Ameaças, seguindo a metodologia disponibilizada no site da [OWASP](https://owasp.org/www-community/Threat_Modeling_Process#introduction). Para ver a modelagem completa, abrir o arquivo `2025-05-16.json` no software [Threat Dragon](http://threatdragon.com).
 
 ## 1. Escopo de trabalho
 
