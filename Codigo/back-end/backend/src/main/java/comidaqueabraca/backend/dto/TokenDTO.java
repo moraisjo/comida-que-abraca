@@ -1,4 +1,6 @@
 package comidaqueabraca.backend.dto;
 
-public record TokenDTO(String token) {
+import java.time.LocalDateTime;
+
+public record TokenDTO(String token, Integer userId, LocalDateTime lgpdConsentDate) {
 }
