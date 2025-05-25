@@ -11,6 +11,7 @@ import OngHomepage from "./features/OngHomepage/OngHomepage";
 import { ThemeProvider } from "@mui/material/styles";
 import theme from "./shared/theme/theme";
 import SignUpPage from "./features/SignUpPage/SignUpPage";
+import { ReportPage } from "./features/ReportPage/ReportPage";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
           <Route path="/cadastro-parceiro" element={<PartnerPage />} />
           <Route path="/cadastro" element={<SignUpPage />} />
           <Route path="/campanhas-disponiveis" element={<AvailableCampaignsPage />} />
+          <Route path="/relatorios" element={<ReportPage />} />
           <Route path="/login" element={<LoginPage />} />
         </Routes>
       </Router>

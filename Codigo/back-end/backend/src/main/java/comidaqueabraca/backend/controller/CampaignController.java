@@ -23,9 +23,9 @@ public class CampaignController {
     private CampaignService campaignService;
 
     @PostMapping("/create-campaign")
-    public ResponseEntity<String> createCampaign(@RequestBody CampaignDTO campaignDTO) {
-        campaignService.createCampaign(campaignDTO);
-        return ResponseEntity.status(201).body("Campanha criada com sucesso!");
+    public ResponseEntity<CampaignEntity> createCampaign(@RequestBody CampaignDTO campaignDTO) {
+        CampaignEntity createdCampaign = campaignService.createCampaign(campaignDTO);
+        return ResponseEntity.status(200).body(createdCampaign);
     }
 
     @GetMapping("/active-campaigns")
