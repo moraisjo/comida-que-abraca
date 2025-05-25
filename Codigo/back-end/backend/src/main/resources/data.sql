@@ -12,7 +12,7 @@ VALUES
 (9, 'Lucas Rocha', 'lucas.rocha@email.com', '$2a$12$ispiqNuDrD3mWDTSdjJmCepj/tJhBkwXhZMJamYpg4nMN.31yUQBS', '91911111111', 'Rua das Acácias, 606', 'PARTNER'),
 (10, 'Mariana Ribeiro', 'mariana.ribeiro@email.com', '$2a$12$ispiqNuDrD3mWDTSdjJmCepj/tJhBkwXhZMJamYpg4nMN.31yUQBS', '10199999999', 'Praça da Alegria, 707', 'PARTNER');
 
--- Inserção dos parceiros com diferentes tipos de entidade legal
+
 INSERT INTO db_partner (id, wants_to_donate, wants_to_receive_donations, registration_date, legal_entity_type)
 VALUES
 (1, true, true, NOW(), 'ONG'),
@@ -26,7 +26,6 @@ VALUES
 (9, true, false, NOW(), 'ONG'),
 (10, true, true, NOW(), 'COMPANY');
 
--- Inserindo colaborador da ONG (herda do usuário acima)
 INSERT INTO db_ong_collaborator (id, role, admission_date)
 VALUES (1, 'ADMIN', CURRENT_TIMESTAMP);
 
@@ -34,7 +33,12 @@ INSERT INTO db_campaign (name, description, address, start_date, end_date, photo
 VALUES 
 ('Campanha do Agasalho', 'Distribuição de agasalhos no inverno', 'Rua Central, 200', '2025-06-01', '2025-06-30', 'https://exemplo.com/foto1.jpg', 'ACTIVE'),
 ('Doação de Alimentos', 'Arrecadação de alimentos para famílias carentes', 'Av. das Nações, 1010', '2025-07-01', '2025-07-15', 'https://exemplo.com/foto2.jpg', 'ACTIVE'),
-('Natal Solidário', 'Campanha de arrecadação de brinquedos', 'Praça da Paz, 45', '2025-12-01', '2025-12-25', 'https://exemplo.com/foto3.jpg', 'FINISHED');
+('Natal Solidário', 'Campanha de arrecadação de brinquedos', 'Praça da Paz, 45', '2025-12-01', '2025-12-25', 'https://exemplo.com/foto3.jpg', 'FINISHED'),
+('Volta às Aulas Solidária', 'Campanha de doação de materiais escolares', 'Rua das Palmeiras, 123', '2025-01-10', '2025-02-10', 'https://exemplo.com/foto4.jpg', 'FINISHED'),
+('Campanha da Saúde', 'Distribuição de kits de higiene e saúde', 'Av. Saúde, 789', '2025-03-01', '2025-03-31', 'https://exemplo.com/foto5.jpg', 'ACTIVE'),
+('Páscoa Feliz', 'Arrecadação de chocolates e cestas de Páscoa', 'Rua do Chocolate, 456', '2025-04-01', '2025-04-20', 'https://exemplo.com/foto6.jpg', 'FINISHED'),
+('Doe Livros', 'Campanha de incentivo à leitura', 'Biblioteca Central, 500', '2025-05-01', '2025-05-31', 'https://exemplo.com/foto7.jpg', 'ACTIVE');
+
 
 INSERT INTO db_donation (name, arriving_date, delivery, status, donor_id, beneficiary_id, campaign_id)
 VALUES 
@@ -46,9 +50,17 @@ VALUES
 ('Transferência bancária', '2025-12-20', 'DELIVERY', 'PENDING_DELIVERY', 6, 1, 3), -- ID = 6
 ('Doação avulsa via Pix', '2025-08-01', 'DELIVERY', 'ACCEPTED', 1, 2, NULL),  -- ID = 7
 ('Ajuda emergencial em dinheiro', '2025-08-10', 'PICKUP', 'STOCK', 2, 1, NULL), -- ID = 8
-('Transferência bancária extra', '2025-08-15', 'DELIVERY', 'PENDING_DELIVERY', 3, 2, NULL); -- ID = 9
+('Transferência bancária extra', '2025-08-15', 'DELIVERY', 'PENDING_DELIVERY', 3, 2, NULL), -- ID = 9
+('Kits escolares', '2025-01-15', 'DELIVERY', 'DONATED', 2, 3, 4), -- ID = 10
+('Livros Infantis', '2025-05-10', 'DELIVERY', 'ACCEPTED', 4, 2, 7), -- ID = 11
+('Cestas de higiene', '2025-03-10', 'PICKUP', 'ACCEPTED', 3, 1, 5), -- ID = 12
+('Chocolates de Páscoa', '2025-04-10', 'DELIVERY', 'DONATED', 5, 3, 6), -- ID = 13
+('Livros Técnicos', '2025-05-20', 'DELIVERY', 'PENDING_DELIVERY', 1, 2, 7), -- ID = 14
+('Doação espontânea em dinheiro', '2025-06-01', 'PICKUP', 'STOCK', 6, 1, NULL), -- ID = 15
+('Pix voluntário', '2025-06-03', 'DELIVERY', 'ACCEPTED', 2, 3, NULL), -- ID = 16
+('Transferência bancária solidária', '2025-06-07', 'DELIVERY', 'PENDING_DELIVERY', 3, 1, NULL); -- ID = 17
 
--- Doações financeiras específicas (ligadas às doações acima)
+
 INSERT INTO db_money (id, value, category)
 VALUES
 (4, 150.00, 'PIX'),

@@ -1,3 +1,15 @@
+DROP TABLE IF EXISTS db_report;
+DROP TABLE IF EXISTS db_notification;
+DROP TABLE IF EXISTS db_money;
+DROP TABLE IF EXISTS db_item;
+DROP TABLE IF EXISTS db_food;
+DROP TABLE IF EXISTS db_donation;
+DROP TABLE IF EXISTS db_campaign;
+DROP TABLE IF EXISTS db_ong_collaborator;
+DROP TABLE IF EXISTS db_partner;
+DROP TABLE IF EXISTS db_user;
+DROP TABLE IF EXISTS db_address;
+
 CREATE TABLE IF NOT EXISTS db_address (
     id INT AUTO_INCREMENT PRIMARY KEY,
     street VARCHAR(255),
@@ -8,6 +20,7 @@ CREATE TABLE IF NOT EXISTS db_address (
     state VARCHAR(100),
     zip_code VARCHAR(20) NOT NULL
 );
+
 
 CREATE TABLE IF NOT EXISTS db_user (
    id INT AUTO_INCREMENT PRIMARY KEY,
@@ -59,8 +72,8 @@ CREATE TABLE IF NOT EXISTS db_donation (
     name VARCHAR(255) NOT NULL,
     arriving_date DATE NOT NULL,
     request_date DATE,
-    stock_entry_date DATE,      -- <--- ADICIONE ESTA LINHA
-    stock_exit_date DATE,       -- <--- ADICIONE ESTA LINHA
+    stock_entry_date DATE,
+    stock_exit_date DATE,
     delivery ENUM('PICKUP', 'DELIVERY') NOT NULL,
     status ENUM(
         'PENDING',
