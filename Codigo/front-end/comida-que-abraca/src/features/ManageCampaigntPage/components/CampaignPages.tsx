@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import { Box } from "@mui/material";
 import HeaderMenu from "../../../shared/components/HeaderMenu";
 import CampaignCreate from "../components/AddNewCampaing/CampaignCreate";
 import CampaignList from "../components/ListCampaing/CampaignList";
@@ -13,9 +13,10 @@ const CampaignPage: React.FC = () => {
   return (
     <>
       <HeaderMenu />
-      <CampaignList onCreate={handleOpenModal} />
-
-      {isModalOpen && <CampaignCreate onClose={handleCloseModal} />}
+      <Box sx={{ width: "100%", p: 3 }}>
+        <CampaignList onCreate={handleOpenModal} />
+        {isModalOpen && <CampaignCreate onClose={handleCloseModal} />}
+      </Box>
     </>
   );
 };
