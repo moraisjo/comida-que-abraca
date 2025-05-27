@@ -6,13 +6,15 @@ const useDonationService = () => {
   const [donations, setDonations] = useState<DonationResponse[]>([]);
   const [errorOnDonations, setErrorOnDonations] = useState<string | null>(null);
 
-  const getAllDonations = useCallback(async () => {
+  const getAllDonations = useCallback(async (): Promise<DonationResponse[]> => {
     setErrorOnDonations(null);
     try {
       const data = await DonationRepository.getAllDonations();
       setDonations(data);
+      return data;
     } catch (error) {
       setErrorOnDonations("Erro ao buscar todas as doações.");
+      return [];
     }
   }, []);
 
