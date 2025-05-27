@@ -9,6 +9,7 @@ import PendingDonations from "./DonationTabs/DonationPending/PendingDonations";
 import DonationPendingDelivery from "./DonationTabs/DonationsPendingDelivery/DonationPendingDelivery";
 import CustomTabPanel from "../../shared/components/CustomTabPanel/CustomTabPanel";
 import DonationStock from "./DonationTabs/DonationStock/DonationStock";
+import MyDonations from "./DonationTabs/MyDonations/MyDonations";
 
 function getTabAccessibilityProps(index: number) {
   return {
@@ -67,7 +68,16 @@ const DonationPage: React.FC = () => {
             />
             <Tab
               label="Estoque de doações"
-              {...getTabAccessibilityProps(1)}
+              {...getTabAccessibilityProps(2)}
+              sx={{
+                textTransform: "none",
+                fontWeight: "bold",
+                "&.Mui-selected": { color: theme.palette.secondary.main },
+              }}
+            />
+            <Tab
+              label="Minhas Doações"
+              {...getTabAccessibilityProps(3)}
               sx={{
                 textTransform: "none",
                 fontWeight: "bold",
@@ -87,6 +97,10 @@ const DonationPage: React.FC = () => {
 
         <CustomTabPanel value={value} index={2}>
           <DonationStock />
+        </CustomTabPanel>
+
+        <CustomTabPanel value={value} index={3}>
+          <MyDonations />
         </CustomTabPanel>
       </Box>
     </>
