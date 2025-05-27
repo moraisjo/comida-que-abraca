@@ -10,7 +10,6 @@ import LoginPage from "./features/LoginPage/LoginPage";
 import OngHomepage from "./features/OngHomepage/OngHomepage";
 import SignUpPage from "./features/SignUpPage/SignUpPage";
 import LgpdConsent from "./shared/components/Lgpd/LgpdConsent";
-
 import { ThemeProvider } from "@mui/material/styles";
 import theme from "./shared/theme/theme";
 import SignUpPage from "./features/SignUpPage/SignUpPage";
