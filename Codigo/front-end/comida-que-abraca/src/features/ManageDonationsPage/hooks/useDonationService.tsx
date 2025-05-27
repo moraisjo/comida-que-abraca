@@ -22,7 +22,7 @@ const useDonationService = () => {
     try {
       return await DonationRepository.getDonationsStock();
     } catch (error) {
-      throw new Error("Erro ao buscar doações pendentes.");
+      throw new Error("Erro ao buscar doações em estoque.");
     }
   };
 
