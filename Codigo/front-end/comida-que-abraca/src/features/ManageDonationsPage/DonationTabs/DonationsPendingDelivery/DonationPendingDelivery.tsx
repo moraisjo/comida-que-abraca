@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import {
   Box,
   Typography,
+  TextField,
   Paper,
   Avatar,
   CircularProgress,
@@ -49,6 +50,8 @@ const DonationPendingDelivery: React.FC = () => {
   const [responseModalOpen, setResponseModalOpen] = useState(false);
   const [responseMessage, setResponseMessage] = useState("");
   const [responseSuccess, setResponseSuccess] = useState(false);
+
+  const [filterText, setFilterText] = useState("");
   const theme = useTheme();
 
   useEffect(() => {
@@ -65,6 +68,13 @@ const DonationPendingDelivery: React.FC = () => {
 
     fetchDonations();
   }, []);
+
+  const filteredDonations = donations.filter(
+    (donation) =>
+      donation.name.toLowerCase().includes(filterText.toLowerCase()) ||
+      donation.donorName.toLowerCase().includes(filterText.toLowerCase()) ||
+      donation.campaignName?.toLowerCase().includes(filterText.toLowerCase())
+  );
 
   const handleActionClick = (donation: DonationDeliveryPendingResponse) => {
     setSelectedDonation(donation);
@@ -121,29 +131,50 @@ const DonationPendingDelivery: React.FC = () => {
   return (
     <>
       <Box p={2}>
-        <Typography
-          variant="h6"
-          gutterBottom
-          color={theme.palette.primary.main}
-        >
-          Doações Pendentes de Entrega
-        </Typography>
+        <TextField
+          label="Buscar..."
+          variant="outlined"
+          size="small"
+          fullWidth
+          style={{ marginBottom: 16 }}
+          value={filterText}
+          onChange={(e) => setFilterText(e.target.value)}
+        />
 
-        <TableContainer component={Paper}>
+        <TableContainer
+          component={Paper}
+          sx={{
+            borderRadius: 2,
+            boxShadow: "0px 2px 8px rgba(0,0,0,0.1)", // sombra leve
+          }}
+        >
           <Table>
             <TableHead>
-              <TableRow>
-                <TableCell>Imagem</TableCell>
-                <TableCell>Item</TableCell>
-                <TableCell>Doador</TableCell>
-                <TableCell>Data de Solicitação</TableCell>
-                <TableCell>Status de Entrega</TableCell>
-                <TableCell align="center">Ação</TableCell>
+              <TableRow sx={{ backgroundColor: "#f5f5f5" }}>
+                <TableCell sx={{ fontWeight: "bold" }}>Imagem</TableCell>
+                <TableCell sx={{ fontWeight: "bold" }}>Item</TableCell>
+                <TableCell sx={{ fontWeight: "bold" }}>Doador</TableCell>
+                <TableCell sx={{ fontWeight: "bold" }}>
+                  Data de Solicitação
+                </TableCell>
+                <TableCell sx={{ fontWeight: "bold" }}>
+                  Status de Entrega
+                </TableCell>
+                <TableCell sx={{ fontWeight: "bold" }} align="center">
+                  Ação
+                </TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {donations.map((donation) => (
-                <TableRow key={donation.id} hover>
+              {filteredDonations.map((donation, index) => (
+                <TableRow
+                  key={donation.id}
+                  hover
+                  sx={{
+                    backgroundColor: index % 2 === 0 ? "#ffffff" : "#f9f9f9", // linhas alternadas
+                    borderBottom: "1px solid #eee",
+                  }}
+                >
                   <TableCell>
                     <Avatar
                       src={donation.photoUrl}
@@ -164,8 +195,10 @@ const DonationPendingDelivery: React.FC = () => {
                   <TableCell align="center">
                     <Tooltip title="Confirmar entrega">
                       <IconButton
-                        color="primary"
                         onClick={() => handleActionClick(donation)}
+                        sx={{
+                          color: "#FF6A00",
+                        }}
                       >
                         <CheckCircleOutline />
                       </IconButton>
@@ -230,7 +263,7 @@ const DonationPendingDelivery: React.FC = () => {
                 },
               }}
             >
-              Confirmar Entrega
+              Entregue
             </Button>
             <Button
               onClick={() => handleConfirm("CANCELED_DELIVERY")}
@@ -247,7 +280,7 @@ const DonationPendingDelivery: React.FC = () => {
                 },
               }}
             >
-              Cancelar Entrega
+              Não Entregue
             </Button>
           </DialogActions>
         </Dialog>
