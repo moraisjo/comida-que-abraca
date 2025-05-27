@@ -9,6 +9,7 @@ import {
     TextField,
     Stack,
     Box,
+    Paper,
 } from "@mui/material";
 
 interface ReportData {
@@ -32,6 +33,44 @@ const MONTHS = [
     "Jan", "Feb", "Mar", "Apr", "May", "Jun",
     "Jul", "Aug", "Sep", "Oct", "Nov", "Dec",
 ];
+
+
+function SummaryBox() {
+    const [totals, setTotals] = useState<{ campaigns: number; donations: number; partners: number }>({
+        campaigns: 0,
+        donations: 0,
+        partners: 0,
+    });
+
+    useEffect(() => {
+        Promise.all([
+            fetch("http://localhost:8080/report/total-campaigns").then(res => res.json()),
+            fetch("http://localhost:8080/report/total-donations").then(res => res.json()),
+            fetch("http://localhost:8080/report/total-partners").then(res => res.json()),
+        ]).then(([campaigns, donations, partners]) => {
+            setTotals({ campaigns, donations, partners });
+        });
+    }, []);
+
+    return (
+        <Paper elevation={3} sx={{ p: 3, mb: 5, borderRadius: 3 }}>
+            <Stack direction={{ xs: "column", sm: "row" }} spacing={4} justifyContent="center" alignItems="center">
+                <Box>
+                    <Typography variant="h6" align="center">Campanhas</Typography>
+                    <Typography variant="h4" align="center" color="primary">{totals.campaigns}</Typography>
+                </Box>
+                <Box>
+                    <Typography variant="h6" align="center">Doações</Typography>
+                    <Typography variant="h4" align="center" color="primary">{totals.donations}</Typography>
+                </Box>
+                <Box>
+                    <Typography variant="h6" align="center">Parceiros</Typography>
+                    <Typography variant="h4" align="center" color="primary">{totals.partners}</Typography>
+                </Box>
+            </Stack>
+        </Paper>
+    );
+}
 
 function DonationsPerMonthChart({ selectedYear, onYearChange }: { selectedYear: number, onYearChange: (year: number) => void }) {
     const [barData, setBarData] = useState<DonationByMonth[]>([]);
@@ -222,6 +261,7 @@ export function ReportPage() {
 
                 {report ? (
                     <>
+                        <SummaryBox />
                         <DonationsPerMonthChart selectedYear={selectedYear} onYearChange={setSelectedYear} />
                         <DonationsByCampaignChart />
                     </>
