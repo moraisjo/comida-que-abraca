@@ -12,7 +12,6 @@ import SignUpPage from "./features/SignUpPage/SignUpPage";
 import LgpdConsent from "./shared/components/Lgpd/LgpdConsent";
 import { ThemeProvider } from "@mui/material/styles";
 import theme from "./shared/theme/theme";
-import SignUpPage from "./features/SignUpPage/SignUpPage";
 import { ReportPage } from "./features/ReportPage/ReportPage";
 
 function LgpdRouteWrapper() {
