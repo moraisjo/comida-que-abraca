@@ -35,7 +35,7 @@ interface DonationStockResponse {
 }
 
 const DonationStock: React.FC = () => {
-  const { getAllDonations } = useDonationService();
+  const { getDonationsStock } = useDonationService();
   const [donations, setDonations] = useState<DonationStockResponse[]>([]);
   const [loading, setLoading] = useState(true);
   const [filterText, setFilterText] = useState("");
@@ -49,7 +49,7 @@ const DonationStock: React.FC = () => {
   useEffect(() => {
     const fetchDonations = async () => {
       try {
-        const data = await getAllDonations();
+        const data = await getDonationsStock();
 
         if (data) {
           const mappedDonations: DonationStockResponse[] = data.map(

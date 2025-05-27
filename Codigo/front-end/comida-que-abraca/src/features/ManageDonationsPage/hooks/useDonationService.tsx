@@ -18,6 +18,14 @@ const useDonationService = () => {
     }
   }, []);
 
+  const getDonationsStock = async () => {
+    try {
+      return await DonationRepository.getDonationsStock();
+    } catch (error) {
+      throw new Error("Erro ao buscar doações pendentes.");
+    }
+  };
+
   const getPendingDonations = async () => {
     try {
       return await DonationRepository.getPendingDonations();
@@ -59,7 +67,8 @@ const useDonationService = () => {
   return {
     donations,
     errorOnDonations,
-    getAllDonations, // <- usar esse no useEffect, por exemplo
+    getAllDonations,
+    getDonationsStock,
     getPendingDonations,
     getPendingDelivery,
     updateDonationStatus,
