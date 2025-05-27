@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS db_user (
    phone VARCHAR(20),
    address VARCHAR(255),
    address_id INT,
-   user_type VARCHAR(50) -- coluna adicionada aqui
+   user_type VARCHAR(50), -- coluna adicionada aqui
    lgpd_consent_date TIMESTAMP
    -- FOREIGN KEY (address_id) REFERENCES db_address(id)
 );
