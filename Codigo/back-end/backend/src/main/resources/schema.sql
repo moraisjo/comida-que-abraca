@@ -21,7 +21,6 @@ CREATE TABLE IF NOT EXISTS db_address (
     zip_code VARCHAR(20) NOT NULL
 );
 
-
 CREATE TABLE IF NOT EXISTS db_user (
    id INT AUTO_INCREMENT PRIMARY KEY,
    name VARCHAR(255) NOT NULL,
@@ -31,6 +30,7 @@ CREATE TABLE IF NOT EXISTS db_user (
    address VARCHAR(255),
    address_id INT,
    user_type VARCHAR(50) -- coluna adicionada aqui
+   lgpd_consent_date TIMESTAMP
    -- FOREIGN KEY (address_id) REFERENCES db_address(id)
 );
 
