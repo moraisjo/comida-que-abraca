@@ -20,6 +20,7 @@ import {
   IconButton,
   Tooltip,
   useTheme,
+  TablePagination,
 } from "@mui/material";
 import { CheckCircleOutline } from "@mui/icons-material";
 import BackendResponseModal from "../../../../shared/components/Modal/BackendResponseModal";
@@ -53,6 +54,8 @@ const DonationPendingDelivery: React.FC = () => {
 
   const [filterText, setFilterText] = useState("");
   const theme = useTheme();
+  const [page, setPage] = useState(0);
+  const rowsPerPage = 5;
 
   useEffect(() => {
     const fetchDonations = async () => {
@@ -68,6 +71,10 @@ const DonationPendingDelivery: React.FC = () => {
 
     fetchDonations();
   }, []);
+
+  const handleChangePage = (event: unknown, newPage: number) => {
+    setPage(newPage);
+  };
 
   const filteredDonations = donations.filter(
     (donation) =>
@@ -166,46 +173,48 @@ const DonationPendingDelivery: React.FC = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {filteredDonations.map((donation, index) => (
-                <TableRow
-                  key={donation.id}
-                  hover
-                  sx={{
-                    backgroundColor: index % 2 === 0 ? "#ffffff" : "#f9f9f9",
-                    borderBottom: "1px solid #eee",
-                  }}
-                >
-                  <TableCell>
-                    <Avatar
-                      src={donation.photoUrl}
-                      variant="rounded"
-                      sx={{ width: 48, height: 48 }}
-                    />
-                  </TableCell>
-                  <TableCell>{donation.name}</TableCell>
-                  <TableCell>{donation.donorName}</TableCell>
-                  <TableCell>{donation.requestDate}</TableCell>
-                  <TableCell>
-                    {donation.delivery === "DELIVERY"
-                      ? "Pendente Entrega"
-                      : donation.delivery === "PICKUP"
-                      ? "Pendente Retirada"
-                      : donation.delivery}
-                  </TableCell>
-                  <TableCell align="center">
-                    <Tooltip title="Confirmar entrega">
-                      <IconButton
-                        onClick={() => handleActionClick(donation)}
-                        sx={{
-                          color: "#FF6A00",
-                        }}
-                      >
-                        <CheckCircleOutline />
-                      </IconButton>
-                    </Tooltip>
-                  </TableCell>
-                </TableRow>
-              ))}
+              {filteredDonations
+                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                .map((donation, index) => (
+                  <TableRow
+                    key={donation.id}
+                    hover
+                    sx={{
+                      backgroundColor: index % 2 === 0 ? "#ffffff" : "#f9f9f9",
+                      borderBottom: "1px solid #eee",
+                    }}
+                  >
+                    <TableCell>
+                      <Avatar
+                        src={donation.photoUrl}
+                        variant="rounded"
+                        sx={{ width: 48, height: 48 }}
+                      />
+                    </TableCell>
+                    <TableCell>{donation.name}</TableCell>
+                    <TableCell>{donation.donorName}</TableCell>
+                    <TableCell>{donation.requestDate}</TableCell>
+                    <TableCell>
+                      {donation.delivery === "DELIVERY"
+                        ? "Pendente Entrega"
+                        : donation.delivery === "PICKUP"
+                        ? "Pendente Retirada"
+                        : donation.delivery}
+                    </TableCell>
+                    <TableCell align="center">
+                      <Tooltip title="Confirmar entrega">
+                        <IconButton
+                          onClick={() => handleActionClick(donation)}
+                          sx={{
+                            color: "#FF6A00",
+                          }}
+                        >
+                          <CheckCircleOutline />
+                        </IconButton>
+                      </Tooltip>
+                    </TableCell>
+                  </TableRow>
+                ))}
             </TableBody>
           </Table>
         </TableContainer>
@@ -285,6 +294,14 @@ const DonationPendingDelivery: React.FC = () => {
           </DialogActions>
         </Dialog>
       </Box>
+      <TablePagination
+        component="div"
+        rowsPerPageOptions={[10]}
+        count={donations.length}
+        rowsPerPage={rowsPerPage}
+        page={page}
+        onPageChange={handleChangePage}
+      />
       <BackendResponseModal
         open={responseModalOpen}
         onClose={() => setResponseModalOpen(false)}

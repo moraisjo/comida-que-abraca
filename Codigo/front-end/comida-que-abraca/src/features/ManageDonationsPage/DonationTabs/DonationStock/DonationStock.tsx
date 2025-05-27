@@ -56,10 +56,10 @@ const DonationStock: React.FC = () => {
             (donation) => ({
               id: donation.id,
               name: donation.name,
-              deliveryDate: donation.arrivingDate || "Data não disponível", // Corrigido
+              deliveryDate: donation.arrivingDate || "Data não disponível",
               deliveryType:
                 donation.delivery === "PICKUP" ? "Retirada" : "Entregue",
-              photoUrl: "", // Caso precise de imagem do doador, ajustar aqui
+              photoUrl: "",
               donorName: donation.donor?.name || "Nome não informado",
             })
           );
