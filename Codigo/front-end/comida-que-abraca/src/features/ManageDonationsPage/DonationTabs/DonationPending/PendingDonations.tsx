@@ -20,6 +20,7 @@ import {
   DialogContent,
   DialogActions,
   TextField,
+  TablePagination,
 } from "@mui/material";
 import { InfoOutlined, CheckCircleOutline } from "@mui/icons-material";
 import { PendingDonationResponse } from "../../../../data/model/donation";
@@ -37,7 +38,10 @@ const PendingDonations: React.FC = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [modalMessage, setModalMessage] = useState("");
   const [modalIsSuccess, setModalIsSuccess] = useState(true);
+
   const theme = useTheme();
+  const [page, setPage] = useState(0);
+  const rowsPerPage = 5;
 
   const { getPendingDonations, updateDonationStatus } = useDonationService();
 
@@ -55,6 +59,10 @@ const PendingDonations: React.FC = () => {
 
     fetchDonations();
   }, []);
+
+  const handleChangePage = (event: unknown, newPage: number) => {
+    setPage(newPage);
+  };
 
   const filteredDonations = donations.filter(
     (donation) =>
@@ -158,59 +166,69 @@ const PendingDonations: React.FC = () => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {filteredDonations.map((donation) => (
-                  <TableRow
-                    key={donation.id}
-                    hover
-                    sx={{ borderBottom: "1px solid #eee" }}
-                  >
-                    <TableCell>
-                      <Avatar
-                        src={donation.photoUrl || ""}
-                        variant="rounded"
-                        sx={{ width: 48, height: 48 }}
-                      />
-                    </TableCell>
-                    <TableCell>{donation.name}</TableCell>
-                    <TableCell>
-                      {donation.requestDate
-                        ? new Date(donation.requestDate).toLocaleDateString(
-                            "pt-BR",
-                            { day: "2-digit", month: "long", year: "numeric" }
-                          )
-                        : "Data não informada"}
-                    </TableCell>
-                    <TableCell>
-                      {donation.campaignName || "Sem campanha associada"}
-                    </TableCell>
-                    <TableCell align="center">
-                      <Tooltip title="Saiba mais">
-                        <IconButton
-                          onClick={() => handleOpenDetailsDialog(donation)}
-                          sx={{ color: theme.palette.primary.main }}
-                          disabled={true}
-                        >
-                          <InfoOutlined />
-                        </IconButton>
-                      </Tooltip>
-                    </TableCell>
+                {filteredDonations
+                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                  .map((donation, index) => (
+                    <TableRow
+                      key={donation.id}
+                      hover
+                      sx={{ borderBottom: "1px solid #eee" }}
+                    >
+                      <TableCell>
+                        <Avatar
+                          src={donation.photoUrl || ""}
+                          variant="rounded"
+                          sx={{ width: 48, height: 48 }}
+                        />
+                      </TableCell>
+                      <TableCell>{donation.name}</TableCell>
+                      <TableCell>
+                        {donation.requestDate
+                          ? new Date(donation.requestDate).toLocaleDateString(
+                              "pt-BR",
+                              { day: "2-digit", month: "long", year: "numeric" }
+                            )
+                          : "Data não informada"}
+                      </TableCell>
+                      <TableCell>
+                        {donation.campaignName || "Sem campanha associada"}
+                      </TableCell>
+                      <TableCell align="center">
+                        <Tooltip title="Saiba mais">
+                          <IconButton
+                            onClick={() => handleOpenDetailsDialog(donation)}
+                            sx={{ color: theme.palette.primary.main }}
+                            disabled={true}
+                          >
+                            <InfoOutlined />
+                          </IconButton>
+                        </Tooltip>
+                      </TableCell>
 
-                    <TableCell align="center">
-                      <Tooltip title="Confirmar Ação">
-                        <IconButton
-                          onClick={() => handleOpenActionDialog(donation)}
-                          sx={{ color: "#FF6A00" }}
-                        >
-                          <CheckCircleOutline />
-                        </IconButton>
-                      </Tooltip>
-                    </TableCell>
-                  </TableRow>
-                ))}
+                      <TableCell align="center">
+                        <Tooltip title="Confirmar Ação">
+                          <IconButton
+                            onClick={() => handleOpenActionDialog(donation)}
+                            sx={{ color: "#FF6A00" }}
+                          >
+                            <CheckCircleOutline />
+                          </IconButton>
+                        </Tooltip>
+                      </TableCell>
+                    </TableRow>
+                  ))}
               </TableBody>
             </Table>
           </TableContainer>
         )}
+        <TablePagination
+          component="div"
+          rowsPerPageOptions={[10]}
+          count={donations.length}
+          rowsPerPage={rowsPerPage}
+          page={page}
+          onPageChange={handleChangePage}
+        />
       </Box>
 
       <BackendResponseModal
