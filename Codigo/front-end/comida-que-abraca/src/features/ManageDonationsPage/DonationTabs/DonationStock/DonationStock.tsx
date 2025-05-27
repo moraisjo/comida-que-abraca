@@ -20,6 +20,7 @@ import {
   IconButton,
   Tooltip,
   useTheme,
+  TablePagination,
 } from "@mui/material";
 import { InfoOutlined } from "@mui/icons-material";
 import useDonationService from "../../hooks/useDonationService";
@@ -42,6 +43,8 @@ const DonationStock: React.FC = () => {
     useState<DonationStockResponse | null>(null);
   const [openDialog, setOpenDialog] = useState(false);
   const theme = useTheme();
+  const [page, setPage] = useState(0);
+  const rowsPerPage = 5;
 
   useEffect(() => {
     const fetchDonations = async () => {
@@ -72,6 +75,10 @@ const DonationStock: React.FC = () => {
 
     fetchDonations();
   }, []);
+
+  const handleChangePage = (event: unknown, newPage: number) => {
+    setPage(newPage);
+  };
 
   const filteredDonations = donations.filter(
     (donation) =>
@@ -145,46 +152,48 @@ const DonationStock: React.FC = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {filteredDonations.map((donation, index) => (
-                <TableRow
-                  key={donation.id}
-                  hover
-                  sx={{
-                    backgroundColor: index % 2 === 0 ? "#ffffff" : "#f9f9f9",
-                    borderBottom: "1px solid #eee",
-                  }}
-                >
-                  <TableCell>
-                    <Avatar
-                      src={donation.photoUrl}
-                      variant="rounded"
-                      sx={{ width: 48, height: 48 }}
-                    />
-                  </TableCell>
-                  <TableCell>{donation.name}</TableCell>
-                  <TableCell>{donation.donorName}</TableCell>
-                  <TableCell>{donation.deliveryDate}</TableCell>
-                  <TableCell>
-                    {donation.deliveryType === "PICKUP"
-                      ? "Retirada"
-                      : donation.deliveryType === "DELIVERY"
-                      ? "Entregue"
-                      : donation.deliveryType}
-                  </TableCell>
-                  <TableCell align="center">
-                    <Tooltip title="Saiba mais">
-                      <IconButton
-                        onClick={() => handleActionClick(donation)}
-                        sx={{
-                          color: theme.palette.primary.main,
-                        }}
-                      >
-                        <InfoOutlined />
-                      </IconButton>
-                    </Tooltip>
-                  </TableCell>
-                </TableRow>
-              ))}
+              {filteredDonations
+                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                .map((donation, index) => (
+                  <TableRow
+                    key={donation.id}
+                    hover
+                    sx={{
+                      backgroundColor: index % 2 === 0 ? "#ffffff" : "#f9f9f9",
+                      borderBottom: "1px solid #eee",
+                    }}
+                  >
+                    <TableCell>
+                      <Avatar
+                        src={donation.photoUrl}
+                        variant="rounded"
+                        sx={{ width: 48, height: 48 }}
+                      />
+                    </TableCell>
+                    <TableCell>{donation.name}</TableCell>
+                    <TableCell>{donation.donorName}</TableCell>
+                    <TableCell>{donation.deliveryDate}</TableCell>
+                    <TableCell>
+                      {donation.deliveryType === "PICKUP"
+                        ? "Retirada"
+                        : donation.deliveryType === "DELIVERY"
+                        ? "Entregue"
+                        : donation.deliveryType}
+                    </TableCell>
+                    <TableCell align="center">
+                      <Tooltip title="Saiba mais">
+                        <IconButton
+                          onClick={() => handleActionClick(donation)}
+                          sx={{
+                            color: theme.palette.primary.main,
+                          }}
+                        >
+                          <InfoOutlined />
+                        </IconButton>
+                      </Tooltip>
+                    </TableCell>
+                  </TableRow>
+                ))}
             </TableBody>
           </Table>
         </TableContainer>
@@ -235,6 +244,15 @@ const DonationStock: React.FC = () => {
             </Button>
           </DialogActions>
         </Dialog>
+
+        <TablePagination
+          component="div"
+          rowsPerPageOptions={[10]}
+          count={donations.length}
+          rowsPerPage={rowsPerPage}
+          page={page}
+          onPageChange={handleChangePage}
+        />
       </Box>
     </>
   );
