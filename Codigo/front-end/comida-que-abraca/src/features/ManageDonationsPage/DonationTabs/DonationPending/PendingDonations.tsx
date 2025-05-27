@@ -19,6 +19,7 @@ import {
   DialogTitle,
   DialogContent,
   DialogActions,
+  TextField,
 } from "@mui/material";
 import { InfoOutlined, CheckCircleOutline } from "@mui/icons-material";
 import { PendingDonationResponse } from "../../../../data/model/donation";
@@ -28,15 +29,14 @@ import useDonationService from "../../hooks/useDonationService";
 const PendingDonations: React.FC = () => {
   const [donations, setDonations] = useState<PendingDonationResponse[]>([]);
   const [loading, setLoading] = useState(true);
+  const [filterText, setFilterText] = useState("");
   const [selectedDonation, setSelectedDonation] =
     useState<PendingDonationResponse | null>(null);
+  const [openDetailsDialog, setOpenDetailsDialog] = useState(false);
+  const [openActionDialog, setOpenActionDialog] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [modalMessage, setModalMessage] = useState("");
   const [modalIsSuccess, setModalIsSuccess] = useState(true);
-
-  const [openDetailsDialog, setOpenDetailsDialog] = useState(false);
-  const [openActionDialog, setOpenActionDialog] = useState(false);
-
   const theme = useTheme();
 
   const { getPendingDonations, updateDonationStatus } = useDonationService();
@@ -55,6 +55,12 @@ const PendingDonations: React.FC = () => {
 
     fetchDonations();
   }, []);
+
+  const filteredDonations = donations.filter(
+    (donation) =>
+      donation.name.toLowerCase().includes(filterText.toLowerCase()) ||
+      donation.campaignName?.toLowerCase().includes(filterText.toLowerCase())
+  );
 
   const handleAccept = async (id: number) => {
     try {
@@ -115,25 +121,24 @@ const PendingDonations: React.FC = () => {
   return (
     <>
       <Box p={2}>
-        <Typography
-          variant="h6"
-          gutterBottom
-          color={theme.palette.primary.main}
-        >
-          Doações Pendentes
-        </Typography>
+        <TextField
+          label="Buscar..."
+          variant="outlined"
+          size="small"
+          fullWidth
+          style={{ marginBottom: 16 }}
+          value={filterText}
+          onChange={(e) => setFilterText(e.target.value)}
+        />
 
-        {donations.length === 0 ? (
+        {filteredDonations.length === 0 ? (
           <Typography color="textSecondary">
-            Nenhuma doação pendente.
+            Nenhuma doação encontrada.
           </Typography>
         ) : (
           <TableContainer
             component={Paper}
-            sx={{
-              borderRadius: 2,
-              boxShadow: "0px 2px 8px rgba(0,0,0,0.1)",
-            }}
+            sx={{ borderRadius: 2, boxShadow: "0px 2px 8px rgba(0,0,0,0.1)" }}
           >
             <Table>
               <TableHead>
@@ -153,14 +158,11 @@ const PendingDonations: React.FC = () => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {donations.map((donation, index) => (
+                {filteredDonations.map((donation) => (
                   <TableRow
                     key={donation.id}
                     hover
-                    sx={{
-                      backgroundColor: index % 2 === 0 ? "#ffffff" : "#f9f9f9",
-                      borderBottom: "1px solid #eee",
-                    }}
+                    sx={{ borderBottom: "1px solid #eee" }}
                   >
                     <TableCell>
                       <Avatar
@@ -174,11 +176,7 @@ const PendingDonations: React.FC = () => {
                       {donation.requestDate
                         ? new Date(donation.requestDate).toLocaleDateString(
                             "pt-BR",
-                            {
-                              day: "2-digit",
-                              month: "long",
-                              year: "numeric",
-                            }
+                            { day: "2-digit", month: "long", year: "numeric" }
                           )
                         : "Data não informada"}
                     </TableCell>
@@ -190,11 +188,13 @@ const PendingDonations: React.FC = () => {
                         <IconButton
                           onClick={() => handleOpenDetailsDialog(donation)}
                           sx={{ color: theme.palette.primary.main }}
+                          disabled={true}
                         >
                           <InfoOutlined />
                         </IconButton>
                       </Tooltip>
                     </TableCell>
+
                     <TableCell align="center">
                       <Tooltip title="Confirmar Ação">
                         <IconButton
@@ -246,12 +246,7 @@ const PendingDonations: React.FC = () => {
           </Typography>
         </DialogContent>
         <DialogActions>
-          <Button
-            onClick={handleCloseDetailsDialog}
-            sx={{ color: theme.palette.primary.main }}
-          >
-            Fechar
-          </Button>
+          <Button onClick={handleCloseDetailsDialog}>Fechar</Button>
         </DialogActions>
       </Dialog>
 
@@ -267,7 +262,6 @@ const PendingDonations: React.FC = () => {
           },
         }}
       >
-        <DialogTitle>Confirmar Ação</DialogTitle>
         <DialogContent>
           <Typography fontSize="14px" color="#666" textAlign="center" mb="20px">
             Você deseja aceitar a doação{" "}

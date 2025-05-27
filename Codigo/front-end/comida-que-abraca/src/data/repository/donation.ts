@@ -24,7 +24,6 @@ class DonationRepository {
       );
       return response.data;
     } catch (error) {
-      console.error("Erro ao buscar doações pendentes:", error);
       return [];
     }
   }
@@ -36,7 +35,6 @@ class DonationRepository {
       );
       return response.data;
     } catch (error) {
-      console.error("Erro ao buscar doações pendentes de entrega:", error);
       return [];
     }
   }

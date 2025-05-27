@@ -145,7 +145,7 @@ const DonationPendingDelivery: React.FC = () => {
           component={Paper}
           sx={{
             borderRadius: 2,
-            boxShadow: "0px 2px 8px rgba(0,0,0,0.1)", // sombra leve
+            boxShadow: "0px 2px 8px rgba(0,0,0,0.1)",
           }}
         >
           <Table>
@@ -171,7 +171,7 @@ const DonationPendingDelivery: React.FC = () => {
                   key={donation.id}
                   hover
                   sx={{
-                    backgroundColor: index % 2 === 0 ? "#ffffff" : "#f9f9f9", // linhas alternadas
+                    backgroundColor: index % 2 === 0 ? "#ffffff" : "#f9f9f9",
                     borderBottom: "1px solid #eee",
                   }}
                 >
