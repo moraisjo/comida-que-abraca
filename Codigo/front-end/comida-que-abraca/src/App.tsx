@@ -13,6 +13,8 @@ import LgpdConsent from "./shared/components/Lgpd/LgpdConsent";
 
 import { ThemeProvider } from "@mui/material/styles";
 import theme from "./shared/theme/theme";
+import SignUpPage from "./features/SignUpPage/SignUpPage";
+import { ReportPage } from "./features/ReportPage/ReportPage";
 
 function LgpdRouteWrapper() {
   const location = useLocation();
@@ -41,6 +43,7 @@ function App() {
           <Route path="/cadastro-parceiro" element={<PartnerPage />} />
           <Route path="/cadastro" element={<SignUpPage />} />
           <Route path="/campanhas-disponiveis" element={<AvailableCampaignsPage />} />
+          <Route path="/relatorios" element={<ReportPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/lgpd" element={<LgpdRouteWrapper />} />
         </Routes>

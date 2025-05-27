@@ -18,10 +18,10 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 public class FoodEntity extends DonationEntity {
-    @Column(name = "isPerishable", nullable = false)
+    @Column(name = "is_perishable", nullable = false)
     private boolean isPerishable;
 
-    @Column(name = "expirationDate")
+    @Column(name = "expiration")
     private LocalDateTime expirationDate;
 
     @Column(name = "quantity", nullable = false)
