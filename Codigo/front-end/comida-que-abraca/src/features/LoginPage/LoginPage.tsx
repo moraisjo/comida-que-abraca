@@ -11,8 +11,7 @@ import {
 } from '@mui/material';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import logo from '../../assets/comida-que-abraca-logo.png'
-import colors from '../../shared/theme/colors';
+import logo from '../../assets/comida-que-abraca-logo.png';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
@@ -30,8 +29,16 @@ export default function LoginPage() {
         password,
       });
 
-      // ✅ Redirect to the main page
-      navigate('/');
+      const { token, userId, lgpdConsentDate } = response.data;
+
+      localStorage.setItem('token', token);
+      localStorage.setItem('lgpdAccepted', lgpdConsentDate ? 'true' : 'false');
+
+      if (!lgpdConsentDate) {
+        navigate('/lgpd', { state: { userId } });
+      } else {
+        navigate('/campanhas');
+      }
     } catch (error: any) {
       setErrorMsg(error.response?.data?.message || 'Erro ao fazer login.');
     }
@@ -40,11 +47,15 @@ export default function LoginPage() {
   return (
     <Container maxWidth="sm">
       <Paper elevation={3} sx={{ p: 4, mt: 8, borderRadius: 4 }}>
-        <img src={logo} alt="Logo Comida que Abraça" width="80%"/>
+        <img src={logo} alt="Logo Comida que Abraça" width="80%" />
         <Typography variant="h5" align="center" gutterBottom>
           Login
         </Typography>
-        <Box component="form" onSubmit={handleLogin} sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+        <Box
+          component="form"
+          onSubmit={handleLogin}
+          sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}
+        >
           <TextField
             label="E-mail"
             type="email"

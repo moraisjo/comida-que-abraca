@@ -99,6 +99,12 @@
 		</dependency>
 
 	</dependencies>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-config</artifactId>
+            <version>6.4.4</version>
+        </dependency>
+    </dependencies>
 
 	<build>
 		<plugins>

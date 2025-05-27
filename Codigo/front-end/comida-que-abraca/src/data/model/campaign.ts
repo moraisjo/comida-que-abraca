@@ -46,6 +46,7 @@ interface CreateCampaignRequest {
   endDate: string;
   photoUrl: string;  
   status: "ACTIVE"; 
+  notifyUsers?: boolean;
 }
 
 export type { Campaign, CreateCampaignRequest, PaginatedResponse};

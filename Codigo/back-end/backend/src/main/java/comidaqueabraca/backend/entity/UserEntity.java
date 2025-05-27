@@ -7,6 +7,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Table(name = "db_user")
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -38,6 +40,9 @@ public abstract class UserEntity {
 
     @Column(name = "address")
     private String address;
+
+    @Column(name = "lgpd_consent_date")
+    private LocalDateTime lgpdConsentDate;
 
     public UserEntity(String name, String email, String password, String phone, String address) {
         this.name = name;

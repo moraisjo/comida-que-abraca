@@ -11,7 +11,7 @@ import {
 } from "@mui/material";
 import { PendingDonationResponse } from "../../../../data/model/donation";
 import BackendResponseModal from "../../../../shared/components/Modal/BackendResponseModal";
-import { UseDonationService } from "../../../OngHomepage/hooks/UseDonationService";
+import useDonationService from "../../hooks/useDonationService";
 
 const PendingDonations: React.FC = () => {
   const [donations, setDonations] = useState<PendingDonationResponse[]>([]);
@@ -20,14 +20,16 @@ const PendingDonations: React.FC = () => {
   const [modalIsSuccess, setModalIsSuccess] = useState(true);
   const theme = useTheme();
 
+  const { getPendingDonations, updateDonationStatus } = useDonationService();
+
   useEffect(() => {
-    UseDonationService.getPendingDonations().then((data) => {
+    getPendingDonations().then((data) => {
       setDonations(data);
     });
   }, []);
 
   const handleAccept = (id: number) => {
-    UseDonationService.updateDonationStatus(id, "ACCEPTED")
+    updateDonationStatus(id, "ACCEPTED")
       .then((response) => {
         setModalMessage(response.message);
         setModalIsSuccess(true);
@@ -36,7 +38,7 @@ const PendingDonations: React.FC = () => {
           prevDonations.filter((donation) => donation.id !== id)
         );
       })
-      .catch((error) => {
+      .catch(() => {
         setModalMessage("Erro ao aceitar a doação");
         setModalIsSuccess(false);
         setModalOpen(true);
@@ -44,7 +46,7 @@ const PendingDonations: React.FC = () => {
   };
 
   const handleReject = (id: number) => {
-    UseDonationService.updateDonationStatus(id, "REJECTED")
+    updateDonationStatus(id, "REJECTED")
       .then((response) => {
         setModalMessage(response.message);
         setModalIsSuccess(true);
@@ -53,13 +55,12 @@ const PendingDonations: React.FC = () => {
           prevDonations.filter((donation) => donation.id !== id)
         );
       })
-      .catch((error) => {
+      .catch(() => {
         setModalMessage("Erro ao rejeitar a doação");
         setModalIsSuccess(false);
         setModalOpen(true);
       });
   };
-
   return (
     <>
       <Box padding={2}>
