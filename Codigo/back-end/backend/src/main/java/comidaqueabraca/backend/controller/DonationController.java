@@ -94,7 +94,7 @@ public class DonationController {
         try {
             donationService.updateDonationStatus(donationId, status);
 
-            String message = (status == DonationStatus.ACCEPTED)
+            String message = (status == DonationStatus.PENDING_DELIVERY)
                     ? "Doação aceita com sucesso!"
                     : "Doação rejeitada com sucesso!";
 

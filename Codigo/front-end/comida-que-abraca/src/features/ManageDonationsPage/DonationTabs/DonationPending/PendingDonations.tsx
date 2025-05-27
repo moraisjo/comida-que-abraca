@@ -2,74 +2,125 @@ import React, { useEffect, useState } from "react";
 import {
   Box,
   Typography,
-  Card,
-  CardContent,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+  Avatar,
   Button,
-  Stack,
-  CardMedia,
+  CircularProgress,
   useTheme,
+  IconButton,
+  Tooltip,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
 } from "@mui/material";
+import { InfoOutlined, CheckCircleOutline } from "@mui/icons-material";
 import { PendingDonationResponse } from "../../../../data/model/donation";
 import BackendResponseModal from "../../../../shared/components/Modal/BackendResponseModal";
 import useDonationService from "../../hooks/useDonationService";
 
 const PendingDonations: React.FC = () => {
   const [donations, setDonations] = useState<PendingDonationResponse[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [selectedDonation, setSelectedDonation] =
+    useState<PendingDonationResponse | null>(null);
   const [modalOpen, setModalOpen] = useState(false);
   const [modalMessage, setModalMessage] = useState("");
   const [modalIsSuccess, setModalIsSuccess] = useState(true);
+
+  const [openDetailsDialog, setOpenDetailsDialog] = useState(false);
+  const [openActionDialog, setOpenActionDialog] = useState(false);
+
   const theme = useTheme();
 
   const { getPendingDonations, updateDonationStatus } = useDonationService();
 
   useEffect(() => {
-    getPendingDonations().then((data) => {
-      setDonations(data);
-    });
+    const fetchDonations = async () => {
+      try {
+        const data = await getPendingDonations();
+        setDonations(data);
+      } catch (error) {
+        console.error("Erro ao carregar doações:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchDonations();
   }, []);
 
-  const handleAccept = (id: number) => {
-    updateDonationStatus(id, "ACCEPTED")
-      .then((response) => {
-        setModalMessage(response.message);
-        setModalIsSuccess(true);
-        setModalOpen(true);
-        setDonations((prevDonations) =>
-          prevDonations.filter((donation) => donation.id !== id)
-        );
-      })
-      .catch(() => {
-        setModalMessage("Erro ao aceitar a doação");
-        setModalIsSuccess(false);
-        setModalOpen(true);
-      });
+  const handleAccept = async (id: number) => {
+    try {
+      const response = await updateDonationStatus(id, "PENDING_DELIVERY");
+      setModalMessage(response.message);
+      setModalIsSuccess(true);
+      setDonations((prev) => prev.filter((donation) => donation.id !== id));
+    } catch {
+      setModalMessage("Erro ao aceitar a doação");
+      setModalIsSuccess(false);
+    } finally {
+      setModalOpen(true);
+    }
   };
 
-  const handleReject = (id: number) => {
-    updateDonationStatus(id, "REJECTED")
-      .then((response) => {
-        setModalMessage(response.message);
-        setModalIsSuccess(true);
-        setModalOpen(true);
-        setDonations((prevDonations) =>
-          prevDonations.filter((donation) => donation.id !== id)
-        );
-      })
-      .catch(() => {
-        setModalMessage("Erro ao rejeitar a doação");
-        setModalIsSuccess(false);
-        setModalOpen(true);
-      });
+  const handleReject = async (id: number) => {
+    try {
+      const response = await updateDonationStatus(id, "REJECTED");
+      setModalMessage(response.message);
+      setModalIsSuccess(true);
+      setDonations((prev) => prev.filter((donation) => donation.id !== id));
+    } catch {
+      setModalMessage("Erro ao rejeitar a doação");
+      setModalIsSuccess(false);
+    } finally {
+      setModalOpen(true);
+    }
   };
+
+  const handleOpenDetailsDialog = (donation: PendingDonationResponse) => {
+    setSelectedDonation(donation);
+    setOpenDetailsDialog(true);
+  };
+
+  const handleOpenActionDialog = (donation: PendingDonationResponse) => {
+    setSelectedDonation(donation);
+    setOpenActionDialog(true);
+  };
+
+  const handleCloseDetailsDialog = () => {
+    setOpenDetailsDialog(false);
+    setSelectedDonation(null);
+  };
+
+  const handleCloseActionDialog = () => {
+    setOpenActionDialog(false);
+    setSelectedDonation(null);
+  };
+
+  if (loading) {
+    return (
+      <Box display="flex" justifyContent="center" mt={4}>
+        <CircularProgress />
+      </Box>
+    );
+  }
+
   return (
     <>
-      <Box padding={2}>
+      <Box p={2}>
         <Typography
           variant="h6"
           gutterBottom
           color={theme.palette.primary.main}
         >
-          Doações Disponíveis
+          Doações Pendentes
         </Typography>
 
         {donations.length === 0 ? (
@@ -77,105 +128,88 @@ const PendingDonations: React.FC = () => {
             Nenhuma doação pendente.
           </Typography>
         ) : (
-          <Box display="flex" flexWrap="wrap" gap={2}>
-            {donations.map((donation) => (
-              <Card
-                key={donation.id}
-                variant="outlined"
-                sx={{
-                  width: "300px",
-                  borderRadius: "16px",
-                  overflow: "hidden",
-                  flexShrink: 0,
-                }}
-              >
-                {donation.photoUrl && (
-                  <CardMedia
-                    component="img"
-                    image={donation.photoUrl}
-                    alt="Imagem da doação"
+          <TableContainer
+            component={Paper}
+            sx={{
+              borderRadius: 2,
+              boxShadow: "0px 2px 8px rgba(0,0,0,0.1)",
+            }}
+          >
+            <Table>
+              <TableHead>
+                <TableRow sx={{ backgroundColor: "#f5f5f5" }}>
+                  <TableCell sx={{ fontWeight: "bold" }}>Imagem</TableCell>
+                  <TableCell sx={{ fontWeight: "bold" }}>Item</TableCell>
+                  <TableCell sx={{ fontWeight: "bold" }}>
+                    Data de Solicitação
+                  </TableCell>
+                  <TableCell sx={{ fontWeight: "bold" }}>Campanha</TableCell>
+                  <TableCell sx={{ fontWeight: "bold" }} align="center">
+                    Saiba Mais
+                  </TableCell>
+                  <TableCell sx={{ fontWeight: "bold" }} align="center">
+                    Ação
+                  </TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {donations.map((donation, index) => (
+                  <TableRow
+                    key={donation.id}
+                    hover
                     sx={{
-                      width: "100%",
-                      height: 200,
-                      objectFit: "cover",
-                    }}
-                  />
-                )}
-
-                <CardContent sx={{ textAlign: "center", padding: "16px" }}>
-                  <Typography
-                    variant="h6"
-                    sx={{ color: theme.palette.primary.main }}
-                  >
-                    {donation.name}
-                  </Typography>
-                  <Typography
-                    variant="body2"
-                    color="textSecondary"
-                    sx={{ marginBottom: "8px" }}
-                  >
-                    {new Date(donation.requestDate).toLocaleDateString(
-                      "pt-BR",
-                      {
-                        day: "2-digit",
-                        month: "long",
-                        year: "numeric",
-                      }
-                    )}
-                  </Typography>
-                </CardContent>
-
-                <Stack
-                  direction="column"
-                  spacing={2}
-                  justifyContent="center"
-                  sx={{
-                    padding: "16px",
-                    width: "100%",
-                  }}
-                >
-                  <Button
-                    variant="outlined"
-                    onClick={() => handleAccept(donation.id)}
-                    sx={{
-                      color: theme.palette.success.main,
-                      borderColor: theme.palette.success.main,
-                      width: "100%",
-                      height: "40px",
-                      fontSize: "16px",
-                      borderRadius: "100px",
-                      textTransform: "none",
-                      "&:hover": {
-                        borderColor: theme.palette.success.main,
-                        backgroundColor: "transparent",
-                      },
+                      backgroundColor: index % 2 === 0 ? "#ffffff" : "#f9f9f9",
+                      borderBottom: "1px solid #eee",
                     }}
                   >
-                    Aceitar
-                  </Button>
-                  <Button
-                    variant="outlined"
-                    onClick={() => handleReject(donation.id)}
-                    sx={{
-                      color: theme.palette.error.main,
-                      borderColor: theme.palette.error.main,
-                      width: "100%",
-                      height: "40px",
-                      fontSize: "16px",
-                      borderRadius: "100px",
-                      textTransform: "none",
-                      "&:hover": {
-                        borderColor: theme.palette.error.main,
-                        backgroundColor: "transparent",
-                      },
-                    }}
-                  >
-                    Rejeitar
-                  </Button>
-                </Stack>
-              </Card>
-            ))}
-          </Box>
+                    <TableCell>
+                      <Avatar
+                        src={donation.photoUrl || ""}
+                        variant="rounded"
+                        sx={{ width: 48, height: 48 }}
+                      />
+                    </TableCell>
+                    <TableCell>{donation.name}</TableCell>
+                    <TableCell>
+                      {donation.requestDate
+                        ? new Date(donation.requestDate).toLocaleDateString(
+                            "pt-BR",
+                            {
+                              day: "2-digit",
+                              month: "long",
+                              year: "numeric",
+                            }
+                          )
+                        : "Data não informada"}
+                    </TableCell>
+                    <TableCell>
+                      {donation.campaignName || "Sem campanha associada"}
+                    </TableCell>
+                    <TableCell align="center">
+                      <Tooltip title="Saiba mais">
+                        <IconButton
+                          onClick={() => handleOpenDetailsDialog(donation)}
+                          sx={{ color: theme.palette.primary.main }}
+                        >
+                          <InfoOutlined />
+                        </IconButton>
+                      </Tooltip>
+                    </TableCell>
+                    <TableCell align="center">
+                      <Tooltip title="Confirmar Ação">
+                        <IconButton
+                          onClick={() => handleOpenActionDialog(donation)}
+                          sx={{ color: "#FF6A00" }}
+                        >
+                          <CheckCircleOutline />
+                        </IconButton>
+                      </Tooltip>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
         )}
       </Box>
 
@@ -185,6 +219,95 @@ const PendingDonations: React.FC = () => {
         message={modalMessage}
         isSuccess={modalIsSuccess}
       />
+
+      <Dialog
+        open={openDetailsDialog}
+        onClose={handleCloseDetailsDialog}
+        PaperProps={{
+          style: {
+            borderRadius: "20px",
+            padding: "20px",
+            width: "350px",
+            maxWidth: "90vw",
+          },
+        }}
+      >
+        <DialogTitle>Detalhes da Doação</DialogTitle>
+        <DialogContent>
+          <Typography>
+            <strong>Item:</strong> {selectedDonation?.name}
+          </Typography>
+          <Typography>
+            <strong>Doador:</strong> {selectedDonation?.donorName}
+          </Typography>
+          <Typography>
+            <strong>Campanha:</strong>{" "}
+            {selectedDonation?.campaignName || "Sem campanha associada"}
+          </Typography>
+        </DialogContent>
+        <DialogActions>
+          <Button
+            onClick={handleCloseDetailsDialog}
+            sx={{ color: theme.palette.primary.main }}
+          >
+            Fechar
+          </Button>
+        </DialogActions>
+      </Dialog>
+
+      <Dialog
+        open={openActionDialog}
+        onClose={handleCloseActionDialog}
+        PaperProps={{
+          style: {
+            borderRadius: "20px",
+            padding: "20px",
+            width: "350px",
+            maxWidth: "90vw",
+          },
+        }}
+      >
+        <DialogTitle>Confirmar Ação</DialogTitle>
+        <DialogContent>
+          <Typography fontSize="14px" color="#666" textAlign="center" mb="20px">
+            Você deseja aceitar a doação{" "}
+            <strong>{selectedDonation?.name}</strong>?
+          </Typography>
+        </DialogContent>
+        <DialogActions
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            gap: 2,
+          }}
+        >
+          <Button
+            onClick={() => handleAccept(selectedDonation?.id!)}
+            sx={{
+              backgroundColor: theme.palette.primary.main,
+              color: "#fff",
+              borderRadius: "20px",
+              width: "100%",
+              fontSize: "14px",
+            }}
+          >
+            Aceitar
+          </Button>
+          <Button
+            onClick={() => handleReject(selectedDonation?.id!)}
+            sx={{
+              backgroundColor: "transparent",
+              border: `2px solid ${theme.palette.primary.main}`,
+              borderRadius: "20px",
+              width: "100%",
+              fontSize: "14px",
+            }}
+          >
+            Rejeitar
+          </Button>
+        </DialogActions>
+      </Dialog>
     </>
   );
 };
