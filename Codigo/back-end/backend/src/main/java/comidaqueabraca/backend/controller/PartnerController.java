@@ -1,14 +1,12 @@
 package comidaqueabraca.backend.controller;
 
 import comidaqueabraca.backend.dto.CreatePartnerDTO;
-import comidaqueabraca.backend.entity.PartnerEntity;
 import comidaqueabraca.backend.dto.PartnerDTO;
 import comidaqueabraca.backend.service.PartnerService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.servlet.http.Part;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

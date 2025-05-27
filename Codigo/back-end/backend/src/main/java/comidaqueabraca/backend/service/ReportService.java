@@ -3,8 +3,12 @@ package comidaqueabraca.backend.service;
 import comidaqueabraca.backend.dto.DonationsByCampaignDTO;
 import comidaqueabraca.backend.dto.DonationsByYearRequestDTO;
 import comidaqueabraca.backend.dto.DonationsPerMonthDTO;
+import comidaqueabraca.backend.repository.CampaignRepository;
 import comidaqueabraca.backend.repository.DonationRepository;
+import comidaqueabraca.backend.repository.PartnerRepository;
 import lombok.RequiredArgsConstructor;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,7 +17,14 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ReportService {
 
-    private final DonationRepository donationRepository;
+    @Autowired
+    private DonationRepository donationRepository;
+
+    @Autowired
+    private CampaignRepository campaignRepository;
+
+    @Autowired
+    private PartnerRepository partnerRepository;
 
     public List<DonationsByCampaignDTO> getDonationsByCampaign() {
         return donationRepository.countDonationsGroupedByCampaign();
@@ -23,4 +34,15 @@ public class ReportService {
         return donationRepository.countDonationsPerMonth(request.year());
     }
 
+    public long getTotalCampaigns() {
+        return campaignRepository.count();
+    }
+
+    public long getTotalDonations() {
+        return donationRepository.count();
+    }
+
+    public long getTotalPartners() {
+        return partnerRepository.count();
+    }
 }

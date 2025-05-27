@@ -26,4 +26,19 @@ public class ReportController {
     public List<DonationsPerMonthDTO> getDonationsPerYear(@RequestBody DonationsByYearRequestDTO request) {
         return reportService.getDonationsPerYear(request);
     }
+
+    @GetMapping("/total-campaigns")
+    public long getTotalCampaigns() {
+        return reportService.getTotalCampaigns();
+    }
+
+    @GetMapping("/total-donations")
+    public long getTotalDonations() {
+        return reportService.getTotalDonations();
+    }
+
+    @GetMapping("/total-partners")
+    public long getTotalPartners() {
+        return reportService.getTotalPartners();
+    }
 }
