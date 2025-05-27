@@ -178,15 +178,6 @@ export default function HeaderMenu() {
             </MenuItem>
             <MenuItem
               onClick={() => {
-                navigate("/campanhas-disponiveis");
-                handleSandwichMenuClose();
-              }}
-              sx={{ color: colors.darkGray, fontWeight: "bold" }}
-            >
-              📢 Campanhas Ativas
-            </MenuItem>
-            <MenuItem
-              onClick={() => {
                 navigate("/doacoes");
                 handleSandwichMenuClose();
               }}

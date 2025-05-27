@@ -6,15 +6,25 @@ const useDonationService = () => {
   const [donations, setDonations] = useState<DonationResponse[]>([]);
   const [errorOnDonations, setErrorOnDonations] = useState<string | null>(null);
 
-  const getAllDonations = useCallback(async () => {
+  const getAllDonations = useCallback(async (): Promise<DonationResponse[]> => {
     setErrorOnDonations(null);
     try {
       const data = await DonationRepository.getAllDonations();
       setDonations(data);
+      return data;
     } catch (error) {
       setErrorOnDonations("Erro ao buscar todas as doações.");
+      return [];
     }
   }, []);
+
+  const getDonationsStock = async () => {
+    try {
+      return await DonationRepository.getDonationsStock();
+    } catch (error) {
+      throw new Error("Erro ao buscar doações em estoque.");
+    }
+  };
 
   const getPendingDonations = async () => {
     try {
@@ -57,7 +67,8 @@ const useDonationService = () => {
   return {
     donations,
     errorOnDonations,
-    getAllDonations, // <- usar esse no useEffect, por exemplo
+    getAllDonations,
+    getDonationsStock,
     getPendingDonations,
     getPendingDelivery,
     updateDonationStatus,

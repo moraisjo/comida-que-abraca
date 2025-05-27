@@ -17,6 +17,18 @@ class DonationRepository {
     }
   }
 
+  async getDonationsStock(): Promise<DonationResponse[]> {
+    try {
+      const response = await axios.get<DonationResponse[]>(
+        "http://localhost:8080/api/donation/stock"
+      );
+      return response.data;
+    } catch (error) {
+      return [];
+    }
+  }
+
+
   async getPendingDonations(): Promise<PendingDonationResponse[]> {
     try {
       const response = await axios.get<PendingDonationResponse[]>(
@@ -24,7 +36,6 @@ class DonationRepository {
       );
       return response.data;
     } catch (error) {
-      console.error("Erro ao buscar doações pendentes:", error);
       return [];
     }
   }
@@ -36,7 +47,6 @@ class DonationRepository {
       );
       return response.data;
     } catch (error) {
-      console.error("Erro ao buscar doações pendentes de entrega:", error);
       return [];
     }
   }
