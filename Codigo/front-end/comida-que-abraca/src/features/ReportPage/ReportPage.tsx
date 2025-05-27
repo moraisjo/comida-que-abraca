@@ -56,18 +56,21 @@ function SummaryBox() {
         <Paper elevation={3} sx={{ p: 3, mb: 5, borderRadius: 3 }}>
             <Stack direction={{ xs: "column", sm: "row" }} spacing={4} justifyContent="center" alignItems="center">
                 <Box>
-                    <Typography variant="h6" align="center">Campanhas</Typography>
                     <Typography variant="h4" align="center" color="primary">{totals.campaigns}</Typography>
+                    <Typography variant="h6" align="center">Campanhas</Typography>
                 </Box>
                 <Box>
-                    <Typography variant="h6" align="center">Doações</Typography>
                     <Typography variant="h4" align="center" color="primary">{totals.donations}</Typography>
+                    <Typography variant="h6" align="center">Doações</Typography>
                 </Box>
                 <Box>
-                    <Typography variant="h6" align="center">Parceiros</Typography>
                     <Typography variant="h4" align="center" color="primary">{totals.partners}</Typography>
+                    <Typography variant="h6" align="center">Parceiros</Typography>
                 </Box>
             </Stack>
+            <Typography variant="body2" align="justify" color="text.secondary" sx={{ mt: 2 }}>
+                O Comida que Abraça segue alimentando vidas, promovendo dignidade e construindo uma rede de esperança. Cada número representa um gesto de amor, cada ação é um passo rumo a um mundo mais justo. 💛 Este é um resumo dos dados mais importantes do nosso relatório. Aqui você pode ver quantas campanhas foram criadas, quantas doações recebemos e quantos parceiros estão conosco. Esses números ajudam a entender o impacto do nosso trabalho e a importância da sua contribuição.
+            </Typography>
         </Paper>
     );
 }
