@@ -1,5 +1,6 @@
 package comidaqueabraca.backend.service;
 
+import comidaqueabraca.backend.dto.DetailMonthlyDonationTypeReportData;
 import comidaqueabraca.backend.dto.DonationsByCampaignDTO;
 import comidaqueabraca.backend.dto.DonationsByYearRequestDTO;
 import comidaqueabraca.backend.dto.DonationsPerMonthDTO;
@@ -44,5 +45,9 @@ public class ReportService {
 
     public long getTotalPartners() {
         return partnerRepository.count();
+    }
+
+    public List<DetailMonthlyDonationTypeReportData> findDonationReportByMonthAndYear(int month, int year) {
+        return (donationRepository.findDonationReportByMonthAndYear(month, year));
     }
 }

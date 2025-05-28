@@ -1,10 +1,14 @@
 package comidaqueabraca.backend.controller;
 
+import comidaqueabraca.backend.dto.CreateMonthYearFilter;
+import comidaqueabraca.backend.dto.DetailMonthlyDonationTypeReportData;
 import comidaqueabraca.backend.dto.DonationsByCampaignDTO;
 import comidaqueabraca.backend.dto.DonationsByYearRequestDTO;
 import comidaqueabraca.backend.dto.DonationsPerMonthDTO;
 import comidaqueabraca.backend.service.ReportService;
 import lombok.RequiredArgsConstructor;
+
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -40,5 +44,11 @@ public class ReportController {
     @GetMapping("/total-partners")
     public long getTotalPartners() {
         return reportService.getTotalPartners();
+    }
+
+    @PostMapping("/monthly-donation-type")
+    public ResponseEntity<List<DetailMonthlyDonationTypeReportData>> getDonationsByMonthYear(
+        @RequestBody CreateMonthYearFilter filter) {
+        return ResponseEntity.ok(reportService.findDonationReportByMonthAndYear(filter.month(), filter.year()));
     }
 }
