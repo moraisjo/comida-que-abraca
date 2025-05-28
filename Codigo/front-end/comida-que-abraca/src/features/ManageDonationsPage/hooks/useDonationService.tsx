@@ -5,6 +5,9 @@ import { DonationResponse } from "../../../data/model/donation";
 const useDonationService = () => {
   const [donations, setDonations] = useState<DonationResponse[]>([]);
   const [errorOnDonations, setErrorOnDonations] = useState<string | null>(null);
+  const [beneficiaries, setBeneficiaries] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   const getAllDonations = useCallback(async (): Promise<DonationResponse[]> => {
     setErrorOnDonations(null);
@@ -17,6 +20,16 @@ const useDonationService = () => {
       return [];
     }
   }, []);
+
+  const fetchAllDonations = async () => {
+    setErrorOnDonations(null);
+    try {
+      const data = await DonationRepository.getAllDonations(); // Sem "new" aqui
+      setDonations(data);
+    } catch (err: any) {
+      setErrorOnDonations("Ocorreu um erro ao buscar as doações.");
+    }
+  };
 
   const getDonationsStock = async () => {
     try {
@@ -64,6 +77,23 @@ const useDonationService = () => {
     }
   };
 
+  const fetchAllBeneficiaries = async () => {
+    try {
+      const response = await fetch(
+        "http://localhost:8080/partners/beneficiarios"
+      );
+      if (!response.ok) {
+        throw new Error(`Erro HTTP: ${response.status}`);
+      }
+      const data = await response.json();
+      setBeneficiaries(data);
+    } catch (err: any) {
+      setError(err.message || "Erro desconhecido");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return {
     donations,
     errorOnDonations,
@@ -73,6 +103,9 @@ const useDonationService = () => {
     getPendingDelivery,
     updateDonationStatus,
     updateDonationStatusStock,
+    fetchAllDonations,
+    fetchAllBeneficiaries,
+    beneficiaries
   };
 };
 

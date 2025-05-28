@@ -1,12 +1,11 @@
-import { Address } from "./address";
- 
+
  interface Partner {
      id: number;
      name: string;
      email: string;
      password: string;
      phone: string;
-     address: Address;
+     address: string;
      wantsToDonate: boolean;
      wantsToReceiveDonations: boolean;
      registrationDate: string;

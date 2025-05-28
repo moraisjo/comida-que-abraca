@@ -2,6 +2,7 @@ package comidaqueabraca.backend.controller;
 
 import comidaqueabraca.backend.dto.CreatePartnerDTO;
 import comidaqueabraca.backend.dto.PartnerDTO;
+import comidaqueabraca.backend.entity.PartnerEntity;
 import comidaqueabraca.backend.service.PartnerService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -28,7 +29,6 @@ public class PartnerController {
             @ApiResponse(responseCode = "200", description = "Lista de parceiros retornada com sucesso"),
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
     })
-
     @GetMapping
     public ResponseEntity<List<String>> listarParceiros() {
         return ResponseEntity.ok(List.of("Parceiro 1", "Parceiro 2"));
@@ -36,7 +36,13 @@ public class PartnerController {
 
     @PostMapping("/create")
     public ResponseEntity<PartnerDTO> createPartner(@RequestBody @Valid CreatePartnerDTO data) {
-        PartnerDTO newPartner = partnerService.createPartner(data); // retorna DTO para não expor dados sensíveis como senha
+        PartnerDTO newPartner = partnerService.createPartner(data); // retorna DTO para não expor dados sensíveis como
+                                                                    // senha
         return ResponseEntity.status(HttpStatus.CREATED).body(newPartner);
+    }
+
+    @GetMapping("/beneficiarios")
+    public List<PartnerEntity> getAllBeneficiaries() {
+        return partnerService.getAllBeneficiaries();
     }
 }
