@@ -110,9 +110,7 @@ const CampaignCreate: React.FC<CampaignCreateProps> = ({ onClose }) => {
               onChange={(e) => setName(e.target.value)}
               margin="dense"
               sx={{
-                "& .MuiOutlinedInput-root": {
-                  borderRadius: "20px",
-                },
+                "& .MuiOutlinedInput-root": {},
               }}
             />
             <TextField
@@ -124,9 +122,7 @@ const CampaignCreate: React.FC<CampaignCreateProps> = ({ onClose }) => {
               onChange={(e) => setDescription(e.target.value)}
               margin="dense"
               sx={{
-                "& .MuiOutlinedInput-root": {
-                  borderRadius: "20px",
-                },
+                "& .MuiOutlinedInput-root": {},
               }}
             />
             <TextField
@@ -136,9 +132,7 @@ const CampaignCreate: React.FC<CampaignCreateProps> = ({ onClose }) => {
               onChange={(e) => setAddress(e.target.value)}
               margin="dense"
               sx={{
-                "& .MuiOutlinedInput-root": {
-                  borderRadius: "20px",
-                },
+                "& .MuiOutlinedInput-root": {},
               }}
             />
             <TextField
@@ -150,9 +144,7 @@ const CampaignCreate: React.FC<CampaignCreateProps> = ({ onClose }) => {
               onChange={(e) => setStartDate(e.target.value)}
               margin="dense"
               sx={{
-                "& .MuiOutlinedInput-root": {
-                  borderRadius: "20px",
-                },
+                "& .MuiOutlinedInput-root": {},
               }}
             />
             <TextField
@@ -164,9 +156,7 @@ const CampaignCreate: React.FC<CampaignCreateProps> = ({ onClose }) => {
               onChange={(e) => setEndDate(e.target.value)}
               margin="dense"
               sx={{
-                "& .MuiOutlinedInput-root": {
-                  borderRadius: "20px",
-                },
+                "& .MuiOutlinedInput-root": {},
               }}
             />
 
@@ -178,7 +168,6 @@ const CampaignCreate: React.FC<CampaignCreateProps> = ({ onClose }) => {
                 justifyContent: "space-between",
                 alignItems: "center",
                 border: "1px solid #ccc",
-                borderRadius: "20px",
                 padding: "0 16px",
               }}
             >
@@ -192,7 +181,6 @@ const CampaignCreate: React.FC<CampaignCreateProps> = ({ onClose }) => {
                 justifyContent: "space-between",
                 alignItems: "center",
                 border: "1px solid #ccc",
-                borderRadius: "20px",
                 padding: "0 16px",
               }}
             >
@@ -226,7 +214,6 @@ const CampaignCreate: React.FC<CampaignCreateProps> = ({ onClose }) => {
                 textTransform: "none",
                 width: "100%",
                 height: "40px",
-                borderRadius: "20px",
                 "&:hover": {
                   backgroundColor: "transparent",
                   borderColor: colors.primary,
@@ -244,7 +231,6 @@ const CampaignCreate: React.FC<CampaignCreateProps> = ({ onClose }) => {
                 textTransform: "none",
                 width: "100%",
                 height: "40px",
-                borderRadius: "20px",
               }}
               onClick={handleSubmit}
               disabled={isDisabled}

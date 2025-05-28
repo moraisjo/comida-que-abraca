@@ -53,7 +53,6 @@ const CampaignDelete: React.FC<CampaignDeleteProps> = ({
           sx={{
             backgroundColor: "primary.main",
             color: "#fff",
-            borderRadius: "20px",
             width: "100%",
             fontSize: "14px",
           }}
@@ -64,7 +63,6 @@ const CampaignDelete: React.FC<CampaignDeleteProps> = ({
           onClick={onClose}
           variant="outlined"
           sx={{
-            borderRadius: "20px",
             width: "100%",
             fontSize: "14px",
           }}

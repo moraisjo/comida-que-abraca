@@ -140,10 +140,10 @@ const CampaignList: React.FC<CampaignListProps> = ({ onCreate }) => {
     if (selectedCampaignId) {
       try {
         await CampaignService.cancelCampaign(selectedCampaignId);
-        alert("Campanha cancelada com sucesso!");
+        alert("Campanha deletada com sucesso!");
         setOpenModalDelete(false);
       } catch (error) {
-        console.error("Erro ao cancelar campanha:", error);
+        console.error("Erro ao deletada campanha:", error);
       }
     }
   };

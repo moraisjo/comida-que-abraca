@@ -9,6 +9,7 @@ import {
   Typography,
   Box,
 } from "@mui/material";
+import ImageUpload from "../../../../shared/components/Upload/ImageUpload";
 
 interface EditCampaignModalProps {
   open: boolean;
@@ -90,44 +91,67 @@ const CampaingEdit: React.FC<EditCampaignModalProps> = ({
           onChange={(e) => setEndDate(e.target.value)}
         />
 
-        <TextField
-          margin="dense"
-          label="URL da Imagem"
-          fullWidth
-          value={photoUrl}
-          onChange={(e) => setPhotoUrl(e.target.value)}
-        />
+        <Box
+          sx={{
+            width: "100%",
+            height: "56px",
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            border: "1px solid #ccc",
+            padding: "0 16px",
+            mt: 1,
+          }}
+        >
+          <ImageUpload onImageUploaded={setPhotoUrl} />
+        </Box>
 
-        {photoUrl && (
-          <Box mt={2} display="flex" flexDirection="column" alignItems="center">
-            <Typography variant="subtitle2" gutterBottom>
-              Pré-visualização da imagem:
-            </Typography>
-            <Box
-              component="img"
-              src={photoUrl}
-              alt="Imagem da campanha"
-              sx={{
-                width: "100%",
-                maxHeight: 200,
-                objectFit: "contain",
-                borderRadius: 1,
-                border: "1px solid #ccc",
-              }}
-              onError={(e) => {
-                (e.target as HTMLImageElement).src = "";
-              }}
-            />
-          </Box>
-        )}
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            gap: 2,
+            marginTop: "15px",
+          }}
+        >
+          <Button
+            onClick={onSave}
+            variant="contained"
+            sx={{
+              backgroundColor: "primary",
+              color: "white",
+              fontSize: "12px",
+              textTransform: "none",
+              width: "100%",
+              height: "40px",
+            }}
+          >
+            Salvar
+          </Button>
+          <Button
+            onClick={onClose}
+            variant="outlined"
+            sx={{
+              borderColor: "primary",
+              color: "primary",
+              fontSize: "12px",
+              textTransform: "none",
+              width: "100%",
+              height: "40px",
+              "&:hover": {
+                backgroundColor: "transparent",
+                borderColor: "primary",
+              },
+            }}
+          >
+            Cancelar
+          </Button>
+        </Box>
       </DialogContent>
 
-      <DialogActions>
-        <Button onClick={onClose}>Cancelar</Button>
-        <Button onClick={onSave} variant="contained" color="primary">
-          Salvar
-        </Button>
-      </DialogActions>
+      <DialogActions
+        sx={{ flexDirection: "column", width: "100%", gap: 1, px: 3, pb: 3 }}
+      ></DialogActions>
     </Dialog>
   );
 };
