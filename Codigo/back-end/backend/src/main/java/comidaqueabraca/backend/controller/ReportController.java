@@ -1,6 +1,5 @@
 package comidaqueabraca.backend.controller;
 
-import comidaqueabraca.backend.dto.CreateMonthYearFilter;
 import comidaqueabraca.backend.dto.DetailMonthlyDonationTypeReportData;
 import comidaqueabraca.backend.dto.DonationsByCampaignDTO;
 import comidaqueabraca.backend.dto.DonationsByYearRequestDTO;
@@ -21,9 +20,11 @@ public class ReportController {
 
     private final ReportService reportService;
 
-    @GetMapping("/donations-by-campaign")
-    public List<DonationsByCampaignDTO> getDonationsByCampaign() {
-        return reportService.getDonationsByCampaign();
+    @GetMapping("/donations-by-campaign-monthly")
+    public List<DonationsByCampaignDTO> getDonationsByCampaignAndMonthYear(
+            @RequestParam int month,
+            @RequestParam int year) {
+        return reportService.getDonationsByCampaignAndMonthYear(month, year);
     }
 
     @PostMapping("/donations-per-year")
@@ -46,9 +47,10 @@ public class ReportController {
         return reportService.getTotalPartners();
     }
 
-    @PostMapping("/monthly-donation-type")
+    @GetMapping("/monthly-donation-type")
     public ResponseEntity<List<DetailMonthlyDonationTypeReportData>> getDonationsByMonthYear(
-        @RequestBody CreateMonthYearFilter filter) {
-        return ResponseEntity.ok(reportService.findDonationReportByMonthAndYear(filter.month(), filter.year()));
+            @RequestParam int month,
+            @RequestParam int year) {
+        return ResponseEntity.ok(reportService.findDonationReportByMonthAndYear(month, year));
     }
 }

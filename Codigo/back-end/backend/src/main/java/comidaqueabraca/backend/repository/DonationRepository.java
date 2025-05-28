@@ -19,15 +19,19 @@ public interface DonationRepository extends JpaRepository<DonationEntity, Long> 
     List<DonationEntity> findByStatus(DonationStatus status);
 
     @Query("""
-                SELECT new comidaqueabraca.backend.dto.DonationsByCampaignDTO(
-                    COALESCE(c.name, 'Outras Campanhas'),
-                    COUNT(d))
-                FROM DonationEntity d
-                LEFT JOIN d.campaign c
-                GROUP BY c.name
-                ORDER BY COUNT(d) DESC
-            """)
-    List<DonationsByCampaignDTO> countDonationsGroupedByCampaign();
+        SELECT new comidaqueabraca.backend.dto.DonationsByCampaignDTO(
+            COALESCE(c.name, 'Outras Campanhas'),
+            COUNT(d))
+        FROM DonationEntity d
+        LEFT JOIN d.campaign c
+        WHERE MONTH(d.arrivingDate) = :month AND YEAR(d.arrivingDate) = :year
+        GROUP BY c.name
+        ORDER BY COUNT(d) DESC
+    """)
+    List<DonationsByCampaignDTO> countDonationsGroupedByCampaignAndMonthYear(
+        @Param("month") int month,
+        @Param("year") int year
+    );
 
     @Query("SELECT new comidaqueabraca.backend.dto.DonationsPerMonthDTO(" +
         "MONTH(d.arrivingDate), '', COUNT(d)) " +
@@ -36,7 +40,6 @@ public interface DonationRepository extends JpaRepository<DonationEntity, Long> 
         "GROUP BY MONTH(d.arrivingDate) " +
         "ORDER BY MONTH(d.arrivingDate)")
 List<DonationsPerMonthDTO> countDonationsPerMonth(@Param("year") Integer year);
-
 
     @Query(value = """
         SELECT

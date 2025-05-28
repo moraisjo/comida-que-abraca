@@ -27,8 +27,8 @@ public class ReportService {
     @Autowired
     private PartnerRepository partnerRepository;
 
-    public List<DonationsByCampaignDTO> getDonationsByCampaign() {
-        return donationRepository.countDonationsGroupedByCampaign();
+    public List<DonationsByCampaignDTO> getDonationsByCampaignAndMonthYear(int month, int year) {
+        return donationRepository.countDonationsGroupedByCampaignAndMonthYear(month, year);
     }
 
     public List<DonationsPerMonthDTO> getDonationsPerYear(DonationsByYearRequestDTO request) {
