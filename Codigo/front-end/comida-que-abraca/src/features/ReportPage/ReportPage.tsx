@@ -30,10 +30,11 @@ export function ReportPage() {
     return (
         <>
             <HeaderMenu />
-            <Container maxWidth="md" sx={{ py: 5 }}>
+            <Container maxWidth="md" sx={{ py: 4 }}>
                 <Typography variant="h4" align="center" sx={{ fontWeight: 700, mb: 4 }}>
                     Relatório Geral
                 </Typography>
+
 
                 {report ? (
                     <>
