@@ -31,7 +31,7 @@ export default function NotificationIcon() {
       onClick={() => navigate("/notificacoes")}
       sx={{ color: "#333" }}
     >
-      <Badge badgeContent={unreadCount} color="error" showZero>
+      <Badge badgeContent={unreadCount} color="error">
         <NotificationsIcon />
       </Badge>
     </IconButton>
