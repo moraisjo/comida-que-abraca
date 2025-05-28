@@ -18,6 +18,7 @@ import { ThemeProvider } from "@mui/material/styles";
 import theme from "./shared/theme/theme";
 import { ReportPage } from "./features/ReportPage/ReportPage";
 import DonorsPage from "./features/DonorsPage/DonorsPage";
+import { AuthProvider } from "./context/AuthContext";
 
 function LgpdRouteWrapper() {
   const location = useLocation();
@@ -36,22 +37,24 @@ function LgpdRouteWrapper() {
 
 function App() {
   return (
-    <ThemeProvider theme={theme}>
-      <Router>
-        <Routes>
-          <Route path="/" element={<OngHomepage />} />
-          <Route path="/ranking" element={<RankingPage />} />
-          <Route path="/campanhas" element={<CampanhasPage />} />
-          <Route path="/doacoes" element={<DonationPage />} />
-          <Route path="/cadastro-parceiro" element={<PartnerPage />} />
-          <Route path="/cadastro" element={<SignUpPage />} />
-          <Route path="/relatorios" element={<ReportPage />} />
-          <Route path="/doadores" element={<DonorsPage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/lgpd" element={<LgpdRouteWrapper />} />
-        </Routes>
-      </Router>
-    </ThemeProvider>
+    <AuthProvider>
+      <ThemeProvider theme={theme}>
+        <Router>
+          <Routes>
+            <Route path="/" element={<OngHomepage />} />
+            <Route path="/ranking" element={<RankingPage />} />
+            <Route path="/campanhas" element={<CampanhasPage />} />
+            <Route path="/doacoes" element={<DonationPage />} />
+            <Route path="/cadastro-parceiro" element={<PartnerPage />} />
+            <Route path="/cadastro" element={<SignUpPage />} />
+            <Route path="/relatorios" element={<ReportPage />} />
+            <Route path="/doadores" element={<DonorsPage />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/lgpd" element={<LgpdRouteWrapper />} />
+          </Routes>
+        </Router>
+      </ThemeProvider>
+    </AuthProvider>
   );
 }
 
