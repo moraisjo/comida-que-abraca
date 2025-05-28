@@ -24,20 +24,15 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import { Menu, MenuItem } from "@mui/material";
 import colors from "../../../../shared/theme/colors";
+import { EditCampaignRequest } from "../../../../data/model/campaign";
 import { useCampaignService } from "../../hooks/UseCampaingsService";
 import { CampaignService } from "../../hooks/UseCampaingsService";
 import { Campaign } from "../../../../data/model/campaign";
+import EditCampaignModal from "../EditCampaing/CampaingEdit";
+import CampaignDelete from "../DeleteCampaing/CampaignDelete";
+
 interface CampaignListProps {
   onCreate: () => void;
-}
-
-export interface EditCampaignRequest {
-  name?: string;
-  description?: string;
-  address?: string;
-  startDate?: string;
-  endDate?: string;
-  photoUrl?: string;
 }
 
 const CampaignList: React.FC<CampaignListProps> = ({ onCreate }) => {
@@ -48,7 +43,8 @@ const CampaignList: React.FC<CampaignListProps> = ({ onCreate }) => {
   const [campaignEndDate, setCampaignEndDate] = useState("");
   const [campaignPhotoUrl, setCampaignPhotoUrl] = useState("");
 
-  const [openModal, setOpenModal] = useState(false);
+  const [openModalDelete, setOpenModalDelete] = useState(false);
+  const [openModalEdit, setOpenModalEdit] = useState(false);
   const [selectedCampaignId, setSelectedCampaignId] = useState<number | null>(
     null
   );
@@ -84,18 +80,60 @@ const CampaignList: React.FC<CampaignListProps> = ({ onCreate }) => {
     fetchCampaigns();
   }, [statusFilter]);
 
-  const handleOpenModal = (id: number) => {
+  const handleOpenModalDelete = (id: number) => {
     setSelectedCampaignId(id);
-    setOpenModal(true);
+    setOpenModalDelete(true);
   };
 
-  const handleCloseModal = () => {
-    setOpenModal(false);
+  const handleCloseModalDelete = () => {
+    setOpenModalDelete(false);
     setSelectedCampaignId(null);
   };
 
+  const handleCloseModalEdit = () => {
+    setOpenModalEdit(false);
+    setSelectedCampaignId(null);
+  };
+
+  const handleOpenModalEdit = (id: number) => {
+    const selected = campaigns.find((c) => c.id === id);
+    if (selected) {
+      setSelectedCampaignId(id);
+      setCampaignName(selected.name);
+      setCampaignDescription(selected.description);
+      setCampaignAddress(selected.address);
+      setCampaignStartDate(selected.startDate);
+      setCampaignEndDate(selected.endDate);
+      setCampaignPhotoUrl(selected.photoUrl);
+      setOpenModalEdit(true);
+    }
+  };
+
   const handleEditCampaign = async () => {
-    alert("Necessario criar!");
+    if (selectedCampaignId) {
+      const updatedCampaign: EditCampaignRequest = {
+        name: campaignName,
+        description: campaignDescription,
+        address: campaignAddress,
+        startDate: campaignStartDate,
+        endDate: campaignEndDate,
+        photoUrl: campaignPhotoUrl,
+      };
+
+      try {
+        await CampaignService.editCampaign(selectedCampaignId, updatedCampaign);
+        alert("Campanha atualizada com sucesso!");
+        setOpenModalEdit(false);
+        setCampaigns((prev) =>
+          prev.map((c) =>
+            c.id === selectedCampaignId ? { ...c, ...updatedCampaign } : c
+          )
+        );
+      } catch (error) {
+        console.error(error);
+        alert("Erro ao editar campanha. Tente novamente.");
+      }
+    }
   };
 
   const handleCancelCampaign = async () => {
@@ -103,7 +141,7 @@ const CampaignList: React.FC<CampaignListProps> = ({ onCreate }) => {
       try {
         await CampaignService.cancelCampaign(selectedCampaignId);
         alert("Campanha cancelada com sucesso!");
-        setOpenModal(false);
+        setOpenModalDelete(false);
       } catch (error) {
         console.error("Erro ao cancelar campanha:", error);
       }
@@ -223,12 +261,13 @@ const CampaignList: React.FC<CampaignListProps> = ({ onCreate }) => {
               sx={{ display: "flex", justifyContent: "space-between" }}
             >
               <Box>
-                <IconButton aria-label="editar">
+                <IconButton onClick={() => handleOpenModalEdit(campaign.id)}>
                   <EditIcon />
                 </IconButton>
+
                 <IconButton
                   aria-label="excluir"
-                  onClick={() => handleOpenModal(campaign.id)}
+                  onClick={() => handleOpenModalDelete(campaign.id)}
                 >
                   <DeleteIcon />
                 </IconButton>
@@ -257,60 +296,29 @@ const CampaignList: React.FC<CampaignListProps> = ({ onCreate }) => {
           </Card>
         ))}
       </Box>
-      <Dialog
-        open={openModal}
-        onClose={handleCloseModal}
-        sx={{ borderRadius: 8 }}
-        PaperProps={{
-          style: {
-            borderRadius: "20px",
-            padding: "20px",
-            width: "350px",
-            maxWidth: "90vw",
-          },
-        }}
-      >
-        <DialogTitle sx={{ fontWeight: "bold", textAlign: "center" }}>
-          Confirmar Exclusão
-        </DialogTitle>
-        <DialogContent sx={{ textAlign: "center", padding: 2 }}>
-          <Typography>Deseja excluir a campanha?</Typography>
-        </DialogContent>
-        <DialogActions
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            gap: 2,
-          }}
-        >
-          <Button
-            onClick={handleCancelCampaign}
-            variant="contained"
-            sx={{
-              backgroundColor: "primary",
-              color: "#fff",
-              borderRadius: "20px",
-              width: "100%",
-              fontSize: "14px",
-            }}
-          >
-            Excluir
-          </Button>
-          <Button
-            onClick={handleCloseModal}
-            variant="outlined"
-            sx={{
-              backgroundColor: "transparent",
-              borderRadius: "20px",
-              width: "100%",
-              fontSize: "14px",
-            }}
-          >
-            Não Excluir
-          </Button>
-        </DialogActions>
-      </Dialog>
+      <CampaignDelete
+        open={openModalDelete}
+        onClose={handleCloseModalDelete}
+        onDelete={handleCancelCampaign}
+      />
+
+      <EditCampaignModal
+        open={openModalEdit}
+        onClose={handleCloseModalEdit}
+        onSave={handleEditCampaign}
+        name={campaignName}
+        setName={setCampaignName}
+        description={campaignDescription}
+        setDescription={setCampaignDescription}
+        address={campaignAddress}
+        setAddress={setCampaignAddress}
+        startDate={campaignStartDate}
+        setStartDate={setCampaignStartDate}
+        endDate={campaignEndDate}
+        setEndDate={setCampaignEndDate}
+        photoUrl={campaignPhotoUrl}
+        setPhotoUrl={setCampaignPhotoUrl}
+      />
     </Box>
   );
 };
