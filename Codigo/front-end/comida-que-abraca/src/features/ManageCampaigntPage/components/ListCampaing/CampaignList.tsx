@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import {
-  Button,
   Typography,
   Card,
   CardContent,
@@ -8,16 +7,18 @@ import {
   IconButton,
   CardMedia,
   Box,
+  TextField,
   useTheme,
+  Collapse,
+  CardHeader,
 } from "@mui/material";
-import VisibilityIcon from "@mui/icons-material/Visibility";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
+import AddIcon from "@mui/icons-material/Add";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import colors from "../../../../shared/theme/colors";
 import { useCampaignService } from "../../hooks/UseCampaingsService";
 import { Campaign } from "../../../../data/model/campaign";
-import CampaignDetailModal from "../../../../shared/components/Modal/CampaignDetailsModal";
-
 interface CampaignListProps {
   onCreate: () => void;
 }
@@ -25,10 +26,10 @@ interface CampaignListProps {
 const CampaignList: React.FC<CampaignListProps> = ({ onCreate }) => {
   const { getActiveCampaigns } = useCampaignService();
   const [campaigns, setCampaigns] = useState<Campaign[]>([]);
-  const [selectedCampaign, setSelectedCampaign] = useState<Campaign | null>(
-    null
-  );
-  const [openModal, setOpenModal] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [expandedCards, setExpandedCards] = useState<{
+    [key: number]: boolean;
+  }>({});
   const theme = useTheme();
 
   useEffect(() => {
@@ -44,110 +45,115 @@ const CampaignList: React.FC<CampaignListProps> = ({ onCreate }) => {
     fetchCampaigns();
   }, []);
 
-  const handleOpenModal = (campaign: Campaign) => {
-    setSelectedCampaign(campaign);
-    setOpenModal(true);
-  };
+  const filteredCampaigns = campaigns.filter((campaign) =>
+    campaign.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
-  const handleCloseModal = () => {
-    setOpenModal(false);
-    setSelectedCampaign(null);
+  const toggleExpand = (id: number) => {
+    setExpandedCards((prevState) => ({
+      ...prevState,
+      [id]: !prevState[id],
+    }));
   };
 
   return (
     <Box padding={2}>
-      <Button
-        variant="contained"
-        fullWidth
-        onClick={onCreate}
-        sx={{
-          marginBottom: 2,
-          marginTop: 5,
-          backgroundColor: colors.primary,
-          color: colors.white,
-          borderRadius: 5,
-        }}
-      >
-        Cadastre uma nova campanha
-      </Button>
-
       <Typography variant="h6" gutterBottom color={theme.palette.primary.main}>
         Campanhas Ativas
       </Typography>
-      <Box display="flex" flexWrap="wrap" gap={2}>
-        {campaigns.map((campaign) => (
-          <Box
-            key={campaign.id}
-            sx={{
-              flexBasis: {
-                xs: "100%",
-                sm: "calc(50% - 12px)",
-                md: "calc(33.333% - 16px)",
-              },
-              display: "flex",
-            }}
-          >
-            <Card
-              sx={{
-                borderRadius: 3,
-                boxShadow: 3,
-                display: "flex",
-                flexDirection: "column",
-                height: "100%",
-                width: "100%",
-              }}
-            >
-              <CardMedia
-                component="img"
-                height="200"
-                image={
-                  campaign.photoUrl || "../../../../assets/ImagemVazia.jpg"
-                }
-                alt="Imagem da campanha"
-              />
-              <CardContent sx={{ flexGrow: 1 }}>
-                <Typography variant="h6" gutterBottom>
-                  {campaign.name}
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  {new Date(campaign.startDate).toLocaleDateString("pt-BR", {
-                    day: "2-digit",
-                    month: "2-digit",
-                    year: "numeric",
-                  })}{" "}
-                  a{" "}
-                  {new Date(campaign.endDate).toLocaleDateString("pt-BR", {
-                    day: "2-digit",
-                    month: "2-digit",
-                    year: "numeric",
-                  })}
-                </Typography>
-              </CardContent>
-              <CardActions>
-                <Box sx={{ marginLeft: "auto" }}>
-                  <IconButton onClick={() => handleOpenModal(campaign)}>
-                    <VisibilityIcon />
-                  </IconButton>
-                  <IconButton>
-                    <EditIcon />
-                  </IconButton>
-                  <IconButton>
-                    <DeleteIcon />
-                  </IconButton>
-                </Box>
-              </CardActions>
-            </Card>
-          </Box>
-        ))}
+
+      <Box
+        sx={{
+          position: "fixed",
+          bottom: 16,
+          right: 16,
+          zIndex: 1000,
+        }}
+      >
+        <IconButton
+          onClick={onCreate}
+          sx={{
+            backgroundColor: colors.primary,
+            color: colors.white,
+            borderRadius: "50%",
+            width: 56,
+            height: 56,
+            boxShadow: 3,
+          }}
+        >
+          <AddIcon />
+        </IconButton>
       </Box>
 
-      {selectedCampaign && (
-        <CampaignDetailModal
-          openModal={openModal}
-          handleCloseModal={handleCloseModal}
-          selectedCampaign={selectedCampaign}
-        />
-      )}
+      <TextField
+        label="Buscar..."
+        variant="outlined"
+        size="small"
+        fullWidth
+        sx={{ marginBottom: 2 }}
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+      />
+
+      <Box
+        sx={{
+          display: "grid",
+          gridTemplateColumns: "repeat(4, 1fr)",
+          gap: 2,
+        }}
+      >
+        {filteredCampaigns.map((campaign) => (
+          <Card key={campaign.id} sx={{ maxWidth: 345 }}>
+            <CardHeader
+              title={campaign.name}
+              subheader={`${new Date(campaign.startDate).toLocaleDateString(
+                "pt-BR"
+              )} - ${new Date(campaign.endDate).toLocaleDateString("pt-BR")}`}
+            />
+            <CardMedia
+              component="img"
+              height="194"
+              image={
+                campaign.photoUrl || "/static/images/cards/placeholder.jpg"
+              }
+              alt="Imagem da campanha"
+            />
+            <CardActions
+              disableSpacing
+              sx={{ display: "flex", justifyContent: "space-between" }}
+            >
+              <Box>
+                <IconButton aria-label="editar">
+                  <EditIcon />
+                </IconButton>
+                <IconButton aria-label="excluir">
+                  <DeleteIcon />
+                </IconButton>
+              </Box>
+
+              <IconButton
+                onClick={() => toggleExpand(campaign.id)}
+                aria-expanded={expandedCards[campaign.id]}
+                aria-label="mostrar mais"
+              >
+                <ExpandMoreIcon />
+              </IconButton>
+            </CardActions>
+
+            <Collapse
+              in={expandedCards[campaign.id]}
+              timeout="auto"
+              unmountOnExit
+            >
+              <CardContent>
+                <Typography variant="body2" color="text.secondary">
+                  {campaign.description}
+                </Typography>
+              </CardContent>
+            </Collapse>
+          </Card>
+        ))}
+      </Box>
     </Box>
   );
 };

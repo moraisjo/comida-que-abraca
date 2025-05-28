@@ -205,6 +205,15 @@ export default function HeaderMenu() {
             </MenuItem>
             <MenuItem
               onClick={() => {
+                navigate("/doadores");
+                handleSandwichMenuClose();
+              }}
+              sx={{ color: colors.darkGray, fontWeight: "bold" }}
+            >
+              ☎️ Doadores
+            </MenuItem>
+            <MenuItem
+              onClick={() => {
                 //navigate();
               }}
               sx={{ color: colors.darkGray, fontWeight: "bold" }}

@@ -7,7 +7,7 @@ import {
   useLocation,
 } from "react-router-dom";
 import RankingPage from "./features/RankingPage/RankingPage";
-import CampanhasPage from "./features/ManageCampaigntPage/components/CampaignPages";
+import CampanhasPage from "./features/ManageCampaigntPage/CampaignPages";
 import DonationPage from "./features/ManageDonationsPage/DonationPage";
 import PartnerPage from "./features/partner/PartnerPage";
 import LoginPage from "./features/LoginPage/LoginPage";
@@ -17,6 +17,7 @@ import LgpdConsent from "./shared/components/Lgpd/LgpdConsent";
 import { ThemeProvider } from "@mui/material/styles";
 import theme from "./shared/theme/theme";
 import { ReportPage } from "./features/ReportPage/ReportPage";
+import DonorsPage from "./features/DonorsPage/DonorsPage";
 
 function LgpdRouteWrapper() {
   const location = useLocation();
@@ -45,6 +46,7 @@ function App() {
           <Route path="/cadastro-parceiro" element={<PartnerPage />} />
           <Route path="/cadastro" element={<SignUpPage />} />
           <Route path="/relatorios" element={<ReportPage />} />
+          <Route path="/doadores" element={<DonorsPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/lgpd" element={<LgpdRouteWrapper />} />
         </Routes>
