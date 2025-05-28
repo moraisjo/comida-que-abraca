@@ -7,15 +7,15 @@ import {
   IconButton,
   CardMedia,
   Box,
+  Button,
   TextField,
   useTheme,
   Collapse,
   CardHeader,
   Dialog,
-  DialogActions,
-  DialogContent,
   DialogTitle,
-  Button,
+  DialogContent,
+  DialogActions,
 } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -48,6 +48,9 @@ const CampaignList: React.FC<CampaignListProps> = ({ onCreate }) => {
   const [selectedCampaignId, setSelectedCampaignId] = useState<number | null>(
     null
   );
+
+  const [feedbackOpen, setFeedbackOpen] = useState(false);
+  const [feedbackMessage, setFeedbackMessage] = useState("");
 
   const { getActiveCampaigns, getInactiveCampaigns } = useCampaignService();
   const [campaigns, setCampaigns] = useState<Campaign[]>([]);
@@ -122,16 +125,21 @@ const CampaignList: React.FC<CampaignListProps> = ({ onCreate }) => {
 
       try {
         await CampaignService.editCampaign(selectedCampaignId, updatedCampaign);
-        alert("Campanha atualizada com sucesso!");
+        setFeedbackMessage(`Campanha ${campaignName} alterada com sucesso!`);
+        setFeedbackOpen(true);
         setOpenModalEdit(false);
+
         setCampaigns((prev) =>
           prev.map((c) =>
             c.id === selectedCampaignId ? { ...c, ...updatedCampaign } : c
           )
         );
-      } catch (error) {
+      } catch (error: any) {
         console.error(error);
-        alert("Erro ao editar campanha. Tente novamente.");
+        setFeedbackMessage(
+          "Erro ao salvar a campanha: " + (error?.message || "")
+        );
+        setFeedbackOpen(true);
       }
     }
   };
@@ -140,10 +148,13 @@ const CampaignList: React.FC<CampaignListProps> = ({ onCreate }) => {
     if (selectedCampaignId) {
       try {
         await CampaignService.cancelCampaign(selectedCampaignId);
-        alert("Campanha deletada com sucesso!");
+        setFeedbackMessage(`Campanha deletada com sucesso!`);
+        setFeedbackOpen(true);
         setOpenModalDelete(false);
       } catch (error) {
-        console.error("Erro ao deletada campanha:", error);
+        setFeedbackMessage(
+          "Erro ao deletar a campanha: " + (error?.message || "")
+        );
       }
     }
   };
@@ -296,6 +307,39 @@ const CampaignList: React.FC<CampaignListProps> = ({ onCreate }) => {
           </Card>
         ))}
       </Box>
+      <Dialog
+        open={feedbackOpen}
+        onClose={() => setFeedbackOpen(false)}
+        PaperProps={{
+          style: {
+            borderRadius: "20px",
+            padding: "20px",
+            width: "350px",
+            maxWidth: "90vw",
+          },
+        }}
+      >
+        <DialogContent sx={{ textAlign: "center", padding: 2 }}>
+          <Typography>
+            <strong>{feedbackMessage}</strong>
+          </Typography>
+        </DialogContent>
+        <DialogActions>
+          <Button
+            onClick={() => setFeedbackOpen(false)}
+            sx={{
+              borderRadius: "20px",
+              backgroundColor: "primary.main",
+              color: "#fff",
+              width: "100%",
+              fontSize: "14px",
+            }}
+          >
+            OK
+          </Button>
+        </DialogActions>
+      </Dialog>
+
       <CampaignDelete
         open={openModalDelete}
         onClose={handleCloseModalDelete}

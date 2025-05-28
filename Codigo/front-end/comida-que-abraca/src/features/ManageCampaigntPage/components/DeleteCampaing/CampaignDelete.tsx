@@ -23,7 +23,6 @@ const CampaignDelete: React.FC<CampaignDeleteProps> = ({
     <Dialog
       open={open}
       onClose={onClose}
-      sx={{ borderRadius: 8 }}
       PaperProps={{
         style: {
           borderRadius: "20px",
@@ -51,6 +50,7 @@ const CampaignDelete: React.FC<CampaignDeleteProps> = ({
           onClick={onDelete}
           variant="contained"
           sx={{
+            borderRadius: "20px",
             backgroundColor: "primary.main",
             color: "#fff",
             width: "100%",
@@ -63,6 +63,7 @@ const CampaignDelete: React.FC<CampaignDeleteProps> = ({
           onClick={onClose}
           variant="outlined"
           sx={{
+            borderRadius: "20px",
             width: "100%",
             fontSize: "14px",
           }}

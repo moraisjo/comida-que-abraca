@@ -89,6 +89,12 @@ const CampaignCreate: React.FC<CampaignCreateProps> = ({ onClose }) => {
       setIsSuccess(response.statusCode === 200);
 
       setTimeout(() => setModalOpen(true), 0);
+
+      if (response.statusCode === 200) {
+        setTimeout(() => {
+          window.location.reload();
+        }, 0);
+      }
     } catch (error) {
       setResponseMessage("Ocorreu um erro ao criar a campanha.");
       setIsSuccess(false);
@@ -205,6 +211,21 @@ const CampaignCreate: React.FC<CampaignCreateProps> = ({ onClose }) => {
             }}
           >
             <Button
+              variant="contained"
+              sx={{
+                backgroundColor: colors.primary,
+                color: colors.white,
+                fontSize: "12px",
+                textTransform: "none",
+                width: "100%",
+                height: "40px",
+              }}
+              onClick={handleSubmit}
+              disabled={isDisabled}
+            >
+              Salvar
+            </Button>
+            <Button
               variant="outlined"
               onClick={onClose}
               sx={{
@@ -221,21 +242,6 @@ const CampaignCreate: React.FC<CampaignCreateProps> = ({ onClose }) => {
               }}
             >
               Cancelar
-            </Button>
-            <Button
-              variant="contained"
-              sx={{
-                backgroundColor: colors.primary,
-                color: colors.white,
-                fontSize: "12px",
-                textTransform: "none",
-                width: "100%",
-                height: "40px",
-              }}
-              onClick={handleSubmit}
-              disabled={isDisabled}
-            >
-              Salvar
             </Button>
           </Box>
         </DialogContent>
