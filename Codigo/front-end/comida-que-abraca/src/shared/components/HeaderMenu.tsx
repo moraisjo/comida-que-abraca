@@ -180,21 +180,12 @@ export default function HeaderMenu() {
             </MenuItem>
             <MenuItem
               onClick={() => {
-                navigate("/cadastro-parceiro");
-                handleSandwichMenuClose();
-              }}
-              sx={{ color: colors.darkGray, fontWeight: "bold" }}
-            >
-              👥 Cadastro de Parceiros
-            </MenuItem>
-            <MenuItem
-              onClick={() => {
                 navigate("/relatorios");
                 handleSandwichMenuClose();
               }}
               sx={{ color: colors.darkGray, fontWeight: "bold" }}
             >
-              📑 Relatórios
+              📊 Relatórios
             </MenuItem>
             <MenuItem
               onClick={() => {
@@ -203,7 +194,7 @@ export default function HeaderMenu() {
               }}
               sx={{ color: colors.darkGray, fontWeight: "bold" }}
             >
-              ☎️ Doadores
+              👥 Doadores
             </MenuItem>
             <MenuItem
               onClick={() => {
