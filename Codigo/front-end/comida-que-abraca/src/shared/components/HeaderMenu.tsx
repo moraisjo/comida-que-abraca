@@ -4,7 +4,7 @@ import logo from "../../assets/comida-que-abraca-logo.png";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import AccountCircle from "@mui/icons-material/AccountCircle";
-import NotificationsIcon from "@mui/icons-material/Notifications";
+import NotificationIcon from "../../features/NotificationPage/components/NotificationIcon";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 import React from "react";
@@ -101,14 +101,7 @@ export default function HeaderMenu() {
           />
 
           <Box>
-            <IconButton
-              size="large"
-              aria-label="notificações"
-              sx={{ color: colors.darkGray }}
-              onClick={() => {}}
-            >
-              <NotificationsIcon />
-            </IconButton>
+            <NotificationIcon />
 
             <IconButton
               size="large"
