@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import {
   Avatar,
   Box,
-  Collapse,
   List,
   ListItem,
   ListItemAvatar,
@@ -11,17 +10,25 @@ import {
   TextField,
   Typography,
   TablePagination,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  Stack,
 } from "@mui/material";
+import colors from "../../../shared/theme/colors";
 import { getUsersForDisplay } from "../hooks/donorsService";
 import { User } from "../../../data/model/user";
 import PersonIcon from "@mui/icons-material/Person";
+import EmailIcon from "@mui/icons-material/Email";
+import PhoneIcon from "@mui/icons-material/Phone";
+import HomeIcon from "@mui/icons-material/Home";
 
 const DonorList: React.FC = () => {
   const [users, setUsers] = useState<User[]>([]);
-  const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
+  const [selectedUser, setSelectedUser] = useState<User | null>(null);
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const rowsPerPage = 10;
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -35,33 +42,26 @@ const DonorList: React.FC = () => {
     fetchUsers();
   }, []);
 
-  const handleToggle = (index: number) => {
-    setExpandedIndex(expandedIndex === index ? null : index);
-  };
-
   const filteredUsers = users.filter((user) =>
     user.name.toLowerCase().includes(search.toLowerCase())
   );
-
-  const handleChangePage = (_: unknown, newPage: number) => {
-    setPage(newPage);
-  };
-
-  const handleChangeRowsPerPage = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
-  };
 
   const paginatedUsers = filteredUsers.slice(
     page * rowsPerPage,
     page * rowsPerPage + rowsPerPage
   );
 
+  const handleChangePage = (_: unknown, newPage: number) => {
+    setPage(newPage);
+  };
+
+  const handleCloseModal = () => {
+    setSelectedUser(null);
+  };
+
   return (
     <Box sx={{ width: "100%" }}>
-      <Typography variant="h6" gutterBottom>
+      <Typography variant="h6" gutterBottom sx={{ color: colors.primary }}>
         Doadores
       </Typography>
 
@@ -79,50 +79,30 @@ const DonorList: React.FC = () => {
       />
 
       <List>
-        {paginatedUsers.map((user, index) => {
-          const globalIndex = page * rowsPerPage + index;
-          return (
-            <Box key={globalIndex} mb={1}>
-              <ListItem
-                disablePadding
-                sx={{
-                  backgroundColor: "#edf2fa",
-                  borderRadius: 2,
-                }}
-              >
-                <ListItemButton onClick={() => handleToggle(globalIndex)}>
-                  <ListItemAvatar>
-                    <Avatar sx={{ bgcolor: "#90caf9" }}>
-                      <PersonIcon />
-                    </Avatar>
-                  </ListItemAvatar>
-                  <ListItemText
-                    primary={
-                      <Typography fontWeight={600}>{user.name}</Typography>
-                    }
-                  />
-                </ListItemButton>
-              </ListItem>
-              <Collapse
-                in={expandedIndex === globalIndex}
-                timeout="auto"
-                unmountOnExit
-              >
-                <Box ml={7} mt={1} mb={1}>
-                  <Typography variant="body2">
-                    <strong>Email:</strong> {user.email}
-                  </Typography>
-                  <Typography variant="body2">
-                    <strong>Telefone:</strong> {user.phone}
-                  </Typography>
-                  <Typography variant="body2">
-                    <strong>Endereço:</strong> {user.address}
-                  </Typography>
-                </Box>
-              </Collapse>
-            </Box>
-          );
-        })}
+        {paginatedUsers.map((user, index) => (
+          <Box key={page * rowsPerPage + index} mb={1}>
+            <ListItem
+              disablePadding
+              sx={{
+                backgroundColor: "#edf2fa",
+                borderRadius: 2,
+              }}
+            >
+              <ListItemButton onClick={() => setSelectedUser(user)}>
+                <ListItemAvatar>
+                  <Avatar sx={{ bgcolor: "#90caf9" }}>
+                    <PersonIcon />
+                  </Avatar>
+                </ListItemAvatar>
+                <ListItemText
+                  primary={
+                    <Typography fontWeight={600}>{user.name}</Typography>
+                  }
+                />
+              </ListItemButton>
+            </ListItem>
+          </Box>
+        ))}
       </List>
 
       <TablePagination
@@ -131,12 +111,53 @@ const DonorList: React.FC = () => {
         page={page}
         onPageChange={handleChangePage}
         rowsPerPage={rowsPerPage}
-        onRowsPerPageChange={handleChangeRowsPerPage}
-        labelRowsPerPage=""
+        rowsPerPageOptions={[]}
         labelDisplayedRows={({ from, to, count }) =>
           `${from}–${to} de ${count}`
         }
       />
+
+      <Dialog
+        open={!!selectedUser}
+        onClose={handleCloseModal}
+        PaperProps={{
+          sx: {
+            borderRadius: 3,
+            padding: 3,
+            textAlign: "center",
+          },
+        }}
+      >
+        <DialogTitle sx={{ fontWeight: "bold" }}>
+          Detalhes do Usuário
+        </DialogTitle>
+        <DialogContent>
+          {selectedUser && (
+            <>
+              <Stack spacing={2}>
+                <Box display="flex" alignItems="center" gap={1}>
+                  <EmailIcon sx={{ color: colors.primary }} />
+                  <Typography>{selectedUser.email}</Typography>
+                </Box>
+
+                <Box display="flex" alignItems="center" gap={1}>
+                  <PhoneIcon sx={{ color: colors.primary }} />
+                  <Typography>
+                    {selectedUser.phone ?? "Telefone não informado"}
+                  </Typography>
+                </Box>
+
+                <Box display="flex" alignItems="center" gap={1}>
+                  <HomeIcon sx={{ color: colors.primary }} />
+                  <Typography>
+                    {selectedUser.address ?? "Endereço não informado"}
+                  </Typography>
+                </Box>
+              </Stack>
+            </>
+          )}
+        </DialogContent>
+      </Dialog>
     </Box>
   );
 };
