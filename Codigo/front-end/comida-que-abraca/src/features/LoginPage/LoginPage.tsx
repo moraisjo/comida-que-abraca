@@ -32,6 +32,7 @@ export default function LoginPage() {
       const { token, userId, lgpdConsentDate } = response.data;
 
       localStorage.setItem('token', token);
+      localStorage.setItem('userId', userId);
       localStorage.setItem('lgpdAccepted', lgpdConsentDate ? 'true' : 'false');
 
       if (!lgpdConsentDate) {
