@@ -32,7 +32,7 @@ const DonationPage: React.FC = () => {
           const response = await axios.get(`http://localhost:8080/api/ong-collaborator/is-admin/${userId}`);
           setIsAdmin(response.data);
         } catch {
-          setIsAdmin(true);
+          setIsAdmin(false);
         }
       }
     };
