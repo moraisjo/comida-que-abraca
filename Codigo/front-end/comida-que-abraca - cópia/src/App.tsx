@@ -21,7 +21,7 @@ import { ReportPage } from "./features/ReportPage/ReportPage";
 import DonorsPage from "./features/DonorsPage/DonorsPage";
 import { AuthProvider, useAuth } from "./context/AuthContext";
 
-// 🚩 Lgpd wrapper que atualiza o AuthContext
+//  Lgpd wrapper que atualiza o AuthContext
 function LgpdRouteWrapper() {
   const location = useLocation();
   const navigate = useNavigate();
@@ -36,7 +36,7 @@ function LgpdRouteWrapper() {
         // Atualiza o AuthContext
         setAuthData({
           userId,
-          userType: userType || "", // ou pegue de outro lugar se necessário
+          userType: userType || "", 
           token: token || "",
         });
 
