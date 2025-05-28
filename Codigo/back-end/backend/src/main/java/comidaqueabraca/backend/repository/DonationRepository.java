@@ -35,4 +35,7 @@ public interface DonationRepository extends JpaRepository<DonationEntity, Long> 
         "GROUP BY MONTH(d.arrivingDate) " +
         "ORDER BY MONTH(d.arrivingDate)")
 List<DonationsPerMonthDTO> countDonationsPerMonth(@Param("year") Integer year);
+
+    @Query("SELECT COUNT(d) > 0 FROM DonationEntity d WHERE d.campaign.id = :campaignId")
+    boolean hasDonations(@Param("campaignId") Integer campaignId);
 }

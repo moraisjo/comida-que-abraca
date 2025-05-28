@@ -254,7 +254,15 @@ const CampaignList: React.FC<CampaignListProps> = ({ onCreate }) => {
         sx={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 2 }}
       >
         {filteredCampaigns.map((campaign) => (
-          <Card key={campaign.id} sx={{ maxWidth: 345 }}>
+          <Card
+            key={campaign.id}
+            sx={{
+              maxWidth: 345,
+              opacity: statusFilter === "FINISHED" ? 0.6 : 1,
+              backgroundColor: statusFilter === "FINISHED" ? "#f0f0f0" : "#fff",
+              pointerEvents: statusFilter === "FINISHED" ? "none" : "auto",
+            }}
+          >
             <CardHeader
               title={campaign.name}
               subheader={`${new Date(campaign.startDate).toLocaleDateString(
