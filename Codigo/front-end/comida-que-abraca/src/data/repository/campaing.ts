@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Campaign, CreateCampaignRequest, PaginatedResponse} from "../model/campaign";
+import { Campaign, CreateCampaignRequest, EditCampaignRequest, PaginatedResponse} from "../model/campaign";
 import { Response } from "../model/response";
 
 const API_URL = "http://localhost:8080/campaign";
@@ -10,15 +10,35 @@ class CampaignRepository {
     return response.data;
   }
 
-  async getActiveCampaigns(): Promise<PaginatedResponse<Campaign>> {
+  async editCampaign(id: number, campaignData: EditCampaignRequest): Promise<Response> {
+    const response = await axios.put<Response>(`${API_URL}/edit-campaign/${id}`, campaignData);
+    return response.data;
+  }
+
+  async cancelCampaign(id: number): Promise<Response> {
+    const response = await axios.put<Response>(`${API_URL}/cancel-campaign/${id}`);
+    return response.data;
+  }
+
+  async getActiveCampaigns(): Promise<Campaign[]> {
     try {
-      const response = await axios.get<PaginatedResponse<Campaign>>(`${API_URL}/active-campaigns`);
+      const response = await axios.get<Campaign[]>(`${API_URL}/active-campaigns`);
       return response.data;
     } catch (error) {
       console.error("Erro ao buscar campanhas ativas:", error);
       throw error;
     }
-  }  
+  }
+
+  async getInactiveCampaigns(): Promise<Campaign[]> { 
+    try {
+      const response = await axios.get<Campaign[]>(`${API_URL}/inactive-campaigns`);
+      return response.data;
+    } catch (error) {
+      console.error("Erro ao buscar campanhas inativas:", error);
+      throw error;
+    }
+  }
 }
 
 export const campaignRepository = new CampaignRepository();

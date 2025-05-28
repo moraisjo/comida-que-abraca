@@ -1,6 +1,7 @@
 package comidaqueabraca.backend.service;
 
 import comidaqueabraca.backend.dto.CampaignDTO;
+import comidaqueabraca.backend.dto.response.EditCampaignDTO;
 import comidaqueabraca.backend.entity.CampaignEntity;
 import comidaqueabraca.backend.entity.NotificationEntity;
 import comidaqueabraca.backend.entity.UserEntity;
@@ -70,7 +71,44 @@ public class CampaignService {
         return savedCampaign;
     }
 
-    public Page<CampaignEntity> getActiveCampaigns(Pageable pageable) {
-        return campaignRepository.findAllActiveCampaigns(pageable);
+    public void editCampaign(Integer id, EditCampaignDTO editCampaignDTO) {
+        CampaignEntity campaign = campaignRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Campanha não encontrada"));
+
+        if (editCampaignDTO.getName() != null) {
+            campaign.setName(editCampaignDTO.getName());
+        }
+        if (editCampaignDTO.getDescription() != null) {
+            campaign.setDescription(editCampaignDTO.getDescription());
+        }
+        if (editCampaignDTO.getStartDate() != null) {
+            campaign.setStartDate(editCampaignDTO.getStartDate());
+        }
+        if (editCampaignDTO.getEndDate() != null) {
+            campaign.setEndDate(editCampaignDTO.getEndDate());
+        }
+        if (editCampaignDTO.getPhotoUrl() != null) {
+            campaign.setPhotoUrl(editCampaignDTO.getPhotoUrl());
+        }
+        campaignRepository.save(campaign);
     }
+
+
+    public void cancelCampaign(Integer id) {
+        CampaignEntity campaign = campaignRepository.findById(id).orElseThrow(() ->
+                new IllegalArgumentException("Campanha não encontrada"));
+
+        campaign.setStatus(CampaignStatus.valueOf("CANCELED"));
+        campaignRepository.save(campaign);
+    }
+
+
+    public List<CampaignEntity> getActiveCampaigns() {
+        return campaignRepository.findAllActiveCampaigns();
+    }
+
+    public List<CampaignEntity> getInactiveCampaigns() {
+        return campaignRepository.findAllInactiveCampaigns();
+    }
+
 }

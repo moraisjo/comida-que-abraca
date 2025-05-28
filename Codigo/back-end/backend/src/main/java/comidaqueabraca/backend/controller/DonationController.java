@@ -58,6 +58,17 @@ public class DonationController {
         return ResponseEntity.ok(donations);
     }
 
+    @Operation(summary = "Lista todas as doações em estoque")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Lista de doações em estoque"),
+            @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
+    })
+    @GetMapping("/stock")
+    public ResponseEntity<List<DonationEntity>> listDonationStock() {
+        List<DonationEntity> donations = donationService.getDonationsStock();
+        return ResponseEntity.ok(donations);
+    }
+
     @Operation(summary = "Lista todas as doações pendentes")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Lista de doações pendentes retornada com sucesso"),
@@ -94,7 +105,7 @@ public class DonationController {
         try {
             donationService.updateDonationStatus(donationId, status);
 
-            String message = (status == DonationStatus.ACCEPTED)
+            String message = (status == DonationStatus.PENDING_DELIVERY)
                     ? "Doação aceita com sucesso!"
                     : "Doação rejeitada com sucesso!";
 

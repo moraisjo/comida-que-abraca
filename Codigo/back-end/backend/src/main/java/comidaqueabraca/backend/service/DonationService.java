@@ -33,6 +33,9 @@ public class DonationService {
         return donationRepository.save(newDonation);
     }
 
+    public List<DonationEntity> getDonationsStock() {
+        return donationRepository.findByStatus(DonationStatus.STOCK);
+    }
     public List<PendingDonationDTO> pendingDonations() {
         List<DonationEntity> donations = donationRepository.findByStatus(DonationStatus.PENDING);
 

@@ -4,7 +4,7 @@ import logo from "../../assets/comida-que-abraca-logo.png";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import AccountCircle from "@mui/icons-material/AccountCircle";
-import NotificationsIcon from "@mui/icons-material/Notifications";
+import NotificationIcon from "../../features/NotificationPage/components/NotificationIcon";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 import React from "react";
@@ -101,14 +101,7 @@ export default function HeaderMenu() {
           />
 
           <Box>
-            <IconButton
-              size="large"
-              aria-label="notificações"
-              sx={{ color: colors.darkGray }}
-              onClick={() => {}}
-            >
-              <NotificationsIcon />
-            </IconButton>
+            <NotificationIcon />
 
             <IconButton
               size="large"
@@ -178,15 +171,6 @@ export default function HeaderMenu() {
             </MenuItem>
             <MenuItem
               onClick={() => {
-                navigate("/campanhas-disponiveis");
-                handleSandwichMenuClose();
-              }}
-              sx={{ color: colors.darkGray, fontWeight: "bold" }}
-            >
-              📢 Campanhas Ativas
-            </MenuItem>
-            <MenuItem
-              onClick={() => {
                 navigate("/doacoes");
                 handleSandwichMenuClose();
               }}
@@ -211,6 +195,15 @@ export default function HeaderMenu() {
               sx={{ color: colors.darkGray, fontWeight: "bold" }}
             >
               📑 Relatórios
+            </MenuItem>
+            <MenuItem
+              onClick={() => {
+                navigate("/doadores");
+                handleSandwichMenuClose();
+              }}
+              sx={{ color: colors.darkGray, fontWeight: "bold" }}
+            >
+              ☎️ Doadores
             </MenuItem>
             <MenuItem
               onClick={() => {
