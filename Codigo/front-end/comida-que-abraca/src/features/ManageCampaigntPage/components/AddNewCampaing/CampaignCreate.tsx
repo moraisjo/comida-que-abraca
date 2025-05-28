@@ -89,6 +89,12 @@ const CampaignCreate: React.FC<CampaignCreateProps> = ({ onClose }) => {
       setIsSuccess(response.statusCode === 200);
 
       setTimeout(() => setModalOpen(true), 0);
+
+      if (response.statusCode === 200) {
+        setTimeout(() => {
+          window.location.reload();
+        }, 0);
+      }
     } catch (error) {
       setResponseMessage("Ocorreu um erro ao criar a campanha.");
       setIsSuccess(false);
@@ -110,9 +116,7 @@ const CampaignCreate: React.FC<CampaignCreateProps> = ({ onClose }) => {
               onChange={(e) => setName(e.target.value)}
               margin="dense"
               sx={{
-                "& .MuiOutlinedInput-root": {
-                  borderRadius: "20px",
-                },
+                "& .MuiOutlinedInput-root": {},
               }}
             />
             <TextField
@@ -124,9 +128,7 @@ const CampaignCreate: React.FC<CampaignCreateProps> = ({ onClose }) => {
               onChange={(e) => setDescription(e.target.value)}
               margin="dense"
               sx={{
-                "& .MuiOutlinedInput-root": {
-                  borderRadius: "20px",
-                },
+                "& .MuiOutlinedInput-root": {},
               }}
             />
             <TextField
@@ -136,9 +138,7 @@ const CampaignCreate: React.FC<CampaignCreateProps> = ({ onClose }) => {
               onChange={(e) => setAddress(e.target.value)}
               margin="dense"
               sx={{
-                "& .MuiOutlinedInput-root": {
-                  borderRadius: "20px",
-                },
+                "& .MuiOutlinedInput-root": {},
               }}
             />
             <TextField
@@ -150,9 +150,7 @@ const CampaignCreate: React.FC<CampaignCreateProps> = ({ onClose }) => {
               onChange={(e) => setStartDate(e.target.value)}
               margin="dense"
               sx={{
-                "& .MuiOutlinedInput-root": {
-                  borderRadius: "20px",
-                },
+                "& .MuiOutlinedInput-root": {},
               }}
             />
             <TextField
@@ -164,9 +162,7 @@ const CampaignCreate: React.FC<CampaignCreateProps> = ({ onClose }) => {
               onChange={(e) => setEndDate(e.target.value)}
               margin="dense"
               sx={{
-                "& .MuiOutlinedInput-root": {
-                  borderRadius: "20px",
-                },
+                "& .MuiOutlinedInput-root": {},
               }}
             />
 
@@ -178,7 +174,6 @@ const CampaignCreate: React.FC<CampaignCreateProps> = ({ onClose }) => {
                 justifyContent: "space-between",
                 alignItems: "center",
                 border: "1px solid #ccc",
-                borderRadius: "20px",
                 padding: "0 16px",
               }}
             >
@@ -192,7 +187,6 @@ const CampaignCreate: React.FC<CampaignCreateProps> = ({ onClose }) => {
                 justifyContent: "space-between",
                 alignItems: "center",
                 border: "1px solid #ccc",
-                borderRadius: "20px",
                 padding: "0 16px",
               }}
             >
@@ -217,6 +211,21 @@ const CampaignCreate: React.FC<CampaignCreateProps> = ({ onClose }) => {
             }}
           >
             <Button
+              variant="contained"
+              sx={{
+                backgroundColor: colors.primary,
+                color: colors.white,
+                fontSize: "12px",
+                textTransform: "none",
+                width: "100%",
+                height: "40px",
+              }}
+              onClick={handleSubmit}
+              disabled={isDisabled}
+            >
+              Salvar
+            </Button>
+            <Button
               variant="outlined"
               onClick={onClose}
               sx={{
@@ -226,7 +235,6 @@ const CampaignCreate: React.FC<CampaignCreateProps> = ({ onClose }) => {
                 textTransform: "none",
                 width: "100%",
                 height: "40px",
-                borderRadius: "20px",
                 "&:hover": {
                   backgroundColor: "transparent",
                   borderColor: colors.primary,
@@ -234,22 +242,6 @@ const CampaignCreate: React.FC<CampaignCreateProps> = ({ onClose }) => {
               }}
             >
               Cancelar
-            </Button>
-            <Button
-              variant="contained"
-              sx={{
-                backgroundColor: colors.primary,
-                color: colors.white,
-                fontSize: "12px",
-                textTransform: "none",
-                width: "100%",
-                height: "40px",
-                borderRadius: "20px",
-              }}
-              onClick={handleSubmit}
-              disabled={isDisabled}
-            >
-              Salvar
             </Button>
           </Box>
         </DialogContent>
