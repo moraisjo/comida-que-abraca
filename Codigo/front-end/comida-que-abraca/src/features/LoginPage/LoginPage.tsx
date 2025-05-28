@@ -12,12 +12,14 @@ import {
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import logo from '../../assets/comida-que-abraca-logo.png';
+import { useAuth } from '../../context/AuthContext';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
   const navigate = useNavigate();
+  const { setAuthData } = useAuth();
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -29,19 +31,26 @@ export default function LoginPage() {
         password,
       });
 
-      const { token, userId, lgpdConsentDate } = response.data;
+      const { token, userId, userType, lgpdConsentDate } = response.data;
 
-      localStorage.setItem('token', token);
-      localStorage.setItem('userId', userId);
+      // Seta dados no contexto (e automaticamente no localStorage)
+      setAuthData({
+        token,
+        userId: userId.toString(),
+        userType: userType || 'ONG', // substitua por valor real quando tiver
+      });
+
+      // Armazena apenas o aceite do LGPD no localStorage
       localStorage.setItem('lgpdAccepted', lgpdConsentDate ? 'true' : 'false');
 
+      // Redireciona baseado no aceite
       if (!lgpdConsentDate) {
         navigate('/lgpd', { state: { userId } });
       } else {
         navigate('/campanhas');
       }
     } catch (error: any) {
-      setErrorMsg(error.response?.data?.message || 'Erro ao fazer login.');
+      setErrorMsg(error.response?.data?.statusText || 'Erro ao fazer login.');
     }
   };
 

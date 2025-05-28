@@ -5,6 +5,7 @@ import {
   Routes,
   Route,
   useLocation,
+  useNavigate,
 } from "react-router-dom";
 import RankingPage from "./features/RankingPage/RankingPage";
 import CampanhasPage from "./features/ManageCampaigntPage/CampaignPages";
@@ -19,18 +20,29 @@ import { ThemeProvider } from "@mui/material/styles";
 import theme from "./shared/theme/theme";
 import { ReportPage } from "./features/ReportPage/ReportPage";
 import DonorsPage from "./features/DonorsPage/DonorsPage";
-import { AuthProvider } from "./context/AuthContext";
+import { AuthProvider, useAuth } from "./context/AuthContext";
 
+// 🚩x Lgpd wrapper que atualiza o AuthContext
 function LgpdRouteWrapper() {
   const location = useLocation();
+  const navigate = useNavigate();
+  const { setAuthData, token, userType } = useAuth();
+
   const userId = location.state?.userId;
 
   return (
     <LgpdConsent
       userId={userId}
       onAccept={() => {
-        localStorage.setItem("lgpdAccepted", "true");
-        window.location.href = "/";
+        // Atualiza o AuthContext
+        setAuthData({
+          userId,
+          userType: userType || "", // ou pegue de outro lugar se necessário
+          token: token || "",
+        });
+
+        // Redireciona após aceite
+        navigate("/");
       }}
     />
   );

@@ -1,15 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useTheme } from "@mui/material/styles";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
-import colors from "../../shared/theme/colors";
 import HeaderMenu from "../../shared/components/HeaderMenu";
 import PendingDonations from "./DonationTabs/DonationPending/PendingDonations";
 import DonationPendingDelivery from "./DonationTabs/DonationsPendingDelivery/DonationPendingDelivery";
 import CustomTabPanel from "../../shared/components/CustomTabPanel/CustomTabPanel";
 import DonationStock from "./DonationTabs/DonationStock/DonationStock";
 import MyDonations from "./DonationTabs/MyDonations/MyDonations";
+import { useAuth } from "../../context/AuthContext";
+import axios from "axios";
 
 function getTabAccessibilityProps(index: number) {
   return {
@@ -21,6 +22,23 @@ function getTabAccessibilityProps(index: number) {
 const DonationPage: React.FC = () => {
   const [value, setValue] = useState(0);
   const theme = useTheme();
+  const { userId } = useAuth();
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  useEffect(() => {
+    const checkAdminRole = async () => {
+      if (userId) {
+        try {
+          const response = await axios.get(`http://localhost:8080/api/ong-collaborator/is-admin/${userId}`);
+          setIsAdmin(response.data);
+        } catch {
+          setIsAdmin(false);
+        }
+      }
+    };
+
+    checkAdminRole();
+  }, [userId]);
 
   const handleChange = (_event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
@@ -75,15 +93,17 @@ const DonationPage: React.FC = () => {
                 "&.Mui-selected": { color: theme.palette.secondary.main },
               }}
             />
-            <Tab
-              label="Minhas Doações"
-              {...getTabAccessibilityProps(3)}
-              sx={{
-                textTransform: "none",
-                fontWeight: "bold",
-                "&.Mui-selected": { color: theme.palette.secondary.main },
-              }}
-            />
+            {!isAdmin && (
+              <Tab
+                label="Minhas Doações"
+                {...getTabAccessibilityProps(3)}
+                sx={{
+                  textTransform: "none",
+                  fontWeight: "bold",
+                  "&.Mui-selected": { color: theme.palette.secondary.main },
+                }}
+              />
+            )}
           </Tabs>
         </Box>
 
@@ -99,9 +119,11 @@ const DonationPage: React.FC = () => {
           <DonationStock />
         </CustomTabPanel>
 
-        <CustomTabPanel value={value} index={3}>
-          <MyDonations />
-        </CustomTabPanel>
+        {!isAdmin && (
+          <CustomTabPanel value={value} index={3}>
+            <MyDonations />
+          </CustomTabPanel>
+        )}
       </Box>
     </>
   );
