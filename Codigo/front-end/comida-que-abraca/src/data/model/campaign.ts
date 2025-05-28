@@ -49,4 +49,13 @@ interface CreateCampaignRequest {
   notifyUsers?: boolean;
 }
 
-export type { Campaign, CreateCampaignRequest, PaginatedResponse};
+interface EditCampaignRequest {
+  name: string;
+  description: string;
+  address: string;
+  startDate: string;
+  endDate: string;
+  photoUrl: string;  
+}
+
+export type { Campaign, CreateCampaignRequest,EditCampaignRequest, PaginatedResponse};
