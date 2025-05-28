@@ -1,5 +1,9 @@
 import { campaignRepository } from "../../../data/repository/campaing";
-import { CreateCampaignRequest, Campaign } from "../../../data/model/campaign";
+import {
+  CreateCampaignRequest,
+  EditCampaignRequest,
+  Campaign,
+} from "../../../data/model/campaign";
 import { Response } from "../../../data/model/response";
 
 export const CampaignService = {
@@ -10,6 +14,25 @@ export const CampaignService = {
       return await campaignRepository.createCampaign(campaignData);
     } catch (error) {
       throw new Error("Erro ao criar campanha. Tente novamente.");
+    }
+  },
+
+  editCampaign: async (
+    id: number,
+    campaignData: EditCampaignRequest
+  ): Promise<Response> => {
+    try {
+      return await campaignRepository.editCampaign(id, campaignData);
+    } catch (error) {
+      throw new Error("Erro ao editar campanha. Tente novamente.");
+    }
+  },
+
+  cancelCampaign: async (id: number): Promise<Response> => {
+    try {
+      return await campaignRepository.cancelCampaign(id);
+    } catch (error) {
+      throw new Error("Erro ao cancelar campanha. Tente novamente.");
     }
   },
 };

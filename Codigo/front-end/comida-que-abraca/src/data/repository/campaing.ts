@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Campaign, CreateCampaignRequest, PaginatedResponse} from "../model/campaign";
+import { Campaign, CreateCampaignRequest, EditCampaignRequest, PaginatedResponse} from "../model/campaign";
 import { Response } from "../model/response";
 
 const API_URL = "http://localhost:8080/campaign";
@@ -7,6 +7,16 @@ const API_URL = "http://localhost:8080/campaign";
 class CampaignRepository {
   async createCampaign(campaignData: CreateCampaignRequest): Promise<Response> {
     const response = await axios.post<Response>(`${API_URL}/create-campaign`, campaignData);
+    return response.data;
+  }
+
+  async editCampaign(id: number, campaignData: EditCampaignRequest): Promise<Response> {
+    const response = await axios.put<Response>(`${API_URL}/edit-campaign/${id}`, campaignData);
+    return response.data;
+  }
+
+  async cancelCampaign(id: number): Promise<Response> {
+    const response = await axios.put<Response>(`${API_URL}/cancel-campaign/${id}`);
     return response.data;
   }
 
