@@ -28,6 +28,7 @@ public interface CampaignRepository extends JpaRepository<CampaignEntity, Intege
 """)
     List<CampaignEntity> findAllInactiveCampaigns();
 
+    List<CampaignEntity> findByStatus(String status);
 
     @Query(value = "SELECT * FROM comidaqueabraca.db_campaign  WHERE status = :status ORDER BY startDate DESC", nativeQuery = true)
     List<CampaignEntity> findByStatusOrderByStartDateDesc(CampaignStatus status);

@@ -13,7 +13,6 @@ import java.time.LocalDate;
 @Setter
 @NoArgsConstructor
 public class CampaignEntity {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
