@@ -10,15 +10,13 @@ import Menu from "@mui/material/Menu";
 import React from "react";
 import colors from "../theme/colors";
 import { useNavigate } from "react-router-dom";
-import { AppBar, styled } from "@mui/material";
+import { AppBar, Button, styled } from "@mui/material";
+import { useAuth } from "../../context/AuthContext";
 
 export default function HeaderMenu() {
   // Uso do React Router
   const navigate = useNavigate();
-  //const { userType } = useAuth();
-
-  // Função de logout do Provider
-  //const { logout } = useAuth();
+  const { userId, userType, token, logout } = useAuth();
 
   // Estado para controlar a exibição do menu de perfil
   const [profileMenuIsOpen, setProfileMenuIsOpen] =
@@ -48,10 +46,11 @@ export default function HeaderMenu() {
     setSandwichMenuIsOpen(null);
   };
 
-  /* const handleLogout = () => {
+  const handleLogout = () => {
     logout(); // Reseta o contexto, removendo os dados de autenticação
-    navigate(PUBLIC_PAGES_URL.INDEX); // Redireciona para a página de login ou pública
-  }; */
+    handleProfileMenuClose();
+    navigate("/login"); // Redireciona para a página de login ou pública
+  }
 
   // Função para decidir para onde voltar com base no tipo de usuário
   /* const handleBackNavigation = () => {
@@ -101,18 +100,31 @@ export default function HeaderMenu() {
           />
 
           <Box>
-            <NotificationIcon />
+            {!token ? (
+              <Button
+                color="primary"
+                variant="contained"
+                sx={{ ml: 2 }}
+                onClick={() => navigate("/login")}
+              >
+                Login
+              </Button>
+            ) : (
+              <>
+                <NotificationIcon />
 
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar-profile"
-              aria-haspopup="true"
-              onClick={handleProfileMenuOpen}
-              sx={{ color: colors.darkGray }}
-            >
-              <AccountCircle />
-            </IconButton>
+                <IconButton
+                  size="large"
+                  aria-label="account of current user"
+                  aria-controls="menu-appbar-profile"
+                  aria-haspopup="true"
+                  onClick={handleProfileMenuOpen}
+                  sx={{ color: colors.darkGray }}
+                >
+                  <AccountCircle />
+                </IconButton>
+              </>
+            )}
 
             {/* Menu de perfil */}
             <Menu
@@ -137,7 +149,7 @@ export default function HeaderMenu() {
                 Minha conta
               </MenuItem>
               <MenuItem
-                // onClick={handleLogout}
+                onClick={handleLogout}
                 sx={{ color: colors.darkGray, fontWeight: "bold" }}
               >
                 Sair

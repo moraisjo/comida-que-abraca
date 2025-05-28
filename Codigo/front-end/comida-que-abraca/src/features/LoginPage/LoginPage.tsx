@@ -50,7 +50,7 @@ export default function LoginPage() {
         navigate('/campanhas');
       }
     } catch (error: any) {
-      setErrorMsg(error.response?.data?.message || 'Erro ao fazer login.');
+      setErrorMsg(error.response?.data?.statusText || 'Erro ao fazer login.');
     }
   };
 
