@@ -38,7 +38,7 @@ function DonationsByCampaignPieChart() {
             <Typography variant="h6" align="center" sx={{ fontWeight: 600, mb: 2 }}>
                 Doações por Campanha
             </Typography>
-            <Typography variant="body2" align="justify" color="text.secondary" sx={{ mb: 2 }}>
+            <Typography variant="body2" align="justify" color="text.secondary" sx={{ mb: 3, fontSize: { xs: '1rem', md: '1.1rem' } }}>
                 Este gráfico de pizza mostra a proporção de doações recebidas por cada campanha cadastrada. Cada fatia representa uma campanha, permitindo visualizar rapidamente quais campanhas receberam mais doações ao longo do período. Campanhas com menos doações aparecem com fatias menores.
             </Typography>
             <LocalizationProvider dateAdapter={AdapterDayjs}>

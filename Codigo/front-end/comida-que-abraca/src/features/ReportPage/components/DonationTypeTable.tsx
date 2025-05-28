@@ -14,6 +14,8 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import colors from "../../../shared/theme/colors";
 import Typography from '@mui/material/Typography';
+import 'dayjs/locale/pt-br';
+dayjs.locale('pt-br');
 
 interface MonthlyDonationType {
   donationName: string;
@@ -39,7 +41,7 @@ export default function DonationTypeTable() {
     }
   }, [selectedDate]);
 
-return (
+  return (
     <Paper
       sx={{
         bgcolor: 'background.paper',
@@ -59,14 +61,14 @@ return (
           mb: 2,
         }}
       >
-        Detalhamento de Doações por Tipo
+        Detalhamento de Doações por Categoria
       </Typography>
 
       <Typography
         variant="body2"
         align="justify"
         color="text.secondary"
-        sx={{ mb: 2 }}
+        sx={{ mb: 3, fontSize: { xs: '1rem', md: '1.1rem' } }}
       >
         Esta tabela detalha as doações recebidas por tipo, campanha e período selecionado. Utilize o seletor abaixo para escolher o mês e ano desejados e visualizar os dados correspondentes.
       </Typography>
@@ -82,32 +84,28 @@ return (
       </LocalizationProvider>
 
       <TableContainer component={Paper} sx={{ boxShadow: 1 }}>
-        <Table size="small">
+        <Table size="medium">
           <TableHead>
-            <TableRow
-              sx={{
-                backgroundColor: colors.darkGray,
-              }}
-            >
-              <TableCell sx={{ color: 'white', fontWeight: 'bold' }}>Doações</TableCell>
-              <TableCell sx={{ color: 'white', fontWeight: 'bold' }}>Campanhas</TableCell>
-              <TableCell sx={{ color: 'white', fontWeight: 'bold' }}>Mês/Ano</TableCell>
-              <TableCell sx={{ color: 'white', fontWeight: 'bold' }}>Categorias</TableCell>
+            <TableRow sx={{ backgroundColor: colors.darkGray }}>
+              <TableCell sx={{ color: 'white', fontWeight: 'bold', fontSize: { xs: '1rem', md: '1.1rem' } }}>Doações</TableCell>
+              <TableCell sx={{ color: 'white', fontWeight: 'bold', fontSize: { xs: '1rem', md: '1.1rem' } }}>Campanhas</TableCell>
+              <TableCell sx={{ color: 'white', fontWeight: 'bold', fontSize: { xs: '1rem', md: '1.1rem' } }}>Mês/Ano</TableCell>
+              <TableCell sx={{ color: 'white', fontWeight: 'bold', fontSize: { xs: '1rem', md: '1.1rem' } }}>Categorias</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {rows.length > 0 ? (
               rows.map((row, index) => (
                 <TableRow key={`${row.donationName}-${index}`}>
-                  <TableCell>{row.donationName}</TableCell>
-                  <TableCell>{row.campaignName}</TableCell>
-                  <TableCell>{row.donationMonthYear}</TableCell>
-                  <TableCell>{row.donationType || ''}</TableCell>
+                  <TableCell sx={{ fontSize: { xs: '1rem', md: '1.1rem' } }}>{row.donationName}</TableCell>
+                  <TableCell sx={{ fontSize: { xs: '1rem', md: '1.1rem' } }}>{row.campaignName}</TableCell>
+                  <TableCell sx={{ fontSize: { xs: '1rem', md: '1.1rem' } }}>{row.donationMonthYear}</TableCell>
+                  <TableCell sx={{ fontSize: { xs: '1rem', md: '1.1rem' } }}>{row.donationType || ''}</TableCell>
                 </TableRow>
               ))
             ) : (
               <TableRow>
-                <TableCell colSpan={4} align="center" sx={{ color: "#757575", py: 4 }}>
+                <TableCell colSpan={4} align="center" sx={{ color: "#757575", py: 4, fontSize: { xs: '1rem', md: '1.1rem' } }}>
                   Ainda não existem registros para esse mês
                 </TableCell>
               </TableRow>

@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import { Paper, Stack, Box, Typography, CardActionArea, CardMedia } from "@mui/material";
+import { Stack, Typography, CardActionArea, CardMedia } from "@mui/material";
 import { Card, CardContent } from "@mui/material";
 
 function ProjectDescription() {
     return (
-        <Typography variant="body2" align="justify" color="text.secondary" sx={{ mb: 3 }}>
+        <Typography variant="body2" align="justify" color="text.secondary" sx={{ mb: 3, fontSize: { xs: '1rem', md: '1.1rem' } }}>
             O <b>Comida que Abraça</b> é um projeto social que atua há cinco anos na região metropolitana de Belo Horizonte, surgindo na pandemia a partir da iniciativa de pessoas com experiência em gastronomia para produzir marmitas para pessoas em situação de vulnerabilidade social. Formalizado há quatro anos, o projeto busca combater a fome de forma prática, mas também promover ações educativas e de conscientização, valorizando a dignidade humana. Além da distribuição de alimentos, gerencia doações de roupas e móveis, organiza campanhas sazonais e busca parcerias para ampliar o impacto. Seu objetivo é estruturar um sistema ágil de captação e distribuição de doações, criando uma rede solidária que atenda às múltiplas necessidades das pessoas em vulnerabilidade, sempre com um olhar humanizado e sistêmico.
         </Typography>
     );
@@ -12,7 +12,7 @@ function ProjectDescription() {
 
 function DataIntroDescription() {
     return (
-        <Typography variant="body2" align="justify" color="text.secondary" sx={{ mb: 3 }}>
+        <Typography variant="body2" align="justify" color="text.secondary" sx={{ mb: 3, fontSize: { xs: '1rem', md: '1.1rem' } }}>
             <br />Os dados apresentados a seguir trazem um panorama das ações realizadas por nós, evidenciando a distribuição de doações ao longo dos meses, os tipos de itens arrecadados e o impacto das campanhas realizadas. Essa análise permite compreender o alcance das iniciativas e orientar decisões estratégicas para fortalecer a rede de solidariedade.
         </Typography>
     );
