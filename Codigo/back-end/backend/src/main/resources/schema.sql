@@ -122,10 +122,16 @@ CREATE TABLE IF NOT EXISTS db_money (
 
 -- Notifications Table
 CREATE TABLE IF NOT EXISTS db_notification (
-    id INT PRIMARY KEY,
-    message TEXT NOT NULL,
-    sent_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (id) REFERENCES db_user(id)
+                                               id INT AUTO_INCREMENT PRIMARY KEY,
+                                               user_id INT NOT NULL,
+                                               campaign_id INT NOT NULL,
+                                               title VARCHAR(100) NOT NULL,
+                                               message TEXT NOT NULL,
+                                               sent_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+                                               visualized BOOLEAN NOT NULL DEFAULT FALSE,
+                                               visualized_date TIMESTAMP NULL,
+                                               FOREIGN KEY (user_id) REFERENCES db_user(id),
+                                               FOREIGN KEY (campaign_id) REFERENCES db_campaign(id)
 );
 
 -- Tabela de Relatórios

@@ -10,6 +10,7 @@ import {
 import RankingPage from "./features/RankingPage/RankingPage";
 import CampanhasPage from "./features/ManageCampaigntPage/CampaignPages";
 import DonationPage from "./features/ManageDonationsPage/DonationPage";
+import NotificationPage from "./features/NotificationPage/NotificationPage";
 import PartnerPage from "./features/partner/PartnerPage";
 import LoginPage from "./features/LoginPage/LoginPage";
 import OngHomepage from "./features/OngHomepage/OngHomepage";
@@ -61,6 +62,7 @@ function App() {
             <Route path="/cadastro" element={<SignUpPage />} />
             <Route path="/relatorios" element={<ReportPage />} />
             <Route path="/doadores" element={<DonorsPage />} />
+            <Route path="/notificacoes" element={<NotificationPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/lgpd" element={<LgpdRouteWrapper />} />
           </Routes>
