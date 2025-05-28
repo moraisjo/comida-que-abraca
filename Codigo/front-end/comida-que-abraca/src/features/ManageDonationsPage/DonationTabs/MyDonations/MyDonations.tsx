@@ -4,6 +4,7 @@ import {Box, Typography, TextField, Paper, Avatar, CircularProgress, Table, Tabl
 import { InfoOutlined } from "@mui/icons-material";
 import useDonationService from "../../hooks/useDonationService";
 import { DonationResponse } from "../../../../data/model/donation";
+import { useAuth } from "../../../../context/AuthContext";
 
 interface MyDonationResponse {
   id: number;
@@ -18,6 +19,7 @@ interface MyDonationResponse {
 
 const MyDonations: React.FC = () => {
   const { getAllDonations } = useDonationService();
+  const { userId } = useAuth();
   const [donations, setDonations] = useState<MyDonationResponse[]>([]);
   const [loading, setLoading] = useState(true);
   const [filterText, setFilterText] = useState("");
@@ -32,7 +34,7 @@ const MyDonations: React.FC = () => {
       try {
         const data = await getAllDonations();
         const myDonations = data
-          .filter(donation => donation.donor?.id === 1) //mudar depois do merge geral pra pegar o id do usuario logado
+          .filter(donation => donation.donor?.id === Number(userId))
           .map(donation => ({
             id: donation.id,
             name: donation.name,
@@ -51,8 +53,10 @@ const MyDonations: React.FC = () => {
       }
     };
 
-    fetchDonations();
-  }, []);
+    if (userId) {
+      fetchDonations();
+    }
+  }, [userId]);
 
   const handleChangePage = (event: unknown, newPage: number) => {
     setPage(newPage);
