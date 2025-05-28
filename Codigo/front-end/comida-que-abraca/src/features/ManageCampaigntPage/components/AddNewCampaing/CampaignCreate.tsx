@@ -86,11 +86,11 @@ const CampaignCreate: React.FC<CampaignCreateProps> = ({ onClose }) => {
       const response = await CampaignService.createCampaign(campaignData);
 
       setResponseMessage(response.message || "Erro ao processar resposta.");
-      setIsSuccess(response.statusCode === 200);
+      setIsSuccess(response.statusCode === 201);
 
       setTimeout(() => setModalOpen(true), 0);
 
-      if (response.statusCode === 200) {
+      if (response.statusCode === 201) {
         setTimeout(() => {
           window.location.reload();
         }, 0);

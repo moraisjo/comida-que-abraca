@@ -8,7 +8,6 @@ import PendingDonations from "./DonationTabs/DonationPending/PendingDonations";
 import DonationPendingDelivery from "./DonationTabs/DonationsPendingDelivery/DonationPendingDelivery";
 import CustomTabPanel from "../../shared/components/CustomTabPanel/CustomTabPanel";
 import DonationStock from "./DonationTabs/DonationStock/DonationStock";
-import MyDonations from "./DonationTabs/MyDonations/MyDonations";
 import { useAuth } from "../../context/AuthContext";
 import axios from "axios";
 
@@ -29,7 +28,9 @@ const DonationPage: React.FC = () => {
     const checkAdminRole = async () => {
       if (userId) {
         try {
-          const response = await axios.get(`http://localhost:8080/api/ong-collaborator/is-admin/${userId}`);
+          const response = await axios.get(
+            `http://localhost:8080/api/ong-collaborator/is-admin/${userId}`
+          );
           setIsAdmin(response.data);
         } catch {
           setIsAdmin(false);
@@ -93,17 +94,6 @@ const DonationPage: React.FC = () => {
                 "&.Mui-selected": { color: theme.palette.secondary.main },
               }}
             />
-            {!isAdmin && (
-              <Tab
-                label="Minhas Doações"
-                {...getTabAccessibilityProps(3)}
-                sx={{
-                  textTransform: "none",
-                  fontWeight: "bold",
-                  "&.Mui-selected": { color: theme.palette.secondary.main },
-                }}
-              />
-            )}
           </Tabs>
         </Box>
 
@@ -118,12 +108,6 @@ const DonationPage: React.FC = () => {
         <CustomTabPanel value={value} index={2}>
           <DonationStock />
         </CustomTabPanel>
-
-        {!isAdmin && (
-          <CustomTabPanel value={value} index={3}>
-            <MyDonations />
-          </CustomTabPanel>
-        )}
       </Box>
     </>
   );
