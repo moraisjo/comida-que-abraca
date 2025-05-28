@@ -16,6 +16,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Slf4j
 @RestController
 @RequestMapping("/campaign")
@@ -43,11 +45,19 @@ public class CampaignController {
         }
     }
 
-    @Operation(summary = "Listar campanhas ativas", description = "Retorna uma lista paginada de todas as campanhas com status 'ACTIVE'.")
+    @Operation(summary = "Listar campanhas ativas", description = "Retorna uma lista de todas as campanhas com status 'ACTIVE'.")
     @ApiResponse(responseCode = "200", description = "Campanhas ativas retornadas com sucesso")
     @GetMapping("/active-campaigns")
-    public ResponseEntity<Page<CampaignEntity>> getActiveCampaigns(Pageable pageable) {
-        Page<CampaignEntity> campaigns = campaignService.getActiveCampaigns(pageable);
+    public ResponseEntity<List<CampaignEntity>> getActiveCampaigns() {
+        List<CampaignEntity> campaigns = campaignService.getActiveCampaigns();
+        return ResponseEntity.ok(campaigns);
+    }
+
+    @Operation(summary = "Listar campanhas inativas", description = "Retorna uma lista de todas as campanhas com status 'FINISHED'.")
+    @ApiResponse(responseCode = "200", description = "Campanhas inativas retornadas com sucesso")
+    @GetMapping("/inactive-campaigns")
+    public ResponseEntity<List<CampaignEntity>> getInactiveCampaigns() {
+        List<CampaignEntity> campaigns = campaignService.getInactiveCampaigns();
         return ResponseEntity.ok(campaigns);
     }
 }

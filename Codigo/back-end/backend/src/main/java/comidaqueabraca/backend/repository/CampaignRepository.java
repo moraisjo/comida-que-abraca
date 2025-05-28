@@ -20,7 +20,14 @@ public interface CampaignRepository extends JpaRepository<CampaignEntity, Intege
     SELECT c FROM CampaignEntity c
     WHERE c.status = 'ACTIVE'
 """)
-    Page<CampaignEntity> findAllActiveCampaigns(Pageable pageable);
+    List<CampaignEntity> findAllActiveCampaigns();
+
+    @Query("""
+    SELECT c FROM CampaignEntity c
+    WHERE c.status = 'FINISHED'
+""")
+    List<CampaignEntity> findAllInactiveCampaigns();
+
 
     @Query(value = "SELECT * FROM comidaqueabraca.db_campaign  WHERE status = :status ORDER BY startDate DESC", nativeQuery = true)
     List<CampaignEntity> findByStatusOrderByStartDateDesc(CampaignStatus status);

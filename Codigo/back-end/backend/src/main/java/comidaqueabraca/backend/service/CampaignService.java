@@ -70,7 +70,12 @@ public class CampaignService {
         return savedCampaign;
     }
 
-    public Page<CampaignEntity> getActiveCampaigns(Pageable pageable) {
-        return campaignRepository.findAllActiveCampaigns(pageable);
+    public List<CampaignEntity> getActiveCampaigns() {
+        return campaignRepository.findAllActiveCampaigns();
     }
+
+    public List<CampaignEntity> getInactiveCampaigns() {
+        return campaignRepository.findAllInactiveCampaigns();
+    }
+
 }

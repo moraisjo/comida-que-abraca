@@ -10,15 +10,25 @@ class CampaignRepository {
     return response.data;
   }
 
-  async getActiveCampaigns(): Promise<PaginatedResponse<Campaign>> {
+  async getActiveCampaigns(): Promise<Campaign[]> {
     try {
-      const response = await axios.get<PaginatedResponse<Campaign>>(`${API_URL}/active-campaigns`);
+      const response = await axios.get<Campaign[]>(`${API_URL}/active-campaigns`);
       return response.data;
     } catch (error) {
       console.error("Erro ao buscar campanhas ativas:", error);
       throw error;
     }
-  }  
+  }
+
+  async getInactiveCampaigns(): Promise<Campaign[]> { 
+    try {
+      const response = await axios.get<Campaign[]>(`${API_URL}/inactive-campaigns`);
+      return response.data;
+    } catch (error) {
+      console.error("Erro ao buscar campanhas inativas:", error);
+      throw error;
+    }
+  }
 }
 
 export const campaignRepository = new CampaignRepository();

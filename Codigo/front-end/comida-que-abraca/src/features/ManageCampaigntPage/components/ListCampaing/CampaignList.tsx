@@ -16,6 +16,8 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddIcon from "@mui/icons-material/Add";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import FilterAltIcon from "@mui/icons-material/FilterAlt";
+import { Menu, MenuItem } from "@mui/material";
 import colors from "../../../../shared/theme/colors";
 import { useCampaignService } from "../../hooks/UseCampaingsService";
 import { Campaign } from "../../../../data/model/campaign";
@@ -24,26 +26,36 @@ interface CampaignListProps {
 }
 
 const CampaignList: React.FC<CampaignListProps> = ({ onCreate }) => {
-  const { getActiveCampaigns } = useCampaignService();
+  const { getActiveCampaigns, getInactiveCampaigns } = useCampaignService();
   const [campaigns, setCampaigns] = useState<Campaign[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [expandedCards, setExpandedCards] = useState<{
     [key: number]: boolean;
   }>({});
+  const [filterAnchorEl, setFilterAnchorEl] = useState<null | HTMLElement>(
+    null
+  );
+  const [statusFilter, setStatusFilter] = useState<"ACTIVE" | "FINISHED">(
+    "ACTIVE"
+  );
+
   const theme = useTheme();
 
   useEffect(() => {
     const fetchCampaigns = async () => {
       try {
-        const response = await getActiveCampaigns();
-        setCampaigns(response.content);
+        const response =
+          statusFilter === "ACTIVE"
+            ? await getActiveCampaigns()
+            : await getInactiveCampaigns();
+        setCampaigns(response);
       } catch (error) {
         console.error("Erro ao carregar campanhas:", error);
       }
     };
 
     fetchCampaigns();
-  }, []);
+  }, [statusFilter]);
 
   const filteredCampaigns = campaigns.filter((campaign) =>
     campaign.name.toLowerCase().includes(searchTerm.toLowerCase())
@@ -58,9 +70,20 @@ const CampaignList: React.FC<CampaignListProps> = ({ onCreate }) => {
 
   return (
     <Box padding={2}>
-      <Typography variant="h6" gutterBottom color={theme.palette.primary.main}>
-        Campanhas Ativas
-      </Typography>
+      <Box
+        display="flex"
+        alignItems="center"
+        justifyContent="space-between"
+        mb={2}
+      >
+        <Typography variant="h6" color={theme.palette.primary.main}>
+          Campanhas {statusFilter === "ACTIVE" ? "Ativas" : "Inativas"}
+        </Typography>
+
+        <IconButton onClick={(e) => setFilterAnchorEl(e.currentTarget)}>
+          <FilterAltIcon />
+        </IconButton>
+      </Box>
 
       <Box
         sx={{
@@ -85,22 +108,48 @@ const CampaignList: React.FC<CampaignListProps> = ({ onCreate }) => {
         </IconButton>
       </Box>
 
-      <TextField
-        label="Buscar..."
-        variant="outlined"
-        size="small"
-        fullWidth
-        sx={{ marginBottom: 2 }}
-        value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
-      />
+      <Box
+        display="flex"
+        justifyContent="space-between"
+        alignItems="center"
+        mb={2}
+      >
+        <TextField
+          label="Buscar..."
+          variant="outlined"
+          size="small"
+          fullWidth
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
+        <Menu
+          anchorEl={filterAnchorEl}
+          open={Boolean(filterAnchorEl)}
+          onClose={() => setFilterAnchorEl(null)}
+        >
+          <MenuItem
+            onClick={() => {
+              setStatusFilter("ACTIVE");
+              setFilterAnchorEl(null);
+            }}
+            selected={statusFilter === "ACTIVE"}
+          >
+            Ativas
+          </MenuItem>
+          <MenuItem
+            onClick={() => {
+              setStatusFilter("FINISHED");
+              setFilterAnchorEl(null);
+            }}
+            selected={statusFilter === "FINISHED"}
+          >
+            Inativas
+          </MenuItem>
+        </Menu>
+      </Box>
 
       <Box
-        sx={{
-          display: "grid",
-          gridTemplateColumns: "repeat(4, 1fr)",
-          gap: 2,
-        }}
+        sx={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 2 }}
       >
         {filteredCampaigns.map((campaign) => (
           <Card key={campaign.id} sx={{ maxWidth: 345 }}>
@@ -113,9 +162,7 @@ const CampaignList: React.FC<CampaignListProps> = ({ onCreate }) => {
             <CardMedia
               component="img"
               height="194"
-              image={
-                campaign.photoUrl || "/static/images/cards/placeholder.jpg"
-              }
+              image={campaign.photoUrl || ""}
               alt="Imagem da campanha"
             />
             <CardActions
