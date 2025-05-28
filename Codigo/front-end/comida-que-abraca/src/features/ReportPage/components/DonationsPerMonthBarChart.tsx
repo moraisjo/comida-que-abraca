@@ -3,8 +3,8 @@ import { Stack, Typography, TextField } from "@mui/material";
 import { BarChart } from "@mui/x-charts/BarChart";
 
 const MONTHS = [
-    "Jan", "Feb", "Mar", "Apr", "May", "Jun",
-    "Jul", "Aug", "Sep", "Oct", "Nov", "Dec",
+    "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
+    "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro",
 ];
 
 interface DonationByMonth {
@@ -63,7 +63,7 @@ function DonationsPerMonthChart({ selectedYear, onYearChange }: { selectedYear: 
             <Typography variant="h6" align="center" sx={{ fontWeight: 600, mb: 2 }}>
                 Doações mensais no ano de {selectedYear}
             </Typography>
-            <Typography variant="body2" align="justify" color="text.secondary" sx={{ mb: 2 }}>
+            <Typography variant="body2" align="justify" color="text.secondary" sx={{ mb: 3, fontSize: { xs: '1rem', md: '1.1rem' } }}>
                 Este gráfico mostra quantas doações recebemos em cada mês do ano que você escolher. No eixo horizontal (embaixo), você vê os meses de janeiro a dezembro, e no eixo vertical (lado) a quantidade de doações feitas em cada mês. Selecione o ano ao lado e veja os resultados de nossa pesquisa!
             </Typography>
             <Stack
