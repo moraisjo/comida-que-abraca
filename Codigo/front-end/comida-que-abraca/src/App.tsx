@@ -1,5 +1,6 @@
 import "./shared/theme/global.css";
 
+import React from "react";
 import {
   BrowserRouter as Router,
   Routes,
@@ -11,6 +12,7 @@ import RankingPage from "./features/RankingPage/RankingPage";
 import CampanhasPage from "./features/ManageCampaigntPage/CampaignPages";
 import DonationPage from "./features/ManageDonationsPage/DonationPage";
 import NotificationPage from "./features/NotificationPage/NotificationPage";
+import PartnerDonationsPage from "./features/PartnerDonations/PartnerDonationsPage";
 import LoginPage from "./features/LoginPage/LoginPage";
 import OngHomepage from "./features/OngHomepage/OngHomepage";
 import SignUpPage from "./features/SignUpPage/SignUpPage";
@@ -62,6 +64,7 @@ function App() {
             <Route path="/doadores" element={<DonorsPage />} />
             <Route path="/notificacoes" element={<NotificationPage />} />
             <Route path="/login" element={<LoginPage />} />
+            <Route path="/minhas-doacoes" element={<PartnerDonationsPage />} />
             <Route path="/lgpd" element={<LgpdRouteWrapper />} />
           </Routes>
         </Router>

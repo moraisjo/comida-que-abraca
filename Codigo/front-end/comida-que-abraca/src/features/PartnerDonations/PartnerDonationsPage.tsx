@@ -1,10 +1,30 @@
 import React, { useEffect, useState } from "react";
-import {Box, Typography, TextField, Paper, Avatar, CircularProgress, Table, TableBody, TableCell,
-  TableContainer, TableHead, TableRow, Dialog, DialogTitle, DialogContent, DialogActions, Button, IconButton, Tooltip, useTheme, TablePagination} from "@mui/material";
+import {
+  Box,
+  Typography,
+  TextField,
+  Paper,
+  Avatar,
+  CircularProgress,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  Button,
+  IconButton,
+  Tooltip,
+  useTheme,
+  TablePagination,
+} from "@mui/material";
 import { InfoOutlined } from "@mui/icons-material";
-import useDonationService from "../../hooks/useDonationService";
-import { DonationResponse } from "../../../../data/model/donation";
-import { useAuth } from "../../../../context/AuthContext";
+import partnerDonationService from "./hooks/partnerDonationService";
+import HeaderMenu from "../../shared/components/HeaderMenu";
 
 interface MyDonationResponse {
   id: number;
@@ -17,13 +37,13 @@ interface MyDonationResponse {
   campaignName?: string;
 }
 
-const MyDonations: React.FC = () => {
-  const { getAllDonations } = useDonationService();
-  const { userId } = useAuth();
+const PartnerDonations: React.FC = () => {
+  const { getAllDonations } = partnerDonationService();
   const [donations, setDonations] = useState<MyDonationResponse[]>([]);
   const [loading, setLoading] = useState(true);
   const [filterText, setFilterText] = useState("");
-  const [selectedDonation, setSelectedDonation] = useState<MyDonationResponse | null>(null);
+  const [selectedDonation, setSelectedDonation] =
+    useState<MyDonationResponse | null>(null);
   const [openDialog, setOpenDialog] = useState(false);
   const theme = useTheme();
   const [page, setPage] = useState(0);
@@ -34,16 +54,16 @@ const MyDonations: React.FC = () => {
       try {
         const data = await getAllDonations();
         const myDonations = data
-          .filter(donation => donation.donor?.id === Number(userId))
-          .map(donation => ({
+          .filter((donation) => donation.donor?.id === 1)
+          .map((donation) => ({
             id: donation.id,
             name: donation.name,
             requestDate: donation.arrivingDate,
             delivery: donation.delivery,
             status: donation.status,
-            photoUrl: "", 
+            photoUrl: "",
             beneficiaryName: donation.beneficiary?.name || "Não informado",
-            campaignName: donation.campaign?.name
+            campaignName: donation.campaign?.name,
           }));
         setDonations(myDonations);
       } catch (error) {
@@ -53,10 +73,8 @@ const MyDonations: React.FC = () => {
       }
     };
 
-    if (userId) {
-      fetchDonations();
-    }
-  }, [userId]);
+    fetchDonations();
+  }, []);
 
   const handleChangePage = (event: unknown, newPage: number) => {
     setPage(newPage);
@@ -65,7 +83,9 @@ const MyDonations: React.FC = () => {
   const filteredDonations = donations.filter(
     (donation) =>
       donation.name.toLowerCase().includes(filterText.toLowerCase()) ||
-      donation.beneficiaryName.toLowerCase().includes(filterText.toLowerCase()) ||
+      donation.beneficiaryName
+        .toLowerCase()
+        .includes(filterText.toLowerCase()) ||
       donation.campaignName?.toLowerCase().includes(filterText.toLowerCase())
   );
 
@@ -87,7 +107,7 @@ const MyDonations: React.FC = () => {
       ACCEPTED: "Aceito",
       REJECTED: "Rejeitado",
       PENDING_DELIVERY: "Pendente Entrega",
-      CANCELED_DELIVERY: "Entrega Cancelada"
+      CANCELED_DELIVERY: "Entrega Cancelada",
     };
     return statusMap[status] || status;
   };
@@ -112,7 +132,16 @@ const MyDonations: React.FC = () => {
 
   return (
     <>
+      <HeaderMenu />
       <Box p={2}>
+        <Typography
+          variant="h5"
+          gutterBottom
+          sx={{ color: theme.palette.primary.main }}
+        >
+          Minhas doações:
+        </Typography>
+
         <TextField
           label="Buscar..."
           variant="outlined"
@@ -135,11 +164,15 @@ const MyDonations: React.FC = () => {
               <TableRow sx={{ backgroundColor: "#f5f5f5" }}>
                 <TableCell sx={{ fontWeight: "bold" }}>Imagem</TableCell>
                 <TableCell sx={{ fontWeight: "bold" }}>Item</TableCell>
-                <TableCell sx={{ fontWeight: "bold" }}>Data de Criação</TableCell>
+                <TableCell sx={{ fontWeight: "bold" }}>
+                  Data de Criação
+                </TableCell>
                 <TableCell sx={{ fontWeight: "bold" }}>Campanha</TableCell>
                 <TableCell sx={{ fontWeight: "bold" }}>Status</TableCell>
                 <TableCell sx={{ fontWeight: "bold" }}>Beneficiário</TableCell>
-                <TableCell sx={{ fontWeight: "bold" }}>Tipo de Entrega</TableCell>
+                <TableCell sx={{ fontWeight: "bold" }}>
+                  Tipo de Entrega
+                </TableCell>
                 <TableCell sx={{ fontWeight: "bold" }} align="center">
                   Saiba Mais
                 </TableCell>
@@ -165,11 +198,14 @@ const MyDonations: React.FC = () => {
                     </TableCell>
                     <TableCell>{donation.name}</TableCell>
                     <TableCell>
-                      {new Date(donation.requestDate).toLocaleDateString("pt-BR", {
-                        day: "2-digit",
-                        month: "long",
-                        year: "numeric",
-                      })}
+                      {new Date(donation.requestDate).toLocaleDateString(
+                        "pt-BR",
+                        {
+                          day: "2-digit",
+                          month: "long",
+                          year: "numeric",
+                        }
+                      )}
                     </TableCell>
                     <TableCell>
                       {donation.campaignName || "Sem campanha associada"}
@@ -220,7 +256,9 @@ const MyDonations: React.FC = () => {
               <strong>Item:</strong> {selectedDonation?.name}
             </Typography>
             <Typography fontSize="14px" color="#666" mb="10px">
-              <strong>Status:</strong> {selectedDonation?.status && getStatusLabel(selectedDonation.status)}
+              <strong>Status:</strong>{" "}
+              {selectedDonation?.status &&
+                getStatusLabel(selectedDonation.status)}
             </Typography>
             <Typography fontSize="14px" color="#666" mb="10px">
               <strong>Beneficiário:</strong> {selectedDonation?.beneficiaryName}
@@ -236,11 +274,14 @@ const MyDonations: React.FC = () => {
             <Typography fontSize="14px" color="#666">
               <strong>Data de Criação:</strong>{" "}
               {selectedDonation?.requestDate &&
-                new Date(selectedDonation.requestDate).toLocaleDateString("pt-BR", {
-                  day: "2-digit",
-                  month: "long",
-                  year: "numeric",
-                })}
+                new Date(selectedDonation.requestDate).toLocaleDateString(
+                  "pt-BR",
+                  {
+                    day: "2-digit",
+                    month: "long",
+                    year: "numeric",
+                  }
+                )}
             </Typography>
           </DialogContent>
 
@@ -267,4 +308,4 @@ const MyDonations: React.FC = () => {
   );
 };
 
-export default MyDonations; 
+export default PartnerDonations;
