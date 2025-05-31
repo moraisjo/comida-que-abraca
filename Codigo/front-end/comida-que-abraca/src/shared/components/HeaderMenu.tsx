@@ -10,13 +10,13 @@ import Menu from "@mui/material/Menu";
 import React from "react";
 import colors from "../theme/colors";
 import { useNavigate } from "react-router-dom";
-import { AppBar, Button, styled } from "@mui/material";
+import { AppBar, Button, styled, Link } from "@mui/material";
 import { useAuth } from "../../context/AuthContext";
 
 export default function HeaderMenu() {
   // Uso do React Router
   const navigate = useNavigate();
-  const { userId, userType, token, logout } = useAuth();
+  const { token, logout } = useAuth();
 
   // Estado para controlar a exibição do menu de perfil
   const [profileMenuIsOpen, setProfileMenuIsOpen] =
@@ -93,12 +93,16 @@ export default function HeaderMenu() {
           </IconButton>
 
           {/*Logo Comida Que Abraça*/}
-          <img
-            src={logo}
-            style={{ width: "130px", height: "auto" }}
-            alt="Logo Comida Que Abraça"
-          />
-
+          <Link
+            href="/"
+            underline="none"
+            >
+            <img
+                src={logo}
+                style={{ width: "130px", height: "auto" }}
+                alt="Logo Comida Que Abraça"
+              />
+          </Link>
           <Box>
             {!token ? (
               <Button

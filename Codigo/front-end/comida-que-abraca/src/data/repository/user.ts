@@ -1,11 +1,11 @@
 // src/services/donorsService.tsx
 
-import axios from 'axios';
+import api from '../../api/axios';
 import { User } from '../model/user';
 
-const API_URL = 'http://localhost:8080';
+const API_URL = '/user';
 
 export const getAllUsers = async (): Promise<User[]> => {
-  const response = await axios.get<User[]>(`${API_URL}/user/all`);
+  const response = await api.get<User[]>(`${API_URL}/all`);
   return response.data;
 };
