@@ -11,27 +11,32 @@ import {
   ListItemText,
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import api from '../../../api/axios';
+import { useAuth } from '../../context/AuthContext';
+import api from '../../api/axios';
 
-interface LgpdConsentProps {
-  userId: number;
-  onAccept: () => void;
-}
 
-const LgpdConsent = ({ userId, onAccept }: LgpdConsentProps) => {
+export default function LoginPage(){
   const [checked, setChecked] = useState(false);
   const navigate = useNavigate();
+  const { decodedUser, setAuthData } = useAuth();
+
+  // Wait for decodedUser to be available
+  if (!decodedUser?.userId) {
+    return <div>Carregando...</div>;
+  }
+
+  const saveLgpdConsent = async () => {
+    try {
+      await api.put(`/lgpd/consent/${decodedUser?.userId}`);
+    } catch (error: any) {
+      console.error('Erro ao verificar consentimento LGPD:', error);
+      return false;
+    }
+  }
 
   const handleAccept = async () => {
-    try {
-      // Atualiza o banco com a data de aceite
-      await api.put(`/user/lgpd-consent/${userId}`);
-
-      // Sinaliza que foi aceito (responsabilidade de onAccept tratar o resto)
-      onAccept();
-    } catch (error) {
-      console.error("Erro ao registrar aceite do LGPD:", error);
-    }
+      saveLgpdConsent();
+      navigate("/");
   };
 
   const handleCancel = () => {
@@ -110,5 +115,3 @@ const LgpdConsent = ({ userId, onAccept }: LgpdConsentProps) => {
     </Box>
   );
 };
-
-export default LgpdConsent;

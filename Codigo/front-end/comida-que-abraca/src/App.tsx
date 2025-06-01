@@ -1,12 +1,8 @@
 import "./shared/theme/global.css";
-
-import React from "react";
 import {
   BrowserRouter as Router,
   Routes,
   Route,
-  useLocation,
-  useNavigate,
 } from "react-router-dom";
 import RankingPage from "./features/RankingPage/RankingPage";
 import CampanhasPage from "./features/ManageCampaigntPage/CampaignPages";
@@ -16,38 +12,13 @@ import PartnerDonationsPage from "./features/PartnerDonations/PartnerDonationsPa
 import LoginPage from "./features/LoginPage/LoginPage";
 import OngHomepage from "./features/OngHomepage/OngHomepage";
 import SignUpPage from "./features/SignUpPage/SignUpPage";
-import LgpdConsent from "./shared/components/Lgpd/LgpdConsent";
+import DonorsPage from "./features/DonorsPage/DonorsPage";
+import { ReportPage } from "./features/ReportPage/ReportPage";
+import LgpdConsent from "./features/LgpdConsent/LgpdConsent";
 import { ThemeProvider } from "@mui/material/styles";
 import theme from "./shared/theme/theme";
-import { ReportPage } from "./features/ReportPage/ReportPage";
-import DonorsPage from "./features/DonorsPage/DonorsPage";
-import { AuthProvider, useAuth } from "./context/AuthContext";
+import { AuthProvider } from "./context/AuthContext";
 
-// 🚩x Lgpd wrapper que atualiza o AuthContext
-function LgpdRouteWrapper() {
-  const location = useLocation();
-  const navigate = useNavigate();
-  const { setAuthData, token, userType } = useAuth();
-
-  const userId = location.state?.userId;
-
-  return (
-    <LgpdConsent
-      userId={userId}
-      onAccept={() => {
-        // Atualiza o AuthContext
-        setAuthData({
-          userId,
-          userType: userType || "", // ou pegue de outro lugar se necessário
-          token: token || "",
-        });
-
-        // Redireciona após aceite
-        navigate("/");
-      }}
-    />
-  );
-}
 
 function App() {
   return (
@@ -65,7 +36,7 @@ function App() {
             <Route path="/notificacoes" element={<NotificationPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/minhas-doacoes" element={<PartnerDonationsPage />} />
-            <Route path="/lgpd" element={<LgpdRouteWrapper />} />
+            <Route path="/lgpd" element={<LgpdConsent />} />
           </Routes>
         </Router>
       </ThemeProvider>

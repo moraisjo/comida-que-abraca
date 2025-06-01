@@ -13,9 +13,16 @@ public class LgpdConsentService {
     @Autowired
     private UserRepository userRepository;
 
+    public LocalDateTime checkUserConsent(Integer userId) {
+        UserEntity user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        return user.getLgpdConsentDate();
+    }
+
     public void saveConsentDate(Integer userId) {
         UserEntity user = userRepository.findById(userId)
-                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+                .orElseThrow(() -> new RuntimeException("User not found"));
 
         user.setLgpdConsentDate(LocalDateTime.now());
         userRepository.save(user);
