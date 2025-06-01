@@ -7,6 +7,7 @@ Após realizado o escaneamento, verificamos quais CWEs se encontravam nas listas
 2. https://owasp.org/Top10/A02_2021-Cryptographic_Failures/
 3. https://owasp.org/Top10/A03_2021-Injection/
  
+## CWES
 
 Abaixo listamos os CWEs reportados pelo escaneamento e sua classificação segundo as listagens de vulnerabilidades:
 
@@ -20,3 +21,13 @@ Abaixo listamos os CWEs reportados pelo escaneamento e sua classificação segun
 | 693    | Nenhuma | X-Content-Type-Options Header Missing | 
 | 598    | Nenhuma | Information Disclosure - Sensitive Information in URL |
 | 615    | Nenhuma | Information Disclosure - Suspicious Comments |
+
+## Mitigação
+
+### CWE-538
+
+Essa ameaça deve ser mitigada no momento do deploy. Depois de gerar a `build` do projeto, devemos então procurando por arquivos sensíveis (com extensão `.hg`, `.git`, etc) e deleta-los antes de fazer o deploy.
+
+### CWE-497
+
+Essa ameaça também deverá ser mitigada no momento do deploy. Ao gerar o `build` da aplicação, devemos remover as dependências de desenvolvimento e revisar o conteúdo da pasta `dist` antes de fazer o deploy.
