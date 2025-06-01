@@ -14,7 +14,7 @@ import LgpdConsent from "./features/LgpdConsent/LgpdConsent";
 import { ThemeProvider } from "@mui/material/styles";
 import theme from "./shared/theme/theme";
 import { ReportPage } from "./features/ReportPage/ReportPage";
-import { AuthProvider, useAuth } from "./context/AuthContext";
+import { AuthProvider } from "./context/AuthContext";
 import HomePage from "./features/HomePage/HomePage";
 import AboutUsPage from "./features/AboutUsPage/AboutUsPage";
 import RequestFormPage from "./features/RequestFormPage/RequestFormPage";
