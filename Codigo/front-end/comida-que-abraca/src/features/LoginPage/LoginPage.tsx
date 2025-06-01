@@ -94,7 +94,7 @@ export default function LoginPage() {
 
         <Typography variant="body2" align="center" sx={{ mt: 2 }}>
           Ainda não tem cadastro?{' '}
-          <Link href="#" underline="hover">
+          <Link href="/cadastro" underline="hover">
             Clique aqui!
           </Link>
         </Typography>
