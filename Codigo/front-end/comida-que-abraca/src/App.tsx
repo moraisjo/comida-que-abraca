@@ -7,18 +7,30 @@ import {
 import RankingPage from "./features/RankingPage/RankingPage";
 import CampanhasPage from "./features/ManageCampaigntPage/CampaignPages";
 import DonationPage from "./features/ManageDonationsPage/DonationPage";
+import RequestersPage from "./features/RequestersPage/RequestersPage";
 import NotificationPage from "./features/NotificationPage/NotificationPage";
 import PartnerDonationsPage from "./features/PartnerDonations/PartnerDonationsPage";
 import LoginPage from "./features/LoginPage/LoginPage";
-import OngHomepage from "./features/OngHomepage/OngHomepage";
 import SignUpPage from "./features/SignUpPage/SignUpPage";
 import DonorsPage from "./features/DonorsPage/DonorsPage";
 import { ReportPage } from "./features/ReportPage/ReportPage";
 import LgpdConsent from "./features/LgpdConsent/LgpdConsent";
 import { ThemeProvider } from "@mui/material/styles";
 import theme from "./shared/theme/theme";
+import { ReportPage } from "./features/ReportPage/ReportPage";
+import DonorsPage from "./features/DonorsPage/DonorsPage";
+import { AuthProvider, useAuth } from "./context/AuthContext";
+import HomePage from "./features/HomePage/HomePage";
+import AboutUsPage from "./features/AboutUsPage/AboutUsPage";
+import { RequestPage } from "@mui/icons-material";
+import RequestFormPage from "./features/RequestFormPage/RequestFormPage";
 import { AuthProvider } from "./context/AuthContext";
 
+// 🚩x Lgpd wrapper que atualiza o AuthContext
+function LgpdRouteWrapper() {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const { setAuthData, token, userType } = useAuth();
 
 function App() {
   return (
@@ -26,16 +38,24 @@ function App() {
       <ThemeProvider theme={theme}>
         <Router>
           <Routes>
-            <Route path="/" element={<OngHomepage />} />
+            <Route path="/" element={<HomePage />} />
             <Route path="/ranking" element={<RankingPage />} />
-            <Route path="/campanhas" element={<CampanhasPage />} />
-            <Route path="/doacoes" element={<DonationPage />} />
+            <Route path="/gerenciar-campanhas" element={<CampanhasPage />} />
+            <Route path="/gerenciar-doacoes" element={<DonationPage />} />
             <Route path="/cadastro" element={<SignUpPage />} />
             <Route path="/relatorios" element={<ReportPage />} />
             <Route path="/doadores" element={<DonorsPage />} />
+            <Route path="/solicitantes" element={<RequestersPage />} />
+            <Route path="/ranking" element={<RankingPage />} />
             <Route path="/notificacoes" element={<NotificationPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/minhas-doacoes" element={<PartnerDonationsPage />} />
+            <Route
+              path="/formulario-solicitacao"
+              element={<RequestFormPage />}
+            />
+            <Route path="/lgpd" element={<LgpdRouteWrapper />} />
+            <Route path="/sobre" element={<AboutUsPage />} />
             <Route path="/lgpd" element={<LgpdConsent />} />
           </Routes>
         </Router>
