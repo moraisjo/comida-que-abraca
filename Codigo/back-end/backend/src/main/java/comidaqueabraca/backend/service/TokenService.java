@@ -33,12 +33,25 @@ public class TokenService {
 
     public String getSubject(String jwtToken) {
         try {
-            var algoritmo = Algorithm.HMAC256(secret);
-            return JWT.require(algoritmo)
+            var algorithm = Algorithm.HMAC256(secret);
+            return JWT.require(algorithm)
                     .withIssuer("api_comidaqueabraca")
                     .build()
                     .verify(jwtToken)
                     .getSubject();
+        } catch (JWTVerificationException exception) {
+            throw new RuntimeException("Token JWT inválido ou expirado!");
+        }
+    }
+
+    public Integer getUserId(String jwtToken) {
+        try {
+            var algorithm = Algorithm.HMAC256(secret);
+            return JWT.require(algorithm)
+                    .withIssuer("api_comidaqueabraca")
+                    .build()
+                    .verify(jwtToken)
+                    .getClaim("userId").asInt();
         } catch (JWTVerificationException exception) {
             throw new RuntimeException("Token JWT inválido ou expirado!");
         }
