@@ -79,7 +79,66 @@ São os elementos em que os atacantes podem ter interesse.
 
 ## 2. Determinar as ameaças
 
-## Passo 3: Determinar medidas mitigantes
+A tabela abaixo foi traduzida da documentação da OWASP e apresenta de forma genérica a lista de ameaças de acordo com o modelo STRIDE bem como indicações gerais de medidas mitigantes:
 
-## Passo 4: Avaliar o trabalho
+| Tipo | Descrição | Controle de Segurança |
+| ----- | -------- | --------------------- |
+| **Falsificação (Spoofing)** | Ação de ameaça que visa acessar e usar as credenciais de outro usuário, como nome de usuário e senha. | Autenticação |
+| **Violação de Integridade (Tampering)** | Ação de ameaça que pretende alterar ou modificar de forma maliciosa dados persistentes, como registros em um banco de dados, e a alteração de dados em trânsito entre dois computadores em uma rede aberta, como a Internet. | Integridade |
+| **Repúdio (Repudiation)** | Ação de ameaça que visa realizar operações proibidas em um sistema que não tem a capacidade de rastrear essas operações. | Não Repúdio |
+| **Divulgação de Informação (Information Disclosure)** | Ação de ameaça que pretende ler um arquivo ao qual não foi concedido acesso ou ler dados em trânsito. | Confidencialidade |
+| **Negação de Serviço (Denial of Service)** | Ação de ameaça que tenta negar o acesso a usuários legítimos, como tornar um servidor web temporariamente indisponível ou inutilizável.|Disponibilidade |
+| **Elevação de Privilégio (Elevation of Privilege)** | Ação de ameaça que pretende obter acesso privilegiado a recursos para acessar informações não autorizadas ou comprometer um sistema. | Autorização |
+
+### Detalhamento das ameaças no projeto
+
+#### Spoofing (Falsificação)
+- Parceiro: Um atacante pode tentar se passar por um parceiro legítimo.
+    - Mitigação: Implementar autenticação forte (ex: MFA), bloqueio de conta após tentativas falhas.
+- ONG: Um atacante pode tentar se passar por um colaborador da ONG legítimo.
+    - Mitigação: Implementar autenticação forte (ex: MFA), bloqueio de conta após tentativas falhas.
+- Token JWT: Possibilidade de uso de JWT roubado ou manipulado para acessar recursos.
+    - Mitigação: Assinatura forte, expiração curta, validação de origem e revogação.
+
+#### Tampering (Violação de Integridade)
+- Requisição de Login: Dados podem ser modificados através de interceptação e alteração do payload (conteúdo principal de uma mensagem transmitida entre cliente e servidor, geralmente em formato JSON, XML ou formulário); manipulação de parâmetros para alterar os dados registrados; SQL injection (envio de dados maliciosos através dos campos do formulário)
+    - Mitigação: Usar HTTPS/TLS em todas as comunicações entre cliente e servidor; validar o formato e o conteúdo do payload no back-end.
+- Requisição Cadastro de Usuário: Dados podem ser modificados através de interceptação e alteração do payload; manipulação de parâmetros para alterar os dados registrados; SQL injection (envio de dados maliciosos através dos campos do formulário)
+    - Mitigação: Usar HTTPS/TLS em todas as comunicações entre cliente e servidor; validar o formato e o conteúdo do payload no back-end.
+- Requisição Cadastro de Doação: Dados podem ser modificados através de interceptação e alteração do payload; manipulação de parâmetros para alterar os dados registrados; SQL injection (envio de dados maliciosos através dos campos do formulário); 
+    - Mitigação: Usar TTPS/TLS em todas as comunicações entre cliente e servidor; validar o formato e o conteúdo do payload no back-end.
+- Requisição Gestão de Doações e Estoque: Dados podem ser modificados através de interceptação e alteração do payload; manipulação de parâmetros para alterar os dados registrados; SQL injection
+    - Mitigação: Usar TTPS/TLS em todas as comunicações entre cliente e servidor; validar o formato e o conteúdo do payload no back-end.
+- Acesso ao Banco de Dados (diversos fluxos): Acesso não autorizado a dados de usuários ou doações.
+    - Mitigação: Privilégio mínimo, criptografia dos dados em repouso.
+- Manipulação de Parâmetros: Alteração de parâmetros em requisições (ex: IDs de doação) para acessar ou modificar dados de outros usuários.
+    - Mitigação: Validação de autorização no back-end.
+- Alteração de Dados em Relatórios: Manipulação de filtros ou parâmetros para gerar relatórios com dados não autorizados.
+    - Mitigação: Controle de acesso e validação de parâmetros.
+
+#### Repudiation (Repúdio)
+- Usuários podem negar ter realizado determinadas ações.
+  - Mitigação: Trilhas de auditoria e assinaturas digitais.
+- Logs Insuficientes: Falta de logs detalhados para operações críticas (ex: exclusão de doação, alteração de permissões).
+    - Mitigação: Logar todas as operações sensíveis com identificação do usuário.
+
+#### Information Disclosure (Divulgação de Informação)
+- Cadastro de usuário: Dados pessoais podem ser expostos em canais inseguros ou logs.
+  - Mitigação: Criptografar dados sensíveis em trânsito e em repouso, sanitizar logs.
+- Acesso não autorizado a dados de usuários ou doações.
+  - Mitigação: Privilégio mínimo, criptografia dos dados em repouso; utilizar HTTPS/TLS.
+- Exposição de Dados em Erros: Mensagens de erro detalhadas expondo informações sensíveis (stack trace, SQL, etc).
+    - Mitigação: Mensagens genéricas para o usuário, logs detalhados apenas no servidor.
+
+#### Denial of Service (Negação de Serviço)
+- Ataques de Brute Force: Tentativas automáticas de login ou cadastro.
+    - Mitigação: Rate limiting, CAPTCHA, bloqueio temporário.
+- Envio Massivo de Formulários: Submissão automatizada de formulários de doação/cadastro.
+    - Mitigação: Rate limiting, validação de origem, CAPTCHA.
+
+#### Elevation of Privilege (Elevação de Privilégio)
+- Escalada de Permissões: Usuário comum tentando acessar endpoints de administrador ou colaborador.
+    - Mitigação: Checagem rigorosa de roles e permissões no back-end.
+- Manipulação de JWT Claims: Alteração do payload do JWT para obter permissões elevadas.
+    - Mitigação: Assinatura forte e validação de claims no servidor.
 
