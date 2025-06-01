@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 public class PartnerRequestEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     @Column(name = "item_type", nullable = false)
     private String itemType;

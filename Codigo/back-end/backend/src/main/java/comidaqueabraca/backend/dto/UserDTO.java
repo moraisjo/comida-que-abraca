@@ -9,5 +9,5 @@ public record UserDTO(
 
         String phone,
 
-        Integer addressId
+        String addressId
 ) {}

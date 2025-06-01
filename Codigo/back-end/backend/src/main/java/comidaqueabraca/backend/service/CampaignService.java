@@ -17,7 +17,6 @@ import java.util.List;
 
 @Service
 public class CampaignService {
-
     private final CampaignRepository campaignRepository;
     private final DonationRepository donationRepository;
     private final UserRepository userRepository;
@@ -94,7 +93,6 @@ public class CampaignService {
         campaignRepository.save(campaign);
     }
 
-
     public void cancelCampaign(Integer id) {
         CampaignEntity campaign = campaignRepository.findById(id).orElseThrow(() ->
                 new IllegalArgumentException("Campanha não encontrada"));
@@ -109,7 +107,6 @@ public class CampaignService {
 
         campaignRepository.save(campaign);
     }
-
 
     public List<CampaignEntity> getActiveCampaigns() {
         return campaignRepository.findAllActiveCampaigns();
