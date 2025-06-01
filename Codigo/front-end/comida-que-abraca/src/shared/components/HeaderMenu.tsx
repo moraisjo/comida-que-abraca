@@ -103,11 +103,13 @@ export default function HeaderMenu() {
           </IconButton>
 
           {/*Logo Comida Que Abraça*/}
-          <img
-            src={logo}
-            style={{ width: "130px", height: "auto" }}
-            alt="Logo Comida Que Abraça"
-          />
+          <Box sx={{ cursor: "pointer" }} onClick={() => navigate("/")}>
+            <img
+              src={logo}
+              style={{ width: "130px", height: "auto" }}
+              alt="Logo Comida Que Abraça"
+            />
+          </Box>
 
           <Box>
             {!token ? (
@@ -197,7 +199,7 @@ export default function HeaderMenu() {
           >
             <MenuItem
               onClick={() => {
-                navigate("/fomulario-doacao");
+                navigate("/formulario-doacao");
                 handleSandwichMenuClose();
               }}
               sx={{ color: colors.darkGray, fontWeight: "bold" }}
@@ -209,7 +211,7 @@ export default function HeaderMenu() {
             </MenuItem>
             <MenuItem
               onClick={() => {
-                navigate("/fomulario-solicitacao");
+                navigate("/formulario-solicitacao");
                 handleSandwichMenuClose();
               }}
               sx={{ color: colors.darkGray, fontWeight: "bold" }}
@@ -317,7 +319,7 @@ export default function HeaderMenu() {
 
             <MenuItem
               onClick={() => {
-                //navigate();
+                navigate("/sobre");
               }}
               sx={{ color: colors.darkGray, fontWeight: "bold" }}
             >

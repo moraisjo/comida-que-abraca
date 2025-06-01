@@ -14,7 +14,6 @@ import DonationPage from "./features/ManageDonationsPage/DonationPage";
 import NotificationPage from "./features/NotificationPage/NotificationPage";
 import PartnerDonationsPage from "./features/PartnerDonations/PartnerDonationsPage";
 import LoginPage from "./features/LoginPage/LoginPage";
-import OngHomepage from "./features/OngHomepage/OngHomepage";
 import SignUpPage from "./features/SignUpPage/SignUpPage";
 import LgpdConsent from "./shared/components/Lgpd/LgpdConsent";
 import { ThemeProvider } from "@mui/material/styles";
@@ -22,6 +21,7 @@ import theme from "./shared/theme/theme";
 import { ReportPage } from "./features/ReportPage/ReportPage";
 import DonorsPage from "./features/DonorsPage/DonorsPage";
 import { AuthProvider, useAuth } from "./context/AuthContext";
+import HomePage from "./features/HomePage/HomePage";
 
 // 🚩x Lgpd wrapper que atualiza o AuthContext
 function LgpdRouteWrapper() {
@@ -55,7 +55,7 @@ function App() {
       <ThemeProvider theme={theme}>
         <Router>
           <Routes>
-            <Route path="/" element={<OngHomepage />} />
+            <Route path="/" element={<HomePage />} />
             <Route path="/ranking" element={<RankingPage />} />
             <Route path="/campanhas" element={<CampanhasPage />} />
             <Route path="/doacoes" element={<DonationPage />} />
