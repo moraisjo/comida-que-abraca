@@ -8,7 +8,7 @@ Realizamos uma análise completa e abrangente e fizemos um recorte no que diz re
 - Injection
 
 **Responsável:** Milena Lara Reis Ferreira  
-**Revisor:** Érica Alves
+**Revisor:** Érica Alves dos Santos
 
 
 ## 1. Avaliação de Riscos
