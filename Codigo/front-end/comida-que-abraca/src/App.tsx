@@ -1,9 +1,6 @@
+import React from "react";
 import "./shared/theme/global.css";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-} from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import RankingPage from "./features/RankingPage/RankingPage";
 import CampanhasPage from "./features/ManageCampaigntPage/CampaignPages";
 import DonationPage from "./features/ManageDonationsPage/DonationPage";
@@ -13,24 +10,14 @@ import PartnerDonationsPage from "./features/PartnerDonations/PartnerDonationsPa
 import LoginPage from "./features/LoginPage/LoginPage";
 import SignUpPage from "./features/SignUpPage/SignUpPage";
 import DonorsPage from "./features/DonorsPage/DonorsPage";
-import { ReportPage } from "./features/ReportPage/ReportPage";
 import LgpdConsent from "./features/LgpdConsent/LgpdConsent";
 import { ThemeProvider } from "@mui/material/styles";
 import theme from "./shared/theme/theme";
 import { ReportPage } from "./features/ReportPage/ReportPage";
-import DonorsPage from "./features/DonorsPage/DonorsPage";
 import { AuthProvider, useAuth } from "./context/AuthContext";
 import HomePage from "./features/HomePage/HomePage";
 import AboutUsPage from "./features/AboutUsPage/AboutUsPage";
-import { RequestPage } from "@mui/icons-material";
 import RequestFormPage from "./features/RequestFormPage/RequestFormPage";
-import { AuthProvider } from "./context/AuthContext";
-
-// 🚩x Lgpd wrapper que atualiza o AuthContext
-function LgpdRouteWrapper() {
-  const location = useLocation();
-  const navigate = useNavigate();
-  const { setAuthData, token, userType } = useAuth();
 
 function App() {
   return (
@@ -50,11 +37,11 @@ function App() {
             <Route path="/notificacoes" element={<NotificationPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/minhas-doacoes" element={<PartnerDonationsPage />} />
+            <Route path="/minhas-doacoes" element={<RequestFormPage />} />
             <Route
               path="/formulario-solicitacao"
               element={<RequestFormPage />}
             />
-            <Route path="/lgpd" element={<LgpdRouteWrapper />} />
             <Route path="/sobre" element={<AboutUsPage />} />
             <Route path="/lgpd" element={<LgpdConsent />} />
           </Routes>
