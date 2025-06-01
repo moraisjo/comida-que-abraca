@@ -31,13 +31,13 @@ VALUES (1, 'ADMIN', CURRENT_TIMESTAMP);
 
 INSERT INTO db_campaign (name, description, address, start_date, end_date, photo_url, status)
 VALUES 
-('Campanha do Agasalho', 'Distribuição de agasalhos no inverno', 'Rua Central, 200', '2025-06-01', '2025-06-30', 'https://res.cloudinary.com/dipvumtkf/image/upload/v1745700659/hwxpfgsdhzwghe7c8ot5.jpg', 'ACTIVE'),
-('Doação de Alimentos', 'Arrecadação de alimentos para famílias carentes', 'Av. das Nações, 1010', '2025-07-01', '2025-07-15', 'https://res.cloudinary.com/dipvumtkf/image/upload/v1745700659/hwxpfgsdhzwghe7c8ot5.jpg', 'ACTIVE'),
+('Campanha do Agasalho', 'Distribuição de agasalhos no inverno', 'Rua Central, 200', '2025-06-01', '2025-06-30', 'https://res.cloudinary.com/dipvumtkf/image/upload/v1748809129/rl1ldult7qwenhlzqnf1.jpg', 'ACTIVE'),
+('Doação de Alimentos', 'Arrecadação de alimentos para famílias carentes', 'Av. das Nações, 1010', '2025-07-01', '2025-07-15', 'https://res.cloudinary.com/dipvumtkf/image/upload/v1748809236/bv7p8mz7r552yie4jx0a.jpg', 'ACTIVE'),
 ('Natal Solidário', 'Campanha de arrecadação de brinquedos', 'Praça da Paz, 45', '2025-12-01', '2025-12-25', 'https://res.cloudinary.com/dipvumtkf/image/upload/v1745700659/hwxpfgsdhzwghe7c8ot5.jpg', 'FINISHED'),
 ('Volta às Aulas Solidária', 'Campanha de doação de materiais escolares', 'Rua das Palmeiras, 123', '2025-01-10', '2025-02-10', 'https://res.cloudinary.com/dipvumtkf/image/upload/v1745700659/hwxpfgsdhzwghe7c8ot5.jpg', 'FINISHED'),
-('Campanha da Saúde', 'Distribuição de kits de higiene e saúde', 'Av. Saúde, 789', '2025-03-01', '2025-03-31', 'https://res.cloudinary.com/dipvumtkf/image/upload/v1745700659/hwxpfgsdhzwghe7c8ot5.jpg', 'ACTIVE'),
+('Campanha da Saúde', 'Distribuição de kits de higiene e saúde', 'Av. Saúde, 789', '2025-03-01', '2025-03-31', 'https://res.cloudinary.com/dipvumtkf/image/upload/v1748809307/y2wjxwmojdxnthdzpcgw.jpg', 'ACTIVE'),
 ('Páscoa Feliz', 'Arrecadação de chocolates e cestas de Páscoa', 'Rua do Chocolate, 456', '2025-04-01', '2025-04-20', 'https://res.cloudinary.com/dipvumtkf/image/upload/v1745700659/hwxpfgsdhzwghe7c8ot5.jpg', 'FINISHED'),
-('Doe Livros', 'Campanha de incentivo à leitura', 'Biblioteca Central, 500', '2025-05-01', '2025-05-31', 'https://res.cloudinary.com/dipvumtkf/image/upload/v1745700659/hwxpfgsdhzwghe7c8ot5.jpg', 'ACTIVE'),
+('Doe Livros', 'Campanha de incentivo à leitura', 'Biblioteca Central, 500', '2025-05-01', '2025-05-31', 'https://res.cloudinary.com/dipvumtkf/image/upload/v1748813457/ywoh3ds1eelescxywgcj.jpg', 'ACTIVE'),
 ('Campanha Janeiro Sem Fome', 'Arrecadação de alimentos para comunidades vulneráveis', 'Rua Esperança, 101', '2024-01-01', '2024-01-31', 'https://res.cloudinary.com/dipvumtkf/image/upload/v1745700659/hwxpfgsdhzwghe7c8ot5.jpg', 'FINISHED'),
 ('Alimento para Todos', 'Doação de cestas básicas para famílias carentes', 'Avenida do Sol, 55', '2024-01-10', '2024-01-25', 'https://res.cloudinary.com/dipvumtkf/image/upload/v1745700659/hwxpfgsdhzwghe7c8ot5.jpg', 'FINISHED'),
 ('Solidariedade em Movimento', 'Distribuição de alimentos em comunidades rurais', 'Rua Campo Verde, 200', '2024-01-05', '2024-01-20', 'https://res.cloudinary.com/dipvumtkf/image/upload/v1745700659/hwxpfgsdhzwghe7c8ot5.jpg', 'FINISHED'),
