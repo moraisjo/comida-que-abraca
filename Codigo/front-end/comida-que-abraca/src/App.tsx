@@ -37,7 +37,10 @@ function App() {
             <Route path="/notificacoes" element={<NotificationPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/minhas-doacoes" element={<PartnerDonationsPage />} />
-            <Route path="/minhas-doacoes" element={<RequestFormPage />} />
+            <Route
+              path="/formulario-solicitacao"
+              element={<RequestFormPage />}
+            />
             <Route
               path="/formulario-solicitacao"
               element={<RequestFormPage />}
