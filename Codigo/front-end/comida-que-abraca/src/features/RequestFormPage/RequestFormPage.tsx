@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import AddIcon from "@mui/icons-material/Add";
 import HeaderMenu from "../../shared/components/HeaderMenu";
 import FormPage from "./components/FormPage";
-import { Box, IconButton } from "@mui/material";
+import ListRequest from "./components/ListRequest";
+import { Box, IconButton, Typography } from "@mui/material";
 
 const RequestFormPage: React.FC = () => {
   const [openModal, setOpenModal] = useState(false);
@@ -10,6 +11,11 @@ const RequestFormPage: React.FC = () => {
   return (
     <>
       <HeaderMenu />
+
+      <Box sx={{ width: "100%", p: 2 }}>
+        <ListRequest />
+      </Box>
+
       <Box
         sx={{
           position: "fixed",
@@ -32,6 +38,7 @@ const RequestFormPage: React.FC = () => {
           <AddIcon />
         </IconButton>
       </Box>
+
       <FormPage open={openModal} handleClose={() => setOpenModal(false)} />
     </>
   );

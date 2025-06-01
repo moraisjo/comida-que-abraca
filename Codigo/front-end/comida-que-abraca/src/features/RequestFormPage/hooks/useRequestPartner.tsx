@@ -29,10 +29,11 @@ export function useRequestPartner() {
     setLoading(true);
     setError(null);
     try {
-      const response = await PartnerRequestsRepository.getRequestsByUser(
+      const requests = await PartnerRequestsRepository.getRequestsByUser(
         userId
       );
-      setRequests(response);
+
+      setRequests(requests);
     } catch (err) {
       setError(
         err instanceof Error
