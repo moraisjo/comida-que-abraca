@@ -4,8 +4,8 @@ O **Comida que Abraça** é um projeto social que atua há cinco anos na região
 
 ## Alunos integrantes da equipe
 
-* Érica Alves
-* Joana Morais
+* Érica Alves dos Santos
+* Joana Iuna de Morais
 * Julia Vidal Vianna
 * Mariana Almeida Henriques
 * Milena Lara Reis Ferreira 
