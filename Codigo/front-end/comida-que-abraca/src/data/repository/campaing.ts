@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Campaign, CreateCampaignRequest, EditCampaignRequest, PaginatedResponse} from "../model/campaign";
+import { Campaign, CreateCampaignRequest, EditCampaignRequest} from "../model/campaign";
 import { Response } from "../model/response";
 
 const API_URL = "http://localhost:8080/campaign";

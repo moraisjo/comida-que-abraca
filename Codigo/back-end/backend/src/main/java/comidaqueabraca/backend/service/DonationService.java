@@ -10,6 +10,10 @@ import comidaqueabraca.backend.repository.DonationRepository;
 import comidaqueabraca.backend.repository.PartnerRepository;
 import java.time.LocalDateTime;
 import java.util.List;
+import comidaqueabraca.backend.entity.CampaignEntity;
+import comidaqueabraca.backend.repository.CampaignRepository;
+import comidaqueabraca.backend.entity.UserEntity;
+import comidaqueabraca.backend.repository.UserRepository;
 
 @Service
 public class DonationService {
@@ -20,17 +24,29 @@ public class DonationService {
     @Autowired
     private PartnerRepository partnerRepository;
 
+    @Autowired
+    private CampaignRepository campaignRepository;
+
+    @Autowired
+    private UserRepository userRepository;
+
     public DonationEntity createDonation(DonationEntity donation) {
+        CampaignEntity campaign = campaignRepository.findById(donation.getCampaign().getId())
+            .orElseThrow(() -> new RuntimeException("Campanha não encontrada"));
 
-        DonationEntity newDonation = new DonationEntity();
-        newDonation.setName(donation.getName());
-        newDonation.setArrivingDate(donation.getArrivingDate());
-        newDonation.setStatus(DonationStatus.PENDING);
-        // newDonation.setBeneficiary(donation.getBeneficiary());
-        // newDonation.setCampaign(donation.getCampaign());
-        // newDonation.setDonor(donation.getDonor());
+        if (!campaign.getActive()) {
+            throw new RuntimeException("Campanha não está ativa");
+        }
 
-        return donationRepository.save(newDonation);
+        UserEntity donor = userRepository.findById(donation.getDonor().getId())
+            .orElseThrow(() -> new RuntimeException("Doador não encontrado"));
+
+        if (!donor.getActive()) {
+            throw new RuntimeException("Doador não está ativo");
+        }
+
+        donation.setStatus(DonationStatus.PENDING);
+        return donationRepository.save(donation);
     }
 
     public List<DonationEntity> getDonationsStock() {

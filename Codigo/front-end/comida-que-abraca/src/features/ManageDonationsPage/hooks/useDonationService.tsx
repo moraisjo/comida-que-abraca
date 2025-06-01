@@ -1,6 +1,6 @@
 import { useState, useCallback } from "react";
 import DonationRepository from "../../../data/repository/donation";
-import { DonationResponse } from "../../../data/model/donation";
+import { DonationResponse, CreateDonationResponse } from "../../../data/model/donation";
 
 const useDonationService = () => {
   const [donations, setDonations] = useState<DonationResponse[]>([]);
@@ -8,6 +8,16 @@ const useDonationService = () => {
   const [beneficiaries, setBeneficiaries] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
+  const createDonation = async (data: CreateDonationResponse) => {
+    try {
+      const response = await DonationRepository.createDonation(data);
+      console.log(data);
+      return response;
+    } catch (error) {
+      throw new Error("Erro ao criar doação.");
+    }
+  };
 
   const getAllDonations = useCallback(async (): Promise<DonationResponse[]> => {
     setErrorOnDonations(null);
@@ -24,7 +34,7 @@ const useDonationService = () => {
   const fetchAllDonations = async () => {
     setErrorOnDonations(null);
     try {
-      const data = await DonationRepository.getAllDonations(); // Sem "new" aqui
+      const data = await DonationRepository.getAllDonations();
       setDonations(data);
     } catch (err: any) {
       setErrorOnDonations("Ocorreu um erro ao buscar as doações.");
@@ -105,7 +115,8 @@ const useDonationService = () => {
     updateDonationStatusStock,
     fetchAllDonations,
     fetchAllBeneficiaries,
-    beneficiaries
+    beneficiaries,
+    createDonation
   };
 };
 

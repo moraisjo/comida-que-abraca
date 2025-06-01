@@ -3,12 +3,14 @@ import { useTheme } from "@mui/material/styles";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
 import HeaderMenu from "../../shared/components/HeaderMenu";
 import PendingDonations from "./DonationTabs/DonationPending/PendingDonations";
 import DonationPendingDelivery from "./DonationTabs/DonationsPendingDelivery/DonationPendingDelivery";
 import CustomTabPanel from "../../shared/components/CustomTabPanel/CustomTabPanel";
 import DonationStock from "./DonationTabs/DonationStock/DonationStock";
 import MyDonations from "./DonationTabs/MyDonations/MyDonations";
+import NewDonationModal from "../ManageDonationsPage/DonationCreate/DonationCreate";
 import { useAuth } from "../../context/AuthContext";
 import axios from "axios";
 
@@ -24,6 +26,7 @@ const DonationPage: React.FC = () => {
   const theme = useTheme();
   const { userId } = useAuth();
   const [isAdmin, setIsAdmin] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     const checkAdminRole = async () => {
@@ -44,10 +47,33 @@ const DonationPage: React.FC = () => {
     setValue(newValue);
   };
 
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleDonationSuccess = () => {
+    setIsModalOpen(false);
+  };
+
   return (
     <>
       <HeaderMenu />
       <Box sx={{ width: "100%" }}>
+        <Box sx={{ display: 'flex', justifyContent: 'flex-end', p: 2 }}>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={handleOpenModal}
+            sx={{ mb: 2 }}
+          >
+            Adicionar nova doação
+          </Button>
+        </Box>
+
         <Box
           sx={{
             borderBottom: 1,
@@ -124,6 +150,12 @@ const DonationPage: React.FC = () => {
             <MyDonations />
           </CustomTabPanel>
         )}
+
+        <NewDonationModal
+          open={isModalOpen}
+          onClose={handleCloseModal}
+          onSuccess={handleDonationSuccess}
+        />
       </Box>
     </>
   );

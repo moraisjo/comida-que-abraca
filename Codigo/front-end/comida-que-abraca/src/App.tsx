@@ -11,7 +11,7 @@ import RankingPage from "./features/RankingPage/RankingPage";
 import CampanhasPage from "./features/ManageCampaigntPage/CampaignPages";
 import DonationPage from "./features/ManageDonationsPage/DonationPage";
 import NotificationPage from "./features/NotificationPage/NotificationPage";
-import PartnerPage from "./features/partner/PartnerPage";
+// import PartnerPage from "./features/partner/PartnerPage";
 import LoginPage from "./features/LoginPage/LoginPage";
 import OngHomepage from "./features/OngHomepage/OngHomepage";
 import SignUpPage from "./features/SignUpPage/SignUpPage";
@@ -58,7 +58,7 @@ function App() {
             <Route path="/ranking" element={<RankingPage />} />
             <Route path="/campanhas" element={<CampanhasPage />} />
             <Route path="/doacoes" element={<DonationPage />} />
-            <Route path="/cadastro-parceiro" element={<PartnerPage />} />
+            {/* <Route path="/cadastro-parceiro" element={<PartnerPage />} /> */}
             <Route path="/cadastro" element={<SignUpPage />} />
             <Route path="/relatorios" element={<ReportPage />} />
             <Route path="/doadores" element={<DonorsPage />} />

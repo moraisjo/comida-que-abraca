@@ -33,5 +33,14 @@ interface PendingDonationResponse {
     donorName: string;
     campaignName?: string;
 }
+export interface CreateDonationResponse {
+  name: string;
+  arriving_date: string;
+  delivery: 'PICKUP' | 'DELIVERY';
+  photo_url: string;
+  campaign_id: number;
+  status: 'PENDING';
+  donor_id: number;
+}
   
 export type { DonationResponse, PendingDonationResponse, DonationDeliveryPendingResponse  }

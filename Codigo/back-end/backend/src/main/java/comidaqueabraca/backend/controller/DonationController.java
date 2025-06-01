@@ -19,7 +19,7 @@ import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/donation")
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin(origins = "http://localhost:5173") 
 @Tag(name = "Doações", description = "Gerenciamento de doações realizadas")
 public class DonationController {
 
@@ -35,16 +35,20 @@ public class DonationController {
             @ApiResponse(responseCode = "400", description = "Erro de validação dos dados"),
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
     })
-    @PostMapping
-    public ResponseEntity<String> createDonation(@Valid @RequestBody DonationEntity donation, BindingResult result) {
+    @PostMapping("/create-donation")
+    public ResponseEntity<ResponseDTO> createDonation(@Valid @RequestBody DonationEntity donation, BindingResult result) {
         if (result.hasErrors()) {
             StringBuilder errors = new StringBuilder();
             result.getAllErrors().forEach(error -> errors.append(error.getDefaultMessage()).append(". "));
-            return ResponseEntity.badRequest().body(errors.toString());
+            return ResponseEntity.badRequest().body(new ResponseDTO(errors.toString(), 400));
         }
 
-        donationService.createDonation(donation);
-        return ResponseEntity.ok("Cadastro realizado com sucesso!");
+        try {
+            donationService.createDonation(donation);
+            return ResponseEntity.ok(new ResponseDTO("Cadastro realizado com sucesso!", 200));
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body(new ResponseDTO("Erro ao cadastrar doação: " + e.getMessage(), 500));
+        }
     }
 
     @Operation(summary = "Lista todas as doações realizadas cadastradas")
