@@ -37,11 +37,18 @@ const Banner: React.FC = () => {
       >
         <Typography
           variant="h3"
-          sx={{ fontWeight: "bold", marginBottom: "16px" }}
+          sx={{
+            fontWeight: "bold",
+            marginBottom: "16px",
+            fontFamily: "fontFamily",
+          }}
         >
           Comida que Abraça
         </Typography>
-        <Typography variant="body1" sx={{ marginBottom: "24px" }}>
+        <Typography
+          variant="body1"
+          sx={{ marginBottom: "24px", fontFamily: "fontFamily" }}
+        >
           Nós buscamos resgatar a dignidade de nossos irmãos em situação de
           vulnerabilidade social, por meio da valorização integral, respeitando
           suas individualidades e potencializando seus talentos.
@@ -56,6 +63,7 @@ const Banner: React.FC = () => {
             textTransform: "uppercase",
             padding: "10px 20px",
             "&:hover": { backgroundColor: "#1DA655" },
+            fontFamily: "fontFamily",
           }}
           href="https://wa.me/5531997496104"
           target="_blank"

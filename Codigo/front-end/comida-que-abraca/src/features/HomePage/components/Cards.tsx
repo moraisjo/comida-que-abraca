@@ -89,11 +89,19 @@ const Cards: React.FC = () => {
           <CardContent sx={{ flexGrow: 1 }}>
             <Typography
               variant="h6"
-              sx={{ fontWeight: "bold", marginBottom: "8px" }}
+              sx={{
+                fontWeight: "bold",
+                marginBottom: "8px",
+                fontFamily: "fontFamily",
+              }}
             >
               {cards.title}
             </Typography>
-            <Typography variant="body2" color="text.secondary">
+            <Typography
+              variant="body2"
+              color="text.secondary"
+              sx={{ fontFamily: "fontFamily" }}
+            >
               {cards.description}
             </Typography>
           </CardContent>
@@ -107,6 +115,7 @@ const Cards: React.FC = () => {
                 fontWeight: "bold",
                 textTransform: "uppercase",
                 "&:hover": { backgroundColor: "#e64a19" },
+                fontFamily: "fontFamily",
               }}
               onClick={() => navigate(cards.link)}
             >
