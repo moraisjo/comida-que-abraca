@@ -1,9 +1,9 @@
 import { Partner } from '../data/model/partner';
-import axios from 'axios';
+import api from '../api/axios';
 
-const API_URL = 'http://localhost:8080/api/partners';
+const API_URL = '/api/partners';
 
 export const createPartner = async (partner: Partner) => {
-  const response = await axios.post(API_URL, partner);
+  const response = await api.post(API_URL, partner);
   return response.data;
 };

@@ -9,7 +9,7 @@ import DonationPendingDelivery from "./DonationTabs/DonationsPendingDelivery/Don
 import CustomTabPanel from "../../shared/components/CustomTabPanel/CustomTabPanel";
 import DonationStock from "./DonationTabs/DonationStock/DonationStock";
 import { useAuth } from "../../context/AuthContext";
-import axios from "axios";
+import api from "../../api/axios";
 
 function getTabAccessibilityProps(index: number) {
   return {
@@ -28,8 +28,8 @@ const DonationPage: React.FC = () => {
     const checkAdminRole = async () => {
       if (userId) {
         try {
-          const response = await axios.get(
-            `http://localhost:8080/api/ong-collaborator/is-admin/${userId}`
+          const response = await api.get(
+            `api/ong-collaborator/is-admin/${userId}`
           );
           setIsAdmin(response.data);
         } catch {

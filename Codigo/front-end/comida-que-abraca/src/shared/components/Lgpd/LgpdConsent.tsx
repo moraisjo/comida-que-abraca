@@ -11,7 +11,7 @@ import {
   ListItemText,
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import api from '../../../api/axios';
 
 interface LgpdConsentProps {
   userId: number;
@@ -25,7 +25,7 @@ const LgpdConsent = ({ userId, onAccept }: LgpdConsentProps) => {
   const handleAccept = async () => {
     try {
       // Atualiza o banco com a data de aceite
-      await axios.put(`http://localhost:8080/user/lgpd-consent/${userId}`);
+      await api.put(`/user/lgpd-consent/${userId}`);
 
       // Sinaliza que foi aceito (responsabilidade de onAccept tratar o resto)
       onAccept();

@@ -19,14 +19,14 @@ import { Menu, MenuItem, ListItemIcon, Typography } from "@mui/material";
 import React from "react";
 import colors from "../theme/colors";
 import { useNavigate } from "react-router-dom";
-import { AppBar, Button, styled } from "@mui/material";
+import { AppBar, Button, styled, Link } from "@mui/material";
 import { useAuth } from "../../context/AuthContext";
 import { DownloadForOffline, VolunteerActivism } from "@mui/icons-material";
 
 export default function HeaderMenu() {
   // Uso do React Router
   const navigate = useNavigate();
-  const { userId, userType, token, logout } = useAuth();
+  const { token, logout } = useAuth();
 
   // Estado para controlar a exibição do menu de perfil
   const [profileMenuIsOpen, setProfileMenuIsOpen] =

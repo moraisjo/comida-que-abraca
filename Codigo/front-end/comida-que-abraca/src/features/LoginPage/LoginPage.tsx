@@ -9,7 +9,7 @@ import {
   Paper,
   Alert,
 } from '@mui/material';
-import axios from 'axios';
+import api from '../../api/axios';
 import { useNavigate } from 'react-router-dom';
 import logo from '../../assets/comida-que-abraca-logo.png';
 import { useAuth } from '../../context/AuthContext';
@@ -26,7 +26,7 @@ export default function LoginPage() {
     setErrorMsg('');
 
     try {
-      const response = await axios.post('http://localhost:8080/login', {
+      const response = await api.post('/login', {
         email,
         password,
       });
@@ -94,7 +94,7 @@ export default function LoginPage() {
 
         <Typography variant="body2" align="center" sx={{ mt: 2 }}>
           Ainda não tem cadastro?{' '}
-          <Link href="#" underline="hover">
+          <Link href="/cadastro" underline="hover">
             Clique aqui!
           </Link>
         </Typography>
