@@ -8,18 +8,7 @@ DROP TABLE IF EXISTS db_campaign;
 DROP TABLE IF EXISTS db_ong_collaborator;
 DROP TABLE IF EXISTS db_partner;
 DROP TABLE IF EXISTS db_user;
-DROP TABLE IF EXISTS db_address;
-
-CREATE TABLE IF NOT EXISTS db_address (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    street VARCHAR(255),
-    neighborhood VARCHAR(255),
-    number INT,
-    complement VARCHAR(255),
-    city VARCHAR(255),
-    state VARCHAR(100),
-    zip_code VARCHAR(20) NOT NULL
-);
+DROP TABLE IF EXISTS db_partner_requests;
 
 CREATE TABLE IF NOT EXISTS db_user (
    id INT AUTO_INCREMENT PRIMARY KEY,
@@ -30,7 +19,6 @@ CREATE TABLE IF NOT EXISTS db_user (
    address VARCHAR(255),
    user_type VARCHAR(50), -- coluna adicionada aqui
    lgpd_consent_date TIMESTAMP
-   -- FOREIGN KEY (address_id) REFERENCES db_address(id)
 );
 
 -- Tabela de Parceiro (Herda de User)
@@ -62,7 +50,6 @@ CREATE TABLE IF NOT EXISTS db_campaign (
     end_date DATE NOT NULL,
     photo_url VARCHAR(255),
     status ENUM('ACTIVE', 'FINISHED', 'CANCELED') NOT NULL
-    -- FOREIGN KEY (address_id) REFERENCES db_address(id)
 );
 
 -- Tabela de Doações
