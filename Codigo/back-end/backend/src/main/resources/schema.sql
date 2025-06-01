@@ -8,18 +8,7 @@ DROP TABLE IF EXISTS db_campaign;
 DROP TABLE IF EXISTS db_ong_collaborator;
 DROP TABLE IF EXISTS db_partner;
 DROP TABLE IF EXISTS db_user;
-DROP TABLE IF EXISTS db_address;
-
-CREATE TABLE IF NOT EXISTS db_address (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    street VARCHAR(255),
-    neighborhood VARCHAR(255),
-    number INT,
-    complement VARCHAR(255),
-    city VARCHAR(255),
-    state VARCHAR(100),
-    zip_code VARCHAR(20) NOT NULL
-);
+DROP TABLE IF EXISTS db_partner_requests;
 
 CREATE TABLE IF NOT EXISTS db_user (
    id INT AUTO_INCREMENT PRIMARY KEY,
@@ -28,10 +17,8 @@ CREATE TABLE IF NOT EXISTS db_user (
    password VARCHAR(255) NOT NULL,
    phone VARCHAR(20),
    address VARCHAR(255),
-   address_id INT,
    user_type VARCHAR(50), -- coluna adicionada aqui
    lgpd_consent_date TIMESTAMP
-   -- FOREIGN KEY (address_id) REFERENCES db_address(id)
 );
 
 -- Tabela de Parceiro (Herda de User)
@@ -63,7 +50,6 @@ CREATE TABLE IF NOT EXISTS db_campaign (
     end_date DATE NOT NULL,
     photo_url VARCHAR(255),
     status ENUM('ACTIVE', 'FINISHED', 'CANCELED') NOT NULL
-    -- FOREIGN KEY (address_id) REFERENCES db_address(id)
 );
 
 -- Tabela de Doações
@@ -132,6 +118,15 @@ CREATE TABLE IF NOT EXISTS db_notification (
                                                visualized_date TIMESTAMP NULL,
                                                FOREIGN KEY (user_id) REFERENCES db_user(id),
                                                FOREIGN KEY (campaign_id) REFERENCES db_campaign(id)
+);
+
+CREATE TABLE db_partner_requests (
+                                     id INT AUTO_INCREMENT PRIMARY KEY,
+                                     item_type VARCHAR(255) NOT NULL,
+                                     description TEXT NOT NULL,
+                                     user_id INT NOT NULL,
+                                     request_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                                     FOREIGN KEY (user_id) REFERENCES db_user(id)
 );
 
 -- Tabela de Relatórios

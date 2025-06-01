@@ -8,8 +8,6 @@ import PendingDonations from "./DonationTabs/DonationPending/PendingDonations";
 import DonationPendingDelivery from "./DonationTabs/DonationsPendingDelivery/DonationPendingDelivery";
 import CustomTabPanel from "../../shared/components/CustomTabPanel/CustomTabPanel";
 import DonationStock from "./DonationTabs/DonationStock/DonationStock";
-import { useAuth } from "../../context/AuthContext";
-import api from "../../api/axios";
 
 function getTabAccessibilityProps(index: number) {
   return {
@@ -21,25 +19,6 @@ function getTabAccessibilityProps(index: number) {
 const DonationPage: React.FC = () => {
   const [value, setValue] = useState(0);
   const theme = useTheme();
-  const { userId } = useAuth();
-  const [isAdmin, setIsAdmin] = useState(false);
-
-  useEffect(() => {
-    const checkAdminRole = async () => {
-      if (userId) {
-        try {
-          const response = await api.get(
-            `api/ong-collaborator/is-admin/${userId}`
-          );
-          setIsAdmin(response.data);
-        } catch {
-          setIsAdmin(false);
-        }
-      }
-    };
-
-    checkAdminRole();
-  }, [userId]);
 
   const handleChange = (_event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
