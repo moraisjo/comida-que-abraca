@@ -11,6 +11,7 @@ import {
 import RankingPage from "./features/RankingPage/RankingPage";
 import CampanhasPage from "./features/ManageCampaigntPage/CampaignPages";
 import DonationPage from "./features/ManageDonationsPage/DonationPage";
+import RequestersPage from "./features/RequestersPage/RequestersPage";
 import NotificationPage from "./features/NotificationPage/NotificationPage";
 import PartnerDonationsPage from "./features/PartnerDonations/PartnerDonationsPage";
 import LoginPage from "./features/LoginPage/LoginPage";
@@ -22,6 +23,9 @@ import { ReportPage } from "./features/ReportPage/ReportPage";
 import DonorsPage from "./features/DonorsPage/DonorsPage";
 import { AuthProvider, useAuth } from "./context/AuthContext";
 import HomePage from "./features/HomePage/HomePage";
+import AboutUsPage from "./features/AboutUsPage/AboutUsPage";
+import { RequestPage } from "@mui/icons-material";
+import RequestFormPage from "./features/RequestFormPage/RequestFormPage";
 
 // 🚩x Lgpd wrapper que atualiza o AuthContext
 function LgpdRouteWrapper() {
@@ -57,15 +61,22 @@ function App() {
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/ranking" element={<RankingPage />} />
-            <Route path="/campanhas" element={<CampanhasPage />} />
-            <Route path="/doacoes" element={<DonationPage />} />
+            <Route path="/gerenciar-campanhas" element={<CampanhasPage />} />
+            <Route path="/gerenciar-doacoes" element={<DonationPage />} />
             <Route path="/cadastro" element={<SignUpPage />} />
             <Route path="/relatorios" element={<ReportPage />} />
             <Route path="/doadores" element={<DonorsPage />} />
+            <Route path="/solicitantes" element={<RequestersPage />} />
+            <Route path="/ranking" element={<RankingPage />} />
             <Route path="/notificacoes" element={<NotificationPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/minhas-doacoes" element={<PartnerDonationsPage />} />
+            <Route
+              path="/formulario-solicitacao"
+              element={<RequestFormPage />}
+            />
             <Route path="/lgpd" element={<LgpdRouteWrapper />} />
+            <Route path="/sobre" element={<AboutUsPage />} />
           </Routes>
         </Router>
       </ThemeProvider>
