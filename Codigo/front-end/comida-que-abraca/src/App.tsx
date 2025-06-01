@@ -3,6 +3,7 @@ import "./shared/theme/global.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import RankingPage from "./features/RankingPage/RankingPage";
 import CampanhasPage from "./features/ManageCampaigntPage/CampaignPages";
+import CampaignsPage from "./features/CampaignsPage/CampaignsPage";
 import DonationPage from "./features/ManageDonationsPage/DonationPage";
 import RequestersPage from "./features/RequestersPage/RequestersPage";
 import NotificationPage from "./features/NotificationPage/NotificationPage";
@@ -45,6 +46,7 @@ function App() {
               path="/formulario-solicitacao"
               element={<RequestFormPage />}
             />
+            <Route path="/campanhas-disponiveis" element={<CampaignsPage />} />
             <Route path="/sobre" element={<AboutUsPage />} />
             <Route path="/lgpd" element={<LgpdConsent />} />
           </Routes>
