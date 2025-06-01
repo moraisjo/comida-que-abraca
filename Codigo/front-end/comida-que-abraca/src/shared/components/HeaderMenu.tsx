@@ -5,13 +5,23 @@ import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import NotificationIcon from "../../features/NotificationPage/components/NotificationIcon";
-import MenuItem from "@mui/material/MenuItem";
-import Menu from "@mui/material/Menu";
+import BarChartIcon from "@mui/icons-material/BarChart";
+import CampaignIcon from "@mui/icons-material/Campaign";
+import RedeemIcon from "@mui/icons-material/Redeem";
+import EmojiEventsIcon from "@mui/icons-material/EmojiEvents";
+import HandshakeIcon from "@mui/icons-material/Handshake";
+import PersonSearchIcon from "@mui/icons-material/PersonSearch";
+import InfoIcon from "@mui/icons-material/Info";
+import SettingsIcon from "@mui/icons-material/Settings";
+import LogoutIcon from "@mui/icons-material/Logout";
+import LoginIcon from "@mui/icons-material/Login";
+import { Menu, MenuItem, ListItemIcon, Typography } from "@mui/material";
 import React from "react";
 import colors from "../theme/colors";
 import { useNavigate } from "react-router-dom";
 import { AppBar, Button, styled } from "@mui/material";
 import { useAuth } from "../../context/AuthContext";
+import { DownloadForOffline, VolunteerActivism } from "@mui/icons-material";
 
 export default function HeaderMenu() {
   // Uso do React Router
@@ -50,7 +60,7 @@ export default function HeaderMenu() {
     logout(); // Reseta o contexto, removendo os dados de autenticação
     handleProfileMenuClose();
     navigate("/login"); // Redireciona para a página de login ou pública
-  }
+  };
 
   // Função para decidir para onde voltar com base no tipo de usuário
   /* const handleBackNavigation = () => {
@@ -101,14 +111,21 @@ export default function HeaderMenu() {
 
           <Box>
             {!token ? (
-              <Button
-                color="primary"
-                variant="contained"
-                sx={{ ml: 2 }}
+              <Box
                 onClick={() => navigate("/login")}
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  cursor: "pointer",
+                  ml: 2,
+                  color: colors.darkGray,
+                }}
               >
-                Login
-              </Button>
+                <IconButton sx={{ color: colors.darkGray }}>
+                  <LoginIcon />
+                </IconButton>
+                <Typography fontWeight="bold">Login</Typography>
+              </Box>
             ) : (
               <>
                 <NotificationIcon />
@@ -146,12 +163,18 @@ export default function HeaderMenu() {
                 onClick={handleProfileMenuClose}
                 sx={{ color: colors.darkGray, fontWeight: "bold" }}
               >
-                Minha conta
+                <ListItemIcon>
+                  <SettingsIcon fontSize="small" />
+                </ListItemIcon>
+                Configuracoes
               </MenuItem>
               <MenuItem
                 onClick={handleLogout}
                 sx={{ color: colors.darkGray, fontWeight: "bold" }}
               >
+                <ListItemIcon>
+                  <LogoutIcon fontSize="small" />
+                </ListItemIcon>
                 Sair
               </MenuItem>
             </Menu>
@@ -174,21 +197,51 @@ export default function HeaderMenu() {
           >
             <MenuItem
               onClick={() => {
-                navigate("/campanhas");
+                navigate("/fomulario-doacao");
                 handleSandwichMenuClose();
               }}
               sx={{ color: colors.darkGray, fontWeight: "bold" }}
             >
-              📢 Gerenciar Campanhas
+              <ListItemIcon>
+                <VolunteerActivism fontSize="small" />
+              </ListItemIcon>
+              Quero Doar
             </MenuItem>
             <MenuItem
               onClick={() => {
-                navigate("/doacoes");
+                navigate("/fomulario-solicitacao");
                 handleSandwichMenuClose();
               }}
               sx={{ color: colors.darkGray, fontWeight: "bold" }}
             >
-              📑 Gerenciar Doações
+              <ListItemIcon>
+                <DownloadForOffline fontSize="small" />
+              </ListItemIcon>
+              Quero receber
+            </MenuItem>
+            <MenuItem
+              onClick={() => {
+                navigate("/gerenciar-campanhas");
+                handleSandwichMenuClose();
+              }}
+              sx={{ color: colors.darkGray, fontWeight: "bold" }}
+            >
+              <ListItemIcon>
+                <CampaignIcon fontSize="small" />
+              </ListItemIcon>
+              Campanhas
+            </MenuItem>
+            <MenuItem
+              onClick={() => {
+                navigate("/gerenciar-doacoes");
+                handleSandwichMenuClose();
+              }}
+              sx={{ color: colors.darkGray, fontWeight: "bold" }}
+            >
+              <ListItemIcon>
+                <RedeemIcon fontSize="small" />
+              </ListItemIcon>
+              Doações
             </MenuItem>
             <MenuItem
               onClick={() => {
@@ -197,7 +250,22 @@ export default function HeaderMenu() {
               }}
               sx={{ color: colors.darkGray, fontWeight: "bold" }}
             >
-              📊 Relatórios
+              <ListItemIcon>
+                <BarChartIcon fontSize="small" />
+              </ListItemIcon>
+              Relatórios
+            </MenuItem>
+            <MenuItem
+              onClick={() => {
+                navigate("/campanhas-disponiveis");
+                handleSandwichMenuClose();
+              }}
+              sx={{ color: colors.darkGray, fontWeight: "bold" }}
+            >
+              <ListItemIcon>
+                <CampaignIcon fontSize="small" />
+              </ListItemIcon>
+              Campanhas
             </MenuItem>
             <MenuItem
               onClick={() => {
@@ -206,7 +274,22 @@ export default function HeaderMenu() {
               }}
               sx={{ color: colors.darkGray, fontWeight: "bold" }}
             >
-              👥 Doadores
+              <ListItemIcon>
+                <HandshakeIcon fontSize="small" />
+              </ListItemIcon>
+              Doadores
+            </MenuItem>
+            <MenuItem
+              onClick={() => {
+                navigate("/solicitantes");
+                handleSandwichMenuClose();
+              }}
+              sx={{ color: colors.darkGray, fontWeight: "bold" }}
+            >
+              <ListItemIcon>
+                <PersonSearchIcon fontSize="small" />
+              </ListItemIcon>
+              Solicitantes
             </MenuItem>
             <MenuItem
               onClick={() => {
@@ -215,23 +298,33 @@ export default function HeaderMenu() {
               }}
               sx={{ color: colors.darkGray, fontWeight: "bold" }}
             >
-              🤝 Minhas Doações
+              <ListItemIcon>
+                <RedeemIcon fontSize="small" />
+              </ListItemIcon>
+              Minhas Doações
             </MenuItem>
+            <MenuItem
+              onClick={() => {
+                navigate("/ranking");
+              }}
+              sx={{ color: colors.darkGray, fontWeight: "bold" }}
+            >
+              <ListItemIcon>
+                <EmojiEventsIcon fontSize="small" />
+              </ListItemIcon>
+              Ranking
+            </MenuItem>
+
             <MenuItem
               onClick={() => {
                 //navigate();
               }}
               sx={{ color: colors.darkGray, fontWeight: "bold" }}
             >
-              ☎️ Fale conosco
-            </MenuItem>
-            <MenuItem
-              onClick={() => {
-                //navigate();
-              }}
-              sx={{ color: colors.darkGray, fontWeight: "bold" }}
-            >
-              ⏰ Sobre o Comida Que Abraça
+              <ListItemIcon>
+                <InfoIcon fontSize="small" />
+              </ListItemIcon>
+              Sobre
             </MenuItem>
           </Menu>
         </Toolbar>
