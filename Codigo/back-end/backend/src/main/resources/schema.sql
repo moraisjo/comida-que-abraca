@@ -134,6 +134,15 @@ CREATE TABLE IF NOT EXISTS db_notification (
                                                FOREIGN KEY (campaign_id) REFERENCES db_campaign(id)
 );
 
+CREATE TABLE db_partner_requests (
+                                     id INT AUTO_INCREMENT PRIMARY KEY,
+                                     item_type VARCHAR(255) NOT NULL,
+                                     description TEXT NOT NULL,
+                                     user_id INT NOT NULL,
+                                     request_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                                     FOREIGN KEY (user_id) REFERENCES db_user(id)
+);
+
 -- Tabela de Relatórios
 CREATE TABLE IF NOT EXISTS db_report (
     id INT AUTO_INCREMENT PRIMARY KEY,
