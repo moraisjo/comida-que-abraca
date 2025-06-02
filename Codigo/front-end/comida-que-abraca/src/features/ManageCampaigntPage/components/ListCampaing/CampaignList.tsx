@@ -13,7 +13,6 @@ import {
   Collapse,
   CardHeader,
   Dialog,
-  DialogTitle,
   DialogContent,
   DialogActions,
 } from "@mui/material";
@@ -30,6 +29,7 @@ import { CampaignService } from "../../hooks/UseCampaingsService";
 import { Campaign } from "../../../../data/model/campaign";
 import EditCampaignModal from "../EditCampaing/CampaingEdit";
 import CampaignDelete from "../DeleteCampaing/CampaignDelete";
+import { AxiosError } from "axios";
 
 interface CampaignListProps {
   onCreate: () => void;
@@ -134,7 +134,8 @@ const CampaignList: React.FC<CampaignListProps> = ({ onCreate }) => {
             c.id === selectedCampaignId ? { ...c, ...updatedCampaign } : c
           )
         );
-      } catch (error: any) {
+      } catch (err: unknown) {
+        const error = err as AxiosError;
         console.error(error);
         setFeedbackMessage(
           "Erro ao salvar a campanha: " + (error?.message || "")
@@ -151,7 +152,8 @@ const CampaignList: React.FC<CampaignListProps> = ({ onCreate }) => {
         setFeedbackMessage(`Campanha deletada com sucesso!`);
         setFeedbackOpen(true);
         setOpenModalDelete(false);
-      } catch (error) {
+      } catch (err: unknown) {
+        const error = err as AxiosError;
         setFeedbackMessage(
           "Erro ao deletar a campanha: " + (error?.message || "")
         );

@@ -20,7 +20,7 @@ import EmailIcon from "@mui/icons-material/Email";
 import PhoneIcon from "@mui/icons-material/Phone";
 import HomeIcon from "@mui/icons-material/Home";
 import colors from "../../../shared/theme/colors";
-import { PartnerRequest, User } from "../../../data/model/request";
+import { User } from "../../../data/model/request";
 import { useRequestPartner } from "../hooks/useRequestPartner";
 
 const RequestersList: React.FC = () => {

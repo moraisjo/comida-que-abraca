@@ -60,7 +60,7 @@ const PendingDonations: React.FC = () => {
     fetchDonations();
   }, []);
 
-  const handleChangePage = (event: unknown, newPage: number) => {
+  const handleChangePage = (_: unknown, newPage: number) => {
     setPage(newPage);
   };
 
@@ -168,7 +168,7 @@ const PendingDonations: React.FC = () => {
               <TableBody>
                 {filteredDonations
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                  .map((donation, index) => (
+                  .map((donation) => (
                     <TableRow
                       key={donation.id}
                       hover
@@ -295,7 +295,7 @@ const PendingDonations: React.FC = () => {
           }}
         >
           <Button
-            onClick={() => handleAccept(selectedDonation?.id!)}
+            onClick={() => selectedDonation && handleAccept(selectedDonation.id!)}
             sx={{
               backgroundColor: theme.palette.primary.main,
               color: "#fff",
@@ -307,7 +307,7 @@ const PendingDonations: React.FC = () => {
             Aceitar
           </Button>
           <Button
-            onClick={() => handleReject(selectedDonation?.id!)}
+            onClick={() => selectedDonation && handleReject(selectedDonation.id!)}
             sx={{
               backgroundColor: "transparent",
               border: `2px solid ${theme.palette.primary.main}`,

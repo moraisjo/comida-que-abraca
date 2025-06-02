@@ -54,7 +54,7 @@ export default function NotificationPage() {
     );
   };
 
-  const handleChange = (event: React.SyntheticEvent, newIndex: number) => {
+  const handleChange = (_: React.SyntheticEvent, newIndex: number) => {
     setTabIndex(newIndex);
   };
 
