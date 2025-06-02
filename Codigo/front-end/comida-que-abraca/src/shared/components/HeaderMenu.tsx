@@ -19,7 +19,7 @@ import { Menu, MenuItem, ListItemIcon, Typography } from "@mui/material";
 import React from "react";
 import colors from "../theme/colors";
 import { useNavigate } from "react-router-dom";
-import { AppBar, styled } from "@mui/material";
+import { AppBar, Button, styled, Link } from "@mui/material";
 import { useAuth } from "../../context/AuthContext";
 import { DownloadForOffline, VolunteerActivism } from "@mui/icons-material";
 

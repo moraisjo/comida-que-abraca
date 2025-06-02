@@ -1,12 +1,9 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { IconButton, Badge } from "@mui/material";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import { useNavigate } from "react-router-dom";
-import api from "../../../api/axios";
-
-type Notification = {
-  visualized: boolean;
-};
+import axios from "axios";
+import { useAuth } from "../../../context/AuthContext";
 
 export default function NotificationIcon() {
   const [unreadCount, setUnreadCount] = useState(0);
@@ -14,11 +11,11 @@ export default function NotificationIcon() {
   const userId = 1;
 
   useEffect(() => {
-    api
-      .get(`/notifications/user/${userId}`)
+    axios
+      .get(`http://localhost:8080/notifications/user/${userId}`)
       .then((response) => {
         const notifications = response.data;
-        const unread = notifications.filter((n: Notification) => !n.visualized);
+        const unread = notifications.filter((n: any) => !n.visualized);
         console.log("Notificações não lidas:", unread.length);
         setUnreadCount(unread.length);
       })

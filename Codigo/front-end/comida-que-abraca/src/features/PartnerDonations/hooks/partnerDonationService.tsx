@@ -5,7 +5,9 @@ import { DonationResponse } from "../../../data/model/donation";
 const useDonationService = () => {
   const [donations, setDonations] = useState<DonationResponse[]>([]);
   const [errorOnDonations, setErrorOnDonations] = useState<string | null>(null);
-  const [beneficiaries, setBeneficiaries] = useState<any[]>([]); // Replace 'any' with the correct type if available
+  const [beneficiaries, setBeneficiaries] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   const getAllDonations = useCallback(async (): Promise<DonationResponse[]> => {
     setErrorOnDonations(null);
@@ -13,7 +15,7 @@ const useDonationService = () => {
       const data = await DonationRepository.getAllDonations();
       setDonations(data);
       return data;
-    } catch {
+    } catch (error) {
       setErrorOnDonations("Erro ao buscar todas as doações.");
       return [];
     }
@@ -21,10 +23,7 @@ const useDonationService = () => {
 
   return {
     getAllDonations,
-    donations,
-    errorOnDonations,
     beneficiaries,
-    setBeneficiaries, // Only return this if you need to update beneficiaries from outside
   };
 };
 

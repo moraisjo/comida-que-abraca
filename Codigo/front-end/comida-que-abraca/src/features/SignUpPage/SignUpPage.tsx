@@ -14,7 +14,6 @@ import {
   Paper,
   Link
 } from "@mui/material";
-import type { SelectChangeEvent } from "@mui/material/Select";
 import logo from '../../assets/comida-que-abraca-logo.png';
 import api from "../../api/axios";
 
@@ -35,27 +34,15 @@ const SignUpPage = () => {
     { label: "Governo", value: "GOVERNMENT" },
   ];
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | SelectChangeEvent
-  ) => {
-    const target = e.target as HTMLInputElement | HTMLTextAreaElement | { name?: string; value: unknown; type?: string; checked?: boolean };
-
-    const name = target.name as string;
-    let value: unknown;
-
-    if ('type' in target && target.type === "checkbox") {
-      value = (target as HTMLInputElement).checked;
-    } else {
-      value = target.value;
-    }
-
+  const handleChange = (e) => {
+    const { name, value, type, checked } = e.target;
     setFormData({
       ...formData,
-      [name]: value,
+      [name]: type === "checkbox" ? checked : value,
     });
   };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const response = await api.post("/partners/create", formData);

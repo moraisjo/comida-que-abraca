@@ -76,7 +76,7 @@ const PartnerDonations: React.FC = () => {
     fetchDonations();
   }, []);
 
-  const handleChangePage = (_unused: unknown, newPage: number) => {
+  const handleChangePage = (event: unknown, newPage: number) => {
     setPage(newPage);
   };
 

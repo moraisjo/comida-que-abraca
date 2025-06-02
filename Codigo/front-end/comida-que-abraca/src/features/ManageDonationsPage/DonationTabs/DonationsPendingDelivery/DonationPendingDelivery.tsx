@@ -25,7 +25,6 @@ import {
 import { CheckCircleOutline } from "@mui/icons-material";
 import BackendResponseModal from "../../../../shared/components/Modal/BackendResponseModal";
 import useDonationService from "../../hooks/useDonationService";
-import { AxiosError } from "axios";
 
 interface DonationDeliveryPendingResponse {
   id: number;
@@ -63,9 +62,8 @@ const DonationPendingDelivery: React.FC = () => {
       try {
         const data = await getPendingDelivery();
         setDonations(data);
-      } catch (err: unknown) {
-        const error = err as AxiosError;
-        console.error("Erro ao carregar doações:", error.message);
+      } catch (error) {
+        console.error("Erro ao carregar doações:", error);
       } finally {
         setLoading(false);
       }
@@ -74,7 +72,7 @@ const DonationPendingDelivery: React.FC = () => {
     fetchDonations();
   }, []);
 
-  const handleChangePage = (_: unknown, newPage: number) => {
+  const handleChangePage = (event: unknown, newPage: number) => {
     setPage(newPage);
   };
 
@@ -104,9 +102,7 @@ const DonationPendingDelivery: React.FC = () => {
       setResponseModalOpen(true);
 
       setDonations((prev) => prev.filter((d) => d.id !== selectedDonation.id));
-    } catch (err: unknown) {
-      const error = err as AxiosError;
-      console.error("Erro ao atualizar status de entrega:", error.message);
+    } catch (error) {
       setResponseMessage("Erro ao atualizar status de entrega.");
       setResponseSuccess(false);
       setResponseModalOpen(true);

@@ -1,3 +1,4 @@
+import React from "react";
 import "./shared/theme/global.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import RankingPage from "./features/RankingPage/RankingPage";

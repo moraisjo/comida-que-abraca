@@ -6,6 +6,7 @@ import {
   DialogActions,
   TextField,
   Button,
+  Typography,
   Box,
 } from "@mui/material";
 import ImageUpload from "../../../../shared/components/Upload/ImageUpload";
