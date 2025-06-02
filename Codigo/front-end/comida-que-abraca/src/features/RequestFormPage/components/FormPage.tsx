@@ -12,12 +12,16 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import React from "react";
 import { useRequestPartner } from "../hooks/useRequestPartner";
 import { useAuth } from "../../../context/AuthContext";
 import BackendResponseModal from "../../../shared/components/Modal/BackendResponseModal";
 
-function FormPage({ open, handleClose }) {
+type FormPageProps = {
+  open: boolean;
+  handleClose: () => void;
+};
+
+function FormPage({ open, handleClose }: FormPageProps) {
   const { decodedUser } = useAuth();
   const userId = decodedUser?.userId ? Number(decodedUser.userId) : null;
 

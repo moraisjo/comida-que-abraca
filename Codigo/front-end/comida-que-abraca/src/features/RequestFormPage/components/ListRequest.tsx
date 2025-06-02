@@ -17,7 +17,6 @@ import {
 import BackendResponseModal from "../../../shared/components/Modal/BackendResponseModal";
 import { useRequestPartner } from "../hooks/useRequestPartner";
 import { useAuth } from "../../../context/AuthContext";
-import colors from "../../../shared/theme/colors";
 
 const ListRequest: React.FC = () => {
   const theme = useTheme();
