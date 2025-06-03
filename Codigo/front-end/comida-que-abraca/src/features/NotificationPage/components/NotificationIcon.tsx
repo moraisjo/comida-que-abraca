@@ -2,30 +2,30 @@ import { useEffect, useState } from "react";
 import { IconButton, Badge } from "@mui/material";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import { useNavigate } from "react-router-dom";
-import api from "../../../api/axios";
-
-type Notification = {
-  visualized: boolean;
-};
+import { useAuth } from "../../../context/AuthContext";
+import { fetchUserNotifications } from "../hooks/notificationService";
 
 export default function NotificationIcon() {
   const [unreadCount, setUnreadCount] = useState(0);
   const navigate = useNavigate();
-  const userId = 1;
+
+  const { decodedUser } = useAuth();
+  const userId = decodedUser?.userId ? Number(decodedUser.userId) : null;
 
   useEffect(() => {
-    api
-      .get(`/notifications/user/${userId}`)
-      .then((response) => {
-        const notifications = response.data;
-        const unread = notifications.filter((n: Notification) => !n.visualized);
-        console.log("Notificações não lidas:", unread.length);
+    if (!userId) return;
+
+    fetchUserNotifications(userId)
+      .then((notifications) => {
+        const unread = notifications.filter(
+          (n: { visualized: any }) => !n.visualized
+        );
         setUnreadCount(unread.length);
       })
       .catch((error) =>
         console.error("Erro ao buscar notificações não lidas:", error)
       );
-  }, []);
+  }, [userId]);
 
   return (
     <IconButton
