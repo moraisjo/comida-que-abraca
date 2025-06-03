@@ -1,20 +1,16 @@
-import React, { useState } from "react";
-import { Box } from "@mui/material";
+import React from "react";
 import HeaderMenu from "../../shared/components/HeaderMenu";
 import ListCampaing from "./components/ListCampaing";
+import Banner from "./components/Banner";
+import Footer from "../../shared/components/Footer/Footer";
 
 const CampaignPage: React.FC = () => {
-  const [isModalOpen, setModalOpen] = useState(false);
-
-  const handleOpenModal = () => setModalOpen(true);
-  const handleCloseModal = () => setModalOpen(false);
-
   return (
     <>
       <HeaderMenu />
-      <Box sx={{ width: "100%", p: 3 }}>
-        <ListCampaing />
-      </Box>
+      <Banner />
+      <ListCampaing />
+      <Footer />
     </>
   );
 };
