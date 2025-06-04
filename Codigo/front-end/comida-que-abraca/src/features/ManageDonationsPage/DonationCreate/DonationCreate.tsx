@@ -43,11 +43,19 @@ const DonationCreate: React.FC<DonationCreateProps> = ({ open, onClose, onSucces
   const isDisabled = !name || !arrivingDate || !photoUrl || !campaignId;
 
   useEffect(() => {
-    if (open) {
-      campaignRepository.getActiveCampaigns()
-        .then(setCampaigns)
-        .catch(() => setCampaigns([]));
-    }
+    const fetchCampaigns = async () => {
+      if (open) {
+        try {
+          console.log('Buscando campanhas ativas...');
+          const activeCampaigns = await campaignRepository.getActiveCampaigns();
+          setCampaigns(activeCampaigns);
+        } catch (error) {
+          console.error("Erro ao buscar campanhas ativas:", error);
+          setCampaigns([]);
+        }
+      }
+    };
+    fetchCampaigns();
   }, [open]);
 
   const handleSubmit = async () => {

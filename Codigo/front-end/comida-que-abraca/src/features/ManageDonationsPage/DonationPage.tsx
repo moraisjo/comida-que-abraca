@@ -64,7 +64,7 @@ const DonationPage: React.FC = () => {
     <>
       <HeaderMenu />
       <Box sx={{ width: "100%" }}>
-        <Box sx={{ display: 'flex', justifyContent: 'flex-end', p: 2 }}>
+        <Box sx={{ display: 'flex', justifyContent: 'center', p: 2 }}>
           <Button
             variant="contained"
             color="primary"

@@ -27,14 +27,6 @@ function App() {
         <Router>
           <Routes>
             <Route path="/" element={<HomePage />} />
-            <Route path="/ranking" element={<RankingPage />} />
-            <Route path="/campanhas" element={<CampanhasPage />} />
-            <Route path="/doacoes" element={<DonationPage />} />
-            {/* <Route path="/cadastro-parceiro" element={<PartnerPage />} /> */}
-            <Route path="/cadastro" element={<SignUpPage />} />
-            <Route path="/relatorios" element={<ReportPage />} />
-            <Route path="/doadores" element={<DonorsPage />} />
-            <Route path="/notificacoes" element={<NotificationPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/sobre" element={<AboutUsPage />} />
             <Route path="/lgpd" element={<LgpdConsent />} />
