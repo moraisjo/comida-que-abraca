@@ -18,6 +18,7 @@ import type { SelectChangeEvent } from "@mui/material/Select";
 import api from "../../api/axios";
 import HeaderMenu from "../../shared/components/HeaderMenu";
 import { User } from "react-feather";
+import Footer from "../../shared/components/Footer/Footer";
 
 const SignUpPage = () => {
   const [formData, setFormData] = useState({
@@ -88,8 +89,8 @@ const SignUpPage = () => {
   return (
     <>
       <HeaderMenu isExternalPage={true} />
-      <Container sx={{ p: 4, mt: 4 }}>
-          <Box sx={{ mt: 4 }}>
+      <Container sx={{ p: 4, mt: 2 }}>
+          <Box>
             <Stack alignItems="center" spacing={2}>
               <Box sx={{ display: "flex", alignItems: "center" }}>
                 <Typography variant="h5" color="#FF5722" marginRight={1}>
@@ -181,6 +182,7 @@ const SignUpPage = () => {
             </Link>
           </Typography>
       </Container>
+      <Footer />
     </>
   );
 };

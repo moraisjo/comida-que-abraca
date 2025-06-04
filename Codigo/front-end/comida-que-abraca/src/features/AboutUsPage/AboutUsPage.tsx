@@ -6,6 +6,7 @@ import {
 import HeaderMenu from "../../shared/components/HeaderMenu";
 import { Heart, Users, Globe, Star, Activity } from "react-feather";
 import BannerAboutUsPage from "./components/BannerAboutUsPage";
+import Footer from "../../shared/components/Footer/Footer";
 
 const AboutUsPage = () => {
   return (
@@ -86,6 +87,7 @@ const AboutUsPage = () => {
           </Typography>
         </Paper>
       </div>
+      <Footer />
     </>
   );
 };
