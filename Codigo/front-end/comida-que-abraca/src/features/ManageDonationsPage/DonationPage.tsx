@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect  } from "react";
 import { useTheme } from "@mui/material/styles";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
@@ -11,6 +11,9 @@ import CustomTabPanel from "../../shared/components/CustomTabPanel/CustomTabPane
 import DonationStock from "./DonationTabs/DonationStock/DonationStock";
 import NewDonationModal from "../ManageDonationsPage/DonationCreate/DonationCreate";
 import { Inbox, Truck, Package } from "react-feather";
+import axios from "axios";
+import { useAuth } from "../../context/AuthContext";
+import PartnerDonations from "../PartnerDonations/PartnerDonationsPage";
 
 function getTabAccessibilityProps(index: number) {
   return {
@@ -140,7 +143,7 @@ const DonationPage: React.FC = () => {
 
         {!isAdmin && (
           <CustomTabPanel value={value} index={3}>
-            <MyDonations />
+            <PartnerDonations />
           </CustomTabPanel>
         )}
 

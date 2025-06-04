@@ -8,7 +8,7 @@ const useDonationService = () => {
   const [errorOnDonations, setErrorOnDonations] = useState<string | null>(null);
   const [beneficiaries, setBeneficiaries] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<string | null>(null);
 
   const createDonation = async (data: CreateDonationResponse) => {
     try {

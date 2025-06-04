@@ -34,16 +34,8 @@ public class DonationService {
         CampaignEntity campaign = campaignRepository.findById(donation.getCampaign().getId())
             .orElseThrow(() -> new RuntimeException("Campanha não encontrada"));
 
-        if (!campaign.getActive()) {
-            throw new RuntimeException("Campanha não está ativa");
-        }
-
         UserEntity donor = userRepository.findById(donation.getDonor().getId())
             .orElseThrow(() -> new RuntimeException("Doador não encontrado"));
-
-        if (!donor.getActive()) {
-            throw new RuntimeException("Doador não está ativo");
-        }
 
         donation.setStatus(DonationStatus.PENDING);
         return donationRepository.save(donation);

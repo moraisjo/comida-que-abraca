@@ -26,11 +26,11 @@ function App() {
       <ThemeProvider theme={theme}>
         <Router>
           <Routes>
-            <Route path="/" element={<OngHomepage />} />
+            <Route path="/" element={<HomePage />} />
             <Route path="/ranking" element={<RankingPage />} />
             <Route path="/campanhas" element={<CampanhasPage />} />
             <Route path="/doacoes" element={<DonationPage />} />
-            <Route path="/cadastro-parceiro" element={<PartnerPage />} />
+            {/* <Route path="/cadastro-parceiro" element={<PartnerPage />} /> */}
             <Route path="/cadastro" element={<SignUpPage />} />
             <Route path="/relatorios" element={<ReportPage />} />
             <Route path="/doadores" element={<DonorsPage />} />
