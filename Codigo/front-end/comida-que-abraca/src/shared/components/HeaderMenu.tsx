@@ -216,7 +216,7 @@ export default function HeaderMenu({ isExternalPage }: HeaderMenuProps) {
           >
             <MenuItem
               onClick={() => {
-                navigate("/formulario-doacao");
+                navigate("/parceiro/solicitacao");
                 handleSandwichMenuClose();
               }}
               sx={{ color: colors.darkGray, fontWeight: "bold" }}
@@ -228,7 +228,7 @@ export default function HeaderMenu({ isExternalPage }: HeaderMenuProps) {
             </MenuItem>
             <MenuItem
               onClick={() => {
-                navigate("/formulario-solicitacao");
+                navigate("/parceiro/solicitacao");
                 handleSandwichMenuClose();
               }}
               sx={{ color: colors.darkGray, fontWeight: "bold" }}
@@ -240,7 +240,7 @@ export default function HeaderMenu({ isExternalPage }: HeaderMenuProps) {
             </MenuItem>
             <MenuItem
               onClick={() => {
-                navigate("/gerenciar-campanhas");
+                navigate("/ong/campanhas");
                 handleSandwichMenuClose();
               }}
               sx={{ color: colors.darkGray, fontWeight: "bold" }}
@@ -252,7 +252,7 @@ export default function HeaderMenu({ isExternalPage }: HeaderMenuProps) {
             </MenuItem>
             <MenuItem
               onClick={() => {
-                navigate("/gerenciar-doacoes");
+                navigate("/ong/doacoes");
                 handleSandwichMenuClose();
               }}
               sx={{ color: colors.darkGray, fontWeight: "bold" }}
@@ -264,7 +264,7 @@ export default function HeaderMenu({ isExternalPage }: HeaderMenuProps) {
             </MenuItem>
             <MenuItem
               onClick={() => {
-                navigate("/relatorios");
+                navigate("/ong/relatorios");
                 handleSandwichMenuClose();
               }}
               sx={{ color: colors.darkGray, fontWeight: "bold" }}
@@ -276,7 +276,7 @@ export default function HeaderMenu({ isExternalPage }: HeaderMenuProps) {
             </MenuItem>
             <MenuItem
               onClick={() => {
-                navigate("/campanhas-disponiveis");
+                navigate("/parceiro/campanhas");
                 handleSandwichMenuClose();
               }}
               sx={{ color: colors.darkGray, fontWeight: "bold" }}
@@ -288,7 +288,7 @@ export default function HeaderMenu({ isExternalPage }: HeaderMenuProps) {
             </MenuItem>
             <MenuItem
               onClick={() => {
-                navigate("/doadores");
+                navigate("/ong/doadores");
                 handleSandwichMenuClose();
               }}
               sx={{ color: colors.darkGray, fontWeight: "bold" }}
@@ -300,7 +300,7 @@ export default function HeaderMenu({ isExternalPage }: HeaderMenuProps) {
             </MenuItem>
             <MenuItem
               onClick={() => {
-                navigate("/solicitantes");
+                navigate("/ong/solicitantes");
                 handleSandwichMenuClose();
               }}
               sx={{ color: colors.darkGray, fontWeight: "bold" }}
@@ -312,7 +312,7 @@ export default function HeaderMenu({ isExternalPage }: HeaderMenuProps) {
             </MenuItem>
             <MenuItem
               onClick={() => {
-                navigate("/minhas-doacoes");
+                navigate("/parceiro/doacoes");
                 handleSandwichMenuClose();
               }}
               sx={{ color: colors.darkGray, fontWeight: "bold" }}
@@ -324,7 +324,7 @@ export default function HeaderMenu({ isExternalPage }: HeaderMenuProps) {
             </MenuItem>
             <MenuItem
               onClick={() => {
-                navigate("/ranking");
+                navigate("/ong/ranking");
               }}
               sx={{ color: colors.darkGray, fontWeight: "bold" }}
             >

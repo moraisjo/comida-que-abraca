@@ -31,7 +31,7 @@ export default function NotificationIcon() {
     <IconButton
       size="large"
       aria-label="notificações"
-      onClick={() => navigate("/notificacoes")}
+      onClick={() => navigate("/ong/notificacoes")}
       sx={{ color: "#333" }}
     >
       <Badge badgeContent={unreadCount} color="error">

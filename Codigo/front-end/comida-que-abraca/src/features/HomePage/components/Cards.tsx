@@ -14,23 +14,23 @@ import { useNavigate } from "react-router-dom";
 
 const cardList = [
   {
-    title: "Seja um Parceiro",
+    title: "Seja nosso parceiro",
     description:
       " Cadastre-se como parceiro e faça parte dessa corrente do bem, levando alimento e esperança a quem mais precisa.",
     buttonDescription: "Quero ser parceiro",
     image: imageBeAPartner,
-    link: "/cadastro",
+    link: "/parceiro/cadastro",
   },
   {
-    title: "Veja Como Ajudar",
+    title: "Conheça nossas campanhas",
     description:
       "Descubra as campanhas em andamento e escolha como deseja contribuir. Pequenos gestos fazem grande diferença na vida de quem precisa.",
     buttonDescription: "Ver campanhas",
     image: imageCampaigns,
-    link: "/campanhas-disponiveis",
+    link: "/parceiro/campanhas",
   },
   {
-    title: "Nosso Propósito",
+    title: "Nosso propósito",
     description:
       "Conheça a história e os valores do projeto Comida que Abraça. Entenda como nossa missão impacta comunidades e como você pode se envolver.",
     buttonDescription: "Mais informações",

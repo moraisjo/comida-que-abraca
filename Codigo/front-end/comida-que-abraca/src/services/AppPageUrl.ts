@@ -1,12 +1,12 @@
 enum PRIVATE_PAGES_URL {
-    RANKING_PAGE = "/ranking",
+    RANKING_PAGE = "/ong/ranking",
     ABOUTUS = "/sobre",
     CONTACTPAGE = "/contato",
 }
 
 enum PUBLIC_PAGES_URL {
     INDEX = "/",
-    SIGNUP = "/cadastro",
+    SIGNUP = "/parceiro/cadastro",
     NOT_FOUND ="*"
 }
 
