@@ -8,6 +8,7 @@ import PendingDonations from "./DonationTabs/DonationPending/PendingDonations";
 import DonationPendingDelivery from "./DonationTabs/DonationsPendingDelivery/DonationPendingDelivery";
 import CustomTabPanel from "../../shared/components/CustomTabPanel/CustomTabPanel";
 import DonationStock from "./DonationTabs/DonationStock/DonationStock";
+import { Inbox, Truck, Package } from "react-feather";
 
 function getTabAccessibilityProps(index: number) {
   return {
@@ -47,7 +48,9 @@ const DonationPage: React.FC = () => {
             }}
           >
             <Tab
-              label="Solicitações Pendentes"
+              icon={<Inbox />}
+              iconPosition="start"
+              label="Solicitações de doação"
               {...getTabAccessibilityProps(0)}
               sx={{
                 textTransform: "none",
@@ -56,7 +59,9 @@ const DonationPage: React.FC = () => {
               }}
             />
             <Tab
-              label="Doações Pendentes Entrega"
+              icon={<Truck />}
+              iconPosition="start"
+              label="Entregas pendentes"
               {...getTabAccessibilityProps(1)}
               sx={{
                 textTransform: "none",
@@ -65,6 +70,8 @@ const DonationPage: React.FC = () => {
               }}
             />
             <Tab
+              icon={<Package />}
+              iconPosition="start"
               label="Estoque de doações"
               {...getTabAccessibilityProps(2)}
               sx={{
