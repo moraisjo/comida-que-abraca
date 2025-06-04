@@ -316,18 +316,6 @@ export default function HeaderMenu() {
               </ListItemIcon>
               Ranking
             </MenuItem>
-
-            <MenuItem
-              onClick={() => {
-                navigate("/sobre");
-              }}
-              sx={{ color: colors.darkGray, fontWeight: "bold" }}
-            >
-              <ListItemIcon>
-                <InfoIcon fontSize="small" />
-              </ListItemIcon>
-              Sobre
-            </MenuItem>
           </Menu>
         </Toolbar>
       </StyledAppBar>
