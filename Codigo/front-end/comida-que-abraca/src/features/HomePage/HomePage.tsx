@@ -7,7 +7,7 @@ import Footer from "../../shared/components/Footer/Footer";
 const HomePage: React.FC = () => {
   return (
     <>
-      <HeaderMenu />
+      <HeaderMenu isExternalPage={true} />
       <Banner />
       <Cards />
       <Footer />

@@ -11,7 +11,6 @@ import RedeemIcon from "@mui/icons-material/Redeem";
 import EmojiEventsIcon from "@mui/icons-material/EmojiEvents";
 import HandshakeIcon from "@mui/icons-material/Handshake";
 import PersonSearchIcon from "@mui/icons-material/PersonSearch";
-import InfoIcon from "@mui/icons-material/Info";
 import SettingsIcon from "@mui/icons-material/Settings";
 import LogoutIcon from "@mui/icons-material/Logout";
 import LoginIcon from "@mui/icons-material/Login";
@@ -23,7 +22,11 @@ import { AppBar, styled } from "@mui/material";
 import { useAuth } from "../../context/AuthContext";
 import { DownloadForOffline, VolunteerActivism } from "@mui/icons-material";
 
-export default function HeaderMenu() {
+type HeaderMenuProps = {
+  isExternalPage?: boolean;
+};
+
+export default function HeaderMenu({ isExternalPage }: HeaderMenuProps) {
   // Uso do React Router
   const navigate = useNavigate();
   const { token, logout } = useAuth();
@@ -91,19 +94,33 @@ export default function HeaderMenu() {
       <StyledAppBar position="static">
         <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
           {/* Menu sanduíche */}
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            sx={{ mr: 2, color: colors.darkGray }}
-            onClick={handleSandwichMenuOpen}
-          >
-            <MenuIcon />
-          </IconButton>
+          {!isExternalPage && (
+            <IconButton
+              size="large"
+              edge="start"
+              color="inherit"
+              aria-label="menu"
+              sx={{ mr: 2, color: colors.darkGray }}
+              onClick={handleSandwichMenuOpen}
+            >
+              <MenuIcon />
+            </IconButton>
+          )}
 
           {/*Logo Comida Que Abraça*/}
-          <Box sx={{ cursor: "pointer" }} onClick={() => navigate("/")}>
+          <Box
+            sx={{
+              flexGrow: 1,
+              display: "flex",
+              justifyContent: "center",
+              position: "absolute",
+              left: "50%",
+              transform: "translateX(-50%)",
+              cursor: "pointer",
+            }}
+            onClick={() => navigate("/")}
+          >
+            {" "}
             <img
               src={logo}
               style={{ width: "130px", height: "auto" }}
@@ -119,7 +136,7 @@ export default function HeaderMenu() {
                   display: "flex",
                   alignItems: "center",
                   cursor: "pointer",
-                  ml: 2,
+                  ml: "auto", // empurra para o fim do flex container
                   color: colors.darkGray,
                 }}
               >
@@ -207,7 +224,7 @@ export default function HeaderMenu() {
               <ListItemIcon>
                 <VolunteerActivism fontSize="small" />
               </ListItemIcon>
-              Quero Doar
+              Quero doar
             </MenuItem>
             <MenuItem
               onClick={() => {
