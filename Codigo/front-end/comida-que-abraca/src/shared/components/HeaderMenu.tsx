@@ -29,7 +29,7 @@ type HeaderMenuProps = {
 export default function HeaderMenu({ isExternalPage }: HeaderMenuProps) {
   // Uso do React Router
   const navigate = useNavigate();
-  const { token, logout } = useAuth();
+  const { token, logout, decodedUser } = useAuth();
 
   // Estado para controlar a exibição do menu de perfil
   const [profileMenuIsOpen, setProfileMenuIsOpen] =
@@ -64,15 +64,6 @@ export default function HeaderMenu({ isExternalPage }: HeaderMenuProps) {
     handleProfileMenuClose();
     navigate("/login"); // Redireciona para a página de login ou pública
   };
-
-  // Função para decidir para onde voltar com base no tipo de usuário
-  /* const handleBackNavigation = () => {
-    if (userType === "Client") {
-      navigate("/cliente");
-    } else if (userType === "Physiotherapist") {
-      navigate("/fisio");
-    }
-  }; */
 
   const StyledAppBar = styled(AppBar)(() => ({
     backgroundColor: colors.background,
@@ -199,6 +190,7 @@ export default function HeaderMenu({ isExternalPage }: HeaderMenuProps) {
             </Menu>
           </Box>
 
+          {/* Menu de opções */}
           <Menu
             id="menu-appbar-sandwich"
             anchorEl={sandwichMenuIsOpen}
@@ -214,125 +206,139 @@ export default function HeaderMenu({ isExternalPage }: HeaderMenuProps) {
             open={Boolean(sandwichMenuIsOpen)}
             onClose={handleSandwichMenuClose}
           >
-            <MenuItem
-              onClick={() => {
-                navigate("/parceiro/solicitacao");
-                handleSandwichMenuClose();
-              }}
-              sx={{ color: colors.darkGray, fontWeight: "bold" }}
-            >
-              <ListItemIcon>
-                <VolunteerActivism fontSize="small" />
-              </ListItemIcon>
-              Quero doar
-            </MenuItem>
-            <MenuItem
-              onClick={() => {
-                navigate("/parceiro/solicitacao");
-                handleSandwichMenuClose();
-              }}
-              sx={{ color: colors.darkGray, fontWeight: "bold" }}
-            >
-              <ListItemIcon>
-                <DownloadForOffline fontSize="small" />
-              </ListItemIcon>
-              Quero receber
-            </MenuItem>
-            <MenuItem
-              onClick={() => {
-                navigate("/ong/campanhas");
-                handleSandwichMenuClose();
-              }}
-              sx={{ color: colors.darkGray, fontWeight: "bold" }}
-            >
-              <ListItemIcon>
-                <CampaignIcon fontSize="small" />
-              </ListItemIcon>
-              Campanhas
-            </MenuItem>
-            <MenuItem
-              onClick={() => {
-                navigate("/ong/doacoes");
-                handleSandwichMenuClose();
-              }}
-              sx={{ color: colors.darkGray, fontWeight: "bold" }}
-            >
-              <ListItemIcon>
-                <RedeemIcon fontSize="small" />
-              </ListItemIcon>
-              Doações
-            </MenuItem>
-            <MenuItem
-              onClick={() => {
-                navigate("/ong/relatorios");
-                handleSandwichMenuClose();
-              }}
-              sx={{ color: colors.darkGray, fontWeight: "bold" }}
-            >
-              <ListItemIcon>
-                <BarChartIcon fontSize="small" />
-              </ListItemIcon>
-              Relatórios
-            </MenuItem>
-            <MenuItem
-              onClick={() => {
-                navigate("/parceiro/campanhas");
-                handleSandwichMenuClose();
-              }}
-              sx={{ color: colors.darkGray, fontWeight: "bold" }}
-            >
-              <ListItemIcon>
-                <CampaignIcon fontSize="small" />
-              </ListItemIcon>
-              Campanhas
-            </MenuItem>
-            <MenuItem
-              onClick={() => {
-                navigate("/ong/doadores");
-                handleSandwichMenuClose();
-              }}
-              sx={{ color: colors.darkGray, fontWeight: "bold" }}
-            >
-              <ListItemIcon>
-                <HandshakeIcon fontSize="small" />
-              </ListItemIcon>
-              Doadores
-            </MenuItem>
-            <MenuItem
-              onClick={() => {
-                navigate("/ong/solicitantes");
-                handleSandwichMenuClose();
-              }}
-              sx={{ color: colors.darkGray, fontWeight: "bold" }}
-            >
-              <ListItemIcon>
-                <PersonSearchIcon fontSize="small" />
-              </ListItemIcon>
-              Solicitantes
-            </MenuItem>
-            <MenuItem
-              onClick={() => {
-                navigate("/parceiro/doacoes");
-                handleSandwichMenuClose();
-              }}
-              sx={{ color: colors.darkGray, fontWeight: "bold" }}
-            >
-              <ListItemIcon>
-                <RedeemIcon fontSize="small" />
-              </ListItemIcon>
-              Minhas Doações
-            </MenuItem>
-            <MenuItem
-              onClick={() => {
-                navigate("/ong/ranking");
-              }}
-              sx={{ color: colors.darkGray, fontWeight: "bold" }}
-            >
-              <ListItemIcon>
-                <EmojiEventsIcon fontSize="small" />
-              </ListItemIcon>
-              Ranking
-            </MenuItem>
+            {/* TROCAR PRO USER_TYPE!!!!!!!!!! ESSA FOI UMA SOLUÇÃO PALIATIVA */}
+            {/* Itens dos parceiros */}
+            {decodedUser && decodedUser?.userId != "1" && (
+              <>
+                <MenuItem
+                  onClick={() => {
+                    navigate("/parceiro/solicitacao");
+                    handleSandwichMenuClose();
+                  }}
+                  sx={{ color: colors.darkGray, fontWeight: "bold" }}
+                >
+                  <ListItemIcon>
+                    <VolunteerActivism fontSize="small" />
+                  </ListItemIcon>
+                  Quero doar
+                </MenuItem>
+
+                <MenuItem
+                  onClick={() => {
+                    navigate("/parceiro/solicitacao");
+                    handleSandwichMenuClose();
+                  }}
+                  sx={{ color: colors.darkGray, fontWeight: "bold" }}
+                >
+                  <ListItemIcon>
+                    <DownloadForOffline fontSize="small" />
+                  </ListItemIcon>
+                  Quero receber
+                </MenuItem>
+                <MenuItem
+                  onClick={() => {
+                    navigate("/parceiro/campanhas");
+                    handleSandwichMenuClose();
+                  }}
+                  sx={{ color: colors.darkGray, fontWeight: "bold" }}
+                >
+                  <ListItemIcon>
+                    <CampaignIcon fontSize="small" />
+                  </ListItemIcon>
+                  Campanhas
+                </MenuItem>
+                <MenuItem
+                  onClick={() => {
+                    navigate("/parceiro/doacoes");
+                    handleSandwichMenuClose();
+                  }}
+                  sx={{ color: colors.darkGray, fontWeight: "bold" }}
+                >
+                  <ListItemIcon>
+                    <RedeemIcon fontSize="small" />
+                  </ListItemIcon>
+                  Minhas Doações
+                </MenuItem>
+              </>
+            )}
+
+            {/* TROCAR PRO USER_TYPE!!!!!!!!!! ESSA FOI UMA SOLUÇÃO PALIATIVA */}
+            {/* Itens da ONG */}
+            {decodedUser && decodedUser?.userId == "1" && (
+              <>
+                <MenuItem
+                  onClick={() => {
+                    navigate("/ong/campanhas");
+                    handleSandwichMenuClose();
+                  }}
+                  sx={{ color: colors.darkGray, fontWeight: "bold" }}
+                >
+                  <ListItemIcon>
+                    <CampaignIcon fontSize="small" />
+                  </ListItemIcon>
+                  Campanhas
+                </MenuItem>
+                <MenuItem
+                  onClick={() => {
+                    navigate("/ong/doacoes");
+                    handleSandwichMenuClose();
+                  }}
+                  sx={{ color: colors.darkGray, fontWeight: "bold" }}
+                >
+                  <ListItemIcon>
+                    <RedeemIcon fontSize="small" />
+                  </ListItemIcon>
+                  Doações
+                </MenuItem>
+                <MenuItem
+                  onClick={() => {
+                    navigate("/ong/relatorios");
+                    handleSandwichMenuClose();
+                  }}
+                  sx={{ color: colors.darkGray, fontWeight: "bold" }}
+                >
+                  <ListItemIcon>
+                    <BarChartIcon fontSize="small" />
+                  </ListItemIcon>
+                  Relatórios
+                </MenuItem>
+                <MenuItem
+                  onClick={() => {
+                    navigate("/ong/doadores");
+                    handleSandwichMenuClose();
+                  }}
+                  sx={{ color: colors.darkGray, fontWeight: "bold" }}
+                >
+                  <ListItemIcon>
+                    <HandshakeIcon fontSize="small" />
+                  </ListItemIcon>
+                  Doadores
+                </MenuItem>
+                <MenuItem
+                  onClick={() => {
+                    navigate("/ong/solicitantes");
+                    handleSandwichMenuClose();
+                  }}
+                  sx={{ color: colors.darkGray, fontWeight: "bold" }}
+                >
+                  <ListItemIcon>
+                    <PersonSearchIcon fontSize="small" />
+                  </ListItemIcon>
+                  Solicitantes
+                </MenuItem>
+                <MenuItem
+                  onClick={() => {
+                    navigate("/ong/ranking");
+                  }}
+                  sx={{ color: colors.darkGray, fontWeight: "bold" }}
+                >
+                  <ListItemIcon>
+                    <EmojiEventsIcon fontSize="small" />
+                  </ListItemIcon>
+                  Ranking
+                </MenuItem>
+              </>
+            )}
           </Menu>
         </Toolbar>
       </StyledAppBar>

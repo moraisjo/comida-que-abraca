@@ -5,9 +5,10 @@ import Cards from "./components/Cards";
 import Footer from "../../shared/components/Footer/Footer";
 
 const HomePage: React.FC = () => {
+
   return (
     <>
-      <HeaderMenu isExternalPage={true} />
+      <HeaderMenu/>
       <Banner />
       <Cards />
       <Footer />
