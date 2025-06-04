@@ -11,8 +11,9 @@ import imageCampaigns from "../../../assets/image-campaigns.png";
 import imageBeAPartner from "../../../assets/image-be-a-partner.png";
 import imageReports from "../../../assets/image-reports2.png";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../../context/AuthContext";
 
-const cardList = [
+const cardListDeslogado = [
   {
     title: "Seja nosso parceiro",
     description:
@@ -39,8 +40,58 @@ const cardList = [
   },
 ];
 
+const cardListParceiroLogado = [
+  {
+    title: "Conheça nossas campanhas",
+    description:
+      "Descubra as campanhas em andamento e escolha como deseja contribuir. Pequenos gestos fazem grande diferença na vida de quem precisa.",
+    buttonDescription: "Ver campanhas",
+    image: imageCampaigns,
+    link: "/parceiro/campanhas",
+  },
+  {
+    title: "Nosso propósito",
+    description:
+      "Conheça a história e os valores do projeto Comida que Abraça. Entenda como nossa missão impacta comunidades e como você pode se envolver.",
+    buttonDescription: "Mais informações",
+    image: imageReports,
+    link: "/sobre",
+  },
+];
+
+const cardListONGLogada = [
+  {
+    title: "Conheça nossas campanhas",
+    description:
+      "Descubra as campanhas em andamento e escolha como deseja contribuir. Pequenos gestos fazem grande diferença na vida de quem precisa.",
+    buttonDescription: "Ver campanhas",
+    image: imageCampaigns,
+    link: "/parceiro/campanhas",
+  },
+  {
+    title: "Nosso propósito",
+    description:
+      "Conheça a história e os valores do projeto Comida que Abraça. Entenda como nossa missão impacta comunidades e como você pode se envolver.",
+    buttonDescription: "Mais informações",
+    image: imageReports,
+    link: "/sobre",
+  },
+];
+
 const Cards: React.FC = () => {
   const navigate = useNavigate();
+  const { decodedUser, token } = useAuth();
+
+  {/* TROCAR PRO USER_TYPE!!!!!!!!!! ESSA FOI UMA SOLUÇÃO PALIATIVA */}
+  let cardsRenderizados;
+
+  if (!token) {
+    cardsRenderizados = cardListDeslogado;
+  } else if (decodedUser?.userId === "1") {
+    cardsRenderizados = cardListONGLogada;
+  } else {
+    cardsRenderizados = cardListParceiroLogado;
+  }
 
   return (
     <section
@@ -52,7 +103,7 @@ const Cards: React.FC = () => {
         padding: "20px",
       }}
     >
-      {cardList.map((cards, index) => (
+      {cardsRenderizados.map((cards, index) => (
         <Card
           key={index}
           sx={{

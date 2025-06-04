@@ -76,7 +76,7 @@ const ListRequest: React.FC = () => {
     <>
       <Box p={2}>
         <Typography variant="h6" mb={2} color={theme.palette.primary.main}>
-          Minhas Solicitações
+          Quero receber doações
         </Typography>
         <TextField
           label="Buscar requisição..."

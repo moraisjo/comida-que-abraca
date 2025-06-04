@@ -139,7 +139,7 @@ const PartnerDonations: React.FC = () => {
           gutterBottom
           sx={{ color: theme.palette.primary.main }}
         >
-          Minhas doações:
+          Minhas doações
         </Typography>
 
         <TextField

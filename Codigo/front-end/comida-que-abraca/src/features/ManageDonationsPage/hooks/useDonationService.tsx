@@ -1,7 +1,7 @@
 import { useState, useCallback } from "react";
 import DonationRepository from "../../../data/repository/donation";
 import { DonationResponse, CreateDonationResponse } from "../../../data/model/donation";
-import { AxiosError } from "axios";
+
 
 const useDonationService = () => {
   const [donations, setDonations] = useState<DonationResponse[]>([]);
@@ -9,6 +9,8 @@ const useDonationService = () => {
   const [beneficiaries, setBeneficiaries] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+
+
 
   const createDonation = async (data: CreateDonationResponse) => {
     try {
@@ -88,24 +90,6 @@ const useDonationService = () => {
     }
   };
 
-  const fetchAllBeneficiaries = async () => {
-    try {
-      const response = await fetch(
-        "http://localhost:8080/partners/beneficiarios"
-      );
-      if (!response.ok) {
-        throw new Error(`Erro HTTP: ${response.status}`);
-      }
-      const data = await response.json();
-      setBeneficiaries(data);
-    } catch (err: unknown) {
-      const error = err as AxiosError;
-      setError(error.message || "Erro ao buscar beneficiários.");
-      console.error("Erro ao buscar beneficiários:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
 
   return {
     donations,
@@ -119,7 +103,6 @@ const useDonationService = () => {
     updateDonationStatus,
     updateDonationStatusStock,
     fetchAllDonations,
-    fetchAllBeneficiaries,
     beneficiaries,
     createDonation
   };

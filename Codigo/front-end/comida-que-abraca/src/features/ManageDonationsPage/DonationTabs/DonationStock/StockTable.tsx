@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import StockItemModal from "./StockItemModal";
 import { VolunteerActivism } from "@mui/icons-material";
 import BeneficiaryModal from "./BeneficiaryModal";
+import api from "../../../../api/axios.ts";
 
 interface StockTableProps {
   donations: DonationResponse[];
@@ -16,21 +17,19 @@ const StockTable: React.FC<StockTableProps> = ({ donations }) => {
   const [detailsModalOpen, setDetailsModalOpen] = useState(false);
   const [beneficiaryModalOpen, setBeneficiaryModalOpen] = useState(false);
   const [selectedDonation, setSelectedDonation] = useState<any>(null);
-  const [partners, setPartners] = useState([]);
+  const [partners, setBeneficiaries] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchAllBeneficiaries = async () => {
       try {
-        const response = await fetch(
-          "http://localhost:8080/partners/beneficiarios"
-        );
-        if (!response.ok) {
-          throw new Error("Erro ao buscar os dados");
-        }
-        const data = await response.json();
-        setPartners(data);
-      } catch (error) {
+        const response = await api.get("/partners/beneficiarios");
+        setBeneficiaries(response.data);
+      } catch (err: unknown) {
+        const error = err as any;
         console.error("Erro ao buscar beneficiários:", error);
+      } finally {
+        setLoading(false);
       }
     };
 
