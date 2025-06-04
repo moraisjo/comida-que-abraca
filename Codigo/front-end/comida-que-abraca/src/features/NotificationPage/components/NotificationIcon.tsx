@@ -1,34 +1,37 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { IconButton, Badge } from "@mui/material";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import { useAuth } from "../../../context/AuthContext";
+import { fetchUserNotifications } from "../hooks/notificationService";
 
 export default function NotificationIcon() {
   const [unreadCount, setUnreadCount] = useState(0);
   const navigate = useNavigate();
-  const userId = 1;
+
+  const { decodedUser } = useAuth();
+  const userId = decodedUser?.userId ? Number(decodedUser.userId) : null;
 
   useEffect(() => {
-    axios
-      .get(`http://localhost:8080/notifications/user/${userId}`)
-      .then((response) => {
-        const notifications = response.data;
-        const unread = notifications.filter((n: any) => !n.visualized);
-        console.log("Notificações não lidas:", unread.length);
+    if (!userId) return;
+
+    fetchUserNotifications(userId)
+      .then((notifications) => {
+        const unread = notifications.filter(
+          (n: { visualized: any }) => !n.visualized
+        );
         setUnreadCount(unread.length);
       })
       .catch((error) =>
         console.error("Erro ao buscar notificações não lidas:", error)
       );
-  }, []);
+  }, [userId]);
 
   return (
     <IconButton
       size="large"
       aria-label="notificações"
-      onClick={() => navigate("/notificacoes")}
+      onClick={() => navigate("/ong/notificacoes")}
       sx={{ color: "#333" }}
     >
       <Badge badgeContent={unreadCount} color="error">

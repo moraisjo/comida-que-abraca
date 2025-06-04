@@ -6,58 +6,70 @@ import React, {
   useEffect,
   useMemo,
 } from 'react';
+import { jwtDecode } from 'jwt-decode';
+
+type DecodedUser = {
+  sub?: string; // subject (unique identifier) = email
+  userId?: string;
+};
 
 type AuthContextType = {
-  userId: string | null;
-  userType: string | null;
   token: string | null;
-  setAuthData: (data: { userId: string; userType: string; token: string }) => void;
+  decodedUser: DecodedUser | null;
+  setAuthData: (data: { token: string }) => void;
   logout: () => void;
 };
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
-  const [userId, setUserId] = useState<string | null>(null);
-  const [userType, setUserType] = useState<string | null>(null);
   const [token, setToken] = useState<string | null>(null);
+  const [decodedUser, setDecodedUser] = useState<DecodedUser | null>(null);
 
   useEffect(() => {
-    const storedUserId = localStorage.getItem('userId');
-    const storedUserType = localStorage.getItem('userType');
     const storedToken = localStorage.getItem('token');
 
-    if (storedUserId && storedToken) {
-      setUserId(storedUserId);
-      setUserType(storedUserType); // Pode ser null
+    if (storedToken) {
       setToken(storedToken);
+      try {
+        setDecodedUser(jwtDecode<DecodedUser>(storedToken));
+      } catch {
+        setDecodedUser(null);
+      }
     }
   }, []);
 
-  const setAuthData = ({ userId, userType, token }: { userId: string; userType: string; token: string }) => {
-    setUserId(userId);
-    setUserType(userType);
+  useEffect(() => {
+    if (token) {
+      try {
+        setDecodedUser(jwtDecode<DecodedUser>(token));
+      } catch {
+        setDecodedUser(null);
+      }
+    } else {
+      setDecodedUser(null);
+    }
+  }, [token]);
+
+  const setAuthData = ({ token }: { token: string }) => {
     setToken(token);
-    localStorage.setItem('userId', userId);
     localStorage.setItem('token', token);
-    if (userType) {
-      localStorage.setItem('userType', userType);
+    try {
+      setDecodedUser(jwtDecode<DecodedUser>(token));
+    } catch {
+      setDecodedUser(null);
     }
   };
 
   const logout = () => {
-    setUserId(null);
-    setUserType(null);
     setToken(null);
-    localStorage.removeItem('userId');
-    localStorage.removeItem('userType');
+    setDecodedUser(null);
     localStorage.removeItem('token');
-    localStorage.removeItem('lgpdAccepted');
   };
 
   const value = useMemo(
-    () => ({ userId, userType, token, setAuthData, logout }),
-    [userId, userType, token]
+    () => ({ token, decodedUser, setAuthData, logout }),
+    [token, decodedUser]
   );
 
   return (

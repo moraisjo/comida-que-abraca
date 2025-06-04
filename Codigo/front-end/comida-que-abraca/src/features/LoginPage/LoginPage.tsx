@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   TextField,
   Button,
@@ -9,7 +9,7 @@ import {
   Paper,
   Alert,
 } from '@mui/material';
-import axios from 'axios';
+import api from '../../api/axios';
 import { useNavigate } from 'react-router-dom';
 import logo from '../../assets/comida-que-abraca-logo.png';
 import { useAuth } from '../../context/AuthContext';
@@ -18,41 +18,46 @@ export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
+  const [pendingConsentCheck, setPendingConsentCheck] = useState(false);
   const navigate = useNavigate();
-  const { setAuthData } = useAuth();
+  const { decodedUser, setAuthData } = useAuth();
+
+  const checkLgpdConsent = async () => {
+    try {
+      const response = await api.get(`/lgpd/consent/${decodedUser?.userId}`);
+      if(response.data.consentDateTime == null) {
+        navigate('/lgpd');        
+        return false;
+      } else {
+        navigate('/');
+        return true;
+      }
+    } catch (error: any) {
+      console.error('Erro ao verificar consentimento LGPD:', error);
+      return false;
+    }
+  }
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setErrorMsg('');
 
     try {
-      const response = await axios.post('http://localhost:8080/login', {
-        email,
-        password,
-      });
-
-      const { token, userId, userType, lgpdConsentDate } = response.data;
-
-      // Seta dados no contexto (e automaticamente no localStorage)
-      setAuthData({
-        token,
-        userId: userId.toString(),
-        userType: userType || 'ONG', // substitua por valor real quando tiver
-      });
-
-      // Armazena apenas o aceite do LGPD no localStorage
-      localStorage.setItem('lgpdAccepted', lgpdConsentDate ? 'true' : 'false');
-
-      // Redireciona baseado no aceite
-      if (!lgpdConsentDate) {
-        navigate('/lgpd', { state: { userId } });
-      } else {
-        navigate('/campanhas');
-      }
+      const response = await api.post('/login', { email, password });
+      const { token } = response.data;
+      setAuthData({ token });
+      setPendingConsentCheck(true);
     } catch (error: any) {
       setErrorMsg(error.response?.data?.statusText || 'Erro ao fazer login.');
     }
   };
+
+  useEffect(() => {
+    if (pendingConsentCheck && decodedUser?.userId) {
+      checkLgpdConsent();
+      setPendingConsentCheck(false);
+    }
+  }, [pendingConsentCheck, decodedUser]);
 
   return (
     <Container maxWidth="sm">
@@ -94,7 +99,7 @@ export default function LoginPage() {
 
         <Typography variant="body2" align="center" sx={{ mt: 2 }}>
           Ainda não tem cadastro?{' '}
-          <Link href="#" underline="hover">
+          <Link href="/parceiro/cadastro" underline="hover">
             Clique aqui!
           </Link>
         </Typography>

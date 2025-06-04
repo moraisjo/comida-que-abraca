@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useTheme } from "@mui/material/styles";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
@@ -9,10 +9,8 @@ import PendingDonations from "./DonationTabs/DonationPending/PendingDonations";
 import DonationPendingDelivery from "./DonationTabs/DonationsPendingDelivery/DonationPendingDelivery";
 import CustomTabPanel from "../../shared/components/CustomTabPanel/CustomTabPanel";
 import DonationStock from "./DonationTabs/DonationStock/DonationStock";
-import MyDonations from "./DonationTabs/MyDonations/MyDonations";
 import NewDonationModal from "../ManageDonationsPage/DonationCreate/DonationCreate";
-import { useAuth } from "../../context/AuthContext";
-import axios from "axios";
+import { Inbox, Truck, Package } from "react-feather";
 
 function getTabAccessibilityProps(index: number) {
   return {
@@ -93,7 +91,9 @@ const DonationPage: React.FC = () => {
             }}
           >
             <Tab
-              label="Solicitações Pendentes"
+              icon={<Inbox />}
+              iconPosition="start"
+              label="Solicitações de doação"
               {...getTabAccessibilityProps(0)}
               sx={{
                 textTransform: "none",
@@ -102,7 +102,9 @@ const DonationPage: React.FC = () => {
               }}
             />
             <Tab
-              label="Doações Pendentes Entrega"
+              icon={<Truck />}
+              iconPosition="start"
+              label="Entregas pendentes"
               {...getTabAccessibilityProps(1)}
               sx={{
                 textTransform: "none",
@@ -111,6 +113,8 @@ const DonationPage: React.FC = () => {
               }}
             />
             <Tab
+              icon={<Package />}
+              iconPosition="start"
               label="Estoque de doações"
               {...getTabAccessibilityProps(2)}
               sx={{
@@ -119,17 +123,6 @@ const DonationPage: React.FC = () => {
                 "&.Mui-selected": { color: theme.palette.secondary.main },
               }}
             />
-            {!isAdmin && (
-              <Tab
-                label="Minhas Doações"
-                {...getTabAccessibilityProps(3)}
-                sx={{
-                  textTransform: "none",
-                  fontWeight: "bold",
-                  "&.Mui-selected": { color: theme.palette.secondary.main },
-                }}
-              />
-            )}
           </Tabs>
         </Box>
 

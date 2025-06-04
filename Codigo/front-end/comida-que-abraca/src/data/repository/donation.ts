@@ -1,6 +1,9 @@
+import api from "../../api/axios";
 import axios from "axios";
 import { DonationResponse, PendingDonationResponse, DonationDeliveryPendingResponse, CreateDonationResponse } from "../model/donation";
 import { Response } from "../model/response";
+
+const API_URL = "/api/donation";
 
 class DonationRepository {
   async createDonation(data: CreateDonationResponse): Promise<Response> {
@@ -20,7 +23,7 @@ class DonationRepository {
 
   async getAllDonations(): Promise<DonationResponse[]> {
     try {
-      const response = await axios.get<DonationResponse[]>(`http://localhost:8080/api/donation`);
+      const response = await api.get<DonationResponse[]>(`${API_URL}`);
       if (Array.isArray(response.data)) {
         return response.data;
       } else {
@@ -34,8 +37,8 @@ class DonationRepository {
 
   async getDonationsStock(): Promise<DonationResponse[]> {
     try {
-      const response = await axios.get<DonationResponse[]>(
-        "http://localhost:8080/api/donation/stock"
+      const response = await api.get<DonationResponse[]>(
+        `${API_URL}/stock`
       );
       return response.data;
     } catch (error) {
@@ -46,8 +49,8 @@ class DonationRepository {
 
   async getPendingDonations(): Promise<PendingDonationResponse[]> {
     try {
-      const response = await axios.get<PendingDonationResponse[]>(
-        "http://localhost:8080/api/donation/pending-donations"
+      const response = await api.get<PendingDonationResponse[]>(
+        `${API_URL}/pending-donations`
       );
       return response.data;
     } catch (error) {
@@ -57,8 +60,8 @@ class DonationRepository {
 
   async getPendingDelivery(): Promise<DonationDeliveryPendingResponse[]> {
     try {
-      const response = await axios.get<DonationDeliveryPendingResponse[]>(
-        "http://localhost:8080/api/donation/pending-deliveries"
+      const response = await api.get<DonationDeliveryPendingResponse[]>(
+        `${API_URL}/pending-deliveries`
       );
       return response.data;
     } catch (error) {
@@ -71,8 +74,8 @@ class DonationRepository {
     status: string
   ): Promise<Response> {
     try {
-      const response = await axios.put<Response>(
-        `http://localhost:8080/api/donation/update-status/${donationId}/${status}`
+      const response = await api.put<Response>(
+        `${API_URL}/update-status/${donationId}/${status}`
       );
       return response.data;
     } catch (error) {
@@ -84,8 +87,8 @@ class DonationRepository {
   async updateDonationStatusStock(donationId: number,
     status: string): Promise<Response> {
       try {
-        const response = await axios.put<Response>(
-          `http://localhost:8080/api/donation/update-stock/${donationId}/${status}`
+        const response = await api.put<Response>(
+          `${API_URL}/update-stock/${donationId}/${status}`
         );
         return response.data;
       } catch (error) {
@@ -96,8 +99,8 @@ class DonationRepository {
 
   async getStockDonations(): Promise<DonationResponse[]> {
     try {
-      const response = await axios.get<DonationResponse[]>(
-        "http://localhost:8080/api/doacoes/stock-donations"
+      const response = await api.get<DonationResponse[]>(
+        `${API_URL}/stock-donations`
       );
       return response.data;
     } catch (error) {

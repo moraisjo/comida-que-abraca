@@ -1,28 +1,28 @@
-import axios from "axios";
+import api from "../../api/axios";
 import { Campaign, CreateCampaignRequest, EditCampaignRequest} from "../model/campaign";
 import { Response } from "../model/response";
 
-const API_URL = "http://localhost:8080/campaign";
+const API_URL = "/campaign";
 
 class CampaignRepository {
   async createCampaign(campaignData: CreateCampaignRequest): Promise<Response> {
-    const response = await axios.post<Response>(`${API_URL}/create-campaign`, campaignData);
+    const response = await api.post<Response>(`${API_URL}/create-campaign`, campaignData);
     return response.data;
   }
 
   async editCampaign(id: number, campaignData: EditCampaignRequest): Promise<Response> {
-    const response = await axios.put<Response>(`${API_URL}/edit-campaign/${id}`, campaignData);
+    const response = await api.put<Response>(`${API_URL}/edit-campaign/${id}`, campaignData);
     return response.data;
   }
 
   async cancelCampaign(id: number): Promise<Response> {
-    const response = await axios.put<Response>(`${API_URL}/cancel-campaign/${id}`);
+    const response = await api.put<Response>(`${API_URL}/cancel-campaign/${id}`);
     return response.data;
   }
 
   async getActiveCampaigns(): Promise<Campaign[]> {
     try {
-      const response = await axios.get<Campaign[]>(`${API_URL}/active-campaigns`);
+      const response = await api.get<Campaign[]>(`${API_URL}/active-campaigns`);
       return response.data;
     } catch (error) {
       console.error("Erro ao buscar campanhas ativas:", error);
@@ -32,7 +32,7 @@ class CampaignRepository {
 
   async getInactiveCampaigns(): Promise<Campaign[]> { 
     try {
-      const response = await axios.get<Campaign[]>(`${API_URL}/inactive-campaigns`);
+      const response = await api.get<Campaign[]>(`${API_URL}/inactive-campaigns`);
       return response.data;
     } catch (error) {
       console.error("Erro ao buscar campanhas inativas:", error);

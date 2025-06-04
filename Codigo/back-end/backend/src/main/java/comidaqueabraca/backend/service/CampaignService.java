@@ -7,24 +7,24 @@ import comidaqueabraca.backend.entity.NotificationEntity;
 import comidaqueabraca.backend.entity.UserEntity;
 import comidaqueabraca.backend.enums.CampaignStatus;
 import comidaqueabraca.backend.repository.CampaignRepository;
+import comidaqueabraca.backend.repository.DonationRepository;
 import comidaqueabraca.backend.repository.NotificationRepository;
 import comidaqueabraca.backend.repository.UserRepository;
 import comidaqueabraca.backend.util.message.NotificationMessageBuilder;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 public class CampaignService {
-
     private final CampaignRepository campaignRepository;
+    private final DonationRepository donationRepository;
     private final UserRepository userRepository;
     private final NotificationRepository notificationRepository;
 
-    public CampaignService(CampaignRepository campaignRepository, UserRepository userRepository, NotificationRepository notificationRepository) {
+    public CampaignService(CampaignRepository campaignRepository, DonationRepository donationRepository, UserRepository userRepository, NotificationRepository notificationRepository) {
         this.campaignRepository = campaignRepository;
+        this.donationRepository = donationRepository;
         this.userRepository = userRepository;
         this.notificationRepository = notificationRepository;
     }
@@ -93,15 +93,20 @@ public class CampaignService {
         campaignRepository.save(campaign);
     }
 
-
     public void cancelCampaign(Integer id) {
         CampaignEntity campaign = campaignRepository.findById(id).orElseThrow(() ->
                 new IllegalArgumentException("Campanha não encontrada"));
 
-        campaign.setStatus(CampaignStatus.valueOf("CANCELED"));
+        boolean hasDonations = donationRepository.hasDonations(id);
+
+        if (hasDonations) {
+            campaign.setStatus(CampaignStatus.FINISHED);
+        } else {
+            campaign.setStatus(CampaignStatus.CANCELED);
+        }
+
         campaignRepository.save(campaign);
     }
-
 
     public List<CampaignEntity> getActiveCampaigns() {
         return campaignRepository.findAllActiveCampaigns();

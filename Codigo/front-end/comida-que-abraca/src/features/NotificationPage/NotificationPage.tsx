@@ -17,6 +17,8 @@ import {
 } from "@mui/material";
 import DoneIcon from "@mui/icons-material/Done";
 import HeaderMenu from "../../shared/components/HeaderMenu";
+import { useAuth } from "../../context/AuthContext";
+import { fetchUserNotifications } from "./hooks/notificationService";
 
 interface Notification {
   id: number;
@@ -35,18 +37,22 @@ export default function NotificationPage() {
   const [loading, setLoading] = useState(true);
   const [tabIndex, setTabIndex] = useState(0);
 
-  //retirar após a autenticação estiver 100%
+  const { decodedUser } = useAuth();
+  const userId = decodedUser?.userId ? Number(decodedUser.userId) : null;
+
   useEffect(() => {
-    axios
-      .get(`http://localhost:8080/notifications/user/1`)
-      .then((response) => {
-        setNotifications(response.data);
+    if (!userId) return;
+
+    setLoading(true);
+    fetchUserNotifications(userId)
+      .then((data) => {
+        setNotifications(data);
       })
       .catch((error) => {
         console.error("Erro ao buscar notificações:", error);
       })
       .finally(() => setLoading(false));
-  }, []);
+  }, [userId]);
 
   const markAsRead = (id: number) => {
     setNotifications((prev) =>
@@ -54,7 +60,7 @@ export default function NotificationPage() {
     );
   };
 
-  const handleChange = (event: React.SyntheticEvent, newIndex: number) => {
+  const handleChange = (_: React.SyntheticEvent, newIndex: number) => {
     setTabIndex(newIndex);
   };
 

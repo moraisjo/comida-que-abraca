@@ -1,8 +1,8 @@
-import axios from "axios";
+import api from "../../api/axios";
 
-const API_URL = "http://localhost:8080";
+const API_URL = "/notifications";
 
 export const getNotificationsByUser = async (userId: number) => {
-  const response = await axios.get(`${API_URL}/notifications/user/1`);
+  const response = await api.get(`${API_URL}/user/${userId}`);
   return response.data;
 };

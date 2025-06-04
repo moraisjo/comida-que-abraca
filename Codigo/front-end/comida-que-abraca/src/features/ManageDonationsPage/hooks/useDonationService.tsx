@@ -1,6 +1,7 @@
 import { useState, useCallback } from "react";
 import DonationRepository from "../../../data/repository/donation";
 import { DonationResponse, CreateDonationResponse } from "../../../data/model/donation";
+import { AxiosError } from "axios";
 
 const useDonationService = () => {
   const [donations, setDonations] = useState<DonationResponse[]>([]);
@@ -25,7 +26,7 @@ const useDonationService = () => {
       const data = await DonationRepository.getAllDonations();
       setDonations(data);
       return data;
-    } catch (error) {
+    } catch {
       setErrorOnDonations("Erro ao buscar todas as doações.");
       return [];
     }
@@ -36,7 +37,7 @@ const useDonationService = () => {
     try {
       const data = await DonationRepository.getAllDonations();
       setDonations(data);
-    } catch (err: any) {
+    } catch {
       setErrorOnDonations("Ocorreu um erro ao buscar as doações.");
     }
   };
@@ -44,7 +45,7 @@ const useDonationService = () => {
   const getDonationsStock = async () => {
     try {
       return await DonationRepository.getDonationsStock();
-    } catch (error) {
+    } catch {
       throw new Error("Erro ao buscar doações em estoque.");
     }
   };
@@ -52,7 +53,7 @@ const useDonationService = () => {
   const getPendingDonations = async () => {
     try {
       return await DonationRepository.getPendingDonations();
-    } catch (error) {
+    } catch {
       throw new Error("Erro ao buscar doações pendentes.");
     }
   };
@@ -60,7 +61,7 @@ const useDonationService = () => {
   const getPendingDelivery = async () => {
     try {
       return await DonationRepository.getPendingDelivery();
-    } catch (error) {
+    } catch {
       throw new Error("Erro ao buscar doações pendentes de entrega.");
     }
   };
@@ -68,7 +69,7 @@ const useDonationService = () => {
   const updateDonationStatus = async (donationId: number, status: string) => {
     try {
       return await DonationRepository.updateDonationStatus(donationId, status);
-    } catch (error) {
+    } catch {
       throw new Error("Erro ao atualizar o status da doação.");
     }
   };
@@ -82,7 +83,7 @@ const useDonationService = () => {
         donationId,
         status
       );
-    } catch (error) {
+    } catch {
       throw new Error("Erro ao atualizar o status da doação para o estoque.");
     }
   };
@@ -97,8 +98,10 @@ const useDonationService = () => {
       }
       const data = await response.json();
       setBeneficiaries(data);
-    } catch (err: any) {
-      setError(err.message || "Erro desconhecido");
+    } catch (err: unknown) {
+      const error = err as AxiosError;
+      setError(error.message || "Erro ao buscar beneficiários.");
+      console.error("Erro ao buscar beneficiários:", error);
     } finally {
       setLoading(false);
     }
@@ -107,6 +110,8 @@ const useDonationService = () => {
   return {
     donations,
     errorOnDonations,
+    loading,
+    error,
     getAllDonations,
     getDonationsStock,
     getPendingDonations,
