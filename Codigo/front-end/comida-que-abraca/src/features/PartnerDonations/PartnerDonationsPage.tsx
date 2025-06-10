@@ -25,6 +25,7 @@ import {
 import { InfoOutlined } from "@mui/icons-material";
 import partnerDonationService from "./hooks/partnerDonationService";
 import HeaderMenu from "../../shared/components/HeaderMenu";
+import CreateDonationModal from "../ManageDonationsPage/DonationCreate/DonationCreate";
 
 interface MyDonationResponse {
   id: number;
@@ -48,6 +49,7 @@ const PartnerDonations: React.FC = () => {
   const theme = useTheme();
   const [page, setPage] = useState(0);
   const rowsPerPage = 5;
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     const fetchDonations = async () => {
@@ -98,6 +100,19 @@ const PartnerDonations: React.FC = () => {
     setOpenDialog(false);
     setSelectedDonation(null);
   };
+  
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+  };
+  
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleDonationSuccess = () => {
+    setIsModalOpen(false);
+  };
+
 
   const getStatusLabel = (status: string) => {
     const statusMap: { [key: string]: string } = {
@@ -134,12 +149,23 @@ const PartnerDonations: React.FC = () => {
     <>
       <HeaderMenu />
       <Box p={2}>
+        <Box sx={{ display: 'flex', justifyContent: 'center', p: 2 }}>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={handleOpenModal}
+            sx={{ mb: 2 }}
+          >
+            Adicionar nova doação
+          </Button>
+        </Box>
+
         <Typography
           variant="h5"
           gutterBottom
           sx={{ color: theme.palette.primary.main }}
         >
-          Minhas doações
+          Minhas doações:
         </Typography>
 
         <TextField
@@ -302,6 +328,11 @@ const PartnerDonations: React.FC = () => {
           rowsPerPage={rowsPerPage}
           page={page}
           onPageChange={handleChangePage}
+        />
+        <CreateDonationModal
+          open={isModalOpen}
+          onClose={handleCloseModal}
+          onSuccess={handleDonationSuccess}
         />
       </Box>
     </>

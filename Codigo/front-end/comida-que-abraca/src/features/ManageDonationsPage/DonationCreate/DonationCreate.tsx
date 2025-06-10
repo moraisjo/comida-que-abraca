@@ -18,7 +18,6 @@ import useDonationService from '../hooks/useDonationService';
 import { CreateDonationResponse} from '../../../data/model/donation';
 import { campaignRepository } from '../../../data/repository/campaing';
 import { Campaign } from '../../../data/model/campaign';
-import donation from '../../../data/repository/donation';
 
 interface DonationCreateProps {
   open: boolean;
@@ -32,7 +31,7 @@ const DonationCreate: React.FC<DonationCreateProps> = ({ open, onClose, onSucces
   const [delivery, setDelivery] = useState<'PICKUP' | 'DELIVERY'>('PICKUP');
   const [photoUrl, setPhotoUrl] = useState<string | null>(null);
   const [campaignId, setCampaignId] = useState<number | null>(null);
-  const { user } = useAuth();
+  const { decodedUser } = useAuth();
   const { createDonation } = useDonationService();
   const [campaigns, setCampaigns] = useState<Campaign[]>([]);
 
@@ -66,6 +65,15 @@ const DonationCreate: React.FC<DonationCreateProps> = ({ open, onClose, onSucces
       return;
     }
 
+    if (!decodedUser?.userId) {
+      setResponseMessage('Usuário não autenticado.');
+      setIsSuccess(false);
+      setModalOpen(true);
+      return;
+    }
+
+    const userId = Number(decodedUser.userId);
+
     const donationData: CreateDonationResponse = {
       name,
       arriving_date: arrivingDate,
@@ -73,7 +81,7 @@ const DonationCreate: React.FC<DonationCreateProps> = ({ open, onClose, onSucces
       photo_url: photoUrl,
       campaign_id: campaignId,
       status: 'PENDING',
-      donor_id: user?.id ?? null,
+      donor_id: userId,
     };
 
     try {
@@ -93,7 +101,7 @@ const DonationCreate: React.FC<DonationCreateProps> = ({ open, onClose, onSucces
           }
         }, 0);
       }
-    } catch (error) {
+    } catch {
       setResponseMessage('Ocorreu um erro ao criar a doação.');
       setIsSuccess(false);
       setTimeout(() => setModalOpen(true), 0);
