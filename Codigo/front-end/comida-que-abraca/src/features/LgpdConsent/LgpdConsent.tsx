@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
   Box,
   Typography,
@@ -9,13 +9,12 @@ import {
   List,
   ListItem,
   ListItemText,
-} from '@mui/material';
-import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../../context/AuthContext';
-import api from '../../api/axios';
+} from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
+import api from "../../api/axios";
 
-
-export default function LoginPage(){
+export default function LoginPage() {
   const [checked, setChecked] = useState(false);
   const navigate = useNavigate();
   const { decodedUser, setAuthData } = useAuth();
@@ -29,14 +28,13 @@ export default function LoginPage(){
     try {
       await api.put(`/lgpd/consent/${decodedUser?.userId}`);
     } catch (error: any) {
-      console.error('Erro ao verificar consentimento LGPD:', error);
       return false;
     }
-  }
+  };
 
   const handleAccept = async () => {
-      saveLgpdConsent();
-      navigate("/");
+    saveLgpdConsent();
+    navigate("/");
   };
 
   const handleCancel = () => {
@@ -46,36 +44,46 @@ export default function LoginPage(){
   return (
     <Box
       sx={{
-        position: 'fixed',
+        position: "fixed",
         top: 0,
         left: 0,
-        width: '100%',
-        height: '100%',
-        bgcolor: 'white',
+        width: "100%",
+        height: "100%",
+        bgcolor: "white",
         zIndex: 9999,
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
         padding: 2,
       }}
     >
       <Paper
         elevation={3}
-        sx={{ maxWidth: 600, padding: 4, borderRadius: 4, border: '2px solid #f57c00' }}
+        sx={{
+          maxWidth: 600,
+          padding: 4,
+          borderRadius: 4,
+          border: "2px solid #f57c00",
+        }}
       >
         <Box display="flex" flexDirection="column" alignItems="center">
-          <img src="/leaf.svg" alt="Logo" style={{ marginBottom: '1rem', width: 80 }} />
+          <img
+            src="/leaf.svg"
+            alt="Logo"
+            style={{ marginBottom: "1rem", width: 80 }}
+          />
           <Typography variant="h6" gutterBottom textAlign="center">
             Termos de Consentimento para Tratamento de Dados Pessoais
           </Typography>
 
-          <Typography variant="body2" sx={{ textAlign: 'justify', mb: 1 }}>
-            Em conformidade com a Lei Geral de Proteção de Dados (LGPD – Lei nº 13.709/2018), informamos
-            que coletamos e utilizamos seus dados pessoais para melhorar sua experiência, oferecer nossos
-            serviços e garantir a segurança da sua conta.
+          <Typography variant="body2" sx={{ textAlign: "justify", mb: 1 }}>
+            Em conformidade com a Lei Geral de Proteção de Dados (LGPD – Lei nº
+            13.709/2018), informamos que coletamos e utilizamos seus dados
+            pessoais para melhorar sua experiência, oferecer nossos serviços e
+            garantir a segurança da sua conta.
           </Typography>
 
-          <Typography variant="body2" sx={{ textAlign: 'justify', mb: 1 }}>
+          <Typography variant="body2" sx={{ textAlign: "justify", mb: 1 }}>
             Ao prosseguir, você declara que:
           </Typography>
 
@@ -89,7 +97,12 @@ export default function LoginPage(){
           </List>
 
           <FormControlLabel
-            control={<Checkbox checked={checked} onChange={() => setChecked(!checked)} />}
+            control={
+              <Checkbox
+                checked={checked}
+                onChange={() => setChecked(!checked)}
+              />
+            }
             label="Eu li e concordo com os Termos de Consentimento e Política de Privacidade."
           />
 
@@ -102,11 +115,7 @@ export default function LoginPage(){
             >
               Prosseguir
             </Button>
-            <Button
-              variant="outlined"
-              color="error"
-              onClick={handleCancel}
-            >
+            <Button variant="outlined" color="error" onClick={handleCancel}>
               Cancelar
             </Button>
           </Box>
@@ -114,4 +123,4 @@ export default function LoginPage(){
       </Paper>
     </Box>
   );
-};
+}

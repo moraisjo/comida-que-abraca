@@ -29,12 +29,9 @@ const InfoCampaign: React.FC = () => {
     const fetchCampaign = async () => {
       if (id) {
         const numericId = Number(id);
-        if (!isNaN(numericId)) {
-          const data = await getCampaignById(numericId);
-          setCampaign(data);
-        } else {
-          console.error("ID inválido");
-        }
+
+        const data = await getCampaignById(numericId);
+        setCampaign(data);
       }
     };
 

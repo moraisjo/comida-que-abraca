@@ -35,9 +35,7 @@ const DonorList: React.FC = () => {
       try {
         const data = await getUsersForDisplay();
         setUsers(data);
-      } catch (err) {
-        console.error("Erro ao buscar usuários:", err);
-      }
+      } catch (err) {}
     };
     fetchUsers();
   }, []);

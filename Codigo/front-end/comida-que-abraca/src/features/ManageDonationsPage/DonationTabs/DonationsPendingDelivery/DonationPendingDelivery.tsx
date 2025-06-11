@@ -65,7 +65,6 @@ const DonationPendingDelivery: React.FC = () => {
         setDonations(data);
       } catch (err: unknown) {
         const error = err as AxiosError;
-        console.error("Erro ao carregar doações:", error.message);
       } finally {
         setLoading(false);
       }
@@ -106,7 +105,6 @@ const DonationPendingDelivery: React.FC = () => {
       setDonations((prev) => prev.filter((d) => d.id !== selectedDonation.id));
     } catch (err: unknown) {
       const error = err as AxiosError;
-      console.error("Erro ao atualizar status de entrega:", error.message);
       setResponseMessage("Erro ao atualizar status de entrega.");
       setResponseSuccess(false);
       setResponseModalOpen(true);

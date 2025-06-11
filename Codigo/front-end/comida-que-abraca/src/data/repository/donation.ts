@@ -10,7 +10,6 @@ class DonationRepository {
       const response = await api.post<Response>(`${API_URL}/request`, data);
       return response.data;
     } catch (error) {
-      console.error("Erro ao criar doação:", error);
       throw error;
     }
   }
@@ -33,7 +32,6 @@ class DonationRepository {
         throw new Error("Resposta da API em formato inválido");
       }
     } catch (error) {
-      console.error("Erro ao buscar as doações:", error);
       throw error;
     }
   }
@@ -82,7 +80,6 @@ class DonationRepository {
       );
       return response.data;
     } catch (error) {
-      console.error("Erro ao atualizar status da doação:", error);
       throw error;
     }
   }
@@ -95,7 +92,6 @@ class DonationRepository {
         );
         return response.data;
       } catch (error) {
-        console.error("Erro ao atualizar status da doação:", error);
         throw error;
       }
     }
@@ -107,7 +103,6 @@ class DonationRepository {
       );
       return response.data;
     } catch (error) {
-      console.error("Erro ao buscar doações em estoque:", error);
       return [];
     }
   }

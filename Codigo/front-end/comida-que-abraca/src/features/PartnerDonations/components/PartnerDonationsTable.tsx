@@ -58,10 +58,8 @@ const PartnerDonationsTable: React.FC = () => {
       try {
         const partnerUserId = Number(decodedUser.userId);
         const data = await getDonationsByPartnerUserId(partnerUserId);
-        console.log("Doações recebidas:", data);
         setDonations(data);
       } catch (error) {
-        console.error("Erro ao carregar doações:", error);
       } finally {
         setLoading(false);
       }

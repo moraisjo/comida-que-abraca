@@ -15,7 +15,6 @@ class AuthenticationRepository {
       );
       return response.data;
     } catch (error) {
-      console.error("Error: authentication failed", error);
       throw error;
     }
   }

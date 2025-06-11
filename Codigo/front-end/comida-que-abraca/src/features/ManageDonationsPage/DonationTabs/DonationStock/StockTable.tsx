@@ -27,7 +27,6 @@ const StockTable: React.FC<StockTableProps> = ({ donations }) => {
         setBeneficiaries(response.data);
       } catch (err: unknown) {
         const error = err as any;
-        console.error("Erro ao buscar beneficiários:", error);
       } finally {
         setLoading(false);
       }
