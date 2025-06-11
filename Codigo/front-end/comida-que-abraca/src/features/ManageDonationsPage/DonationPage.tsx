@@ -12,6 +12,7 @@ import { Inbox, Truck, Package } from "react-feather";
 import axios from "axios";
 import { useAuth } from "../../context/AuthContext";
 import PartnerDonations from "../PartnerDonations/PartnerDonationsPage";
+import Footer from "../../shared/components/Footer/Footer";
 
 function getTabAccessibilityProps(index: number) {
   return {
@@ -65,7 +66,7 @@ const DonationPage: React.FC = () => {
   return (
     <>
       <HeaderMenu />
-      <Box sx={{ width: "100%" }}>
+      <Box sx={{ width: "100%", pb: 10 }}>
         <Box
           sx={{
             borderBottom: 1,
@@ -138,6 +139,7 @@ const DonationPage: React.FC = () => {
           </CustomTabPanel>
         )}
       </Box>
+      <Footer />
     </>
   );
 };
