@@ -82,7 +82,9 @@ const Cards: React.FC = () => {
   const navigate = useNavigate();
   const { decodedUser, token } = useAuth();
 
-  {/* TROCAR PRO USER_TYPE!!!!!!!!!! ESSA FOI UMA SOLUÇÃO PALIATIVA */}
+  {
+    /* TROCAR PRO USER_TYPE!!!!!!!!!! ESSA FOI UMA SOLUÇÃO PALIATIVA */
+  }
   let cardsRenderizados;
 
   if (!token) {
@@ -94,88 +96,89 @@ const Cards: React.FC = () => {
   }
 
   return (
-    <section
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        flexWrap: "wrap",
-        gap: "16px",
-        padding: "20px",
-      }}
-    >
-      {cardsRenderizados.map((cards, index) => (
-        <Card
-          key={index}
-          sx={{
-            maxWidth: 345,
-            margin: 2,
-            borderRadius: 2,
-            boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
-            transition: "transform 0.3s ease, box-shadow 0.3s ease",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            textAlign: "center",
-            padding: "16px",
-            "&:hover": {
-              transform: "scale(1.05)",
-              boxShadow: "0px 8px 20px rgba(0, 0, 0, 0.2)",
-            },
-          }}
-        >
-          <CardMedia
-            component="img"
-            image={cards.image}
-            alt={cards.title}
+    <div style={{ marginBottom: "80px" }}>
+      <section
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          flexWrap: "wrap",
+          gap: "16px",
+        }}
+      >
+        {cardsRenderizados.map((cards, index) => (
+          <Card
+            key={index}
             sx={{
-              width: "100%",
-              height: "auto",
-              maxHeight: "140px",
+              maxWidth: 345,
+              margin: 2,
               borderRadius: 2,
-              marginBottom: "16px",
-              objectFit: "cover",
+              boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
+              transition: "transform 0.3s ease, box-shadow 0.3s ease",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              textAlign: "center",
+              padding: "16px",
+              "&:hover": {
+                transform: "scale(1.05)",
+                boxShadow: "0px 8px 20px rgba(0, 0, 0, 0.2)",
+              },
             }}
-          />
-
-          <CardContent sx={{ flexGrow: 1 }}>
-            <Typography
-              variant="h6"
-              sx={{
-                fontWeight: "bold",
-                marginBottom: "8px",
-                fontFamily: "fontFamily",
-              }}
-            >
-              {cards.title}
-            </Typography>
-            <Typography
-              variant="body2"
-              color="text.secondary"
-              sx={{ fontFamily: "fontFamily" }}
-            >
-              {cards.description}
-            </Typography>
-          </CardContent>
-          <CardActions
-            sx={{ display: "flex", justifyContent: "center", width: "100%" }}
           >
-            <Button
+            <CardMedia
+              component="img"
+              image={cards.image}
+              alt={cards.title}
               sx={{
-                backgroundColor: "#ff5722",
-                color: "#fff",
-                fontWeight: "bold",
-                textTransform: "uppercase",
-                "&:hover": { backgroundColor: "#e64a19" },
-                fontFamily: "fontFamily",
+                width: "100%",
+                height: "auto",
+                maxHeight: "140px",
+                borderRadius: 2,
+                marginBottom: "16px",
+                objectFit: "cover",
               }}
-              onClick={() => navigate(cards.link)}
+            />
+
+            <CardContent sx={{ flexGrow: 1 }}>
+              <Typography
+                variant="h6"
+                sx={{
+                  fontWeight: "bold",
+                  marginBottom: "8px",
+                  fontFamily: "fontFamily",
+                }}
+              >
+                {cards.title}
+              </Typography>
+              <Typography
+                variant="body2"
+                color="text.secondary"
+                sx={{ fontFamily: "fontFamily" }}
+              >
+                {cards.description}
+              </Typography>
+            </CardContent>
+            <CardActions
+              sx={{ display: "flex", justifyContent: "center", width: "100%" }}
             >
-              {cards.buttonDescription}
-            </Button>
-          </CardActions>
-        </Card>
-      ))}
-    </section>
+              <Button
+                sx={{
+                  backgroundColor: "#ff5722",
+                  color: "#fff",
+                  fontWeight: "bold",
+                  textTransform: "uppercase",
+                  "&:hover": { backgroundColor: "#e64a19" },
+                  fontFamily: "fontFamily",
+                }}
+                onClick={() => navigate(cards.link)}
+              >
+                {cards.buttonDescription}
+              </Button>
+            </CardActions>
+          </Card>
+        ))}
+      </section>
+    </div>
   );
 };
 
