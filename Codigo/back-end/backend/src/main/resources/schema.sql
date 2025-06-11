@@ -99,8 +99,8 @@ CREATE TABLE IF NOT EXISTS db_donation (
 -- Tabela de Doação de Alimentos (Herda de Donation)
 CREATE TABLE IF NOT EXISTS db_food (
                                        id INT PRIMARY KEY,
-                                       isPerishable BOOLEAN NOT NULL,
-                                       expirationDate TIMESTAMP,
+                                       is_perishable BOOLEAN NOT NULL,
+                                       expiration_date TIMESTAMP,
                                        quantity FLOAT NOT NULL,
                                        unit ENUM('KG', 'PACKAGE', 'UNIT') NOT NULL,
                                        category ENUM('FRUITS', 'GRAINS', 'MILK') NOT NULL,

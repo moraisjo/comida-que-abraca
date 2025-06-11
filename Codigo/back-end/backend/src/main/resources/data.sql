@@ -92,7 +92,7 @@ INSERT INTO db_donation (
       ('Luvas de Inverno', 'Luvas para proteção das mãos no frio', 'CLOTHING', 90, 'contato@doacao.com', 'Entrega via transportadora', '2025-06-02 10:00:00', '2025-06-15 00:00:00', NULL, NULL, 'DELIVERY', 'DONATED', 'http://example.com/photos/luvas.jpg', 2, 3, 1);
 
 
-INSERT INTO db_food (id, isPerishable, expirationDate, quantity, unit, category) VALUES
+INSERT INTO db_food (id, is_perishable, expiration_date, quantity, unit, category) VALUES
   (1, TRUE, '2025-09-10', 5.0, 'KG', 'GRAINS'),
   (2, TRUE, '2025-10-05', 5.0, 'KG', 'GRAINS'),
   (3, TRUE, '2025-12-20', 3.0, 'KG', 'GRAINS'),
