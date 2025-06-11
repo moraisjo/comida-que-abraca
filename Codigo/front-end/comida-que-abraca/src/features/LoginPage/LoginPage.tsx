@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 import {
   TextField,
   Button,
@@ -8,16 +8,16 @@ import {
   Box,
   Paper,
   Alert,
-} from '@mui/material';
-import api from '../../api/axios';
-import { useNavigate } from 'react-router-dom';
-import logo from '../../assets/comida-que-abraca-logo.png';
-import { useAuth } from '../../context/AuthContext';
+} from "@mui/material";
+import api from "../../api/axios";
+import { useNavigate } from "react-router-dom";
+import logo from "../../assets/comida-que-abraca-logo.png";
+import { useAuth } from "../../context/AuthContext";
 
 export default function LoginPage() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [errorMsg, setErrorMsg] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [errorMsg, setErrorMsg] = useState("");
   const [pendingConsentCheck, setPendingConsentCheck] = useState(false);
   const navigate = useNavigate();
   const { decodedUser, setAuthData } = useAuth();
@@ -25,30 +25,29 @@ export default function LoginPage() {
   const checkLgpdConsent = async () => {
     try {
       const response = await api.get(`/lgpd/consent/${decodedUser?.userId}`);
-      if(response.data.consentDateTime == null) {
-        navigate('/lgpd');        
+      if (response.data.consentDateTime == null) {
+        navigate("/lgpd");
         return false;
       } else {
-        navigate('/');
+        navigate("/");
         return true;
       }
     } catch (error: any) {
-      console.error('Erro ao verificar consentimento LGPD:', error);
       return false;
     }
-  }
+  };
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    setErrorMsg('');
+    setErrorMsg("");
 
     try {
-      const response = await api.post('/login', { email, password });
+      const response = await api.post("/login", { email, password });
       const { token } = response.data;
       setAuthData({ token });
       setPendingConsentCheck(true);
     } catch (error: any) {
-      setErrorMsg(error.response?.data?.statusText || 'Erro ao fazer login.');
+      setErrorMsg(error.response?.data?.statusText || "Erro ao fazer login.");
     }
   };
 
@@ -69,7 +68,7 @@ export default function LoginPage() {
         <Box
           component="form"
           onSubmit={handleLogin}
-          sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}
+          sx={{ display: "flex", flexDirection: "column", gap: 2 }}
         >
           <TextField
             label="E-mail"
@@ -98,7 +97,7 @@ export default function LoginPage() {
         </Box>
 
         <Typography variant="body2" align="center" sx={{ mt: 2 }}>
-          Ainda não tem cadastro?{' '}
+          Ainda não tem cadastro?{" "}
           <Link href="/parceiro/cadastro" underline="hover">
             Clique aqui!
           </Link>

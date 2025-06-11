@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 // Tipagem para a prop onImageUploaded
 interface ImageUploadProps {
-  onImageUploaded: (url: string) => void; 
+  onImageUploaded: (url: string) => void;
 }
 
 const ImageUpload: React.FC<ImageUploadProps> = ({ onImageUploaded }) => {
@@ -17,7 +17,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({ onImageUploaded }) => {
       try {
         const formData = new FormData();
         formData.append("file", file);
-        formData.append("upload_preset", "ongcomidaqueabraca"); 
+        formData.append("upload_preset", "ongcomidaqueabraca");
 
         const response = await fetch(
           "https://api.cloudinary.com/v1_1/dipvumtkf/image/upload",
@@ -29,7 +29,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({ onImageUploaded }) => {
 
         const data = await response.json();
         const imageUrl = data.secure_url;
-        onImageUploaded(imageUrl); 
+        onImageUploaded(imageUrl);
       } catch (error) {
         console.error("Erro no upload:", error);
       } finally {

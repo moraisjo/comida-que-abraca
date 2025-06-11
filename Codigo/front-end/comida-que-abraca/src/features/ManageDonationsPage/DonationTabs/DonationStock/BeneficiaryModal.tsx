@@ -47,37 +47,32 @@ const BeneficiaryModal: React.FC<BeneficiaryModalProps> = ({
   };
 
   const handleDonate = async () => {
-  if (!donation.id || !selectedPartner) {
-    console.error("ID da doação ou do beneficiário não definido.");
-    return;
-  }
-
-  try {
-    const response = await fetch(
-      `http://localhost:8080/api/donation/update-output/${donation.id}/${selectedPartner.id}`,
-      {
-        method: "PUT",
-      }
-    );
-
-    if (!response.ok) {
-      throw new Error(`Erro ao fazer a doação: ${response.status}`);
+    if (!donation.id || !selectedPartner) {
+      console.error("ID da doação ou do beneficiário não definido.");
+      return;
     }
 
-    console.log(
-      "Doação feita com sucesso para o beneficiário:",
-      selectedPartner
-    );
+    try {
+      const response = await fetch(
+        `http://localhost:8080/api/donation/update-output/${donation.id}/${selectedPartner.id}`,
+        {
+          method: "PUT",
+        }
+      );
 
-    setShowSuccess(true);
-    setTimeout(() => {
-      setShowSuccess(false);
-      handleCloseModal(); // ✅ fechar modal após mostrar alerta
-    }, 3000);
-  } catch (error: any) {
-    console.error("Erro ao processar a doação:", error.message);
-  }
-};
+      if (!response.ok) {
+        throw new Error(`Erro ao fazer a doação: ${response.status}`);
+      }
+
+      setShowSuccess(true);
+      setTimeout(() => {
+        setShowSuccess(false);
+        handleCloseModal();
+      }, 3000);
+    } catch (error: any) {
+      console.error("Erro ao processar a doação:", error.message);
+    }
+  };
 
   return (
     <Modal

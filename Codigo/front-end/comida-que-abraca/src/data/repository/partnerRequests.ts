@@ -13,7 +13,6 @@ class PartnerRequestsRepository {
       });
       return response.data;
     } catch (error) {
-      console.error("Erro ao criar solicitação:", error);
       throw error;
     }
   }
@@ -23,7 +22,6 @@ class PartnerRequestsRepository {
       const response = await api.get<PartnerRequest[]>(API_URL);
       return response.data;
     } catch (error) {
-      console.error("Erro ao obter solicitações:", error);
       throw error;
     }
   }
@@ -33,7 +31,6 @@ class PartnerRequestsRepository {
       const response = await api.get<PartnerRequest[]>(`${API_URL}/${userId}`);
       return response.data;
     } catch (error) {
-      console.error("Erro ao obter solicitações do usuário:", error);
       throw error;
     }
   }

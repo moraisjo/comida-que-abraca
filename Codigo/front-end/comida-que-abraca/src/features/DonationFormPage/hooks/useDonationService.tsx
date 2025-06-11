@@ -22,7 +22,6 @@ export function useDonationService(): UseDonationServiceReturn {
       return response;
     } catch (err: any) {
       setError(err);
-      console.error("Erro no createDonation hook:", err);
     } finally {
       setLoading(false);
     }

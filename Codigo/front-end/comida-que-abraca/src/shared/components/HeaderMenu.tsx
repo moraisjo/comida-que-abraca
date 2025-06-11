@@ -206,9 +206,7 @@ export default function HeaderMenu({ isExternalPage }: HeaderMenuProps) {
             open={Boolean(sandwichMenuIsOpen)}
             onClose={handleSandwichMenuClose}
           >
-            {/* TROCAR PRO USER_TYPE!!!!!!!!!! ESSA FOI UMA SOLUÇÃO PALIATIVA */}
-            {/* Itens dos parceiros */}
-            {decodedUser && decodedUser?.userId != "1" && (
+            {decodedUser && decodedUser.userRole == "PARTNER" && (
               <>
                 <MenuItem
                   onClick={() => {
@@ -262,9 +260,7 @@ export default function HeaderMenu({ isExternalPage }: HeaderMenuProps) {
               </>
             )}
 
-            {/* TROCAR PRO USER_TYPE!!!!!!!!!! ESSA FOI UMA SOLUÇÃO PALIATIVA */}
-            {/* Itens da ONG */}
-            {decodedUser && decodedUser?.userId == "1" && (
+            {decodedUser && decodedUser.userRole == "COLLABORATOR" && (
               <>
                 <MenuItem
                   onClick={() => {

@@ -81,7 +81,6 @@ const SignUpPage = () => {
         alert("Falha ao cadastrar parceiro. Tente novamente.");
       }
     } catch (error) {
-      console.error("Erro:", error);
       alert("Ocorreu um erro. Tente novamente.");
     }
   };
@@ -90,97 +89,97 @@ const SignUpPage = () => {
     <>
       <HeaderMenu isExternalPage={true} />
       <Container sx={{ p: 4, mt: 2 }}>
-          <Box>
-            <Stack alignItems="center" spacing={2}>
-              <Box sx={{ display: "flex", alignItems: "center" }}>
-                <Typography variant="h5" color="#FF5722" marginRight={1}>
-                  Cadastro de parceiro
-                </Typography>
-                <User />
-              </Box>
-            </Stack>
-            <form onSubmit={handleSubmit}>
-              <TextField
-                label="Nome"
-                name="name"
-                value={formData.name}
-                onChange={handleChange}
-                fullWidth
-                margin="normal"
-                required
-              />
-              <TextField
-                label="E-mail"
-                name="email"
-                type="email"
-                value={formData.email}
-                onChange={handleChange}
-                fullWidth
-                margin="normal"
-                required
-              />
-              <TextField
-                label="Senha"
-                name="password"
-                type="password"
-                value={formData.password}
-                onChange={handleChange}
-                fullWidth
-                margin="normal"
-                required
-              />
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    name="wantsToDonate"
-                    checked={formData.wantsToDonate}
-                    onChange={handleChange}
-                  />
-                }
-                label="Deseja doar"
-              />
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    name="wantsToReceiveDonations"
-                    checked={formData.wantsToReceiveDonations}
-                    onChange={handleChange}
-                  />
-                }
-                label="Deseja receber doações"
-              />
-              <FormControl fullWidth margin="normal" required>
-                <InputLabel>Tipo de Pessoa Jurídica</InputLabel>
-                <Select
-                  name="legalEntityType"
-                  value={formData.legalEntityType}
+        <Box>
+          <Stack alignItems="center" spacing={2}>
+            <Box sx={{ display: "flex", alignItems: "center" }}>
+              <Typography variant="h5" color="#FF5722" marginRight={1}>
+                Cadastro de parceiro
+              </Typography>
+              <User />
+            </Box>
+          </Stack>
+          <form onSubmit={handleSubmit}>
+            <TextField
+              label="Nome"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              fullWidth
+              margin="normal"
+              required
+            />
+            <TextField
+              label="E-mail"
+              name="email"
+              type="email"
+              value={formData.email}
+              onChange={handleChange}
+              fullWidth
+              margin="normal"
+              required
+            />
+            <TextField
+              label="Senha"
+              name="password"
+              type="password"
+              value={formData.password}
+              onChange={handleChange}
+              fullWidth
+              margin="normal"
+              required
+            />
+            <FormControlLabel
+              control={
+                <Checkbox
+                  name="wantsToDonate"
+                  checked={formData.wantsToDonate}
                   onChange={handleChange}
-                >
-                  {legalEntityTypes.map((type) => (
-                    <MenuItem key={type.value} value={type.value}>
-                      {type.label}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
-              <Button
-                type="submit"
-                variant="contained"
-                color="primary"
-                fullWidth
-                sx={{ mt: 2 }}
+                />
+              }
+              label="Deseja doar"
+            />
+            <FormControlLabel
+              control={
+                <Checkbox
+                  name="wantsToReceiveDonations"
+                  checked={formData.wantsToReceiveDonations}
+                  onChange={handleChange}
+                />
+              }
+              label="Deseja receber doações"
+            />
+            <FormControl fullWidth margin="normal" required>
+              <InputLabel>Tipo de Pessoa Jurídica</InputLabel>
+              <Select
+                name="legalEntityType"
+                value={formData.legalEntityType}
+                onChange={handleChange}
               >
-                Cadastrar
-              </Button>
-            </form>
-          </Box>
+                {legalEntityTypes.map((type) => (
+                  <MenuItem key={type.value} value={type.value}>
+                    {type.label}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+            <Button
+              type="submit"
+              variant="contained"
+              color="primary"
+              fullWidth
+              sx={{ mt: 2 }}
+            >
+              Cadastrar
+            </Button>
+          </form>
+        </Box>
 
-          <Typography variant="body2" align="center" sx={{ mt: 2 }}>
-            Já possui cadastro?{" "}
-            <Link href="/login" underline="hover">
-              Clique aqui!
-            </Link>
-          </Typography>
+        <Typography variant="body2" align="center" sx={{ mt: 2 }}>
+          Já possui cadastro?{" "}
+          <Link href="/login" underline="hover">
+            Clique aqui!
+          </Link>
+        </Typography>
       </Container>
       <Footer />
     </>

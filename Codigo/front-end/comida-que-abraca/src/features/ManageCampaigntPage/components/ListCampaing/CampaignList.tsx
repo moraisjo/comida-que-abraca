@@ -69,15 +69,11 @@ const CampaignList: React.FC<CampaignListProps> = ({ onCreate }) => {
 
   useEffect(() => {
     const fetchCampaigns = async () => {
-      try {
-        const response =
-          statusFilter === "ACTIVE"
-            ? await getActiveCampaigns()
-            : await getInactiveCampaigns();
-        setCampaigns(response);
-      } catch (error) {
-        console.error("Erro ao carregar campanhas:", error);
-      }
+      const response =
+        statusFilter === "ACTIVE"
+          ? await getActiveCampaigns()
+          : await getInactiveCampaigns();
+      setCampaigns(response);
     };
 
     fetchCampaigns();
@@ -136,7 +132,6 @@ const CampaignList: React.FC<CampaignListProps> = ({ onCreate }) => {
         );
       } catch (err: unknown) {
         const error = err as AxiosError;
-        console.error(error);
         setFeedbackMessage(
           "Erro ao salvar a campanha: " + (error?.message || "")
         );

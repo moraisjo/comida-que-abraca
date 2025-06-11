@@ -42,7 +42,6 @@ export const useCampaignService = () => {
     try {
       return await campaignRepository.getCampaigns();
     } catch (error) {
-      console.error("Erro ao buscar campanhas ativas:", error);
       return [];
     }
   };
@@ -51,7 +50,6 @@ export const useCampaignService = () => {
     try {
       return await campaignRepository.getInactiveCampaigns();
     } catch (error) {
-      console.error("Erro ao buscar campanhas inativas:", error);
       return [];
     }
   };

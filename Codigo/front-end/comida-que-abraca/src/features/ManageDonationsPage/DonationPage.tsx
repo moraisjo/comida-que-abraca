@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useTheme } from "@mui/material/styles";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
@@ -9,9 +9,6 @@ import DonationPendingDelivery from "./DonationTabs/DonationsPendingDelivery/Don
 import CustomTabPanel from "../../shared/components/CustomTabPanel/CustomTabPanel";
 import DonationStock from "./DonationTabs/DonationStock/DonationStock";
 import { Inbox, Truck, Package } from "react-feather";
-import axios from "axios";
-import { useAuth } from "../../context/AuthContext";
-import PartnerDonations from "../PartnerDonations/PartnerDonationsPage";
 import Footer from "../../shared/components/Footer/Footer";
 
 function getTabAccessibilityProps(index: number) {
@@ -24,43 +21,9 @@ function getTabAccessibilityProps(index: number) {
 const DonationPage: React.FC = () => {
   const [value, setValue] = useState(0);
   const theme = useTheme();
-  const [isAdmin, setIsAdmin] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const { decodedUser } = useAuth();
-  const userId = decodedUser?.userId ? Number(decodedUser.userId) : null;
-
-  useEffect(() => {
-    const checkAdminRole = async () => {
-      if (userId) {
-        try {
-          const response = await axios.get(
-            `http://localhost:8080/api/ong-collaborator/is-admin/${userId}`
-          );
-          setIsAdmin(response.data);
-        } catch {
-          setIsAdmin(false);
-        }
-      }
-    };
-
-    checkAdminRole();
-  }, [userId]);
 
   const handleChange = (_event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
-  };
-
-  const handleOpenModal = () => {
-    setIsModalOpen(true);
-  };
-
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-  };
-
-  const handleDonationSuccess = () => {
-    setIsModalOpen(false);
   };
 
   return (
@@ -132,12 +95,6 @@ const DonationPage: React.FC = () => {
         <CustomTabPanel value={value} index={2}>
           <DonationStock />
         </CustomTabPanel>
-
-        {!isAdmin && (
-          <CustomTabPanel value={value} index={3}>
-            <PartnerDonations />
-          </CustomTabPanel>
-        )}
       </Box>
       <Footer />
     </>
