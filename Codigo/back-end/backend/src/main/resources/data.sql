@@ -91,3 +91,51 @@ INSERT INTO db_donation (
       ('Meias Térmicas', 'Meias térmicas para proteção contra o frio', 'CLOTHING', 80, 'contato@doacao.com', 'Retirada na sede', '2025-06-01 09:00:00', '2025-06-12 00:00:00', NULL, NULL, 'PICKUP', 'STOCK', 'http://example.com/photos/meias.jpg', 3, 2, 1),
       ('Luvas de Inverno', 'Luvas para proteção das mãos no frio', 'CLOTHING', 90, 'contato@doacao.com', 'Entrega via transportadora', '2025-06-02 10:00:00', '2025-06-15 00:00:00', NULL, NULL, 'DELIVERY', 'DONATED', 'http://example.com/photos/luvas.jpg', 2, 3, 1);
 
+
+INSERT INTO db_food (id, is_perishable, expiration, quantity, unit, category) VALUES
+  (1, TRUE, '2025-09-10', 5.0, 'KG', 'GRAINS'),
+  (2, TRUE, '2025-10-05', 5.0, 'KG', 'GRAINS'),
+  (3, TRUE, '2025-12-20', 3.0, 'KG', 'GRAINS'),
+  (4, TRUE, '2025-04-20', 2.0, 'KG', 'MILK'),
+  (5, TRUE, '2025-07-10', 1.0, 'KG', 'GRAINS'),
+  (6, FALSE, NULL, 2.0, 'PACKAGE', 'MILK'),
+  (7, TRUE, '2025-09-15', 3.0, 'KG', 'GRAINS'),
+  (8, TRUE, '2024-04-15', 5.0, 'KG', 'GRAINS'),
+  (9, TRUE, '2024-04-20', 4.0, 'KG', 'GRAINS'),
+  (10, TRUE, '2024-03-10', 3.0, 'KG', 'GRAINS'),
+  (11, FALSE, NULL, 2.0, 'KG', 'MILK'),
+  (12, FALSE, NULL, 1.0, 'KG', 'GRAINS'),
+  (12, FALSE, NULL, 3.0, 'PACKAGE', 'GRAINS'),
+  (14, FALSE, NULL, 2.0, 'PACKAGE', 'GRAINS'),
+  (15, TRUE, '2024-04-20', 2.5, 'KG', 'GRAINS'),
+  (16, FALSE, NULL, 2.0, 'PACKAGE', 'GRAINS'),
+  (17, FALSE, NULL, 1.0, 'KG', 'GRAINS'),
+  (18, FALSE, NULL, 1.5, 'PACKAGE', 'GRAINS'),
+  (19, TRUE, '2024-06-15', 2.0, 'KG', 'GRAINS'),
+  (20, FALSE, NULL, 1.5, 'UNIT', 'GRAINS'),
+  (1, FALSE, NULL, 1.0, 'UNIT', 'GRAINS'),
+  (2, FALSE, NULL, 2.0, 'PACKAGE', 'GRAINS'),
+  (3, TRUE, '2024-07-15', 1.5, 'KG', 'MILK'),
+  (4, TRUE, '2024-06-15', 4.0, 'KG', 'FRUITS'),
+  (5, TRUE, '2024-07-05', 4.0, 'KG', 'FRUITS'),
+  (6, TRUE, '2024-07-05', 3.5, 'KG', 'FRUITS'),
+  (7, TRUE, '2024-07-10', 3.0, 'KG', 'FRUITS'),
+  (8, FALSE, NULL, 6.0, 'UNIT', 'GRAINS'),
+  (9, TRUE, '2024-07-25', 1.5, 'KG', 'MILK'),
+  (10, TRUE, '2024-07-20', 2.0, 'KG', 'MILK'),
+  (11, TRUE, '2024-07-25', 5.0, 'KG', 'GRAINS'),
+  (12, TRUE, '2024-07-28', 5.0, 'KG', 'GRAINS'),
+  (13, TRUE, '2024-08-25', 5.0, 'KG', 'GRAINS'),
+  (14, TRUE, '2024-08-27', 5.0, 'KG', 'GRAINS'),
+  (15, TRUE, '2024-08-28', 3.0, 'KG', 'GRAINS');
+
+
+INSERT INTO db_money (id, value, category)
+VALUES
+    (4, 150.00, 'PIX'),
+    (5, 100.00, 'CASH'),
+    (6, 200.00, 'TRANSFER'),
+    (7, 75.00, 'PIX'),
+    (8, 120.00, 'CASH'),
+    (9, 180.00, 'TRANSFER');
+
