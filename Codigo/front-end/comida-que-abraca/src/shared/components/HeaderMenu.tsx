@@ -62,7 +62,7 @@ export default function HeaderMenu({ isExternalPage }: HeaderMenuProps) {
   const handleLogout = () => {
     logout(); // Reseta o contexto, removendo os dados de autenticação
     handleProfileMenuClose();
-    navigate("/login"); // Redireciona para a página de login ou pública
+    navigate("/"); // Redireciona para a página pública
   };
 
   const StyledAppBar = styled(AppBar)(() => ({

@@ -44,6 +44,9 @@ public abstract class UserEntity {
     @Column(name = "lgpd_consent_date")
     private LocalDateTime lgpdConsentDate;
 
+    @Column(name = "user_role")
+    private String userRole;
+
     public UserEntity(String name, String email, String password, String phone, String address) {
         this.name = name;
         this.email = email;
