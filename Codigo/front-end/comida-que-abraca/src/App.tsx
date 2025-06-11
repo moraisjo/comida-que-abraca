@@ -7,6 +7,7 @@ import DonationPage from "./features/ManageDonationsPage/DonationPage";
 import RequestersPage from "./features/RequestersPage/RequestersPage";
 import NotificationPage from "./features/NotificationPage/NotificationPage";
 import PartnerDonationsPage from "./features/PartnerDonations/PartnerDonationsPage";
+import DonationFormPage from "./features/DonationFormPage/DonationFormPage";
 import LoginPage from "./features/LoginPage/LoginPage";
 import SignUpPage from "./features/SignUpPage/SignUpPage";
 import DonorsPage from "./features/DonorsPage/DonorsPage";
@@ -38,8 +39,6 @@ function App() {
             <Route path="/parceiro/cadastro" element={<SignUpPage />} />
             <Route path="/parceiro/campanhas" element={<CampaignsPage />} />
             <Route path="/parceiro/campanhas/:id" element={<InfoCampaign />} />
-            <Route path="/parceiro/doar" element={<DonationFormPage />} />
-            <Route path="/parceiro/solicitacao" element={<RequestFormPage />} />
             <Route path="*" element={<NotFoundPage />} />
             <Route path="/ong/relatorios" element={<ReportPage />} />
             {/* NGO protected routes */}
@@ -53,13 +52,20 @@ function App() {
             </Route>
             {/* Partner protected routes */}
             <Route element={<PartnerRoute />}>
-              <Route path="/parceiro/doacoes" element={<PartnerDonationsPage />} />
-              <Route path="/parceiro/solicitacao" element={<RequestFormPage />} />
+              <Route
+                path="/parceiro/doacoes"
+                element={<PartnerDonationsPage />}
+              />
+              <Route path="/parceiro/doar" element={<DonationFormPage />} />
+              <Route
+                path="/parceiro/solicitacao"
+                element={<RequestFormPage />}
+              />
             </Route>
           </Routes>
         </Router>
       </ThemeProvider>
-    </AuthProvider >
+    </AuthProvider>
   );
 }
 
