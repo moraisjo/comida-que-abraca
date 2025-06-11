@@ -36,12 +36,12 @@ function App() {
             <Route path="/page-not-found" element={<NotFoundPage />} />
             <Route path="/parceiro/cadastro" element={<SignUpPage />} />
             <Route path="/parceiro/campanhas" element={<CampaignsPage />} />
+            <Route path="/ong/relatorios" element={<ReportPage />} />
             {/* NGO protected routes */}
             <Route element={<OngRoute />}>
               <Route path="/ong/ranking" element={<RankingPage />} />
               <Route path="/ong/campanhas" element={<CampanhasPage />} />
               <Route path="/ong/doacoes" element={<DonationPage />} />
-              <Route path="/ong/relatorios" element={<ReportPage />} />
               <Route path="/ong/doadores" element={<DonorsPage />} />
               <Route path="/ong/solicitantes" element={<RequestersPage />} />
               <Route path="/ong/notificacoes" element={<NotificationPage />} />
