@@ -112,22 +112,7 @@ INSERT INTO db_food (id, is_perishable, expiration, quantity, unit, category) VA
   (17, FALSE, NULL, 1.0, 'KG', 'GRAINS'),
   (18, FALSE, NULL, 1.5, 'PACKAGE', 'GRAINS'),
   (19, TRUE, '2024-06-15', 2.0, 'KG', 'GRAINS'),
-  (20, FALSE, NULL, 1.5, 'UNIT', 'GRAINS'),
-  (1, FALSE, NULL, 1.0, 'UNIT', 'GRAINS'),
-  (2, FALSE, NULL, 2.0, 'PACKAGE', 'GRAINS'),
-  (3, TRUE, '2024-07-15', 1.5, 'KG', 'MILK'),
-  (4, TRUE, '2024-06-15', 4.0, 'KG', 'FRUITS'),
-  (5, TRUE, '2024-07-05', 4.0, 'KG', 'FRUITS'),
-  (6, TRUE, '2024-07-05', 3.5, 'KG', 'FRUITS'),
-  (7, TRUE, '2024-07-10', 3.0, 'KG', 'FRUITS'),
-  (8, FALSE, NULL, 6.0, 'UNIT', 'GRAINS'),
-  (9, TRUE, '2024-07-25', 1.5, 'KG', 'MILK'),
-  (10, TRUE, '2024-07-20', 2.0, 'KG', 'MILK'),
-  (11, TRUE, '2024-07-25', 5.0, 'KG', 'GRAINS'),
-  (12, TRUE, '2024-07-28', 5.0, 'KG', 'GRAINS'),
-  (13, TRUE, '2024-08-25', 5.0, 'KG', 'GRAINS'),
-  (14, TRUE, '2024-08-27', 5.0, 'KG', 'GRAINS'),
-  (15, TRUE, '2024-08-28', 3.0, 'KG', 'GRAINS');
+  (20, FALSE, NULL, 1.5, 'UNIT', 'GRAINS');
 
 
 INSERT INTO db_money (id, value, category)
