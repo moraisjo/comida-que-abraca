@@ -20,6 +20,16 @@ class CampaignRepository {
     return response.data;
   }
 
+  async getCampaigns(): Promise<Campaign[]> {
+    try {
+      const response = await api.get<Campaign[]>(`${API_URL}/campaigns`);
+      return response.data;
+    } catch (error) {
+      console.error("Erro ao buscar campanhas ativas:", error);
+      throw error;
+    }
+  }
+
   async getActiveCampaigns(): Promise<Campaign[]> {
     try {
       const response = await api.get<Campaign[]>(`${API_URL}/active-campaigns`);

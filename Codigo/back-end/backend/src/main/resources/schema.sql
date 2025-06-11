@@ -1,8 +1,5 @@
 DROP TABLE IF EXISTS db_report;
 DROP TABLE IF EXISTS db_notification;
-DROP TABLE IF EXISTS db_money;
-DROP TABLE IF EXISTS db_item;
-DROP TABLE IF EXISTS db_food;
 DROP TABLE IF EXISTS db_donation;
 DROP TABLE IF EXISTS db_campaign;
 DROP TABLE IF EXISTS db_ong_collaborator;
@@ -54,56 +51,45 @@ CREATE TABLE IF NOT EXISTS db_campaign (
 
 -- Tabela de Doações
 CREATE TABLE IF NOT EXISTS db_donation (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(255) NOT NULL,
-    arriving_date DATE NOT NULL,
-    request_date DATE,
-    stock_entry_date DATE,
-    stock_exit_date DATE,
-    delivery ENUM('PICKUP', 'DELIVERY') NOT NULL,
-    status ENUM(
-        'PENDING',
-        'STOCK',
-        'DONATED',
-        'ACCEPTED',
-        'REJECTED',
-        'PENDING_DELIVERY',
-        'CANCELED_DELIVERY'
-    ) NOT NULL, -- status já com todos os valores possíveis
-    photo_url VARCHAR(255),
-    donor_id INT,
-    beneficiary_id INT,
-    campaign_id INT,
-    FOREIGN KEY (donor_id) REFERENCES db_partner(id),
-    FOREIGN KEY (beneficiary_id) REFERENCES db_partner(id),
-    FOREIGN KEY (campaign_id) REFERENCES db_campaign(id)
-);
-
--- Tabela de Doação de Alimentos (Herda de Donation)
-CREATE TABLE IF NOT EXISTS db_food (
-    id INT PRIMARY KEY,
-    is_perishable BOOLEAN NOT NULL,
-    expiration TIMESTAMP,
-    quantity FLOAT NOT NULL,
-    unit ENUM('KG', 'PACKAGE', 'UNIT') NOT NULL,
-    category ENUM('FRUITS', 'GRAINS', 'MILK') NOT NULL,
-    FOREIGN KEY (id) REFERENCES db_donation(id)
-);
-
--- Tabela de Itens (Herda de Donation)
-CREATE TABLE IF NOT EXISTS db_item (
-    id INT PRIMARY KEY,
-    quantity INT NOT NULL,
-    category ENUM('CLOTHING', 'FURNITURE', 'APPLIANCES', 'ELECTRONICS') NOT NULL,
-    FOREIGN KEY (id) REFERENCES db_donation(id)
-);
-
--- Tabela de Doação em Dinheiro (Herda de Donation)
-CREATE TABLE IF NOT EXISTS db_money (
-    id INT PRIMARY KEY,
-    value FLOAT NOT NULL,
-    category ENUM('PIX', 'CASH', 'TRANSFER') NOT NULL,
-    FOREIGN KEY (id) REFERENCES db_donation(id)
+   id INT AUTO_INCREMENT PRIMARY KEY,
+   name VARCHAR(255) NOT NULL,
+   description TEXT NOT NULL,
+   category ENUM(
+          'FOOD',
+          'PERISHABLE_FOOD',
+          'BED_BATH',
+          'CLEANING',
+          'PERSONAL_CARE',
+          'ELECTRONICS',
+          'FURNITURE',
+          'HYGIENE',
+          'CLOTHING',
+          'APPLIANCES'
+          ) NOT NULL,
+   quantity INT NOT NULL,
+   contact_info VARCHAR(255) NULL,
+   delivery_description VARCHAR(255) NOT NULL,
+   request_date DATETIME NOT NULL,
+   arriving_date DATETIME NULL,
+   stock_entry_date DATETIME NULL,
+   stock_exit_date DATETIME NULL,
+   delivery ENUM('PICKUP', 'DELIVERY') NOT NULL,
+   status ENUM(
+          'PENDING',
+          'STOCK',
+          'DONATED',
+          'ACCEPTED',
+          'REJECTED',
+          'PENDING_DELIVERY',
+          'CANCELED_DELIVERY'
+          ) NOT NULL,
+   photo_url VARCHAR(255) NOT NULL,
+   donor_id INT NOT NULL,
+   beneficiary_id INT NULL,
+   campaign_id INT NULL,
+   FOREIGN KEY (donor_id) REFERENCES db_partner(id),
+   FOREIGN KEY (beneficiary_id) REFERENCES db_partner(id),
+   FOREIGN KEY (campaign_id) REFERENCES db_campaign(id)
 );
 
 -- Notifications Table

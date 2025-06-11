@@ -1,6 +1,8 @@
 package comidaqueabraca.backend.controller;
 
 import java.util.List;
+
+import comidaqueabraca.backend.dto.CreateDonationRequestDTO;
 import comidaqueabraca.backend.dto.PendingDonationDTO;
 import comidaqueabraca.backend.dto.response.ResponseDTO;
 import comidaqueabraca.backend.enums.DonationStatus;
@@ -29,25 +31,24 @@ public class DonationController {
     @Autowired
     private DonationRepository donationRepository;
 
-    @Operation(summary = "Cadastra uma nova doação")
+    @Operation(summary = "Solicitação de uma nova doação")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "201", description = "Doação cadastrada com sucesso"),
-            @ApiResponse(responseCode = "400", description = "Erro de validação dos dados"),
-            @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
+            @ApiResponse(responseCode = "201", description = "Doação criada com sucesso"),
+            @ApiResponse(responseCode = "400", description = "Erro nos dados da requisição"),
+            @ApiResponse(responseCode = "500", description = "Erro interno no servidor")
     })
-    @PostMapping("/create-donation")
-    public ResponseEntity<ResponseDTO> createDonation(@Valid @RequestBody DonationEntity donation, BindingResult result) {
-        if (result.hasErrors()) {
-            StringBuilder errors = new StringBuilder();
-            result.getAllErrors().forEach(error -> errors.append(error.getDefaultMessage()).append(". "));
-            return ResponseEntity.badRequest().body(new ResponseDTO(errors.toString(), 400));
-        }
-
+    @PostMapping("/request")
+    public ResponseEntity<ResponseDTO> requestDonation(@RequestBody @Valid CreateDonationRequestDTO request) {
         try {
-            donationService.createDonation(donation);
-            return ResponseEntity.ok(new ResponseDTO("Cadastro realizado com sucesso!", 200));
+            donationService.createDonation(request);
+            ResponseDTO response = new ResponseDTO("Doação solicitada com sucesso!", 201);
+            return ResponseEntity.status(201).body(response);
+        } catch (RuntimeException e) {
+            ResponseDTO response = new ResponseDTO(e.getMessage(), 400);
+            return ResponseEntity.status(400).body(response);
         } catch (Exception e) {
-            return ResponseEntity.status(500).body(new ResponseDTO("Erro ao cadastrar doação: " + e.getMessage(), 500));
+            ResponseDTO response = new ResponseDTO("Erro interno: " + e.getMessage(), 500);
+            return ResponseEntity.status(500).body(response);
         }
     }
 

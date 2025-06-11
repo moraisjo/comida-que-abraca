@@ -1,5 +1,6 @@
 package comidaqueabraca.backend.service;
 
+import comidaqueabraca.backend.dto.CreateDonationRequestDTO;
 import comidaqueabraca.backend.dto.PendingDonationDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,15 +31,32 @@ public class DonationService {
     @Autowired
     private UserRepository userRepository;
 
-    public DonationEntity createDonation(DonationEntity donation) {
-        CampaignEntity campaign = campaignRepository.findById(donation.getCampaign().getId())
-            .orElseThrow(() -> new RuntimeException("Campanha não encontrada"));
+    public void createDonation(CreateDonationRequestDTO request) {
 
-        UserEntity donor = userRepository.findById(donation.getDonor().getId())
-            .orElseThrow(() -> new RuntimeException("Doador não encontrado"));
+        PartnerEntity donor = partnerRepository.findById(request.getDonor())
+                .orElseThrow(() -> new RuntimeException("Doador não encontrado"));
 
+        CampaignEntity campaign = null;
+        if (request.getCampaign() != null) {
+            campaign = campaignRepository.findById(request.getCampaign())
+                    .orElseThrow(() -> new RuntimeException("Campanha não encontrada"));
+        }
+
+        DonationEntity donation = new DonationEntity();
+        donation.setName(request.getName());
+        donation.setDescription(request.getDescription());
+        donation.setCategory(request.getCategory());
+        donation.setQuantity(request.getQuantity());
+        donation.setContactInfo(request.getContactInfo());
+        donation.setDeliveryDescription(request.getDeliveryDescription());
+        donation.setDelivery(request.getDelivery());
+        donation.setPhotoUrl(request.getPhotoUrl());
+        donation.setDonor(donor);
+        donation.setCampaign(campaign);
+        donation.setRequestDate(LocalDateTime.now());
         donation.setStatus(DonationStatus.PENDING);
-        return donationRepository.save(donation);
+
+        donationRepository.save(donation);
     }
 
     public List<DonationEntity> getDonationsStock() {

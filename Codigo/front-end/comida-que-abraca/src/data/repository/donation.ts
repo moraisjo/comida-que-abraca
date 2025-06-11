@@ -1,20 +1,14 @@
 import api from "../../api/axios";
-import axios from "axios";
-import { DonationResponse, PendingDonationResponse, DonationDeliveryPendingResponse, CreateDonationResponse } from "../model/donation";
+import { DonationResponse, PendingDonationResponse, DonationDeliveryPendingResponse } from "../model/donation";
 import { Response } from "../model/response";
 
 const API_URL = "/api/donation";
 
 class DonationRepository {
-  async createDonation(data: CreateDonationResponse): Promise<Response> {
+  async createDonation(data: any): Promise<Response> {
     try {
-      const response = await axios.post<Response>(
-        "http://localhost:8080/api/donation/create-donation",
-        data
-      );
-      console.log(data);
+      const response = await api.post<Response>(`${API_URL}/request`, data);
       return response.data;
-      
     } catch (error) {
       console.error("Erro ao criar doação:", error);
       throw error;

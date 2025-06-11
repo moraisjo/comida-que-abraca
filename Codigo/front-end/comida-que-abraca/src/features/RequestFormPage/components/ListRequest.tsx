@@ -13,17 +13,13 @@ import {
   CircularProgress,
   TablePagination,
   useTheme,
-  Button,
 } from "@mui/material";
 import BackendResponseModal from "../../../shared/components/Modal/BackendResponseModal";
 import { useRequestPartner } from "../hooks/useRequestPartner";
 import { useAuth } from "../../../context/AuthContext";
-import DonationCreate from "../../ManageDonationsPage/DonationCreate/DonationCreate";
 
 const ListRequest: React.FC = () => {
   const theme = useTheme();
-  const [isDonationModalOpen, setIsDonationModalOpen] = useState(false);
-
   const { decodedUser } = useAuth();
   const userId = decodedUser?.userId ? Number(decodedUser.userId) : null;
 
@@ -78,17 +74,6 @@ const ListRequest: React.FC = () => {
   return (
     <>
       <Box p={2}>
-        <Box sx={{ display: 'flex', justifyContent: 'center', mb: 2 }}>
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={() => setIsDonationModalOpen(true)}
-            sx={{ mb: 2 }}
-          >
-            Nova doação
-          </Button>
-        </Box>
-
         <Typography variant="h6" mb={2} color={theme.palette.primary.main}>
           Quero receber doações
         </Typography>
@@ -166,15 +151,6 @@ const ListRequest: React.FC = () => {
         onClose={() => setModalOpen(false)}
         message={modalMessage}
         isSuccess={modalIsSuccess}
-      />
-
-      <DonationCreate
-        open={isDonationModalOpen}
-        onClose={() => setIsDonationModalOpen(false)}
-        onSuccess={() => {
-          setIsDonationModalOpen(false);
-          // Optionally refresh the requests list here if needed
-        }}
       />
     </>
   );

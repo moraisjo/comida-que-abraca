@@ -65,126 +65,29 @@ VALUES
 ('Setembro Sustentável', 'Distribuição de alimentos orgânicos e secos', 'Rua Natureza, 22', '2024-09-08', '2024-09-30', 'https://res.cloudinary.com/dipvumtkf/image/upload/v1745700659/hwxpfgsdhzwghe7c8ot5.jpg', 'FINISHED');
 
 
-INSERT INTO db_donation (name, arriving_date, delivery, status, donor_id, beneficiary_id, campaign_id)
-VALUES 
-('Cobertores Quentes', '2025-06-05', 'DELIVERY', 'ACCEPTED', 1, 2, 1),
-('Cestas Básicas', '2025-07-10', 'PICKUP', 'STOCK', 2, 1, 2),
-('Brinquedos de Natal', '2025-12-10', 'DELIVERY', 'DONATED', 3, 2, 3), 
-('Doação em Pix', '2025-06-15', 'DELIVERY', 'ACCEPTED', 4, 1, 1), -- ID = 4
-('Dinheiro em espécie', '2025-07-05', 'PICKUP', 'PENDING', 5, 2, 2), -- ID = 5
-('Transferência bancária', '2025-12-20', 'DELIVERY', 'PENDING_DELIVERY', 6, 1, 3), -- ID = 6
-('Doação avulsa via Pix', '2025-08-01', 'DELIVERY', 'ACCEPTED', 1, 2, NULL),  -- ID = 7
-('Ajuda emergencial em dinheiro', '2025-08-10', 'PICKUP', 'STOCK', 2, 1, NULL), -- ID = 8
-('Transferência bancária extra', '2025-08-15', 'DELIVERY', 'PENDING_DELIVERY', 3, 2, NULL), -- ID = 9
-('Kits escolares', '2025-01-15', 'DELIVERY', 'DONATED', 2, 3, 4), -- ID = 10
-('Livros Infantis', '2025-05-10', 'DELIVERY', 'ACCEPTED', 4, 2, 7), -- ID = 11
-('Cestas de higiene', '2025-03-10', 'PICKUP', 'ACCEPTED', 3, 1, 5), -- ID = 12
-('Chocolates de Páscoa', '2025-04-10', 'DELIVERY', 'DONATED', 5, 3, 6), -- ID = 13
-('Livros Técnicos', '2025-05-20', 'DELIVERY', 'PENDING_DELIVERY', 1, 2, 7), -- ID = 14
-('Doação espontânea em dinheiro', '2025-06-01', 'PICKUP', 'STOCK', 6, 1, NULL), -- ID = 15
-('Pix voluntário', '2025-06-03', 'DELIVERY', 'ACCEPTED', 2, 3, NULL), -- ID = 16
-('Transferência bancária solidária', '2025-06-07', 'DELIVERY', 'PENDING_DELIVERY', 3, 1, NULL), -- ID = 17
-('Toucas de Lã', '2025-06-03', 'DELIVERY', 'ACCEPTED', 1, 3, 1),
-('Meias Térmicas', '2025-06-12', 'PICKUP', 'STOCK', 3, 2, 1),
-('Luvas de Inverno', '2025-06-22', 'DELIVERY', 'PENDING_DELIVERY', 5, 1, 1),
-('Arroz', '2025-07-02', 'DELIVERY', 'ACCEPTED', 2, 3, 2),
-('Feijão', '2025-07-02', 'DELIVERY', 'ACCEPTED', 2, 3, 2),
-('Enlatados', '2025-07-10', 'PICKUP', 'STOCK', 4, 1, 2),
-('Óleo de Cozinha', '2025-07-14', 'DELIVERY', 'DONATED', 6, 2, 2),
-('Bolas de Natal', '2025-12-05', 'DELIVERY', 'ACCEPTED', 3, 1, 3),
-('Jogos Educativos', '2025-12-12', 'DELIVERY', 'PENDING_DELIVERY', 5, 3, 3),
-('Pelúcias', '2025-12-23', 'PICKUP', 'STOCK', 6, 2, 3),
-('Mochilas Novas', '2025-01-18', 'DELIVERY', 'DONATED', 2, 1, 4),
-('Lápis e Canetas', '2025-01-25', 'PICKUP', 'ACCEPTED', 3, 2, 4),
-('Cadernos', '2025-02-05', 'DELIVERY', 'PENDING_DELIVERY', 1, 3, 4),
-('Sabonetes Antibacterianos', '2025-03-05', 'DELIVERY', 'ACCEPTED', 4, 3, 5),
-('Máscaras de Tecido', '2025-03-18', 'PICKUP', 'STOCK', 5, 2, 5),
-('Álcool em Gel', '2025-03-28', 'DELIVERY', 'DONATED', 6, 1, 5),
-('Cestas de Chocolates', '2025-04-05', 'DELIVERY', 'DONATED', 1, 3, 6),
-('Ovos de Páscoa', '2025-04-10', 'DELIVERY', 'PENDING_DELIVERY', 2, 1, 6),
-('Brinquedos Temáticos', '2025-04-18', 'PICKUP', 'ACCEPTED', 3, 2, 6),
-('Romances Clássicos', '2025-05-04', 'DELIVERY', 'ACCEPTED', 4, 1, 7),
-('Livros Infantis', '2025-05-15', 'PICKUP', 'STOCK', 6, 2, 7),
-('HQs e Mangás', '2025-05-30', 'DELIVERY', 'DONATED', 5, 3, 7),
-('Arroz', '2025-06-10', 'DELIVERY', 'DONATED', 1, 2, 1),
-('Feijão', '2025-07-05', 'DELIVERY', 'ACCEPTED', 2, 3, 2),
-('Macarrão', '2025-12-20', 'PICKUP', 'DONATED', 3, 1, 3),
-('Leite em pó', '2025-01-20', 'DELIVERY', 'STOCK', 4, 2, 4),
-('Óleo de soja', '2025-03-10', 'DELIVERY', 'ACCEPTED', 5, 6, 5),
-('Achocolatado', '2025-04-10', 'PICKUP', 'DONATED', 2, 3, 6),
-('Farinha de trigo', '2025-05-15', 'DELIVERY', 'ACCEPTED', 6, 4, 7),
-('Feijão preto', '2024-01-15', 'DELIVERY', 'STOCK', 1, 3, 8),
-('Arroz integral', '2024-01-20', 'PICKUP', 'DONATED', 2, 5, 9),
-('Açúcar', '2024-01-10', 'DELIVERY', 'ACCEPTED', 3, 6, 10),
-('Café', '2024-01-15', 'PICKUP', 'DONATED', 4, 2, 11),
-('Sal', '2024-01-20', 'DELIVERY', 'STOCK', 5, 1, 12),
-('Biscoitos', '2024-02-10', 'DELIVERY', 'DONATED', 6, 4, 13),
-('Molho de tomate', '2024-02-05', 'PICKUP', 'ACCEPTED', 1, 6, 14),
-('Fubá', '2024-02-20', 'DELIVERY', 'DONATED', 2, 3, 15),
-('Milho em conserva', '2024-02-15', 'DELIVERY', 'STOCK', 3, 5, 16),
-('Pó de café', '2024-02-20', 'PICKUP', 'ACCEPTED', 4, 1, 17),
-('Extrato de tomate', '2024-03-05', 'DELIVERY', 'DONATED', 5, 2, 18),
-('Ervilha', '2024-03-15', 'DELIVERY', 'ACCEPTED', 6, 3, 19),
-('Sardinha enlatada', '2024-03-20', 'PICKUP', 'DONATED', 1, 4, 20),
-('Presunto enlatado', '2024-03-25', 'DELIVERY', 'STOCK', 2, 5, 21),
-('Cereal', '2024-03-30', 'DELIVERY', 'DONATED', 3, 6, 22),
-('Margarina', '2024-06-15', 'PICKUP', 'ACCEPTED', 4, 1, 23),
-('Batata', '2024-06-10', 'DELIVERY', 'DONATED', 5, 2, 24),
-('Cenoura', '2024-06-25', 'DELIVERY', 'STOCK', 6, 3, 25),
-('Beterraba', '2024-06-20', 'PICKUP', 'ACCEPTED', 1, 4, 26),
-('Repolho', '2024-06-18', 'DELIVERY', 'DONATED', 2, 5, 27),
-('Pão', '2024-06-30', 'DELIVERY', 'DONATED', 3, 6, 28),
-('Queijo', '2024-07-10', 'PICKUP', 'STOCK', 4, 1, 29),
-('Iogurte', '2024-07-15', 'DELIVERY', 'ACCEPTED', 5, 2, 30),
-('Frango congelado', '2024-07-18', 'DELIVERY', 'DONATED', 6, 3, 31),
-('Carne moída', '2024-07-22', 'PICKUP', 'DONATED', 1, 4, 32),
-('Arroz', '2024-07-25', 'DELIVERY', 'DONATED', 2, 5, 30),
-('Feijão', '2024-07-27', 'DELIVERY', 'ACCEPTED', 3, 6, 30),
-('Macarrão', '2024-07-28', 'PICKUP', 'STOCK', 4, 1, 30);
+INSERT INTO db_donation (
+    name, description, category, quantity, contact_info, delivery_description,
+    request_date, arriving_date, stock_entry_date, stock_exit_date,
+    delivery, status, photo_url, donor_id, beneficiary_id, campaign_id
+) VALUES
+      ('Cobertores Quentes', 'Doação de cobertores para inverno', 'CLOTHING', 100, 'contato@doacao.com', 'Entrega via caminhão', '2025-05-01 10:00:00', '2025-06-05 00:00:00', NULL, NULL, 'DELIVERY', 'ACCEPTED', 'http://example.com/photos/cobertores.jpg', 1, 2, 1),
+      ('Cestas Básicas', 'Cestas básicas com alimentos não perecíveis', 'FOOD', 50, 'contato@doacao.com', 'Retirada na sede', '2025-06-01 09:00:00', '2025-07-10 00:00:00', NULL, NULL, 'PICKUP', 'STOCK', 'http://example.com/photos/cestas_basicas.jpg', 2, 1, 2),
+      ('Brinquedos de Natal', 'Brinquedos para crianças no Natal', 'PERSONAL_CARE', 30, 'brinquedos@doacao.com', 'Entrega via transportadora', '2025-10-15 08:00:00', '2025-12-10 00:00:00', NULL, NULL, 'DELIVERY', 'DONATED', 'http://example.com/photos/brinquedos.jpg', 3, 2, 3),
+      ('Doação em Pix', 'Doação financeira via Pix', 'PERSONAL_CARE', 1, 'financeiro@doacao.com', 'Transferência bancária', '2025-05-20 12:00:00', '2025-06-15 00:00:00', NULL, NULL, 'DELIVERY', 'ACCEPTED', 'http://example.com/photos/pix.jpg', 4, 1, 1),
+      ('Dinheiro em espécie', 'Doação em dinheiro em espécie', 'PERSONAL_CARE', 1, 'financeiro@doacao.com', 'Retirada pessoalmente', '2025-06-10 15:00:00', '2025-07-05 00:00:00', NULL, NULL, 'PICKUP', 'PENDING', 'http://example.com/photos/dinheiro.jpg', 5, 2, 2),
+      ('Transferência bancária', 'Doação financeira via transferência bancária', 'PERSONAL_CARE', 1, 'financeiro@doacao.com', 'Transferência eletrônica', '2025-11-01 10:00:00', '2025-12-20 00:00:00', NULL, NULL, 'DELIVERY', 'PENDING_DELIVERY', 'http://example.com/photos/transferencia.jpg', 6, 1, 3),
+      ('Doação avulsa via Pix', 'Doação financeira avulsa', 'PERSONAL_CARE', 1, 'financeiro@doacao.com', 'Transferência via Pix', '2025-07-01 10:00:00', '2025-08-01 00:00:00', NULL, NULL, 'DELIVERY', 'ACCEPTED', 'http://example.com/photos/pix_avulsa.jpg', 1, 2, NULL),
+      ('Ajuda emergencial em dinheiro', 'Ajuda financeira emergencial', 'PERSONAL_CARE', 1, 'financeiro@doacao.com', 'Retirada na sede', '2025-07-20 09:00:00', '2025-08-10 00:00:00', NULL, NULL, 'PICKUP', 'STOCK', 'http://example.com/photos/ajuda_dinheiro.jpg', 2, 1, NULL),
+      ('Transferência bancária extra', 'Transferência extra para campanhas', 'PERSONAL_CARE', 1, 'financeiro@doacao.com', 'Transferência bancária', '2025-07-25 11:00:00', '2025-08-15 00:00:00', NULL, NULL, 'DELIVERY', 'PENDING_DELIVERY', 'http://example.com/photos/transferencia_extra.jpg', 3, 2, NULL),
+      ('Kits escolares', 'Kits com material escolar para crianças', 'PERSONAL_CARE', 40, 'escola@doacao.com', 'Entrega direta na escola', '2024-12-10 08:00:00', '2025-01-15 00:00:00', NULL, NULL, 'DELIVERY', 'DONATED', 'http://example.com/photos/kits_escolares.jpg', 2, 3, 4),
+      ('Livros Infantis', 'Livros para crianças', 'PERSONAL_CARE', 100, 'livros@doacao.com', 'Entrega via correio', '2025-04-20 10:00:00', '2025-05-10 00:00:00', NULL, NULL, 'DELIVERY', 'ACCEPTED', 'http://example.com/photos/livros_infantis.jpg', 4, 2, 7),
+      ('Cestas de higiene', 'Cestas com produtos de higiene pessoal', 'HYGIENE', 60, 'higiene@doacao.com', 'Retirada na sede', '2025-02-15 09:00:00', '2025-03-10 00:00:00', NULL, NULL, 'PICKUP', 'ACCEPTED', 'http://example.com/photos/cestas_higiene.jpg', 3, 1, 5),
+      ('Chocolates de Páscoa', 'Chocolates para doação na Páscoa', 'FOOD', 80, 'pascoa@doacao.com', 'Entrega via transportadora', '2025-03-15 10:00:00', '2025-04-10 00:00:00', NULL, NULL, 'DELIVERY', 'DONATED', 'http://example.com/photos/chocolates.jpg', 5, 3, 6),
+      ('Livros Técnicos', 'Livros técnicos para estudantes', 'PERSONAL_CARE', 75, 'livros@doacao.com', 'Entrega via correio', '2025-04-30 10:00:00', '2025-05-20 00:00:00', NULL, NULL, 'DELIVERY', 'PENDING_DELIVERY', 'http://example.com/photos/livros_tecnicos.jpg', 1, 2, 7),
+      ('Doação espontânea em dinheiro', 'Doação em dinheiro espontânea', 'PERSONAL_CARE', 1, 'financeiro@doacao.com', 'Retirada na sede', '2025-05-20 09:00:00', '2025-06-01 00:00:00', NULL, NULL, 'PICKUP', 'STOCK', 'http://example.com/photos/doacao_espontanea.jpg', 6, 1, NULL),
+      ('Pix voluntário', 'Doação via Pix voluntária', 'PERSONAL_CARE', 1, 'financeiro@doacao.com', 'Transferência via Pix', '2025-05-25 10:00:00', '2025-06-03 00:00:00', NULL, NULL, 'DELIVERY', 'ACCEPTED', 'http://example.com/photos/pix_voluntario.jpg', 2, 3, NULL),
+      ('Transferência bancária solidária', 'Transferência solidária para campanhas', 'PERSONAL_CARE', 1, 'financeiro@doacao.com', 'Transferência bancária', '2025-05-28 11:00:00', '2025-06-07 00:00:00', NULL, NULL, 'DELIVERY', 'PENDING_DELIVERY', 'http://example.com/photos/transferencia_solidaria.jpg', 3, 1, NULL),
+      ('Toucas de Lã', 'Toucas de lã para o inverno', 'CLOTHING', 70, 'contato@doacao.com', 'Entrega via caminhão', '2025-05-28 08:00:00', '2025-06-03 00:00:00', NULL, NULL, 'DELIVERY', 'ACCEPTED', 'http://example.com/photos/toucas.jpg', 1, 3, 1),
+      ('Meias Térmicas', 'Meias térmicas para proteção contra o frio', 'CLOTHING', 80, 'contato@doacao.com', 'Retirada na sede', '2025-06-01 09:00:00', '2025-06-12 00:00:00', NULL, NULL, 'PICKUP', 'STOCK', 'http://example.com/photos/meias.jpg', 3, 2, 1),
+      ('Luvas de Inverno', 'Luvas para proteção das mãos no frio', 'CLOTHING', 90, 'contato@doacao.com', 'Entrega via transportadora', '2025-06-02 10:00:00', '2025-06-15 00:00:00', NULL, NULL, 'DELIVERY', 'DONATED', 'http://example.com/photos/luvas.jpg', 2, 3, 1);
 
-INSERT INTO db_food (id, is_perishable, expiration, quantity, unit, category) VALUES
-(40, TRUE, '2025-09-10', 5.0, 'KG', 'GRAINS'),
-(41, TRUE, '2025-10-05', 5.0, 'KG', 'GRAINS'),
-(42, TRUE, '2025-12-20', 3.0, 'KG', 'GRAINS'),
-(43, TRUE, '2025-04-20', 2.0, 'KG', 'MILK'),
-(44, TRUE, '2025-07-10', 1.0, 'KG', 'GRAINS'),
-(45, FALSE, NULL, 2.0, 'PACKAGE', 'MILK'),
-(46, TRUE, '2025-09-15', 3.0, 'KG', 'GRAINS'),
-(47, TRUE, '2024-04-15', 5.0, 'KG', 'GRAINS'),
-(48, TRUE, '2024-04-20', 4.0, 'KG', 'GRAINS'),
-(49, TRUE, '2024-03-10', 3.0, 'KG', 'GRAINS'),
-(50, FALSE, NULL, 2.0, 'KG', 'MILK'),
-(51, FALSE, NULL, 1.0, 'KG', 'GRAINS'),
-(52, FALSE, NULL, 3.0, 'PACKAGE', 'GRAINS'),
-(53, FALSE, NULL, 2.0, 'PACKAGE', 'GRAINS'),
-(54, TRUE, '2024-04-20', 2.5, 'KG', 'GRAINS'),
-(55, FALSE, NULL, 2.0, 'PACKAGE', 'GRAINS'),
-(56, FALSE, NULL, 1.0, 'KG', 'GRAINS'),
-(57, FALSE, NULL, 1.5, 'PACKAGE', 'GRAINS'),
-(58, TRUE, '2024-06-15', 2.0, 'KG', 'GRAINS'),
-(59, FALSE, NULL, 1.5, 'UNIT', 'GRAINS'),
-(60, FALSE, NULL, 1.0, 'UNIT', 'GRAINS'),
-(61, FALSE, NULL, 2.0, 'PACKAGE', 'GRAINS'),
-(62, TRUE, '2024-07-15', 1.5, 'KG', 'MILK'),
-(63, TRUE, '2024-06-15', 4.0, 'KG', 'FRUITS'),
-(64, TRUE, '2024-07-05', 4.0, 'KG', 'FRUITS'),
-(65, TRUE, '2024-07-05', 3.5, 'KG', 'FRUITS'),
-(66, TRUE, '2024-07-10', 3.0, 'KG', 'FRUITS'),
-(67, FALSE, NULL, 6.0, 'UNIT', 'GRAINS'),
-(68, TRUE, '2024-07-25', 1.5, 'KG', 'MILK'),
-(69, TRUE, '2024-07-20', 2.0, 'KG', 'MILK'),
-(70, TRUE, '2024-07-25', 5.0, 'KG', 'GRAINS'),
-(71, TRUE, '2024-07-28', 5.0, 'KG', 'GRAINS'),
-(72, TRUE, '2024-08-25', 5.0, 'KG', 'GRAINS'),
-(73, TRUE, '2024-08-27', 5.0, 'KG', 'GRAINS'),
-(74, TRUE, '2024-08-28', 3.0, 'KG', 'GRAINS');
-
-
-INSERT INTO db_money (id, value, category)
-VALUES
-(4, 150.00, 'PIX'),
-(5, 100.00, 'CASH'),
-(6, 200.00, 'TRANSFER'),
-(7, 75.00, 'PIX'),
-(8, 120.00, 'CASH'),
-(9, 180.00, 'TRANSFER');
