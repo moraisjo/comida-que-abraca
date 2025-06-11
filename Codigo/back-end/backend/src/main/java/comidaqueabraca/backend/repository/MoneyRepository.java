@@ -16,7 +16,7 @@ public interface MoneyRepository extends JpaRepository<MoneyEntity, Long> {
 
     // Consulta personalizada para o relatório
     @Query("SELECT new comidaqueabraca.backend.dto.MoneyDonationDTO(" +
-            "u.name, m.value, m.category, d.arrivingDate) " +
+            "u.name, m.value, m.moneyCategory, d.arrivingDate) " +
             "FROM MoneyEntity m " +
             "JOIN DonationEntity d ON m.id = d.id " +
             "JOIN PartnerEntity p ON d.donor.id = p.id " +

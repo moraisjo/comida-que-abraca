@@ -15,6 +15,7 @@ public class MoneyService {
 
     private static final Logger logger = LoggerFactory.getLogger(MoneyService.class);
 
+    @Autowired
     private final MoneyRepository moneyRepository;
 
     @Autowired
