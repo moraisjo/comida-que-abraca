@@ -1,6 +1,7 @@
 package comidaqueabraca.backend.service;
 
 import comidaqueabraca.backend.dto.CreateDonationRequestDTO;
+import comidaqueabraca.backend.dto.PartnerDonationDTO;
 import comidaqueabraca.backend.dto.PendingDonationDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,6 +12,8 @@ import comidaqueabraca.backend.repository.DonationRepository;
 import comidaqueabraca.backend.repository.PartnerRepository;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
+
 import comidaqueabraca.backend.entity.CampaignEntity;
 import comidaqueabraca.backend.repository.CampaignRepository;
 import comidaqueabraca.backend.entity.UserEntity;
@@ -57,6 +60,12 @@ public class DonationService {
         donation.setStatus(DonationStatus.PENDING);
 
         donationRepository.save(donation);
+    }
+
+    public List<PartnerDonationDTO> getDonationsByPartnerUserId(Long partnerUserId) {
+        List<DonationEntity> donations = donationRepository.findByDonor_Id(partnerUserId);
+
+        return donations.stream().map(this::convertToDTO).toList();
     }
 
     public List<DonationEntity> getDonationsStock() {
@@ -128,5 +137,17 @@ public class DonationService {
         donation.setStockExitDate(LocalDateTime.now());
 
         donationRepository.save(donation);
+    }
+
+    private PartnerDonationDTO convertToDTO(DonationEntity entity) {
+        return new PartnerDonationDTO(
+                entity.getId(),
+                entity.getName(),
+                entity.getRequestDate(),
+                entity.getDelivery(),
+                entity.getStatus(),
+                entity.getPhotoUrl(),
+                entity.getCampaign()
+        );
     }
 }

@@ -12,6 +12,17 @@ interface DonationResponse {
     campaign?: Campaign
 }
 
+interface PartnerDonationResponse {
+    id: number;
+    name: string;
+    requestDate: string;
+    delivery: string;
+    status: string;
+    photoUrl: string;
+    donorName: string;
+    campaignName?: string;
+  }
+
 interface PendingDonationResponse {
     id: number;
     name: string;
@@ -43,4 +54,4 @@ export interface CreateDonationResponse {
   donor_id: number;
 }
   
-export type { DonationResponse, PendingDonationResponse, DonationDeliveryPendingResponse  }
+export type { DonationResponse, PendingDonationResponse, DonationDeliveryPendingResponse, PartnerDonationResponse }

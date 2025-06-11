@@ -1,5 +1,5 @@
 import api from "../../api/axios";
-import { DonationResponse, PendingDonationResponse, DonationDeliveryPendingResponse } from "../model/donation";
+import { DonationResponse, PendingDonationResponse, DonationDeliveryPendingResponse, PartnerDonationResponse } from "../model/donation";
 import { Response } from "../model/response";
 
 const API_URL = "/api/donation";
@@ -12,6 +12,15 @@ class DonationRepository {
     } catch (error) {
       console.error("Erro ao criar doação:", error);
       throw error;
+    }
+  }
+
+  async getDonationsByPartnerUserId(partnerUserId: number): Promise<PartnerDonationResponse[]> {
+    try {
+      const response = await api.get<PartnerDonationResponse[]>(`${API_URL}/partner/${partnerUserId}`);
+      return response.data;
+    } catch (error) {
+      return [];
     }
   }
 

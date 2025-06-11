@@ -23,7 +23,8 @@ import {
   TablePagination,
 } from "@mui/material";
 import { InfoOutlined } from "@mui/icons-material";
-import partnerDonationService from "../hooks/partnerDonationService";
+import useDonationService from "../hooks/partnerDonationService";
+import { useAuth } from "../../../context/AuthContext";
 
 interface MyDonationResponse {
   id: number;
@@ -32,12 +33,13 @@ interface MyDonationResponse {
   delivery: string;
   status: string;
   photoUrl: string;
-  beneficiaryName: string;
+  donorName: string;
   campaignName?: string;
 }
 
 const PartnerDonationsTable: React.FC = () => {
-  const { getAllDonations } = partnerDonationService();
+  const { decodedUser } = useAuth();
+  const { getDonationsByPartnerUserId } = useDonationService();
   const [donations, setDonations] = useState<MyDonationResponse[]>([]);
   const [loading, setLoading] = useState(true);
   const [filterText, setFilterText] = useState("");
@@ -49,22 +51,15 @@ const PartnerDonationsTable: React.FC = () => {
   const rowsPerPage = 5;
 
   useEffect(() => {
+    if (!decodedUser) return;
+
     const fetchDonations = async () => {
+      setLoading(true);
       try {
-        const data = await getAllDonations();
-        const myDonations = data
-          .filter((donation) => donation.donor?.id === 1)
-          .map((donation) => ({
-            id: donation.id,
-            name: donation.name,
-            requestDate: donation.arrivingDate,
-            delivery: donation.delivery,
-            status: donation.status,
-            photoUrl: "",
-            beneficiaryName: donation.beneficiary?.name || "Não informado",
-            campaignName: donation.campaign?.name,
-          }));
-        setDonations(myDonations);
+        const partnerUserId = Number(decodedUser.userId);
+        const data = await getDonationsByPartnerUserId(partnerUserId);
+        console.log("Doações recebidas:", data);
+        setDonations(data);
       } catch (error) {
         console.error("Erro ao carregar doações:", error);
       } finally {
@@ -73,29 +68,20 @@ const PartnerDonationsTable: React.FC = () => {
     };
 
     fetchDonations();
-  }, []);
-
-  const handleChangePage = (_unused: unknown, newPage: number) => {
-    setPage(newPage);
-  };
+  }, [getDonationsByPartnerUserId, decodedUser]);
 
   const filteredDonations = donations.filter(
     (donation) =>
       donation.name.toLowerCase().includes(filterText.toLowerCase()) ||
-      donation.beneficiaryName
-        .toLowerCase()
-        .includes(filterText.toLowerCase()) ||
       donation.campaignName?.toLowerCase().includes(filterText.toLowerCase())
   );
 
-  const handleActionClick = (donation: MyDonationResponse) => {
-    setSelectedDonation(donation);
-    setOpenDialog(true);
+  const isDisabled = (donation: MyDonationResponse) => {
+    return !donation.photoUrl || donation.photoUrl.trim() === "";
   };
 
-  const handleClose = () => {
-    setOpenDialog(false);
-    setSelectedDonation(null);
+  const handleChangePage = (_unused: unknown, newPage: number) => {
+    setPage(newPage);
   };
 
   const getStatusLabel = (status: string) => {
@@ -161,7 +147,6 @@ const PartnerDonationsTable: React.FC = () => {
               <TableCell sx={{ fontWeight: "bold" }}>Data de Criação</TableCell>
               <TableCell sx={{ fontWeight: "bold" }}>Campanha</TableCell>
               <TableCell sx={{ fontWeight: "bold" }}>Status</TableCell>
-              <TableCell sx={{ fontWeight: "bold" }}>Beneficiário</TableCell>
               <TableCell sx={{ fontWeight: "bold" }}>Tipo de Entrega</TableCell>
               <TableCell sx={{ fontWeight: "bold" }} align="center">
                 Saiba Mais
@@ -199,15 +184,18 @@ const PartnerDonationsTable: React.FC = () => {
                     {donation.campaignName || "Sem campanha associada"}
                   </TableCell>
                   <TableCell>{getStatusLabel(donation.status)}</TableCell>
-                  <TableCell>{donation.beneficiaryName}</TableCell>
                   <TableCell>
                     {donation.delivery === "PICKUP" ? "Retirada" : "Entrega"}
                   </TableCell>
                   <TableCell align="center">
                     <Tooltip title="Saiba mais">
                       <IconButton
-                        onClick={() => handleActionClick(donation)}
+                        onClick={() => {
+                          setSelectedDonation(donation);
+                          setOpenDialog(true);
+                        }}
                         sx={{ color: theme.palette.primary.main }}
+                        disabled={isDisabled(donation)}
                       >
                         <InfoOutlined />
                       </IconButton>
@@ -218,68 +206,6 @@ const PartnerDonationsTable: React.FC = () => {
           </TableBody>
         </Table>
       </TableContainer>
-
-      <Dialog
-        open={openDialog}
-        onClose={handleClose}
-        PaperProps={{
-          style: {
-            borderRadius: "20px",
-            padding: "20px",
-            width: "350px",
-            maxWidth: "90vw",
-          },
-        }}
-      >
-        <DialogTitle>
-          <Typography fontSize="18px" fontWeight="bold" color="#000">
-            Detalhes da Doação
-          </Typography>
-        </DialogTitle>
-
-        <DialogContent>
-          <Typography fontSize="14px" color="#666" mb="10px">
-            <strong>Item:</strong> {selectedDonation?.name}
-          </Typography>
-          <Typography fontSize="14px" color="#666" mb="10px">
-            <strong>Status:</strong>{" "}
-            {selectedDonation?.status &&
-              getStatusLabel(selectedDonation.status)}
-          </Typography>
-          <Typography fontSize="14px" color="#666" mb="10px">
-            <strong>Beneficiário:</strong> {selectedDonation?.beneficiaryName}
-          </Typography>
-          <Typography fontSize="14px" color="#666" mb="10px">
-            <strong>Campanha:</strong>{" "}
-            {selectedDonation?.campaignName || "Sem campanha associada"}
-          </Typography>
-          <Typography fontSize="14px" color="#666" mb="10px">
-            <strong>Tipo de Entrega:</strong>{" "}
-            {selectedDonation?.delivery === "PICKUP" ? "Retirada" : "Entrega"}
-          </Typography>
-          <Typography fontSize="14px" color="#666">
-            <strong>Data de Criação:</strong>{" "}
-            {selectedDonation?.requestDate &&
-              new Date(selectedDonation.requestDate).toLocaleDateString(
-                "pt-BR",
-                {
-                  day: "2-digit",
-                  month: "long",
-                  year: "numeric",
-                }
-              )}
-          </Typography>
-        </DialogContent>
-
-        <DialogActions sx={{ justifyContent: "center" }}>
-          <Button
-            onClick={handleClose}
-            sx={{ color: theme.palette.primary.main }}
-          >
-            Fechar
-          </Button>
-        </DialogActions>
-      </Dialog>
 
       <TablePagination
         component="div"

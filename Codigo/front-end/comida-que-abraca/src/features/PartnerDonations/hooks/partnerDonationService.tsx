@@ -1,31 +1,23 @@
-import { useState, useCallback } from "react";
+import { useCallback } from "react";
 import DonationRepository from "../../../data/repository/donation";
-import { DonationResponse } from "../../../data/model/donation";
+import { PartnerDonationResponse } from "../../../data/model/donation";
 
 const useDonationService = () => {
-  const [donations, setDonations] = useState<DonationResponse[]>([]);
-  const [errorOnDonations, setErrorOnDonations] = useState<string | null>(null);
-  const [beneficiaries, setBeneficiaries] = useState<any[]>([]); // Replace 'any' with the correct type if available
+  const getDonationsByPartnerUserId = useCallback(
+    async (partnerUserId: number): Promise<PartnerDonationResponse[]> => {
+      try {
+        const data = await DonationRepository.getDonationsByPartnerUserId(
+          partnerUserId
+        );
+        return data;
+      } catch {
+        throw new Error("Erro ao buscar doações do parceiro.");
+      }
+    },
+    []
+  );
 
-  const getAllDonations = useCallback(async (): Promise<DonationResponse[]> => {
-    setErrorOnDonations(null);
-    try {
-      const data = await DonationRepository.getAllDonations();
-      setDonations(data);
-      return data;
-    } catch {
-      setErrorOnDonations("Erro ao buscar todas as doações.");
-      return [];
-    }
-  }, []);
-
-  return {
-    getAllDonations,
-    donations,
-    errorOnDonations,
-    beneficiaries,
-    setBeneficiaries, // Only return this if you need to update beneficiaries from outside
-  };
+  return { getDonationsByPartnerUserId };
 };
 
 export default useDonationService;
