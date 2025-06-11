@@ -1,14 +1,14 @@
-DROP TABLE IF EXISTS db_user;
-DROP TABLE IF EXISTS db_partner;
-DROP TABLE IF EXISTS db_ong_collaborator;
-DROP TABLE IF EXISTS db_campaign;
-DROP TABLE IF EXISTS db_donation;
-DROP TABLE IF EXISTS db_food;
-DROP TABLE IF EXISTS db_money;
-DROP TABLE IF EXISTS db_item;
-DROP TABLE IF EXISTS db_notification;
-DROP TABLE IF EXISTS db_report;
 DROP TABLE IF EXISTS db_partner_requests;
+DROP TABLE IF EXISTS db_report;
+DROP TABLE IF EXISTS db_notification;
+DROP TABLE IF EXISTS db_item;
+DROP TABLE IF EXISTS db_money;
+DROP TABLE IF EXISTS db_food;
+DROP TABLE IF EXISTS db_donation;
+DROP TABLE IF EXISTS db_campaign;
+DROP TABLE IF EXISTS db_ong_collaborator;
+DROP TABLE IF EXISTS db_partner;
+DROP TABLE IF EXISTS db_user;
 
 CREATE TABLE IF NOT EXISTS db_user (
    id INT AUTO_INCREMENT PRIMARY KEY,
@@ -99,8 +99,8 @@ CREATE TABLE IF NOT EXISTS db_donation (
 -- Tabela de Doação de Alimentos (Herda de Donation)
 CREATE TABLE IF NOT EXISTS db_food (
                                        id INT PRIMARY KEY,
-                                       is_perishable BOOLEAN NOT NULL,
-                                       expiration TIMESTAMP,
+                                       isPerishable BOOLEAN NOT NULL,
+                                       expirationDate TIMESTAMP,
                                        quantity FLOAT NOT NULL,
                                        unit ENUM('KG', 'PACKAGE', 'UNIT') NOT NULL,
                                        category ENUM('FRUITS', 'GRAINS', 'MILK') NOT NULL,
