@@ -12,15 +12,15 @@ const DonationFormPage: React.FC = () => {
   const handleClose = () => setOpenModal(false);
 
   return (
-    <Box sx={{ display: "flex", flexDirection: "column", height: "100vh" }}>
+    <Box sx={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
       <HeaderMenu />
 
-      <Box sx={{ flexGrow: 1, overflowY: "auto", p: 3 }}></Box>
+      <Footer />
 
       <Box
         sx={{
           position: "fixed",
-          bottom: 16,
+          bottom: 120,
           right: 16,
           zIndex: (theme) => theme.zIndex.fab,
         }}
@@ -45,8 +45,6 @@ const DonationFormPage: React.FC = () => {
       </Box>
 
       <ModalDonationForm open={openModal} handleClose={handleClose} />
-
-      <Footer />
     </Box>
   );
 };
