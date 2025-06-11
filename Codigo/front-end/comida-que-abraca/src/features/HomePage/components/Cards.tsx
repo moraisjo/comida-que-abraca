@@ -10,6 +10,7 @@ import {
 import imageCampaigns from "../../../assets/image-campaigns.png";
 import imageBeAPartner from "../../../assets/image-be-a-partner.png";
 import imageReports from "../../../assets/image-reports2.png";
+import imageProposito from "../../../assets/image-proposito.png";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../../context/AuthContext";
 
@@ -35,9 +36,17 @@ const cardListDeslogado = [
     description:
       "Conheça a história e os valores do projeto Comida que Abraça. Entenda como nossa missão impacta comunidades e como você pode se envolver.",
     buttonDescription: "Mais informações",
-    image: imageReports,
+    image: imageProposito,
     link: "/sobre",
   },
+  {
+    title: "Relatórios",
+    description:
+      "Saiba mais sobre o impacto do projeto Comida que Abraça. Acompanhe nossos relatórios e veja como sua contribuição faz a diferença.",
+    buttonDescription: "Mais informações",
+    image: imageReports,
+    link: "/ong/relatorios",
+  }
 ];
 
 const cardListParceiroLogado = [
@@ -54,9 +63,17 @@ const cardListParceiroLogado = [
     description:
       "Conheça a história e os valores do projeto Comida que Abraça. Entenda como nossa missão impacta comunidades e como você pode se envolver.",
     buttonDescription: "Mais informações",
-    image: imageReports,
+    image: imageProposito,
     link: "/sobre",
   },
+  {
+    title: "Relatórios",
+    description:
+      "Saiba mais sobre o impacto do projeto Comida que Abraça. Acompanhe nossos relatórios e veja como sua contribuição faz a diferença.",
+    buttonDescription: "Mais informações",
+    image: imageReports,
+    link: "/ong/relatorios",
+  }
 ];
 
 const cardListONGLogada = [
@@ -73,9 +90,17 @@ const cardListONGLogada = [
     description:
       "Conheça a história e os valores do projeto Comida que Abraça. Entenda como nossa missão impacta comunidades e como você pode se envolver.",
     buttonDescription: "Mais informações",
-    image: imageReports,
+    image: imageProposito,
     link: "/sobre",
   },
+  {
+    title: "Relatórios",
+    description:
+      "Saiba mais sobre o impacto do projeto Comida que Abraça. Acompanhe nossos relatórios e veja como sua contribuição faz a diferença.",
+    buttonDescription: "Mais informações",
+    image: imageReports,
+    link: "/ong/relatorios",
+  }
 ];
 
 const Cards: React.FC = () => {
@@ -89,7 +114,7 @@ const Cards: React.FC = () => {
 
   if (!token) {
     cardsRenderizados = cardListDeslogado;
-  } else if (decodedUser?.userId === "1") {
+  } else if (decodedUser?.userRole === "COLLABORATOR") {
     cardsRenderizados = cardListONGLogada;
   } else {
     cardsRenderizados = cardListParceiroLogado;

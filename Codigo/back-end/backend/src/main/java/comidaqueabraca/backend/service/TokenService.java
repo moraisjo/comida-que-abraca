@@ -24,6 +24,7 @@ public class TokenService {
                     .withIssuer("api_comidaqueabraca")
                     .withSubject(user.getEmail())
                     .withClaim("userId", user.getId())
+                    .withClaim("userRole", user.getUserRole())
                     .withExpiresAt(getExpirationDateTime())
                     .sign(algorithm);
         } catch (JWTCreationException e) {

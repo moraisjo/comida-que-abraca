@@ -4,8 +4,8 @@ DROP TABLE IF EXISTS db_donation;
 DROP TABLE IF EXISTS db_campaign;
 DROP TABLE IF EXISTS db_ong_collaborator;
 DROP TABLE IF EXISTS db_partner;
-DROP TABLE IF EXISTS db_user;
 DROP TABLE IF EXISTS db_partner_requests;
+DROP TABLE IF EXISTS db_user;
 
 CREATE TABLE IF NOT EXISTS db_user (
    id INT AUTO_INCREMENT PRIMARY KEY,
@@ -14,7 +14,8 @@ CREATE TABLE IF NOT EXISTS db_user (
    password VARCHAR(255) NOT NULL,
    phone VARCHAR(20),
    address VARCHAR(255),
-   user_type VARCHAR(50), -- coluna adicionada aqui
+   user_type VARCHAR(50),
+   user_role VARCHAR(50),
    lgpd_consent_date TIMESTAMP
 );
 
