@@ -29,28 +29,6 @@ public class DonationController {
     @Autowired
     private DonationRepository donationRepository;
 
-    @Operation(summary = "Cadastra uma nova doação")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "201", description = "Doação cadastrada com sucesso"),
-            @ApiResponse(responseCode = "400", description = "Erro de validação dos dados"),
-            @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
-    })
-    @PostMapping("/create-donation")
-    public ResponseEntity<ResponseDTO> createDonation(@Valid @RequestBody DonationEntity donation, BindingResult result) {
-        if (result.hasErrors()) {
-            StringBuilder errors = new StringBuilder();
-            result.getAllErrors().forEach(error -> errors.append(error.getDefaultMessage()).append(". "));
-            return ResponseEntity.badRequest().body(new ResponseDTO(errors.toString(), 400));
-        }
-
-        try {
-            donationService.createDonation(donation);
-            return ResponseEntity.ok(new ResponseDTO("Cadastro realizado com sucesso!", 200));
-        } catch (Exception e) {
-            return ResponseEntity.status(500).body(new ResponseDTO("Erro ao cadastrar doação: " + e.getMessage(), 500));
-        }
-    }
-
     @Operation(summary = "Lista todas as doações realizadas cadastradas")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Lista de doações retornada com sucesso"),

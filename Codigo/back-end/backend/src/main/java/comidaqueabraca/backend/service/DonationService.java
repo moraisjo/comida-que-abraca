@@ -29,17 +29,7 @@ public class DonationService {
 
     @Autowired
     private UserRepository userRepository;
-
-    public DonationEntity createDonation(DonationEntity donation) {
-        CampaignEntity campaign = campaignRepository.findById(donation.getCampaign().getId())
-            .orElseThrow(() -> new RuntimeException("Campanha não encontrada"));
-
-        UserEntity donor = userRepository.findById(donation.getDonor().getId())
-            .orElseThrow(() -> new RuntimeException("Doador não encontrado"));
-
-        donation.setStatus(DonationStatus.PENDING);
-        return donationRepository.save(donation);
-    }
+    
 
     public List<DonationEntity> getDonationsStock() {
         return donationRepository.findByStatus(DonationStatus.STOCK);
