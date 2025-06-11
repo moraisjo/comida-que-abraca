@@ -15,7 +15,11 @@ export default function Footer() {
         position: "fixed",
         bottom: 0,
         left: 0,
+        height: 80,
         zIndex: 1000,
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
       }}
     >
       <Box sx={{ display: "flex", justifyContent: "center", gap: 2, mb: 1 }}>
