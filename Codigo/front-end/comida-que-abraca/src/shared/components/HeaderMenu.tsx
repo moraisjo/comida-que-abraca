@@ -212,7 +212,7 @@ export default function HeaderMenu({ isExternalPage }: HeaderMenuProps) {
               <>
                 <MenuItem
                   onClick={() => {
-                    navigate("/parceiro/solicitacao");
+                    navigate("/parceiro/doar");
                     handleSandwichMenuClose();
                   }}
                   sx={{ color: colors.darkGray, fontWeight: "bold" }}

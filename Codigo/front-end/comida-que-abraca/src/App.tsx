@@ -4,6 +4,7 @@ import RankingPage from "./features/RankingPage/RankingPage";
 import CampanhasPage from "./features/ManageCampaigntPage/CampaignPages";
 import CampaignsPage from "./features/CampaignsPage/CampaignsPage";
 import DonationPage from "./features/ManageDonationsPage/DonationPage";
+import DonationFormPage from "./features/DonationFormPage/DonationFormPage";
 import RequestersPage from "./features/RequestersPage/RequestersPage";
 import NotificationPage from "./features/NotificationPage/NotificationPage";
 import PartnerDonationsPage from "./features/PartnerDonations/PartnerDonationsPage";
@@ -38,8 +39,12 @@ function App() {
             <Route path="/ong/solicitantes" element={<RequestersPage />} />
             <Route path="/ong/notificacoes" element={<NotificationPage />} />
             <Route path="/parceiro/cadastro" element={<SignUpPage />} />
-            <Route path="/parceiro/doacoes" element={<PartnerDonationsPage />} />
+            <Route
+              path="/parceiro/doacoes"
+              element={<PartnerDonationsPage />}
+            />
             <Route path="/parceiro/campanhas" element={<CampaignsPage />} />
+            <Route path="/parceiro/doar" element={<DonationFormPage />} />
             <Route path="/parceiro/solicitacao" element={<RequestFormPage />} />
             <Route path="*" element={<NotFoundPage />} />
           </Routes>

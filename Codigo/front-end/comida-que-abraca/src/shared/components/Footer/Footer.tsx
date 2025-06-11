@@ -12,7 +12,10 @@ export default function Footer() {
         backgroundColor: "#F4F4F4",
         padding: "1rem",
         textAlign: "center",
-        marginTop: "auto",
+        position: "fixed",
+        bottom: 0,
+        left: 0,
+        zIndex: 1000,
       }}
     >
       <Box sx={{ display: "flex", justifyContent: "center", gap: 2, mb: 1 }}>
