@@ -20,6 +20,7 @@ import HomePage from "./features/HomePage/HomePage";
 import AboutUsPage from "./features/AboutUsPage/AboutUsPage";
 import RequestFormPage from "./features/RequestFormPage/RequestFormPage";
 import NotFoundPage from "./features/NotFoundPage/NotFoundPage";
+import InfoCampaign from "./features/CampaignsPage/components/InfoCampaing";
 
 function App() {
   return (
@@ -44,6 +45,7 @@ function App() {
               element={<PartnerDonationsPage />}
             />
             <Route path="/parceiro/campanhas" element={<CampaignsPage />} />
+            <Route path="/parceiro/campanhas/:id" element={<InfoCampaign />} />
             <Route path="/parceiro/doar" element={<DonationFormPage />} />
             <Route path="/parceiro/solicitacao" element={<RequestFormPage />} />
             <Route path="*" element={<NotFoundPage />} />

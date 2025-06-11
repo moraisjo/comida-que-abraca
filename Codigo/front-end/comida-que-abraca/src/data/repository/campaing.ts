@@ -25,7 +25,6 @@ class CampaignRepository {
       const response = await api.get<Campaign[]>(`${API_URL}/campaigns`);
       return response.data;
     } catch (error) {
-      console.error("Erro ao buscar campanhas ativas:", error);
       throw error;
     }
   }
@@ -35,7 +34,6 @@ class CampaignRepository {
       const response = await api.get<Campaign[]>(`${API_URL}/active-campaigns`);
       return response.data;
     } catch (error) {
-      console.error("Erro ao buscar campanhas ativas:", error);
       throw error;
     }
   }
@@ -45,7 +43,15 @@ class CampaignRepository {
       const response = await api.get<Campaign[]>(`${API_URL}/inactive-campaigns`);
       return response.data;
     } catch (error) {
-      console.error("Erro ao buscar campanhas inativas:", error);
+      throw error;
+    }
+  }
+
+  async getCampaignById(id: number): Promise<Campaign> {
+    try {
+      const response = await api.get<Campaign>(`${API_URL}/${id}`);
+      return response.data;
+    } catch (error) {
       throw error;
     }
   }
