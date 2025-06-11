@@ -40,7 +40,7 @@ export const CampaignService = {
 export const useCampaignService = () => {
   const getActiveCampaigns = async (): Promise<Campaign[]> => {
     try {
-      return await campaignRepository.getActiveCampaigns();
+      return await campaignRepository.getCampaigns();
     } catch (error) {
       console.error("Erro ao buscar campanhas ativas:", error);
       return [];

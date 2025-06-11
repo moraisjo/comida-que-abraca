@@ -84,6 +84,14 @@ public class CampaignController {
         return ResponseEntity.ok(campaigns);
     }
 
+    @Operation(summary = "Listar campanhas ativas", description = "Retorna uma lista de todas as campanhas com status 'ACTIVE'.")
+    @ApiResponse(responseCode = "200", description = "Campanhas ativas retornadas com sucesso")
+    @GetMapping("/campaigns")
+    public ResponseEntity<List<CampaignEntity>> getCampaigns() {
+        List<CampaignEntity> campaigns = campaignService.getActiveCampaigns();
+        return ResponseEntity.ok(campaigns);
+    }
+
     @Operation(summary = "Listar campanhas inativas", description = "Retorna uma lista de todas as campanhas com status 'FINISHED'.")
     @ApiResponse(responseCode = "200", description = "Campanhas inativas retornadas com sucesso")
     @GetMapping("/inactive-campaigns")
