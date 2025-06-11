@@ -121,7 +121,7 @@ const ListCampaing: React.FC = () => {
                   "&:hover": { backgroundColor: "#e64a19" },
                   fontFamily: "fontFamily",
                 }}
-                onClick={() => navigate(`/campanha/${campaign.id}`)}
+                onClick={() => navigate(`/parceiro/campanhas/${campaign.id}`)}
                 startIcon={<InfoOutlinedIcon />}
               >
                 Saiba mais

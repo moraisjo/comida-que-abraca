@@ -19,6 +19,7 @@ import HomePage from "./features/HomePage/HomePage";
 import AboutUsPage from "./features/AboutUsPage/AboutUsPage";
 import RequestFormPage from "./features/RequestFormPage/RequestFormPage";
 import NotFoundPage from "./features/NotFoundPage/NotFoundPage";
+import InfoCampaign from "./features/CampaignsPage/components/InfoCampaing";
 import { OngRoute } from "./routes/OngRoute";
 import { PartnerRoute } from "./routes/PartnerRoute";
 
@@ -36,6 +37,10 @@ function App() {
             <Route path="/page-not-found" element={<NotFoundPage />} />
             <Route path="/parceiro/cadastro" element={<SignUpPage />} />
             <Route path="/parceiro/campanhas" element={<CampaignsPage />} />
+            <Route path="/parceiro/campanhas/:id" element={<InfoCampaign />} />
+            <Route path="/parceiro/doar" element={<DonationFormPage />} />
+            <Route path="/parceiro/solicitacao" element={<RequestFormPage />} />
+            <Route path="*" element={<NotFoundPage />} />
             <Route path="/ong/relatorios" element={<ReportPage />} />
             {/* NGO protected routes */}
             <Route element={<OngRoute />}>

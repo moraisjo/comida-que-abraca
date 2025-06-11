@@ -99,4 +99,21 @@ public class CampaignController {
         List<CampaignEntity> campaigns = campaignService.getInactiveCampaigns();
         return ResponseEntity.ok(campaigns);
     }
+
+    @Operation(summary = "Buscar campanha pelo ID", description = "Retorna os detalhes da campanha com o ID especificado.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Campanha encontrada"),
+            @ApiResponse(responseCode = "404", description = "Campanha não encontrada")
+    })
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getCampaignById(@PathVariable Integer id) {
+        try {
+            CampaignEntity campaign = campaignService.getCampaignById(id);
+            return ResponseEntity.ok(campaign);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(new ResponseDTO(e.getMessage(), 404));
+        }
+    }
+
 }

@@ -6,12 +6,20 @@ export const useCampaignService = () => {
     try {
       return await campaignRepository.getActiveCampaigns();
     } catch (error) {
-      console.error("Erro ao buscar campanhas ativas:", error);
       return [];
+    }
+  };
+
+  const getCampaignById = async (id: number): Promise<Campaign | null> => {
+    try {
+      return await campaignRepository.getCampaignById(id);
+    } catch (error) {
+      return null;
     }
   };
 
   return {
     getActiveCampaigns,
+    getCampaignById,
   };
 };

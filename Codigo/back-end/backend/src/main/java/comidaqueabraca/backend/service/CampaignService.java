@@ -116,4 +116,8 @@ public class CampaignService {
         return campaignRepository.findAllInactiveCampaigns();
     }
 
+    public CampaignEntity getCampaignById(Integer id) {
+        return campaignRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Campanha não encontrada com id: " + id));
+    }
 }
