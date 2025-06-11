@@ -15,6 +15,7 @@ import java.util.List;
 
 @Repository
 public interface DonationRepository extends JpaRepository<DonationEntity, Long> {
+    List<DonationEntity> findByDonor_Id(Long donorId);
 
     List<DonationEntity> findByStatus(DonationStatus status);
 
@@ -68,25 +69,4 @@ List<DonationsPerMonthDTO> countDonationsPerMonth(@Param("year") Integer year);
         @Param("month") int month,
         @Param("year") int year
     );
-
-    @Query(value = """
-        INSERT INTO db_donation (
-            name, 
-            arriving_date, 
-            delivery, 
-            status, 
-            photo_url,
-            donor_id, 
-            campaign_id
-        ) VALUES (
-            :#{#donation.name}, 
-            :#{#donation.arrivingDate}, 
-            :#{#donation.delivery}, 
-            :#{#donation.status}, 
-            :#{#donation.photoUrl},
-            :#{#donation.donor.id}, 
-            :#{#donation.campaign.id}
-        )
-        """, nativeQuery = true)
-    void createDonation(@Param("donation") DonationEntity donation);
 }

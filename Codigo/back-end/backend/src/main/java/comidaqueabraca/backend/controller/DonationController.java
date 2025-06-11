@@ -3,6 +3,7 @@ package comidaqueabraca.backend.controller;
 import java.util.List;
 
 import comidaqueabraca.backend.dto.CreateDonationRequestDTO;
+import comidaqueabraca.backend.dto.PartnerDonationDTO;
 import comidaqueabraca.backend.dto.PendingDonationDTO;
 import comidaqueabraca.backend.dto.response.ResponseDTO;
 import comidaqueabraca.backend.enums.DonationStatus;
@@ -62,6 +63,19 @@ public class DonationController {
         List<DonationEntity> donations = donationRepository.findAll();
         return ResponseEntity.ok(donations);
     }
+
+    @Operation(summary = "Lista todas as doações de um parceiro pelo ID do usuário")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Lista de doações retornada com sucesso"),
+            @ApiResponse(responseCode = "404", description = "Parceiro não encontrado"),
+            @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
+    })
+    @GetMapping("/partner/{partnerUserId}")
+    public ResponseEntity<List<PartnerDonationDTO>> getDonationsByPartnerUserId(@PathVariable Long partnerUserId) {
+        List<PartnerDonationDTO> donations = donationService.getDonationsByPartnerUserId(partnerUserId);
+        return ResponseEntity.ok(donations);
+    }
+
 
     @Operation(summary = "Lista todas as doações em estoque")
     @ApiResponses(value = {
