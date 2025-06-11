@@ -1,5 +1,6 @@
 package comidaqueabraca.backend.service;
 
+import comidaqueabraca.backend.dto.CreateDonationRequestDTO;
 import comidaqueabraca.backend.dto.PendingDonationDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,7 +30,34 @@ public class DonationService {
 
     @Autowired
     private UserRepository userRepository;
-    
+
+    public void createDonation(CreateDonationRequestDTO request) {
+
+        PartnerEntity donor = partnerRepository.findById(request.getDonor())
+                .orElseThrow(() -> new RuntimeException("Doador não encontrado"));
+
+        CampaignEntity campaign = null;
+        if (request.getCampaign() != null) {
+            campaign = campaignRepository.findById(request.getCampaign())
+                    .orElseThrow(() -> new RuntimeException("Campanha não encontrada"));
+        }
+
+        DonationEntity donation = new DonationEntity();
+        donation.setName(request.getName());
+        donation.setDescription(request.getDescription());
+        donation.setCategory(request.getCategory());
+        donation.setQuantity(request.getQuantity());
+        donation.setContactInfo(request.getContactInfo());
+        donation.setDeliveryDescription(request.getDeliveryDescription());
+        donation.setDelivery(request.getDelivery());
+        donation.setPhotoUrl(request.getPhotoUrl());
+        donation.setDonor(donor);
+        donation.setCampaign(campaign);
+        donation.setRequestDate(LocalDateTime.now());
+        donation.setStatus(DonationStatus.PENDING);
+
+        donationRepository.save(donation);
+    }
 
     public List<DonationEntity> getDonationsStock() {
         return donationRepository.findByStatus(DonationStatus.STOCK);

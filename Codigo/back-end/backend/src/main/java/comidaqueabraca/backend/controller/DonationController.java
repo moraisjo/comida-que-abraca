@@ -1,6 +1,8 @@
 package comidaqueabraca.backend.controller;
 
 import java.util.List;
+
+import comidaqueabraca.backend.dto.CreateDonationRequestDTO;
 import comidaqueabraca.backend.dto.PendingDonationDTO;
 import comidaqueabraca.backend.dto.response.ResponseDTO;
 import comidaqueabraca.backend.enums.DonationStatus;
@@ -28,6 +30,27 @@ public class DonationController {
 
     @Autowired
     private DonationRepository donationRepository;
+
+    @Operation(summary = "Solicitação de uma nova doação")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Doação criada com sucesso"),
+            @ApiResponse(responseCode = "400", description = "Erro nos dados da requisição"),
+            @ApiResponse(responseCode = "500", description = "Erro interno no servidor")
+    })
+    @PostMapping("/request")
+    public ResponseEntity<ResponseDTO> requestDonation(@RequestBody @Valid CreateDonationRequestDTO request) {
+        try {
+            donationService.createDonation(request);
+            ResponseDTO response = new ResponseDTO("Doação solicitada com sucesso!", 201);
+            return ResponseEntity.status(201).body(response);
+        } catch (RuntimeException e) {
+            ResponseDTO response = new ResponseDTO(e.getMessage(), 400);
+            return ResponseEntity.status(400).body(response);
+        } catch (Exception e) {
+            ResponseDTO response = new ResponseDTO("Erro interno: " + e.getMessage(), 500);
+            return ResponseEntity.status(500).body(response);
+        }
+    }
 
     @Operation(summary = "Lista todas as doações realizadas cadastradas")
     @ApiResponses(value = {
