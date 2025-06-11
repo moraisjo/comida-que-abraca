@@ -11,6 +11,7 @@ import { jwtDecode } from 'jwt-decode';
 type DecodedUser = {
   sub?: string; // subject (unique identifier) = email
   userId?: string;
+  role: string;
 };
 
 type AuthContextType = {
