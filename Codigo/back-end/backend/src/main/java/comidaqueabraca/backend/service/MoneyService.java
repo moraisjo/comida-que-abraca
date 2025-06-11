@@ -1,7 +1,6 @@
 package comidaqueabraca.backend.service;
 
 import comidaqueabraca.backend.dto.MoneyDonationDTO;
-import comidaqueabraca.backend.entity.MoneyEntity;
 import comidaqueabraca.backend.repository.MoneyRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

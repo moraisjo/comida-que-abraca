@@ -1,5 +1,6 @@
 package comidaqueabraca.backend.entity;
 
+import comidaqueabraca.backend.enums.Category;
 import comidaqueabraca.backend.enums.DeliveryType;
 import comidaqueabraca.backend.enums.DonationStatus;
 import jakarta.persistence.*;
@@ -12,7 +13,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @NoArgsConstructor
-@Inheritance(strategy = InheritanceType.JOINED)  // Define herança JOINED (trabalha junto com @PrimaryKeyJoinColumn(name = "id"))
+@Inheritance(strategy = InheritanceType.JOINED)
 public class DonationEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,6 +21,22 @@ public class DonationEntity {
 
     @Column(name = "name", nullable = false)
     private String name;
+
+    @Column(name = "description", nullable = false)
+    private String description;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "category", nullable = false)
+    private Category category;
+
+    @Column(name = "quantity", nullable = false)
+    private Integer quantity;
+
+    @Column(name = "contact_info")
+    private String contactInfo;
+
+    @Column(name = "delivery_description", nullable = false)
+    private String deliveryDescription;
 
     @Column(name = "request_date", nullable = false)
     private LocalDateTime requestDate;
@@ -56,10 +73,20 @@ public class DonationEntity {
     @JoinColumn(name = "campaign_id")
     private CampaignEntity campaign;
 
-    public DonationEntity(String name, LocalDateTime arrivingDate, LocalDateTime stockEntryDate, LocalDateTime stockExitDate, DeliveryType delivery, DonationStatus status, String photoUrl, PartnerEntity donor, PartnerEntity beneficiary, CampaignEntity campaign) {
+    public DonationEntity(String name, String description, Category category, Integer quantity,
+                          String contactInfo, String deliveryDescription, LocalDateTime arrivingDate,
+                          LocalDateTime stockEntryDate, LocalDateTime stockExitDate, DeliveryType delivery,
+                          DonationStatus status, String photoUrl, PartnerEntity donor,
+                          PartnerEntity beneficiary, CampaignEntity campaign) {
         this.name = name;
+        this.description = description;
+        this.category = category;
+        this.quantity = quantity;
+        this.contactInfo = contactInfo;
+        this.deliveryDescription = deliveryDescription;
         this.arrivingDate = arrivingDate;
         this.stockEntryDate = stockEntryDate;
+        this.stockExitDate = stockExitDate;
         this.delivery = delivery;
         this.status = status;
         this.photoUrl = photoUrl;

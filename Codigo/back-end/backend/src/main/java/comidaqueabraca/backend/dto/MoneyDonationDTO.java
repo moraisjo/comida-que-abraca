@@ -1,6 +1,5 @@
 package comidaqueabraca.backend.dto;
 
-import comidaqueabraca.backend.enums.CategoryTransaction;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
