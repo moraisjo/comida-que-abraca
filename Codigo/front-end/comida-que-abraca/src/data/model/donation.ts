@@ -1,6 +1,19 @@
 import { Campaign } from "./campaign";
 import { Partner } from "./partner";
 
+export enum Category {
+  FOOD = "Alimento não perecível",
+  PERISHABLE_FOOD = "Alimento perecível",
+  BED_BATH = "Cama e banho",
+  CLEANING = "Limpeza",
+  PERSONAL_CARE = "Cuidados pessoais",
+  ELECTRONICS = "Eletrônicos",
+  FURNITURE = "Móveis",
+  HYGIENE = "Higiene",
+  CLOTHING = "Vestuário",
+  APPLIANCES = "Eletrodomésticos"
+}
+
 interface DonationResponse {
     id: number;
     name: string;
@@ -23,9 +36,14 @@ interface PartnerDonationResponse {
     campaignName?: string;
   }
 
-interface PendingDonationResponse {
+  interface PendingDonationResponse {
     id: number;
     name: string;
+    description: string;
+    category: Category;
+    quantity: number;
+    contactInfo: string;
+    deliveryDescription: string;
     requestDate: string;
     delivery: string;
     status: string;
@@ -33,6 +51,7 @@ interface PendingDonationResponse {
     donorName: string;
     campaignName?: string;
   }
+  
 
   interface DonationDeliveryPendingResponse {
     id: number;
