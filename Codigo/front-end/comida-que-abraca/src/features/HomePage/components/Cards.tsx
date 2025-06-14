@@ -39,14 +39,6 @@ const cardListDeslogado = [
     image: imageProposito,
     link: "/sobre",
   },
-  {
-    title: "Relatórios",
-    description:
-      "Saiba mais sobre o impacto do projeto Comida que Abraça. Acompanhe nossos relatórios e veja como sua contribuição faz a diferença.",
-    buttonDescription: "Mais informações",
-    image: imageReports,
-    link: "/ong/relatorios",
-  }
 ];
 
 const cardListParceiroLogado = [
@@ -66,25 +58,9 @@ const cardListParceiroLogado = [
     image: imageProposito,
     link: "/sobre",
   },
-  {
-    title: "Relatórios",
-    description:
-      "Saiba mais sobre o impacto do projeto Comida que Abraça. Acompanhe nossos relatórios e veja como sua contribuição faz a diferença.",
-    buttonDescription: "Mais informações",
-    image: imageReports,
-    link: "/ong/relatorios",
-  }
 ];
 
 const cardListONGLogada = [
-  {
-    title: "Conheça nossas campanhas",
-    description:
-      "Descubra as campanhas em andamento e escolha como deseja contribuir. Pequenos gestos fazem grande diferença na vida de quem precisa.",
-    buttonDescription: "Ver campanhas",
-    image: imageCampaigns,
-    link: "/parceiro/campanhas",
-  },
   {
     title: "Nosso propósito",
     description:
@@ -100,16 +76,13 @@ const cardListONGLogada = [
     buttonDescription: "Mais informações",
     image: imageReports,
     link: "/ong/relatorios",
-  }
+  },
 ];
 
 const Cards: React.FC = () => {
   const navigate = useNavigate();
   const { decodedUser, token } = useAuth();
 
-  {
-    /* TROCAR PRO USER_TYPE!!!!!!!!!! ESSA FOI UMA SOLUÇÃO PALIATIVA */
-  }
   let cardsRenderizados;
 
   if (!token) {

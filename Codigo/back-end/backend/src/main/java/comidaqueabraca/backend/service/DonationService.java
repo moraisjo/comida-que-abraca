@@ -71,35 +71,36 @@ public class DonationService {
     public List<DonationEntity> getDonationsStock() {
         return donationRepository.findByStatus(DonationStatus.STOCK);
     }
+
     public List<PendingDonationDTO> pendingDonations() {
         List<DonationEntity> donations = donationRepository.findByStatus(DonationStatus.PENDING);
 
-        return donations.stream()
-                .map(donation -> new PendingDonationDTO(
-                        donation.getId(),
-                        donation.getName(),
-                        donation.getRequestDate(),
-                        donation.getDelivery().name(),
-                        donation.getStatus().name(),
-                        donation.getPhotoUrl(),
-                        donation.getDonor().getName(),
-                        donation.getCampaign() != null ? donation.getCampaign().getName() : null))
-                .toList();
+        return getPendingDonationDTOS(donations);
     }
 
     public List<PendingDonationDTO> pendingDeliveries() {
         List<DonationEntity> donations = donationRepository.findByStatus(DonationStatus.PENDING_DELIVERY);
 
+        return getPendingDonationDTOS(donations);
+    }
+
+    private List<PendingDonationDTO> getPendingDonationDTOS(List<DonationEntity> donations) {
         return donations.stream()
                 .map(donation -> new PendingDonationDTO(
                         donation.getId(),
                         donation.getName(),
+                        donation.getDescription(),
+                        donation.getCategory(),
+                        donation.getQuantity(),
+                        donation.getContactInfo(),
+                        donation.getDeliveryDescription(),
                         donation.getRequestDate(),
                         donation.getDelivery().name(),
                         donation.getStatus().name(),
                         donation.getPhotoUrl(),
                         donation.getDonor().getName(),
-                        donation.getCampaign() != null ? donation.getCampaign().getName() : null))
+                        donation.getCampaign() != null ? donation.getCampaign().getName() : null
+                ))
                 .toList();
     }
 

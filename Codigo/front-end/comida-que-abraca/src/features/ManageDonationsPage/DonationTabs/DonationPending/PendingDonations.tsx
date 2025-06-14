@@ -26,6 +26,20 @@ import { InfoOutlined, CheckCircleOutline } from "@mui/icons-material";
 import { PendingDonationResponse } from "../../../../data/model/donation";
 import BackendResponseModal from "../../../../shared/components/Modal/BackendResponseModal";
 import useDonationService from "../../hooks/useDonationService";
+import { Category } from "../../../../data/model/donation";
+
+const CategoryLabel: Record<Category, string> = {
+  [Category.FOOD]: "Alimento não perecível",
+  [Category.PERISHABLE_FOOD]: "Alimento perecível",
+  [Category.BED_BATH]: "Cama e banho",
+  [Category.CLEANING]: "Limpeza",
+  [Category.PERSONAL_CARE]: "Cuidados pessoais",
+  [Category.ELECTRONICS]: "Eletrônicos",
+  [Category.FURNITURE]: "Móveis",
+  [Category.HYGIENE]: "Higiene",
+  [Category.CLOTHING]: "Vestuário",
+  [Category.APPLIANCES]: "Eletrodomésticos",
+};
 
 const PendingDonations: React.FC = () => {
   const [donations, setDonations] = useState<PendingDonationResponse[]>([]);
@@ -198,7 +212,6 @@ const PendingDonations: React.FC = () => {
                           <IconButton
                             onClick={() => handleOpenDetailsDialog(donation)}
                             sx={{ color: theme.palette.primary.main }}
-                            disabled={true}
                           >
                             <InfoOutlined />
                           </IconButton>
@@ -259,6 +272,23 @@ const PendingDonations: React.FC = () => {
             <strong>Doador:</strong> {selectedDonation?.donorName}
           </Typography>
           <Typography>
+            <strong>Contato:</strong>{" "}
+            {selectedDonation?.contactInfo || "Sem contato informado"}
+          </Typography>
+          <Typography>
+            <strong>Categoria:</strong>{" "}
+            {selectedDonation?.category
+              ? CategoryLabel[selectedDonation.category as Category]
+              : "Não informado"}
+          </Typography>
+          <Typography>
+            <strong>Quantidade:</strong> {selectedDonation?.quantity}
+          </Typography>
+          <Typography>
+            <strong>Descrição da Entrega:</strong>{" "}
+            {selectedDonation?.deliveryDescription}
+          </Typography>
+          <Typography>
             <strong>Campanha:</strong>{" "}
             {selectedDonation?.campaignName || "Sem campanha associada"}
           </Typography>
@@ -295,7 +325,9 @@ const PendingDonations: React.FC = () => {
           }}
         >
           <Button
-            onClick={() => selectedDonation && handleAccept(selectedDonation.id!)}
+            onClick={() =>
+              selectedDonation && handleAccept(selectedDonation.id!)
+            }
             sx={{
               backgroundColor: theme.palette.primary.main,
               color: "#fff",
@@ -307,7 +339,9 @@ const PendingDonations: React.FC = () => {
             Aceitar
           </Button>
           <Button
-            onClick={() => selectedDonation && handleReject(selectedDonation.id!)}
+            onClick={() =>
+              selectedDonation && handleReject(selectedDonation.id!)
+            }
             sx={{
               backgroundColor: "transparent",
               border: `2px solid ${theme.palette.primary.main}`,
