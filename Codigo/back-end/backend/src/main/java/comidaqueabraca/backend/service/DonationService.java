@@ -71,6 +71,7 @@ public class DonationService {
     public List<DonationEntity> getDonationsStock() {
         return donationRepository.findByStatus(DonationStatus.STOCK);
     }
+
     public List<PendingDonationDTO> pendingDonations() {
         List<DonationEntity> donations = donationRepository.findByStatus(DonationStatus.PENDING);
 

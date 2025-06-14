@@ -52,10 +52,14 @@ interface PartnerDonationResponse {
     campaignName?: string;
   }
   
-
   interface DonationDeliveryPendingResponse {
     id: number;
     name: string;
+    description: string;
+    category: Category;
+    quantity: number;
+    contactInfo: string;
+    deliveryDescription: string;
     requestDate: string;
     delivery: string;
     status: string;
@@ -63,6 +67,7 @@ interface PartnerDonationResponse {
     donorName: string;
     campaignName?: string;
 }
+
 export interface CreateDonationResponse {
   name: string;
   arriving_date: string;
