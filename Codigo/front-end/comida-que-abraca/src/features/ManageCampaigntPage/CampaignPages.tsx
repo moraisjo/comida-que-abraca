@@ -13,9 +13,16 @@ const CampaignPage: React.FC = () => {
   const handleCloseModal = () => setModalOpen(false);
 
   return (
-    <>
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        height: "100vh",
+      }}
+    >
       <HeaderMenu />
-      <Box sx={{ width: "100%", p: 3, pb: 10 }}>
+
+      <Box sx={{ overflowY: "auto", p: 3 }}>
         <CampaignList onCreate={handleOpenModal} />
         {isModalOpen && <CampaignCreate onClose={handleCloseModal} />}
 
@@ -27,7 +34,7 @@ const CampaignPage: React.FC = () => {
       </Box>
 
       <Footer />
-    </>
+    </Box>
   );
 };
 

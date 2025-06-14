@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import {
   Typography,
   Card,
-  CardContent,
   CardActions,
   IconButton,
   CardMedia,
@@ -10,7 +9,6 @@ import {
   Button,
   TextField,
   useTheme,
-  Collapse,
   CardHeader,
   Dialog,
   DialogContent,
@@ -19,10 +17,12 @@ import {
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddIcon from "@mui/icons-material/Add";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import VisibilityIcon from "@mui/icons-material/Visibility";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import { Menu, MenuItem } from "@mui/material";
 import colors from "../../../../shared/theme/colors";
+import Pagination from "@mui/material/Pagination";
+
 import { EditCampaignRequest } from "../../../../data/model/campaign";
 import { useCampaignService } from "../../hooks/UseCampaingsService";
 import { CampaignService } from "../../hooks/UseCampaingsService";
@@ -52,12 +52,17 @@ const CampaignList: React.FC<CampaignListProps> = ({ onCreate }) => {
   const [feedbackOpen, setFeedbackOpen] = useState(false);
   const [feedbackMessage, setFeedbackMessage] = useState("");
 
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 4;
+
+  const [selectedCampaignDescription, setSelectedCampaignDescription] =
+    useState<string | null>(null);
+  const [openDescriptionDialog, setOpenDescriptionDialog] = useState(false);
+
   const { getActiveCampaigns, getInactiveCampaigns } = useCampaignService();
   const [campaigns, setCampaigns] = useState<Campaign[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
-  const [expandedCards, setExpandedCards] = useState<{
-    [key: number]: boolean;
-  }>({});
+
   const [filterAnchorEl, setFilterAnchorEl] = useState<null | HTMLElement>(
     null
   );
@@ -74,6 +79,7 @@ const CampaignList: React.FC<CampaignListProps> = ({ onCreate }) => {
           ? await getActiveCampaigns()
           : await getInactiveCampaigns();
       setCampaigns(response);
+      setCurrentPage(1);
     };
 
     fetchCampaigns();
@@ -160,11 +166,23 @@ const CampaignList: React.FC<CampaignListProps> = ({ onCreate }) => {
     campaign.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  const toggleExpand = (id: number) => {
-    setExpandedCards((prevState) => ({
-      ...prevState,
-      [id]: !prevState[id],
-    }));
+  // Calcular as campanhas da página atual:
+  const totalPages = Math.ceil(filteredCampaigns.length / itemsPerPage);
+  const displayedCampaigns = filteredCampaigns.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
+
+  // Função para abrir o dialog de descrição
+  const handleOpenDescription = (description: string) => {
+    setSelectedCampaignDescription(description);
+    setOpenDescriptionDialog(true);
+  };
+
+  // Função para fechar o dialog de descrição
+  const handleCloseDescription = () => {
+    setSelectedCampaignDescription(null);
+    setOpenDescriptionDialog(false);
   };
 
   return (
@@ -185,29 +203,6 @@ const CampaignList: React.FC<CampaignListProps> = ({ onCreate }) => {
       </Box>
 
       <Box
-        sx={{
-          position: "fixed",
-          bottom: 16,
-          right: 16,
-          zIndex: 1000,
-        }}
-      >
-        <IconButton
-          onClick={onCreate}
-          sx={{
-            backgroundColor: colors.primary,
-            color: colors.white,
-            borderRadius: "50%",
-            width: 56,
-            height: 56,
-            boxShadow: 3,
-          }}
-        >
-          <AddIcon />
-        </IconButton>
-      </Box>
-
-      <Box
         display="flex"
         justifyContent="space-between"
         alignItems="center"
@@ -219,7 +214,10 @@ const CampaignList: React.FC<CampaignListProps> = ({ onCreate }) => {
           size="small"
           fullWidth
           value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
+          onChange={(e) => {
+            setSearchTerm(e.target.value);
+            setCurrentPage(1); // <-- ADICIONE AQUI
+          }}
         />
         <Menu
           anchorEl={filterAnchorEl}
@@ -250,7 +248,7 @@ const CampaignList: React.FC<CampaignListProps> = ({ onCreate }) => {
       <Box
         sx={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 2 }}
       >
-        {filteredCampaigns.map((campaign) => (
+        {displayedCampaigns.map((campaign) => (
           <Card
             key={campaign.id}
             sx={{
@@ -260,17 +258,17 @@ const CampaignList: React.FC<CampaignListProps> = ({ onCreate }) => {
               pointerEvents: statusFilter === "FINISHED" ? "none" : "auto",
             }}
           >
-            <CardHeader
-              title={campaign.name}
-              subheader={`${new Date(campaign.startDate).toLocaleDateString(
-                "pt-BR"
-              )} - ${new Date(campaign.endDate).toLocaleDateString("pt-BR")}`}
-            />
             <CardMedia
               component="img"
               height="194"
               image={campaign.photoUrl || ""}
               alt="Imagem da campanha"
+            />
+            <CardHeader
+              title={campaign.name}
+              subheader={`${new Date(campaign.startDate).toLocaleDateString(
+                "pt-BR"
+              )} - ${new Date(campaign.endDate).toLocaleDateString("pt-BR")}`}
             />
             <CardActions
               disableSpacing
@@ -290,48 +288,47 @@ const CampaignList: React.FC<CampaignListProps> = ({ onCreate }) => {
               </Box>
 
               <IconButton
-                onClick={() => toggleExpand(campaign.id)}
-                aria-expanded={expandedCards[campaign.id]}
-                aria-label="mostrar mais"
+                onClick={() => handleOpenDescription(campaign.description)}
+                aria-label="visualizar descrição"
               >
-                <ExpandMoreIcon />
+                <VisibilityIcon />
               </IconButton>
             </CardActions>
-
-            <Collapse
-              in={expandedCards[campaign.id]}
-              timeout="auto"
-              unmountOnExit
-            >
-              <CardContent>
-                <Typography variant="body2" color="text.secondary">
-                  {campaign.description}
-                </Typography>
-              </CardContent>
-            </Collapse>
           </Card>
         ))}
+
+        <Box gridColumn="1 / -1" mt={4} display="flex" justifyContent="center">
+          <Pagination
+            count={totalPages}
+            page={currentPage}
+            onChange={(event, value) => setCurrentPage(value)}
+            color="primary"
+            variant="outlined"
+            shape="rounded"
+          />
+        </Box>
       </Box>
       <Dialog
-        open={feedbackOpen}
-        onClose={() => setFeedbackOpen(false)}
+        open={openDescriptionDialog}
+        onClose={handleCloseDescription}
         PaperProps={{
           style: {
             borderRadius: "20px",
             padding: "20px",
-            width: "350px",
+            width: "400px",
             maxWidth: "90vw",
           },
         }}
       >
-        <DialogContent sx={{ textAlign: "center", padding: 2 }}>
-          <Typography>
-            <strong>{feedbackMessage}</strong>
+        <DialogContent>
+          <Typography variant="h6" gutterBottom>
+            Descrição da Campanha
           </Typography>
+          <Typography variant="body1">{selectedCampaignDescription}</Typography>
         </DialogContent>
         <DialogActions>
           <Button
-            onClick={() => setFeedbackOpen(false)}
+            onClick={handleCloseDescription}
             sx={{
               borderRadius: "20px",
               backgroundColor: "primary.main",
@@ -340,7 +337,7 @@ const CampaignList: React.FC<CampaignListProps> = ({ onCreate }) => {
               fontSize: "14px",
             }}
           >
-            OK
+            Fechar
           </Button>
         </DialogActions>
       </Dialog>
