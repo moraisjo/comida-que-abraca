@@ -68,7 +68,6 @@ const DonationsStocks: React.FC = () => {
         setDonations(data);
       } catch (err: unknown) {
         const error = err as AxiosError;
-        console.error(error);
       } finally {
         setLoading(false);
       }
