@@ -27,18 +27,19 @@ public class PartnerService {
 
     @Transactional
     public PartnerDTO createPartner(@Valid CreatePartnerDTO data) {
-        // Criar um parceiro (que já estende UserEntity)
         PartnerEntity partner = new PartnerEntity();
         partner.setName(data.name());
         partner.setEmail(data.email());
         partner.setPassword(passwordEncoder.encode(data.password()));
+        partner.setPhone(data.phone());
+        partner.setAddress(data.address());
         partner.setWantsToDonate(data.wantsToDonate());
         partner.setWantsToReceiveDonations(data.wantsToReceiveDonations());
         partner.setLegalEntityType(data.legalEntityType());
         partner.setRegistrationDate(LocalDateTime.now());
+        partner.setUserRole("PARTNER");
 
-        partnerRepository.save(partner); // Salva tanto em db_user quanto em db_partner
-        // retorna DTO para não expor dados sensíveis como senha
+        partnerRepository.save(partner);
         return new PartnerDTO(
                 partner.getName(),
                 partner.getEmail(),

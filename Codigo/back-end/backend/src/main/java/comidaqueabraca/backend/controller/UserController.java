@@ -1,9 +1,12 @@
 package comidaqueabraca.backend.controller;
 
+import comidaqueabraca.backend.dto.ResetPasswordDTO;
 import comidaqueabraca.backend.dto.UserResponseDTO;
 import comidaqueabraca.backend.repository.UserRepository;
 import comidaqueabraca.backend.service.UserService;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.persistence.EntityNotFoundException;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -29,7 +32,16 @@ public class UserController {
         return ResponseEntity.ok(users);
     }
 
-    // Endpoint que registra o aceite do termo LGPD, salvando a data/hora
+    @PutMapping("/reset-password")
+    public ResponseEntity<?> resetPassword(@RequestBody @Valid ResetPasswordDTO request) {
+        try {
+            userService.resetPassword(request);
+            return ResponseEntity.ok().build();
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
     @PutMapping("/lgpd-consent/{id}")
     public ResponseEntity<?> acceptLgpd(@PathVariable Integer id) {
         return userRepository.findById(id).map(user -> {
