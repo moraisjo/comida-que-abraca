@@ -127,7 +127,7 @@ export default function HeaderMenu({ isExternalPage }: HeaderMenuProps) {
                   display: "flex",
                   alignItems: "center",
                   cursor: "pointer",
-                  ml: "auto", // empurra para o fim do flex container
+                  ml: "auto",
                   color: colors.darkGray,
                 }}
               >

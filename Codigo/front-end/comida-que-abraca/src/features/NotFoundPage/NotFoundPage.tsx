@@ -5,10 +5,8 @@ import { PUBLIC_PAGES_URL } from "../../services/AppPageUrl";
 import HeaderMenu from "../../shared/components/HeaderMenu";
 
 const NotFoundPage: React.FC = () => {
-  // Hook de navegação do React Router
   const navigate = useNavigate();
 
-  // Função para redirecionar para a página de login
   const handleLoginRedirect = () => {
     navigate(PUBLIC_PAGES_URL.INDEX);
   };
@@ -23,7 +21,7 @@ const NotFoundPage: React.FC = () => {
           justifyContent: "center",
           alignItems: "center",
           height: "100vh",
-          backgroundColor: '##E0E0E0'
+          backgroundColor: "##E0E0E0",
         }}
       >
         <Box>
@@ -49,17 +47,6 @@ const NotFoundPage: React.FC = () => {
           <br />
           <br />
           <br />
-          {/*             <Box 
-                component="img"
-                src={logo}
-                alt="Logo"
-                sx={{
-                    width: '100%', 
-                    maxWidth: 250, 
-                    height: 'auto', 
-                    margin: 1,
-                }}
-            /> */}
         </Box>
       </Box>
     </>

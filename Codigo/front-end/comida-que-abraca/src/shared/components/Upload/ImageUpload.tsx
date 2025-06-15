@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 
-// Tipagem para a prop onImageUploaded
 interface ImageUploadProps {
   onImageUploaded: (url: string) => void;
 }
