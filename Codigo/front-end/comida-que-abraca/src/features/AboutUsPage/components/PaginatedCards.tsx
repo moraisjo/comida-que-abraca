@@ -66,15 +66,6 @@ export default function PaginatedCards() {
         },
       }}
     >
-      <Typography
-        variant="h5"
-        fontWeight="bold"
-        mb={2}
-        color="#333"
-        sx={{ fontFamily: "fontFamily" }}
-      >
-        Valores e Ações do Comida Que Abraça
-      </Typography>
       <Swiper
         modules={[Navigation]}
         navigation

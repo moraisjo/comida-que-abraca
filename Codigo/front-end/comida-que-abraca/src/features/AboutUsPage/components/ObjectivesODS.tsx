@@ -48,16 +48,6 @@ export default function ObjectivesODS() {
         },
       }}
     >
-      <Typography
-        variant="h5"
-        fontWeight="bold"
-        mb={2}
-        color="#333"
-        sx={{ fontFamily: "fontFamily" }}
-      >
-        Objetivos de Desenvolvimento Sustentável
-      </Typography>
-
       <Swiper
         modules={[Navigation]}
         navigation
