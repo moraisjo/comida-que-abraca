@@ -246,6 +246,7 @@ export default function HeaderMenu({ isExternalPage }: HeaderMenuProps) {
                   </ListItemIcon>
                   Quero doar
                 </MenuItem>
+
                 <MenuItem
                   onClick={() => {
                     navigate("/parceiro/solicitacao");

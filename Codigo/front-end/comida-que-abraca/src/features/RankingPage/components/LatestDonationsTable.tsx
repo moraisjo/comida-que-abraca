@@ -26,22 +26,38 @@ const LatestDonationsTable: React.FC<LatestDonationsTableProps> = ({
   }
   return (
     <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 300, '& td, & th': { border: `1px solid ${colors.darkGray}` }, }} aria-label="simple table">
+      <Table
+        sx={{
+          minWidth: 300,
+          "& td, & th": { border: `1px solid ${colors.darkGray}` },
+        }}
+        aria-label="simple table"
+      >
         <TableHead>
           <TableRow>
-            <TableCell align="center" sx={{ py: 1, background: colors.purple, color: 'white' }}><strong>Descrição</strong></TableCell>
-            <TableCell align="center" sx={{ py: 1, background: colors.purple, color: 'white' }}><strong>Data de doação</strong></TableCell>
+            <TableCell
+              align="center"
+              sx={{ py: 1, background: colors.primary, color: "white" }}
+            >
+              <strong>Descrição</strong>
+            </TableCell>
+            <TableCell
+              align="center"
+              sx={{ py: 1, background: colors.primary, color: "white" }}
+            >
+              <strong>Data de doação</strong>
+            </TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {latestDonations.map((row) => (
-            <TableRow
-              key={row.name}
-            >
-              <TableCell component="th" scope="row" align="center" sx={{ background: colors.lilac }}>
+            <TableRow key={row.name}>
+              <TableCell component="th" scope="row" align="center">
                 {row.name}
               </TableCell>
-              <TableCell align="center">{formatDate(row.arrivingDate)}</TableCell>
+              <TableCell align="center">
+                {formatDate(row.arrivingDate)}
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>
