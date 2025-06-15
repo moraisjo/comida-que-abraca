@@ -16,11 +16,9 @@ import {
 } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
-import AddIcon from "@mui/icons-material/Add";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import { Menu, MenuItem } from "@mui/material";
-import colors from "../../../../shared/theme/colors";
 import Pagination from "@mui/material/Pagination";
 
 import { EditCampaignRequest } from "../../../../data/model/campaign";

@@ -150,6 +150,8 @@ const ListCampaing: React.FC = () => {
           page={currentPage}
           onChange={(_, value) => setCurrentPage(value)}
           color="primary"
+          variant="outlined"
+          shape="rounded"
           size="large"
           sx={{ display: "flex", justifyContent: "center" }}
         />
