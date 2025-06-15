@@ -51,8 +51,15 @@ const BannerAboutUsPage: React.FC = () => {
           color="#424242"
           sx={{ marginBottom: "24px", fontFamily: "fontFamily" }}
         >
-          Conheça mais sobre o que nos move<br /> no projeto Comida Que Abraça.
+          Descubra como transformamos alimentos em abraços de solidariedade. O
+          projeto{" "}
+          <Box component="span" fontWeight="bold">
+            Comida Que Abraça
+          </Box>{" "}
+          conecta doadores, voluntários e quem precisa para combater o
+          desperdício e a fome com amor e ação.
         </Typography>
+
         <Button
           variant="contained"
           startIcon={<ArrowUpRight />}
