@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import {
   Card,
   CardContent,
@@ -30,13 +30,25 @@ const ListCampaing: React.FC = () => {
     fetchCampaigns();
   }, []);
 
-  const startIndex = (currentPage - 1) * CARDS_POR_PAGINA;
-  const endIndex = startIndex + CARDS_POR_PAGINA;
-  const paginatedCampaigns = campaigns.slice(startIndex, endIndex);
-  const totalPages = Math.ceil(campaigns.length / CARDS_POR_PAGINA);
+  const totalPages = useMemo(
+    () => Math.ceil(campaigns.length / CARDS_POR_PAGINA),
+    [campaigns]
+  );
+
+  const paginatedCampaigns = useMemo(() => {
+    const startIndex = (currentPage - 1) * CARDS_POR_PAGINA;
+    const endIndex = startIndex + CARDS_POR_PAGINA;
+    return campaigns.slice(startIndex, endIndex);
+  }, [campaigns, currentPage]);
+
+  useEffect(() => {
+    if (currentPage > totalPages && totalPages > 0) {
+      setCurrentPage(totalPages);
+    }
+  }, [totalPages, currentPage]);
 
   return (
-    <div style={{ padding: "20px" }}>
+    <div style={{ padding: "20px", paddingBottom: "100px" }}>
       <section
         style={{
           display: "flex",
@@ -120,6 +132,7 @@ const ListCampaing: React.FC = () => {
                   textTransform: "uppercase",
                   "&:hover": { backgroundColor: "#e64a19" },
                   fontFamily: "fontFamily",
+                  width: "200px",
                 }}
                 onClick={() => navigate(`/parceiro/campanhas/${campaign.id}`)}
                 startIcon={<InfoOutlinedIcon />}
