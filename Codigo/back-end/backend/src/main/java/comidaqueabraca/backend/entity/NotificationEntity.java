@@ -23,7 +23,7 @@ public class NotificationEntity {
     private UserEntity user;
 
     @ManyToOne
-    @JoinColumn(name = "campaign_id", nullable = false)
+    @JoinColumn(name = "campaign_id")
     private CampaignEntity campaign;
 
     @Column(name = "title", nullable = false, length = 100)

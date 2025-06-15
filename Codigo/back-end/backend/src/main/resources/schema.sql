@@ -127,7 +127,7 @@ CREATE TABLE db_money (
 CREATE TABLE IF NOT EXISTS db_notification (
                                                id INT AUTO_INCREMENT PRIMARY KEY,
                                                user_id INT NOT NULL,
-                                               campaign_id INT NOT NULL,
+                                               campaign_id INT,
                                                title VARCHAR(100) NOT NULL,
                                                message TEXT NOT NULL,
                                                sent_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
