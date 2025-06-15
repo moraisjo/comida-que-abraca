@@ -36,8 +36,8 @@ public class PartnerController {
 
     @PostMapping("/create")
     public ResponseEntity<PartnerDTO> createPartner(@RequestBody @Valid CreatePartnerDTO data) {
-        PartnerDTO newPartner = partnerService.createPartner(data); // retorna DTO para não expor dados sensíveis como
-                                                                    // senha
+        PartnerDTO newPartner = partnerService.createPartner(data);
+
         return ResponseEntity.status(HttpStatus.CREATED).body(newPartner);
     }
 

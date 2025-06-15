@@ -17,9 +17,8 @@ import api from "../../api/axios";
 export default function LoginPage() {
   const [checked, setChecked] = useState(false);
   const navigate = useNavigate();
-  const { decodedUser, setAuthData } = useAuth();
+  const { decodedUser } = useAuth();
 
-  // Wait for decodedUser to be available
   if (!decodedUser?.userId) {
     return <div>Carregando...</div>;
   }
@@ -115,7 +114,7 @@ export default function LoginPage() {
             >
               Prosseguir
             </Button>
-            <Button variant="outlined" color="error" onClick={handleCancel}>
+            <Button variant="outlined" color="warning" onClick={handleCancel}>
               Cancelar
             </Button>
           </Box>

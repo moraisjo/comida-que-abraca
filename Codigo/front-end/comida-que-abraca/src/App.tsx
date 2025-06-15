@@ -23,6 +23,7 @@ import NotFoundPage from "./features/NotFoundPage/NotFoundPage";
 import InfoCampaign from "./features/CampaignsPage/components/InfoCampaing";
 import { OngRoute } from "./routes/OngRoute";
 import { PartnerRoute } from "./routes/PartnerRoute";
+import ResetPasswordPage from "./features/ResetPage/ResetPasswordPage";
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
             {/* Public routes */}
             <Route path="/" element={<HomePage />} />
             <Route path="/login" element={<LoginPage />} />
+            <Route path="/reset" element={<ResetPasswordPage />} />
             <Route path="/sobre" element={<AboutUsPage />} />
             <Route path="/lgpd" element={<LgpdConsent />} />
             <Route path="/page-not-found" element={<NotFoundPage />} />
