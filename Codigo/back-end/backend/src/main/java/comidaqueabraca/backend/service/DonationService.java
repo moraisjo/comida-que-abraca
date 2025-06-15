@@ -1,6 +1,7 @@
 package comidaqueabraca.backend.service;
 
 import comidaqueabraca.backend.dto.CreateDonationRequestDTO;
+import comidaqueabraca.backend.dto.DonationDTO;
 import comidaqueabraca.backend.dto.PartnerDonationDTO;
 import comidaqueabraca.backend.dto.PendingDonationDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import comidaqueabraca.backend.enums.DonationStatus;
 import comidaqueabraca.backend.repository.DonationRepository;
 import comidaqueabraca.backend.repository.PartnerRepository;
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -68,9 +70,15 @@ public class DonationService {
         return donations.stream().map(this::convertToDTO).toList();
     }
 
-    public List<DonationEntity> getDonationsStock() {
-        return donationRepository.findByStatus(DonationStatus.STOCK);
+    public List<DonationDTO> getDonationsStockOrDonated() {
+        List<DonationEntity> donations = donationRepository.findByStatusIn(
+                Arrays.asList(DonationStatus.STOCK, DonationStatus.DONATED));
+
+        return donations.stream()
+                .map(DonationDTO::fromEntity)
+                .collect(Collectors.toList());
     }
+
 
     public List<PendingDonationDTO> pendingDonations() {
         List<DonationEntity> donations = donationRepository.findByStatus(DonationStatus.PENDING);

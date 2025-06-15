@@ -3,6 +3,7 @@ package comidaqueabraca.backend.controller;
 import java.util.List;
 
 import comidaqueabraca.backend.dto.CreateDonationRequestDTO;
+import comidaqueabraca.backend.dto.DonationDTO;
 import comidaqueabraca.backend.dto.PartnerDonationDTO;
 import comidaqueabraca.backend.dto.PendingDonationDTO;
 import comidaqueabraca.backend.dto.response.ResponseDTO;
@@ -83,8 +84,8 @@ public class DonationController {
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
     })
     @GetMapping("/stock")
-    public ResponseEntity<List<DonationEntity>> listDonationStock() {
-        List<DonationEntity> donations = donationService.getDonationsStock();
+    public ResponseEntity<List<DonationDTO>> listDonationStock() {
+        List<DonationDTO> donations = donationService.getDonationsStockOrDonated();
         return ResponseEntity.ok(donations);
     }
 

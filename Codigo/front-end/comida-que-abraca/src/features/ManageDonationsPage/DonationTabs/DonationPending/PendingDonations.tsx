@@ -263,7 +263,9 @@ const PendingDonations: React.FC = () => {
           },
         }}
       >
-        <DialogTitle>Detalhes da Doação</DialogTitle>
+        <DialogTitle fontSize="18px" fontWeight="bold">
+          Detalhes da Doação
+        </DialogTitle>
         <DialogContent>
           <Typography>
             <strong>Item:</strong> {selectedDonation?.name}
@@ -294,7 +296,14 @@ const PendingDonations: React.FC = () => {
           </Typography>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleCloseDetailsDialog}>Fechar</Button>
+          <Button
+            variant="contained"
+            color="primary"
+            fullWidth
+            onClick={handleCloseDetailsDialog}
+          >
+            Fechar
+          </Button>
         </DialogActions>
       </Dialog>
 

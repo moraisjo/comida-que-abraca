@@ -19,6 +19,9 @@ public interface DonationRepository extends JpaRepository<DonationEntity, Long> 
 
     List<DonationEntity> findByStatus(DonationStatus status);
 
+    List<DonationEntity> findByStatusIn(List<DonationStatus> statuses);
+
+
     @Query("""
         SELECT new comidaqueabraca.backend.dto.DonationsByCampaignDTO(
             COALESCE(c.name, 'Outras Campanhas'),

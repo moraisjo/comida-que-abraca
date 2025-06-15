@@ -13,6 +13,7 @@ import {
 import colors from "../../../../shared/theme/colors";
 import { Partner } from "../../../../data/model/partner";
 import { useState } from "react";
+import api from "../../../../api/axios.ts"; // Aqui o seu Axios importado
 
 interface DonationDetail {
   id: number;
@@ -22,6 +23,7 @@ interface DonationDetail {
   donorName: string;
   beneficiaryName: string;
 }
+
 interface BeneficiaryModalProps {
   open: boolean;
   handleCloseModal: () => void;
@@ -53,22 +55,11 @@ const BeneficiaryModal: React.FC<BeneficiaryModalProps> = ({
     }
 
     try {
-      const response = await fetch(
-        `http://localhost:8080/api/donation/update-output/${donation.id}/${selectedPartner.id}`,
-        {
-          method: "PUT",
-        }
+      await api.put(
+        `/api/donation/update-output/${donation.id}/${selectedPartner.id}`
       );
 
-      if (!response.ok) {
-        throw new Error(`Erro ao fazer a doação: ${response.status}`);
-      }
-
-      setShowSuccess(true);
-      setTimeout(() => {
-        setShowSuccess(false);
-        handleCloseModal();
-      }, 3000);
+      handleCloseModal();
     } catch (error: any) {
       console.error("Erro ao processar a doação:", error.message);
     }
@@ -135,6 +126,7 @@ const BeneficiaryModal: React.FC<BeneficiaryModalProps> = ({
             color="primary"
             onClick={handleDonate}
             disabled={!selectedPartner}
+            fullWidth
           >
             Doar
           </Button>
