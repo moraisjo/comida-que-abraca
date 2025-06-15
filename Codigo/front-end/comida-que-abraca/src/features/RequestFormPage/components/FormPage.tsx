@@ -19,9 +19,10 @@ import BackendResponseModal from "../../../shared/components/Modal/BackendRespon
 type FormPageProps = {
   open: boolean;
   handleClose: () => void;
+  setRefresh: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-function FormPage({ open, handleClose }: FormPageProps) {
+function FormPage({ open, handleClose, setRefresh }: FormPageProps) {
   const { decodedUser } = useAuth();
   const userId = decodedUser?.userId ? Number(decodedUser.userId) : null;
 
@@ -53,6 +54,8 @@ function FormPage({ open, handleClose }: FormPageProps) {
       itemType: tipoItem,
       description: motivacao,
     });
+
+    setRefresh((prev) => !prev);
   };
 
   useEffect(() => {
@@ -91,13 +94,19 @@ function FormPage({ open, handleClose }: FormPageProps) {
               labelId="tipo-item-label"
               value={tipoItem}
               onChange={(e) => setTipoItem(e.target.value)}
+              label="Tipo de Item"
             >
-              <MenuItem value="Alimento">Alimento</MenuItem>
-              <MenuItem value="Roupas">Roupas</MenuItem>
-              <MenuItem value="Produtos de Higiene Pessoal">
-                Produtos de Higiene
+              <MenuItem value="Alimento Nao Pereciveis">
+                Alimentos Não Perecíveis
               </MenuItem>
-              <MenuItem value="Móveis">Móveis</MenuItem>
+              <MenuItem value="Alimento Pereciveis">
+                Alimentos Perecíveis
+              </MenuItem>
+              <MenuItem value="Cama, Mesa, Banho">Cama, Mesa e Banho</MenuItem>
+              <MenuItem value="Moveis">Móveis</MenuItem>
+              <MenuItem value="Itens de Higiene">Itens de Higiene</MenuItem>
+              <MenuItem value="Roupas">Roupas</MenuItem>
+              <MenuItem value="Eletrodomesticos">Eletrodomésticos</MenuItem>
               <MenuItem value="Outros">Outros</MenuItem>
             </Select>
           </FormControl>
@@ -113,15 +122,19 @@ function FormPage({ open, handleClose }: FormPageProps) {
           />
 
           <Typography variant="body2" sx={{ color: "#F46A02" }}>
-            <strong>
-              Observação: a manifestação de interesse não é garantia de que você
-              vai receber a doação. Você ficará no nosso banco de dados e, caso
-              a doação esteja disponível, nós entraremos em contato.
-            </strong>
+            Observação: a manifestação de interesse não é garantia de que você
+            vai receber a doação. Você ficará no nosso banco de dados e, caso a
+            doação esteja disponível, nós entraremos em contato.
           </Typography>
         </DialogContent>
 
-        <DialogActions sx={{ gap: 1 }}>
+        <DialogActions
+          sx={{
+            gap: 1,
+            px: 3,
+            pb: 3,
+          }}
+        >
           <Button
             variant="contained"
             onClick={handleSubmit}

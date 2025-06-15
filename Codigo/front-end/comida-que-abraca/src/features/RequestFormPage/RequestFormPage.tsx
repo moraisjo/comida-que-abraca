@@ -9,12 +9,14 @@ import { Box, IconButton } from "@mui/material";
 const RequestFormPage: React.FC = () => {
   const [openModal, setOpenModal] = useState(false);
 
+  const [refresh, setRefresh] = useState(false);
+
   return (
     <>
       <HeaderMenu />
 
       <Box sx={{ width: "100%", p: 2, paddingBottom: "80px" }}>
-        <ListRequest />
+        <ListRequest refresh={refresh} />
       </Box>
 
       <Box
@@ -42,7 +44,11 @@ const RequestFormPage: React.FC = () => {
 
       <Footer />
 
-      <FormPage open={openModal} handleClose={() => setOpenModal(false)} />
+      <FormPage
+        open={openModal}
+        handleClose={() => setOpenModal(false)}
+        setRefresh={setRefresh}
+      />
     </>
   );
 };

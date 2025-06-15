@@ -18,7 +18,11 @@ import BackendResponseModal from "../../../shared/components/Modal/BackendRespon
 import { useRequestPartner } from "../hooks/useRequestPartner";
 import { useAuth } from "../../../context/AuthContext";
 
-const ListRequest: React.FC = () => {
+type ListRequestProps = {
+  refresh: boolean;
+};
+
+const ListRequest: React.FC<ListRequestProps> = ({ refresh }) => {
   const theme = useTheme();
   const { decodedUser } = useAuth();
   const userId = decodedUser?.userId ? Number(decodedUser.userId) : null;
@@ -38,7 +42,7 @@ const ListRequest: React.FC = () => {
     if (userId !== null) {
       getRequestsByUser(userId);
     }
-  }, [userId]);
+  }, [userId, refresh]);
 
   useEffect(() => {
     if (message) {
@@ -136,14 +140,16 @@ const ListRequest: React.FC = () => {
           </TableContainer>
         )}
 
-        <TablePagination
-          component="div"
-          rowsPerPageOptions={[rowsPerPage]}
-          count={filteredRequests.length}
-          rowsPerPage={rowsPerPage}
-          page={page}
-          onPageChange={handleChangePage}
-        />
+        {filteredRequests.length > 0 && (
+          <TablePagination
+            component="div"
+            rowsPerPageOptions={[rowsPerPage]}
+            count={filteredRequests.length}
+            rowsPerPage={rowsPerPage}
+            page={page}
+            onPageChange={handleChangePage}
+          />
+        )}
       </Box>
 
       <BackendResponseModal
