@@ -60,7 +60,7 @@ export default function LoginPage() {
 
   return (
     <Container maxWidth="sm">
-      <Paper elevation={3} sx={{ p: 4, mt: 8, borderRadius: 4 }}>
+      <Paper elevation={3} sx={{ p: 4, mt: 4, mb: 4, borderRadius: 4 }}>
         <img src={logo} alt="Logo Comida que Abraça" width="80%" />
         <Typography variant="h5" align="center" gutterBottom>
           Login
@@ -95,6 +95,13 @@ export default function LoginPage() {
 
           {errorMsg && <Alert severity="error">{errorMsg}</Alert>}
         </Box>
+
+        <Typography variant="body2" align="center" sx={{ mt: 2 }}>
+          Esqueceu sua senha?{" "}
+          <Link href="/reset" underline="hover">
+            Clique aqui!
+          </Link>
+        </Typography>
 
         <Typography variant="body2" align="center" sx={{ mt: 2 }}>
           Ainda não tem cadastro?{" "}

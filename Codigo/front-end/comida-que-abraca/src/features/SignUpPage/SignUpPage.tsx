@@ -10,32 +10,58 @@ import {
   FormControl,
   Container,
   Typography,
-  Box,
   Link,
-  Stack,
+  Paper,
+  Snackbar,
+  Alert,
 } from "@mui/material";
 import type { SelectChangeEvent } from "@mui/material/Select";
 import api from "../../api/axios";
-import HeaderMenu from "../../shared/components/HeaderMenu";
-import { User } from "react-feather";
-import Footer from "../../shared/components/Footer/Footer";
+import logo from "../../assets/comida-que-abraca-logo.png";
 
 const SignUpPage = () => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     password: "",
+    phone: "",
+    address: "",
     wantsToDonate: false,
     wantsToReceiveDonations: false,
-    legalEntityType: "ONG",
+    legalEntityType: "",
   });
 
   const legalEntityTypes = [
     { label: "ONG", value: "ONG" },
     { label: "Empresa", value: "COMPANY" },
-    { label: "Indivíduo", value: "INDIVIDUAL" },
+    { label: "Pessoa física", value: "INDIVIDUAL" },
     { label: "Governo", value: "GOVERNMENT" },
   ];
+
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState("");
+  const [snackbarSeverity, setSnackbarSeverity] = useState<
+    "success" | "error" | "info" | "warning"
+  >("success");
+
+  const showSnackbar = (
+    message: string,
+    severity: "success" | "error" | "info" | "warning"
+  ) => {
+    setSnackbarMessage(message);
+    setSnackbarSeverity(severity);
+    setSnackbarOpen(true);
+  };
+
+  const handleCloseSnackbar = (
+    event?: React.SyntheticEvent | Event,
+    reason?: string
+  ) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setSnackbarOpen(false);
+  };
 
   const handleChange = (
     e:
@@ -68,36 +94,33 @@ const SignUpPage = () => {
       const response = await api.post("/partners/create", formData);
 
       if (response.status === 200 || response.status === 201) {
-        alert("Parceiro cadastrado com sucesso!");
+        showSnackbar("Parceiro cadastrado com sucesso!", "success");
         setFormData({
           name: "",
           email: "",
           password: "",
+          phone: "",
+          address: "",
           wantsToDonate: false,
           wantsToReceiveDonations: false,
-          legalEntityType: "ONG",
+          legalEntityType: "",
         });
       } else {
-        alert("Falha ao cadastrar parceiro. Tente novamente.");
+        showSnackbar("Falha ao cadastrar parceiro. Tente novamente.", "error");
       }
     } catch (error) {
-      alert("Ocorreu um erro. Tente novamente.");
+      showSnackbar("Ocorreu um erro. Tente novamente.", "error");
     }
   };
 
   return (
     <>
-      <HeaderMenu isExternalPage={true} />
-      <Container sx={{ p: 4, mt: 2 }}>
-        <Box>
-          <Stack alignItems="center" spacing={2}>
-            <Box sx={{ display: "flex", alignItems: "center" }}>
-              <Typography variant="h5" color="#FF5722" marginRight={1}>
-                Cadastro de parceiro
-              </Typography>
-              <User />
-            </Box>
-          </Stack>
+      <Container maxWidth="sm">
+        <Paper elevation={3} sx={{ p: 4, mt: 4, mb: 4, borderRadius: 4 }}>
+          <img src={logo} alt="Logo Comida que Abraça" width="80%" />
+          <Typography variant="h5" align="center" gutterBottom>
+            Cadastro de parceiro
+          </Typography>
           <form onSubmit={handleSubmit}>
             <TextField
               label="Nome"
@@ -128,6 +151,24 @@ const SignUpPage = () => {
               margin="normal"
               required
             />
+            <TextField
+              label="Telefone"
+              name="phone"
+              value={formData.phone}
+              onChange={handleChange}
+              fullWidth
+              margin="normal"
+            />
+
+            <TextField
+              label="Endereço"
+              name="address"
+              value={formData.address}
+              onChange={handleChange}
+              fullWidth
+              margin="normal"
+            />
+
             <FormControlLabel
               control={
                 <Checkbox
@@ -154,6 +195,8 @@ const SignUpPage = () => {
                 name="legalEntityType"
                 value={formData.legalEntityType}
                 onChange={handleChange}
+                label="Tipo de Pessoa Jurídica"
+                labelId="legalEntityType-label"
               >
                 {legalEntityTypes.map((type) => (
                   <MenuItem key={type.value} value={type.value}>
@@ -162,6 +205,7 @@ const SignUpPage = () => {
                 ))}
               </Select>
             </FormControl>
+
             <Button
               type="submit"
               variant="contained"
@@ -172,16 +216,30 @@ const SignUpPage = () => {
               Cadastrar
             </Button>
           </form>
-        </Box>
 
-        <Typography variant="body2" align="center" sx={{ mt: 2 }}>
-          Já possui cadastro?{" "}
-          <Link href="/login" underline="hover">
-            Clique aqui!
-          </Link>
-        </Typography>
+          <Snackbar
+            open={snackbarOpen}
+            autoHideDuration={6000}
+            onClose={handleCloseSnackbar}
+            anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+          >
+            <Alert
+              onClose={handleCloseSnackbar}
+              severity={snackbarSeverity}
+              sx={{ width: "100%" }}
+            >
+              {snackbarMessage}
+            </Alert>
+          </Snackbar>
+
+          <Typography variant="body2" align="center" sx={{ mt: 2 }}>
+            Já possui cadastro?{" "}
+            <Link href="/login" underline="hover">
+              Clique aqui!
+            </Link>
+          </Typography>
+        </Paper>
       </Container>
-      <Footer />
     </>
   );
 };

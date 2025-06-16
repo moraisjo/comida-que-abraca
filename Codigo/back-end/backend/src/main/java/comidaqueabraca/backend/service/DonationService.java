@@ -1,26 +1,26 @@
 package comidaqueabraca.backend.service;
 
 import comidaqueabraca.backend.dto.CreateDonationRequestDTO;
+import comidaqueabraca.backend.dto.DonationDTO;
 import comidaqueabraca.backend.dto.PartnerDonationDTO;
 import comidaqueabraca.backend.dto.PendingDonationDTO;
+import comidaqueabraca.backend.entity.*;
+import comidaqueabraca.backend.repository.*;
+import comidaqueabraca.backend.util.message.DonationNotificationMessageBuilder;
+import comidaqueabraca.backend.util.message.NotificationMessageBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import comidaqueabraca.backend.entity.DonationEntity;
-import comidaqueabraca.backend.entity.PartnerEntity;
 import comidaqueabraca.backend.enums.DonationStatus;
-import comidaqueabraca.backend.repository.DonationRepository;
-import comidaqueabraca.backend.repository.PartnerRepository;
+
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import comidaqueabraca.backend.entity.CampaignEntity;
-import comidaqueabraca.backend.repository.CampaignRepository;
-import comidaqueabraca.backend.entity.UserEntity;
-import comidaqueabraca.backend.repository.UserRepository;
-
 @Service
 public class DonationService {
+    @Autowired
+    private NotificationRepository notificationRepository;
 
     @Autowired
     private DonationRepository donationRepository;
@@ -35,7 +35,6 @@ public class DonationService {
     private UserRepository userRepository;
 
     public void createDonation(CreateDonationRequestDTO request) {
-
         PartnerEntity donor = partnerRepository.findById(request.getDonor())
                 .orElseThrow(() -> new RuntimeException("Doador não encontrado"));
 
@@ -60,7 +59,25 @@ public class DonationService {
         donation.setStatus(DonationStatus.PENDING);
 
         donationRepository.save(donation);
+
+        List<UserEntity> collaborators = userRepository.findByUserRole("COLLABORATOR");
+
+        String title = DonationNotificationMessageBuilder.buildTitle();
+        String message = DonationNotificationMessageBuilder.buildMessage(donation);
+
+        List<NotificationEntity> notifications = collaborators.stream()
+                .map(user -> new NotificationEntity(
+                        user,
+                        null,
+                        donation,
+                        title,
+                        message
+                ))
+                .toList();
+
+        notificationRepository.saveAll(notifications);
     }
+
 
     public List<PartnerDonationDTO> getDonationsByPartnerUserId(Long partnerUserId) {
         List<DonationEntity> donations = donationRepository.findByDonor_Id(partnerUserId);
@@ -68,9 +85,15 @@ public class DonationService {
         return donations.stream().map(this::convertToDTO).toList();
     }
 
-    public List<DonationEntity> getDonationsStock() {
-        return donationRepository.findByStatus(DonationStatus.STOCK);
+    public List<DonationDTO> getDonationsStockOrDonated() {
+        List<DonationEntity> donations = donationRepository.findByStatusIn(
+                Arrays.asList(DonationStatus.STOCK, DonationStatus.DONATED));
+
+        return donations.stream()
+                .map(DonationDTO::fromEntity)
+                .collect(Collectors.toList());
     }
+
 
     public List<PendingDonationDTO> pendingDonations() {
         List<DonationEntity> donations = donationRepository.findByStatus(DonationStatus.PENDING);

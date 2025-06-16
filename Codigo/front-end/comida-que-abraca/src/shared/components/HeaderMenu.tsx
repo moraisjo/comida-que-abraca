@@ -14,6 +14,7 @@ import PersonSearchIcon from "@mui/icons-material/PersonSearch";
 import SettingsIcon from "@mui/icons-material/Settings";
 import LogoutIcon from "@mui/icons-material/Logout";
 import LoginIcon from "@mui/icons-material/Login";
+import InfoIcon from "@mui/icons-material/Info";
 import { Menu, MenuItem, ListItemIcon, Typography } from "@mui/material";
 import React from "react";
 import colors from "../theme/colors";
@@ -127,7 +128,7 @@ export default function HeaderMenu({ isExternalPage }: HeaderMenuProps) {
                   display: "flex",
                   alignItems: "center",
                   cursor: "pointer",
-                  ml: "auto", // empurra para o fim do flex container
+                  ml: "auto",
                   color: colors.darkGray,
                 }}
               >
@@ -210,6 +211,31 @@ export default function HeaderMenu({ isExternalPage }: HeaderMenuProps) {
               <>
                 <MenuItem
                   onClick={() => {
+                    navigate("/parceiro/campanhas");
+                    handleSandwichMenuClose();
+                  }}
+                  sx={{ color: colors.darkGray, fontWeight: "bold" }}
+                >
+                  <ListItemIcon>
+                    <CampaignIcon fontSize="small" />
+                  </ListItemIcon>
+                  Campanhas
+                </MenuItem>
+
+                <MenuItem
+                  onClick={() => {
+                    navigate("/parceiro/doacoes");
+                    handleSandwichMenuClose();
+                  }}
+                  sx={{ color: colors.darkGray, fontWeight: "bold" }}
+                >
+                  <ListItemIcon>
+                    <RedeemIcon fontSize="small" />
+                  </ListItemIcon>
+                  Minhas Doações
+                </MenuItem>
+                <MenuItem
+                  onClick={() => {
                     navigate("/parceiro/doar");
                     handleSandwichMenuClose();
                   }}
@@ -235,27 +261,15 @@ export default function HeaderMenu({ isExternalPage }: HeaderMenuProps) {
                 </MenuItem>
                 <MenuItem
                   onClick={() => {
-                    navigate("/parceiro/campanhas");
+                    navigate("/sobre");
                     handleSandwichMenuClose();
                   }}
                   sx={{ color: colors.darkGray, fontWeight: "bold" }}
                 >
                   <ListItemIcon>
-                    <CampaignIcon fontSize="small" />
+                    <InfoIcon fontSize="small" />
                   </ListItemIcon>
-                  Campanhas
-                </MenuItem>
-                <MenuItem
-                  onClick={() => {
-                    navigate("/parceiro/doacoes");
-                    handleSandwichMenuClose();
-                  }}
-                  sx={{ color: colors.darkGray, fontWeight: "bold" }}
-                >
-                  <ListItemIcon>
-                    <RedeemIcon fontSize="small" />
-                  </ListItemIcon>
-                  Minhas Doações
+                  Sobre
                 </MenuItem>
               </>
             )}
@@ -332,6 +346,18 @@ export default function HeaderMenu({ isExternalPage }: HeaderMenuProps) {
                     <EmojiEventsIcon fontSize="small" />
                   </ListItemIcon>
                   Ranking
+                </MenuItem>
+                <MenuItem
+                  onClick={() => {
+                    navigate("/sobre");
+                    handleSandwichMenuClose();
+                  }}
+                  sx={{ color: colors.darkGray, fontWeight: "bold" }}
+                >
+                  <ListItemIcon>
+                    <InfoIcon fontSize="small" />
+                  </ListItemIcon>
+                  Sobre
                 </MenuItem>
               </>
             )}

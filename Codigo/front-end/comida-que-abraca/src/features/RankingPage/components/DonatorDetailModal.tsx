@@ -3,7 +3,6 @@ import colors from "../../../shared/theme/colors";
 import { DonationResponse } from "../../../data/model/donation";
 import LatestDonationsTable from "./LatestDonationsTable";
 
-// Definindo as props
 interface DonatorItemModalProps {
   open: boolean;
   handleCloseModal: () => void;

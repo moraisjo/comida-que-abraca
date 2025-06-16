@@ -16,11 +16,9 @@ import {
 } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
-import AddIcon from "@mui/icons-material/Add";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import { Menu, MenuItem } from "@mui/material";
-import colors from "../../../../shared/theme/colors";
 import Pagination from "@mui/material/Pagination";
 
 import { EditCampaignRequest } from "../../../../data/model/campaign";
@@ -166,20 +164,17 @@ const CampaignList: React.FC<CampaignListProps> = ({ onCreate }) => {
     campaign.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  // Calcular as campanhas da página atual:
   const totalPages = Math.ceil(filteredCampaigns.length / itemsPerPage);
   const displayedCampaigns = filteredCampaigns.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
 
-  // Função para abrir o dialog de descrição
   const handleOpenDescription = (description: string) => {
     setSelectedCampaignDescription(description);
     setOpenDescriptionDialog(true);
   };
 
-  // Função para fechar o dialog de descrição
   const handleCloseDescription = () => {
     setSelectedCampaignDescription(null);
     setOpenDescriptionDialog(false);
@@ -216,7 +211,7 @@ const CampaignList: React.FC<CampaignListProps> = ({ onCreate }) => {
           value={searchTerm}
           onChange={(e) => {
             setSearchTerm(e.target.value);
-            setCurrentPage(1); // <-- ADICIONE AQUI
+            setCurrentPage(1);
           }}
         />
         <Menu

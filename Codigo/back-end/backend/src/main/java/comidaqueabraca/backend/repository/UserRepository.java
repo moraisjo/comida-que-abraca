@@ -13,6 +13,8 @@ import java.util.Optional;
 public interface UserRepository extends JpaRepository<UserEntity, Integer> {
     Optional<UserEntity> findByEmail(String email);
 
+    List<UserEntity> findByUserRole(String userRole);
+
     @Query("SELECT new comidaqueabraca.backend.service.CustomUserDetails(u) FROM UserEntity u WHERE u.email = :email")
     CustomUserDetails findByLogin(String email);
 

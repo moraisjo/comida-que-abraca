@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Typography, Button } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import ImagePageCampaing from "../../../assets/comida-que-abraca-banner.jpeg";
 
 const Banner: React.FC = () => {

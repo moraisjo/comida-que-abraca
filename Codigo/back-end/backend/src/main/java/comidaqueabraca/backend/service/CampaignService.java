@@ -51,7 +51,7 @@ public class CampaignService {
         CampaignEntity savedCampaign = campaignRepository.save(campaign);
 
         if (campaignDTO.notifyUsers()) {
-            List<UserEntity> users = userRepository.findAll();
+            List<UserEntity> users = userRepository.findByUserRole("PARTNER");
 
             String title = NotificationMessageBuilder.buildTitle();
             String message = NotificationMessageBuilder.buildMessage(savedCampaign);
@@ -60,6 +60,7 @@ public class CampaignService {
                     .map(user -> new NotificationEntity(
                             user,
                             savedCampaign,
+                            null,
                             title,
                             message
                     ))
@@ -70,6 +71,7 @@ public class CampaignService {
 
         return savedCampaign;
     }
+
 
     public void editCampaign(Integer id, EditCampaignDTO editCampaignDTO) {
         CampaignEntity campaign = campaignRepository.findById(id)
