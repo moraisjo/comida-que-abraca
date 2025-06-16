@@ -11,6 +11,7 @@ export default function NotificationIcon() {
 
   const { decodedUser } = useAuth();
   const userId = decodedUser?.userId ? Number(decodedUser.userId) : null;
+  const userRole = decodedUser?.userRole;
 
   useEffect(() => {
     if (!userId) return;
@@ -27,11 +28,21 @@ export default function NotificationIcon() {
       );
   }, [userId]);
 
+  const handleNavigate = () => {
+    if (userRole === "PARTNER") {
+      navigate("/parceiro/notificacoes");
+    } else if (userRole === "COLLABORATOR") {
+      navigate("/ong/notificacoes");
+    } else {
+      navigate("/page-not-found");
+    }
+  };
+
   return (
     <IconButton
       size="large"
       aria-label="notificações"
-      onClick={() => navigate("/ong/notificacoes")}
+      onClick={handleNavigate}
       sx={{ color: "#333" }}
     >
       <Badge badgeContent={unreadCount} color="error">

@@ -69,6 +69,7 @@ public class DonationService {
                 .map(user -> new NotificationEntity(
                         user,
                         null,
+                        donation,
                         title,
                         message
                 ))

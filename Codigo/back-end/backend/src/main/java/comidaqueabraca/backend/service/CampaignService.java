@@ -60,6 +60,7 @@ public class CampaignService {
                     .map(user -> new NotificationEntity(
                             user,
                             savedCampaign,
+                            null,
                             title,
                             message
                     ))

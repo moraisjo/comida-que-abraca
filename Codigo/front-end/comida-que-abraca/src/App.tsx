@@ -63,6 +63,10 @@ function App() {
                 path="/parceiro/solicitacao"
                 element={<RequestFormPage />}
               />
+              <Route
+                path="/parceiro/notificacoes"
+                element={<NotificationPage />}
+              />
             </Route>
           </Routes>
         </Router>

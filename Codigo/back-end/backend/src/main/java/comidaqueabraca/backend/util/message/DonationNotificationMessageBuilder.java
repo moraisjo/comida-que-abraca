@@ -9,7 +9,7 @@ public class DonationNotificationMessageBuilder {
     }
 
     public static String buildMessage(DonationEntity donation) {
-        return "Uma nova doação foi solicitada: \"" + donation.getName() + "\" com quantidade de "
+        return "Uma nova doação foi cadastrada: " + donation.getName() + " com quantidade de "
                 + donation.getQuantity() + ".";
     }
 }

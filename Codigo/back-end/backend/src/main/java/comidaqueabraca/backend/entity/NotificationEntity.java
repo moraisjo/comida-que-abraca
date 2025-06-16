@@ -26,6 +26,10 @@ public class NotificationEntity {
     @JoinColumn(name = "campaign_id")
     private CampaignEntity campaign;
 
+    @ManyToOne
+    @JoinColumn(name = "donation_id")
+    private DonationEntity donation;
+
     @Column(name = "title", nullable = false, length = 100)
     private String title;
 
@@ -41,9 +45,10 @@ public class NotificationEntity {
     @Column(name = "visualized_date")
     private LocalDateTime visualizedDate;
 
-    public NotificationEntity(UserEntity user, CampaignEntity campaign,String title, String message) {
+    public NotificationEntity(UserEntity user, CampaignEntity campaign, DonationEntity donation, String title, String message) {
         this.user = user;
         this.campaign = campaign;
+        this.donation = donation;
         this.title = title;
         this.message = message;
         this.sentDate = LocalDateTime.now();
