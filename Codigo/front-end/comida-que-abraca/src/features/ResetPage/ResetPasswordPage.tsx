@@ -40,7 +40,6 @@ export default function ResetPasswordPage() {
       setTimeout(() => navigate("/login"), 2000);
     } catch (error: any) {
       setErrorMsg(error.response?.data?.message || "Erro ao redefinir senha.");
-      console.log(error.response?.data?.message);
     }
   };
 
