@@ -45,6 +45,15 @@ const CampaingEdit: React.FC<EditCampaignModalProps> = ({
   photoUrl,
   setPhotoUrl,
 }) => {
+  function formatDateForInput(dateString: string) {
+    if (!dateString) return "";
+    const date = new Date(dateString);
+    if (isNaN(date.getTime())) return "";
+    const offset = date.getTimezoneOffset();
+    const localDate = new Date(date.getTime() - offset * 60 * 1000);
+    return localDate.toISOString().split("T")[0];
+  }
+
   return (
     <Dialog open={open} onClose={onClose} fullWidth maxWidth="sm">
       <DialogTitle>Editar Campanha</DialogTitle>
@@ -77,7 +86,7 @@ const CampaingEdit: React.FC<EditCampaignModalProps> = ({
           type="date"
           fullWidth
           InputLabelProps={{ shrink: true }}
-          value={startDate}
+          value={formatDateForInput(startDate)}
           onChange={(e) => setStartDate(e.target.value)}
         />
         <TextField
@@ -86,7 +95,7 @@ const CampaingEdit: React.FC<EditCampaignModalProps> = ({
           type="date"
           fullWidth
           InputLabelProps={{ shrink: true }}
-          value={endDate}
+          value={formatDateForInput(endDate)}
           onChange={(e) => setEndDate(e.target.value)}
         />
 
