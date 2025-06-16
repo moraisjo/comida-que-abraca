@@ -37,10 +37,6 @@ public class AuthenticationController {
 
         var jwtToken = tokenService.generateToken(user);
 
-        return ResponseEntity.ok(new TokenDTO(
-            jwtToken,
-            user.getId(),
-            user.getLgpdConsentDate()
-        ));
+        return ResponseEntity.ok(new TokenDTO(jwtToken));
     }
 }
