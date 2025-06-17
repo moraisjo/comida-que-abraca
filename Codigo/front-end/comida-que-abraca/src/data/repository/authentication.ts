@@ -15,7 +15,7 @@ class AuthenticationRepository {
       );
       return response.data;
     } catch (error) {
-      throw error;
+      console.error("Error during login:", error);
     }
   }
 }

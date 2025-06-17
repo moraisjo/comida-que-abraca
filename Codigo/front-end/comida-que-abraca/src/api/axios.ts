@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'http://localhost:8080',
+  baseURL: 'https://comida-que-abraca-production.up.railway.app',
 });
 
 // Add a request interceptor
