@@ -26,19 +26,32 @@ import { InfoOutlined, CheckCircleOutline } from "@mui/icons-material";
 import { PendingDonationResponse } from "../../../../data/model/donation";
 import BackendResponseModal from "../../../../shared/components/Modal/BackendResponseModal";
 import useDonationService from "../../hooks/useDonationService";
-import { Category } from "../../../../data/model/donation";
 
-const CategoryLabel: Record<Category, string> = {
-  [Category.FOOD]: "Alimento não perecível",
-  [Category.PERISHABLE_FOOD]: "Alimento perecível",
-  [Category.BED_BATH]: "Cama e banho",
-  [Category.CLEANING]: "Limpeza",
-  [Category.PERSONAL_CARE]: "Cuidados pessoais",
-  [Category.ELECTRONICS]: "Eletrônicos",
-  [Category.FURNITURE]: "Móveis",
-  [Category.HYGIENE]: "Higiene",
-  [Category.CLOTHING]: "Vestuário",
-  [Category.APPLIANCES]: "Eletrodomésticos",
+const getCategoryLabel = (category: string): string => {
+  switch (category) {
+    case "FOOD":
+      return "Alimento não perecível";
+    case "PERISHABLE_FOOD":
+      return "Alimento perecível";
+    case "BED_BATH":
+      return "Cama e banho";
+    case "CLEANING":
+      return "Limpeza";
+    case "PERSONAL_CARE":
+      return "Cuidados pessoais";
+    case "ELECTRONICS":
+      return "Eletrônicos";
+    case "FURNITURE":
+      return "Móveis";
+    case "HYGIENE":
+      return "Higiene";
+    case "CLOTHING":
+      return "Vestuário";
+    case "APPLIANCES":
+      return "Eletrodomésticos";
+    default:
+      return "Categoria desconhecida";
+  }
 };
 
 const PendingDonations: React.FC = () => {
@@ -280,7 +293,7 @@ const PendingDonations: React.FC = () => {
           <Typography>
             <strong>Categoria:</strong>{" "}
             {selectedDonation?.category
-              ? CategoryLabel[selectedDonation.category as Category]
+              ? getCategoryLabel(selectedDonation.category)
               : "Não informado"}
           </Typography>
           <Typography>

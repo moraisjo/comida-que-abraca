@@ -40,7 +40,7 @@ interface PartnerDonationResponse {
     id: number;
     name: string;
     description: string;
-    category: Category;
+    category: string;
     quantity: number;
     contactInfo: string;
     deliveryDescription: string;
