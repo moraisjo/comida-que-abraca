@@ -103,13 +103,8 @@ const DonationsStocks: React.FC = () => {
     setSelectedDonation(null);
   };
 
-  const filteredDonations = donations.filter(
-    (donation) =>
-      donation.name.toLowerCase().includes(filterText.toLowerCase()) ||
-      donation.donor.name.toLowerCase().includes(filterText.toLowerCase()) ||
-      donation.beneficiary?.name
-        ?.toLowerCase()
-        .includes(filterText.toLowerCase())
+  const filteredDonations = donations.filter((donation) =>
+    (donation.name || "").toLowerCase().includes(filterText.toLowerCase())
   );
 
   const handleInfoClick = (donation: DonationResponse) => {
