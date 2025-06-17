@@ -7,7 +7,7 @@ import HeaderMenu from "../../shared/components/HeaderMenu";
 import PendingDonations from "./DonationTabs/DonationPending/PendingDonations";
 import DonationPendingDelivery from "./DonationTabs/DonationsPendingDelivery/DonationPendingDelivery";
 import CustomTabPanel from "../../shared/components/CustomTabPanel/CustomTabPanel";
-import DonationStock from "./DonationTabs/DonationStock/DonationStock";
+import DonationsStocks from "./DonationTabs/DonationStock/DonationsStocks";
 import { Inbox, Truck, Package } from "react-feather";
 import Footer from "../../shared/components/Footer/Footer";
 
@@ -93,7 +93,7 @@ const DonationPage: React.FC = () => {
         </CustomTabPanel>
 
         <CustomTabPanel value={value} index={2}>
-          <DonationStock />
+          <DonationsStocks />
         </CustomTabPanel>
       </Box>
       <Footer />

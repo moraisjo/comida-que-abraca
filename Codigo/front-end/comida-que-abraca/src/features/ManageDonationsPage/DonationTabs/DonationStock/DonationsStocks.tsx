@@ -22,9 +22,9 @@ import {
   TablePagination,
 } from "@mui/material";
 import { InfoOutlined, VolunteerActivism } from "@mui/icons-material";
-import useDonationService from "../../hooks/useDonationService";
+import useDonationService from "../../hooks/useDonationService.tsx";
 import { AxiosError } from "axios";
-import BeneficiaryModal from "./BeneficiaryModal";
+import BeneficiaryModal from "./BeneficiaryModal.tsx";
 import api from "../../../../api/axios.ts";
 
 interface Partner {
@@ -294,7 +294,6 @@ const DonationsStocks: React.FC = () => {
           }}
         />
       )}
-
       <TablePagination
         component="div"
         rowsPerPageOptions={[5]}
