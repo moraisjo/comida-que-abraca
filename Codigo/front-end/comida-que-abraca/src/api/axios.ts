@@ -1,7 +1,8 @@
 import axios from 'axios';
+import { API_URL } from '../shared/utils/apiUrl';
 
 const api = axios.create({
-  baseURL: 'https://comida-que-abraca-production.up.railway.app',
+  baseURL: API_URL,
 });
 
 // Add a request interceptor

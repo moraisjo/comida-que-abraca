@@ -14,6 +14,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import colors from "../../../shared/theme/colors";
 import Typography from '@mui/material/Typography';
+import api from "../../../api/axios"; // import the axios instance
 import 'dayjs/locale/pt-br';
 dayjs.locale('pt-br');
 
@@ -29,9 +30,10 @@ export default function DonationTypeTable() {
   const [rows, setRows] = React.useState<MonthlyDonationType[]>([]);
 
   const fetchData = (month: number, year: number) => {
-    fetch(`http://localhost:8080/report/monthly-donation-type?month=${month}&year=${year}`)
-      .then((res) => res.json())
-      .then(setRows)
+    api.get("/report/monthly-donation-type", {
+      params: { month, year }
+    })
+      .then((res) => setRows(res.data))
       .catch((err) => console.error('Erro ao buscar dados da tabela:', err));
   };
 

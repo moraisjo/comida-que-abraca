@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Stack, Typography, TextField } from "@mui/material";
 import { BarChart } from "@mui/x-charts/BarChart";
+import api from "../../../api/axios"; // import the axios instance
 
 const MONTHS = [
     "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
@@ -27,13 +28,9 @@ function DonationsPerMonthChart({ selectedYear, onYearChange }: { selectedYear: 
     };
 
     useEffect(() => {
-        fetch("http://localhost:8080/report/donations-per-year", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ year: selectedYear }),
-        })
-            .then((res) => res.json())
-            .then((apiData) => {
+        api.post("/report/donations-per-year", { year: selectedYear })
+            .then((res) => {
+                const apiData = res.data;
                 const monthMap: Record<number, number> = {};
                 apiData.forEach((item: any) => {
                     monthMap[item.monthNumber] = item.totalDonations;
