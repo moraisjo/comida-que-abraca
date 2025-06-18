@@ -7,7 +7,7 @@ const API_URL = "/login";
 class AuthenticationRepository {
   async login(
     authenticationRequest: AuthenticationRequest
-  ): Promise<AuthenticationResponse> {
+  ): Promise<AuthenticationResponse | undefined> {
     try {
       const response = await api.post<AuthenticationResponse>(
         API_URL,
@@ -15,7 +15,8 @@ class AuthenticationRepository {
       );
       return response.data;
     } catch (error) {
-      throw error;
+      console.error("Error during login:", error);
+      return undefined;
     }
   }
 }

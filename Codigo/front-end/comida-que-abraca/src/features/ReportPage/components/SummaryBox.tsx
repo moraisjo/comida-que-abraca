@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Stack, Typography, CardActionArea, CardMedia } from "@mui/material";
 import { Card, CardContent } from "@mui/material";
+import api from "../../../api/axios"; // import the axios instance
 
 function ProjectDescription() {
     return (
@@ -18,7 +19,6 @@ function DataIntroDescription() {
     );
 }
 
-
 function SummaryBox() {
     const [totals, setTotals] = useState<{ campaigns: number; donations: number; partners: number }>({
         campaigns: 0,
@@ -28,9 +28,9 @@ function SummaryBox() {
 
     useEffect(() => {
         Promise.all([
-            fetch("http://localhost:8080/report/total-campaigns").then(res => res.json()),
-            fetch("http://localhost:8080/report/total-donations").then(res => res.json()),
-            fetch("http://localhost:8080/report/total-partners").then(res => res.json()),
+            api.get("/report/total-campaigns").then(res => res.data),
+            api.get("/report/total-donations").then(res => res.data),
+            api.get("/report/total-partners").then(res => res.data),
         ]).then(([campaigns, donations, partners]) => {
             setTotals({ campaigns, donations, partners });
         });
@@ -41,19 +41,19 @@ function SummaryBox() {
             title: "Campanhas realizadas",
             value: totals.campaigns,
             subtitle: "Ações sazonais e estratégicas que mobilizam recursos e corações para transformar realidades.",
-            image: "https://plus.unsplash.com/premium_photo-1681830423545-1ab48007a668?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", // troque para o caminho da imagem desejada
+            image: "https://plus.unsplash.com/premium_photo-1681830423545-1ab48007a668?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
         },
         {
             title: "Doações",
             value: totals.donations,
             subtitle: "A solidariedade de muitas mãos se transforma em alimento, roupa e acolhimento para quem mais precisa.",
-            image: "https://images.unsplash.com/photo-1608686207856-001b95cf60ca?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fGNoYXJpdHl8ZW58MHx8MHx8fDA%3D", // troque para o caminho da imagem desejada
+            image: "https://images.unsplash.com/photo-1608686207856-001b95cf60ca?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fGNoYXJpdHl8ZW58MHx8MHx8fDA%3D",
         },
         {
             title: "Parceiros",
             value: totals.partners,
             subtitle: "Instituições e pessoas que caminham conosco para ampliar o impacto e fortalecer a rede solidária.",
-            image: "https://plus.unsplash.com/premium_photo-1683141173692-aba4763bce41?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", // troque para o caminho da imagem desejada
+            image: "https://plus.unsplash.com/premium_photo-1683141173692-aba4763bce41?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
         },
     ];
 
@@ -85,7 +85,7 @@ function SummaryBox() {
                     </Card>
                 ))}
             </Stack>
-            </>
+        </>
     );
 }
 

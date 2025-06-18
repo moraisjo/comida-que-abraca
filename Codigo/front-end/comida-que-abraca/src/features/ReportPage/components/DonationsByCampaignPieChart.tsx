@@ -5,6 +5,7 @@ import dayjs, { Dayjs } from "dayjs";
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import api from "../../../api/axios"; // import the axios instance
 
 interface PieChartData {
     id: number;
@@ -20,9 +21,11 @@ function DonationsByCampaignPieChart() {
         if (!selectedDate) return;
         const month = selectedDate.month() + 1;
         const year = selectedDate.year();
-        fetch(`http://localhost:8080/report/donations-by-campaign-monthly?month=${month}&year=${year}`)
-            .then((res) => res.json())
-            .then((apiData) => {
+        api.get(`/report/donations-by-campaign-monthly`, {
+            params: { month, year }
+        })
+            .then((res) => {
+                const apiData = res.data;
                 const formattedData = apiData.map((item: any, index: number) => ({
                     id: index,
                     label: item.campaignName,
