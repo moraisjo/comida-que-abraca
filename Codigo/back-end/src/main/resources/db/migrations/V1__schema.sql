@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS db_user (
-   id INT AUTO_INCREMENT PRIMARY KEY,
+   id uuid not null PRIMARY KEY,
    name VARCHAR(255) NOT NULL,
    email VARCHAR(255) UNIQUE NOT NULL,
    password VARCHAR(255) NOT NULL,
@@ -12,7 +12,7 @@ CREATE TABLE IF NOT EXISTS db_user (
 
 -- Tabela de Parceiro (Herda de User)
 CREATE TABLE IF NOT EXISTS db_partner (
-    id INT PRIMARY KEY,  -- Usa o mesmo ID do db_user
+    id uuid not null PRIMARY KEY,
     wants_to_donate BOOLEAN NOT NULL,
     wants_to_receive_donations BOOLEAN NOT NULL,
     registration_date TIMESTAMP,
@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS db_partner (
 
 -- Tabela de Colaboradores da ONG (Herda de User)
 CREATE TABLE IF NOT EXISTS db_ong_collaborator (
-    id INT PRIMARY KEY,
+    id uuid not null PRIMARY KEY,
     role ENUM('ADMIN', 'COLLABORATOR') NOT NULL,
     admission_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (id) REFERENCES db_user(id) ON DELETE CASCADE
@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS db_ong_collaborator (
 
 -- Tabela de Campanhas
 CREATE TABLE IF NOT EXISTS db_campaign (
-    id INT AUTO_INCREMENT PRIMARY KEY,
+    id uuid not null PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     description TEXT,
     address VARCHAR(255),
@@ -43,7 +43,7 @@ CREATE TABLE IF NOT EXISTS db_campaign (
 
 -- Tabela de Doações
 CREATE TABLE IF NOT EXISTS db_donation (
-   id INT AUTO_INCREMENT PRIMARY KEY,
+   id uuid not null PRIMARY KEY,
    name VARCHAR(255) NOT NULL,
    description TEXT NOT NULL,
    category ENUM(
@@ -86,7 +86,7 @@ CREATE TABLE IF NOT EXISTS db_donation (
 
 -- Tabela de Doação de Alimentos (Herda de Donation)
 CREATE TABLE IF NOT EXISTS db_food (
-                                       id INT PRIMARY KEY,
+                                       id uuid not null PRIMARY KEY,
                                        is_perishable BOOLEAN NOT NULL,
                                        expiration_date TIMESTAMP,
                                        quantity FLOAT NOT NULL,
@@ -97,7 +97,7 @@ CREATE TABLE IF NOT EXISTS db_food (
 
 -- Tabela de Itens (Herda de Donation)
 CREATE TABLE IF NOT EXISTS db_item (
-                                       id INT PRIMARY KEY,
+                                       id uuid not null PRIMARY KEY,
                                        quantity INT NOT NULL,
                                        category ENUM('CLOTHING', 'FURNITURE', 'APPLIANCES', 'ELECTRONICS') NOT NULL,
                                        FOREIGN KEY (id) REFERENCES db_donation(id)
@@ -105,7 +105,7 @@ CREATE TABLE IF NOT EXISTS db_item (
 
 -- Tabela de Doação em Dinheiro (Herda de Donation)
 CREATE TABLE db_money (
-                          id INT PRIMARY KEY,
+                          id uuid not null PRIMARY KEY,
                           value FLOAT NOT NULL,
                           category ENUM('PIX', 'CASH', 'TRANSFER') NOT NULL,
                           FOREIGN KEY (id) REFERENCES db_donation(id)
@@ -113,7 +113,7 @@ CREATE TABLE db_money (
 
 -- Notifications Table
 CREATE TABLE IF NOT EXISTS db_notification (
-                                               id INT AUTO_INCREMENT PRIMARY KEY,
+                                               id uuid not null PRIMARY KEY,
                                                user_id INT NOT NULL,
                                                campaign_id INT,
                                                donation_id INT,
@@ -128,7 +128,7 @@ CREATE TABLE IF NOT EXISTS db_notification (
 );
 
 CREATE TABLE db_partner_requests (
-                                     id INT AUTO_INCREMENT PRIMARY KEY,
+                                     id uuid not null PRIMARY KEY,
                                      item_type VARCHAR(255) NOT NULL,
                                      description TEXT NOT NULL,
                                      user_id INT NOT NULL,
@@ -138,7 +138,7 @@ CREATE TABLE db_partner_requests (
 
 -- Tabela de Relatórios
 CREATE TABLE IF NOT EXISTS db_report (
-    id INT AUTO_INCREMENT PRIMARY KEY,
+    id uuid not null PRIMARY KEY,
     data_inicio TIMESTAMP NOT NULL,
     data_fim TIMESTAMP NOT NULL
 );
